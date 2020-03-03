@@ -58,29 +58,53 @@ Weaknesses
 
 Feed and raise Tim! Customize your baby Tim! 
 
-This idea is an educational game that encourages students to do their work and do extra learning outside of the classroom. By finishing their homework, taking quizzes (generated either by themselves, automatically, or by their teacher/professor), they can get food to raise their baby and provide other necessities. There are two possible modes: Individual and Classroom. 
+This idea is to create a study platform that encourages students to do their work and do extra learning outside of the classroom. Currently there isn't a lot of products online that monitors and promote student learning. A lot of these tools give little to no satisifcation to the users upon finishing the work, such as MyiMaths (online platform to learn mathematics), myHomework (homework manager) or finishing a test on Quizlet. As such, there is an opportunity to create a platform where students can engage with their online work in a more meaningful and fun manner (inspired by Tamagotchis). By finishing their homework, taking quizzes (generated either by themselves, automatically, or by their teacher/professor), they can get food to raise their baby and provide other necessities. There are two possible modes: Individual and Classroom. 
 
 _Individual (Baseline) Requirements:_
 
-* Change your baby’s name + image (the default is Tim)
-* Educational engagement (Q&A for some topic, or Tim(e)Management or Trivia)
-* Accounts and Tim growth over time
+* Change your baby’s name + image based on the class (the default is Tim)
+
+Included because each baby needs to have a relevant name (not everyone knows Tim and will get the idea of a TIMagotchi!)
+
+* Learning Tools (Q&A for some user-selected or teacher-inputted topic, or general trivia)
+
+This is the central part of the product, as it allows students to study on the platform by answering questions. It should be the main reason the user is on this platform (hopefully). 
+
+* Register and Storing Accounts
+
+It is very disappointing to the user if everytime they refresh or exit, their progress with their baby is reset. As such, registering and storing their data into accounts is necessary.
+
+* Tim grows over time and responds based on progress (e.g. joyful when fed, looking at the user with puppy eyes when not fed for a while)
+
+In order to remain consistent with the baby theme, the user must be able to see their favourite teacher/professor grow up as they complete their assignments. Users should also see the reactions of their baby to their actions (e.g. getting answers right or wrong, feeding or not feeding the baby). These functionalities gives the user motivation to study. 
 
 _Classroom Requirements:_
 
-* Teacher can feed it some questions pertaining to their curriculum
+* Teacher can feed the program some questions pertaining to their curriculum
+
+In order to facilitate student learning, the teacher must be able to provide their class-specific questions into the program. Otherwise, the program is just testing random trivia that is not conducive to learning.
+
 * Teacher puts extra credit assignments
+
+The ability to put in extra credit is necessary in order to promote learning outside of the classroom. 
+
 * Compare who has the best developed Tim
+
+This helps create friendly competition between students that encourages them to learn more and thus get a more developed Tim.
+
 * Achievement System / Leaderboard
 
-_Nice to Have:_
+Once again, this helps create friendly competition between students that encourages them to learn more and thus get a more developed Tim.
+
+_Nice to Haves:_
 
 * More sophisticated interactions/scenes for the game
 * Buy your Tim accessories, or items to put around the house
 * Multiplayer functionality, where you can visit (battle?) other Tims
 * Adopting TopHat/iClicker to answer questions in real Tim(e)
 * Maybe integrate with Google Classroom and assignment submission?
-* Once Tim is grown, he has baby Tims
+* Once Tim is grown, it has baby Tims to be raised for the next projects
+* Tim(e)Management Platform
 
 _Design Challenges:_
 
