@@ -112,6 +112,8 @@ _Design Challenges:_
 * Integrating multiplayer functionality 
 * Interactive interface
 
+TA Approval: Approved pending change: you need to add in a core algorithmic component that takes this beyond a gamified webapp.
+
 ### Idea 2 Dance Dance RevoluTim
 
 This idea is to make our own rhythm game that is somewhat similar to games like Dance Dance Revolution and Guitar Hero that we all enjoyed playing in the past. The twist would be that in this game, the user could pick any song that they want to play and the game would auto-generate a beatmap that actually goes along with the song of their choice.
@@ -130,6 +132,8 @@ _Other functionality:_
 _Main Challenge:_
 
 * Actual creation of the beatmap because being able to work with audio files
+
+TA Approval: Approved pending change, likely yes, good idea, but would also like some added complexity beyond generating a beatmap (because I worry this will just be calling an API)
 
 ### Idea 3 Resumake
 
@@ -154,6 +158,10 @@ _Design challenges:_
 * Security 
 * Speed for real-time feedback
 * Interactive interface
+
+TA Approval: Rejected - There's no clear algorithmic component for this project.
+
+**Note:** You must resubmit ideas for approval.
 
 **Mentor TA:** _Put your mentor TA's name and email here once you're assigned one!_
 
