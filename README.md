@@ -118,7 +118,7 @@ Once there is a set of questions that can be continuously fed to the user, we wi
 
 Additionally, if we end up adding multiplayer functionality, we can create a competition answering mode which will require us to create an algorithm to measure performance so that we can match similarly performing students with each other for competition.
 
-TA Approval: Approved pending change: you need to add in a core algorithmic component that takes this beyond a gamified webapp.
+TA Approval: Approved! Looks good.
 
 ### Idea 2 Dance Dance RevoluTim
 
