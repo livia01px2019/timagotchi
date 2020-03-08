@@ -112,6 +112,12 @@ _Design Challenges:_
 * Integrating multiplayer functionality 
 * Interactive interface
 
+_Algorithmic Component:_
+
+Once there is a set of questions that can be continuously fed to the user, we will create an algorithm to change up the questions the students get based on what questions they have gotten right or wrong so far. Part of the algorithm could also lie in determining how similar different questions are from each other.
+
+Additionally, if we end up adding multiplayer functionality, we can create a competition answering mode which will require us to create an algorithm to measure performance so that we can match similarly performing students with each other for competition.
+
 TA Approval: Approved pending change: you need to add in a core algorithmic component that takes this beyond a gamified webapp.
 
 ### Idea 2 Dance Dance RevoluTim
