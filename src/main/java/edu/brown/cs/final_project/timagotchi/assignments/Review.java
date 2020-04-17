@@ -21,7 +21,7 @@ public class Review implements Assignment {
    * @param f Whether this assignment has been finished.
    * @param r The xp reward received from completing this assignment.
    */
-  public Quiz(String i, String n, Boolean f, int r) {
+  public Review(String i, String n, Boolean f, int r) {
     id = i;
     name = n;
     complete = new HashMap<String, Boolean>();
@@ -132,13 +132,5 @@ public class Review implements Assignment {
 
   public void setQuestions(List<Question> questions) {
     this.questions = questions;
-  }
-
-  public Boolean getCompetitive() {
-    return competitive;
-  }
-
-  public void setCompetitive(Boolean competitive) {
-    this.competitive = competitive;
   }
 }
