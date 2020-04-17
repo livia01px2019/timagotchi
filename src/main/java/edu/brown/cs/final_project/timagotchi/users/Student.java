@@ -19,25 +19,21 @@ public class Student implements People {
 
   @Override
   public String getUsername() {
-    // TODO Auto-generated method stub
     return studentName;
   }
 
   @Override
   public void setUsername(String name) {
-    // TODO Auto-generated method stub
     studentName = name;
   }
 
   @Override
   public String getPassword() {
-    // TODO Auto-generated method stub
     return studentPassword;
   }
 
   @Override
   public void setPassword(String password) {
-    // TODO Auto-generated method stub
     studentPassword = password;
   }
 
