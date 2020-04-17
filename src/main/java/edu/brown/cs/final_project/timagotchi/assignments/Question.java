@@ -6,6 +6,7 @@ import java.util.List;
  * Question to appear on a Assignment/Quiz.
  */
 public class Question {
+  private String id;
   private String prompt;
   private List<String> choices;
   private List<Integer> answers;
@@ -13,11 +14,13 @@ public class Question {
   /**
    * Initializes the Question.
    *
+   * @param i The id of the question.
    * @param p The prompt of the question.
    * @param c The possible answer choices.
    * @param a The index of the correct answer(s) in the answer choices.
    */
-  public Question(String p, List<String> c, List<Integer> a) {
+  public Question(String i, String p, List<String> c, List<Integer> a) {
+    id = i;
     prompt = p;
     choices = c;
     answers = a;
@@ -45,5 +48,13 @@ public class Question {
 
   public void setAnswers(List<Integer> answers) {
     this.answers = answers;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 }
