@@ -2,6 +2,9 @@ package edu.brown.cs.final_project.timagotchi.users;
 
 import java.util.List;
 
+/**
+ * A generic People interface.
+ */
 public interface People {
   String getId();
 
