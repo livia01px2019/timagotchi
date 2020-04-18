@@ -1,16 +1,18 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
-import edu.brown.cs.final_project.timagotchi.pets.Pet;
-
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import edu.brown.cs.final_project.timagotchi.pets.Pet;
+import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
+
 public class Student implements People {
   private String id;
   private String username;
-  private String password;
+  private String passwordHash;
   private String name;
   private List<String> classIds;
   private Pet pet;
@@ -19,16 +21,18 @@ public class Student implements People {
   /**
    * Initializes a Student.
    *
-   * @param i The id of the student.
+   * @param i    The id of the student.
    * @param user The username of the student.
    * @param pass The password of the student.
-   * @param p The pet belonging the student.
-   * @param n The name of the student.
+   * @param p    The pet belonging the student.
+   * @param n    The name of the student.
+   * @throws NoSuchAlgorithmException
    */
-  public Student(String i, String user, String pass, Pet p, String n) {
+  public Student(String i, String user, String pass, Pet p, String n)
+      throws NoSuchAlgorithmException {
     id = i;
     username = user;
-    password = pass;
+    passwordHash = PasswordHashing.hashSHA256(pass);
     pet = p;
     name = n;
     wrongQuestionIds = new HashSet<String>();
@@ -54,9 +58,11 @@ public class Student implements People {
   }
 
   /**
-   * Removes the id of a question the student got wrong at first but now got right.
+   * Removes the id of a question the student got wrong at first but now got
+   * right.
    *
-   * @param wrongQuestionId The id of the question the student originally got wrong.
+   * @param wrongQuestionId The id of the question the student originally got
+   *                        wrong.
    */
   public void removeWrongQuestionId(String wrongQuestionId) {
     this.wrongQuestionIds.remove(wrongQuestionId);
@@ -84,7 +90,7 @@ public class Student implements People {
 
   @Override
   public void updateSQL(List<String> parameters) {
-    // TODO Auto-generated method stub
+    // Check if it exists in DB. If so, just update. Otherwise, add to database.
   }
 
   @Override
@@ -98,13 +104,22 @@ public class Student implements People {
   }
 
   @Override
-  public String getPassword() {
-    return password;
+  public String getPassword() throws Exception {
+    throw new Exception("Password is write only");
+  }
+
+  public Boolean verifyPassword(String pass) throws NoSuchAlgorithmException {
+    return PasswordHashing.hashSHA256(pass).equals(this.passwordHash);
   }
 
   @Override
   public void setPassword(String password) {
-    this.password = password;
+    try {
+      passwordHash = PasswordHashing.hashSHA256(password);
+    } catch (NoSuchAlgorithmException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   @Override
