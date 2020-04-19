@@ -26,14 +26,11 @@ public class Student implements People {
    * @param pass The password of the student.
    * @param p    The pet belonging the student.
    * @param n    The name of the student.
-   * @throws NoSuchAlgorithmException
    */
-  public Student(String i, String user, String pass, Pet p, String n)
-      throws NoSuchAlgorithmException {
+  public Student(String i, String user, String pass, String n) throws NoSuchAlgorithmException {
     id = i;
     username = user;
-    passwordHash = PasswordHashing.hashSHA256(pass);
-    pet = p;
+    passwordHash = pass;
     name = n;
     wrongQuestionIds = new HashSet<String>();
     classIds = new ArrayList<String>();
@@ -113,13 +110,8 @@ public class Student implements People {
   }
 
   @Override
-  public void setPassword(String password) {
-    try {
-      passwordHash = PasswordHashing.hashSHA256(password);
-    } catch (NoSuchAlgorithmException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+  public void setPassword(String hashedPassword) {
+    passwordHash = hashedPassword;
   }
 
   @Override

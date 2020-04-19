@@ -57,7 +57,9 @@ public final class Main {
     // REPL Handling.
     REPL repl = new REPL(new InputStreamReader(System.in));
     repl.addCommand("startup", new Command(Controller::startUpCommand));
+    repl.addCommand("addTeacher", new Command(Controller::addTeacherCommand));
     repl.addCommand("addClass", new Command(Controller::addClassCommand));
+    repl.addCommand("addStudent", new Command(Controller::addStudentCommand));
     repl.begin();
   }
 
