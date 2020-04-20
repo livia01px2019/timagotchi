@@ -7,12 +7,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
+import edu.brown.cs.final_project.timagotchi.users.Student;
 import edu.brown.cs.final_project.timagotchi.users.Teacher;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 public class Controller {
+
+  public static Pet getPet(String petId) {
+    // TODO: Implement please
+  }
+
+  public static Student getStudent(String id) {
+    // TODO: Implement please
+  }
 
   /**
    * Startup Command TODO: Run command to maintain foreign key.
@@ -96,7 +106,7 @@ public class Controller {
   /**
    * Get Class from Database
    */
-  public Class getClass(String classID) {
+  public static Class getClass(String classID) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT p1.id,p1.name,p2.teacherID FROM classes AS p1, teacher_classes AS p2 WHERE id=? AND p1.id = p2.classID;",

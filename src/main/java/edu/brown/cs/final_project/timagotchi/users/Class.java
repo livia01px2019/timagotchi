@@ -1,16 +1,19 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import edu.brown.cs.final_project.timagotchi.Controller;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
+import edu.brown.cs.final_project.timagotchi.pets.Pet;
 
 public class Class {
   private String id;
   private String name;
   private List<String> teacherIds;
   private List<String> studentIds;
-  private List<Assignment> assignments;
+  private List<String> assignmentIds;
 
   /**
    * Initializes a Class.
@@ -24,7 +27,7 @@ public class Class {
     id = i;
     name = n;
     teacherIds = ts;
-    assignments = new ArrayList<Assignment>();
+    assignmentIds = new ArrayList<String>();
     studentIds = new ArrayList<String>();
   }
 
@@ -67,21 +70,52 @@ public class Class {
   }
 
   /**
-   * Getter for the list of assigments for the class.
+   * Getter for the list of assigment ids for the class.
    *
-   * @return The list of assignment for the class.
+   * @return The list of assignment ids for the class.
    */
-  public List<Assignment> getAssignments() {
-    return assignments;
+  public List<String> getAssignmentIds() {
+    return assignmentIds;
   }
 
   /**
-   * Adds an assignment to the class.
+   * Adds an assignment id to the class.
    *
-   * @param assignment The assignment to be added to the class.
+   * @param assignment The assignment id to be added to the class.
    */
-  public void addAssignment(Assignment assignment) {
-    this.assignments.add(assignment);
+  public void addAssignmentId(String assignment) {
+    this.assignmentIds.add(assignment);
+  }
+
+  public static class CompareByAverageXp implements Comparator<Class> {
+    public CompareByAverageXp() {
+    }
+
+    @Override
+    public int compare(Class c1, Class c2) {
+      List<String> sIds1 = c1.getStudentIds();
+      List<String> sIds2 = c2.getStudentIds();
+      double totXp1 = 0;
+      double totXp2 = 0;
+
+      // Get each student in each class, find their pet, and add its xp to the total for that class.
+      for (String tempId : sIds1) {
+        Student s = Controller.getStudent(tempId);
+        Pet p = Controller.getPet(s.getPetId());
+        totXp1 = totXp1 + p.getXp();
+      }
+      for (String tempId : sIds2) {
+        Student s = Controller.getStudent(tempId);
+        Pet p = Controller.getPet(s.getPetId());
+        totXp2 = totXp2 + p.getXp();
+      }
+
+      // Find average xp for each class.
+      double avgXp1 = totXp1 / sIds1.size();
+      double avgXp2 = totXp2 / sIds2.size();
+
+      return Double.compare(avgXp1, avgXp2);
+    }
   }
 
   public String getId() {

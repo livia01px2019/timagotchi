@@ -1,11 +1,9 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import edu.brown.cs.final_project.timagotchi.Controller;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
@@ -15,7 +13,7 @@ public class Student implements People {
   private String passwordHash;
   private String name;
   private List<String> classIds;
-  private Pet pet;
+  private String petId;
   private Set<String> wrongQuestionIds;
 
   /**
@@ -24,13 +22,14 @@ public class Student implements People {
    * @param i    The id of the student.
    * @param user The username of the student.
    * @param pass The password of the student.
-   * @param p    The pet belonging the student.
+   * @param p    The id of the pet belonging the student.
    * @param n    The name of the student.
    */
-  public Student(String i, String user, String pass, String n) throws NoSuchAlgorithmException {
+  public Student(String i, String user, String pass, String p, String n) throws NoSuchAlgorithmException {
     id = i;
     username = user;
     passwordHash = pass;
+    petId = p;
     name = n;
     wrongQuestionIds = new HashSet<String>();
     classIds = new ArrayList<String>();
@@ -90,6 +89,26 @@ public class Student implements People {
     // Check if it exists in DB. If so, just update. Otherwise, add to database.
   }
 
+  public String getPetId() {
+    return petId;
+  }
+
+  public void setPetId(String petId) {
+    this.petId = petId;
+  }
+
+  public static class CompareByXp implements Comparator<Student> {
+    public CompareByXp() {
+    }
+
+    @Override
+    public int compare(Student s1, Student s2) {
+      Pet p1 = Controller.getPet(s1.getPetId());
+      Pet p2 = Controller.getPet(s2.getPetId());
+      return Double.compare(p1.getXp(), p2.getXp());
+    }
+  }
+
   @Override
   public String getUsername() {
     return username;
@@ -132,13 +151,5 @@ public class Student implements People {
   @Override
   public void setId(String id) {
     this.id = id;
-  }
-
-  public Pet getPet() {
-    return pet;
-  }
-
-  public void setPet(Pet pet) {
-    this.pet = pet;
   }
 }
