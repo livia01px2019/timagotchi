@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
@@ -16,11 +17,43 @@ import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 public class Controller {
 
+  /**
+   * Get Pet from Database given its id.
+   *
+   * @param petId The id of the Pet.
+   * @return The Pet stored in the database.
+   */
   public static Pet getPet(String petId) {
     // TODO: Implement please
   }
 
+  /**
+   * Get Student from Database given its id.
+   *
+   * @param id The id of the Student.
+   * @return The Student stored in the database.
+   */
   public static Student getStudent(String id) {
+    // TODO: Implement please
+  }
+
+  /**
+   * Get Question from Database given its id.
+   *
+   * @param qid The id of the Question.
+   * @return The Question stored in the database.
+   */
+  public static Question getQuestion(String qid) {
+    // TODO: Implement please
+  }
+
+  /**
+   * Get all the questions pertaining to a class with id classId.
+   *
+   * @param classId The id of the class to grab the questions from.
+   * @return The list of all questions belonging to that class.
+   */
+  public static List<Question> getAllQuestions(String classId) {
     // TODO: Implement please
   }
 
@@ -104,7 +137,7 @@ public class Controller {
   }
 
   /**
-   * Get Class from Database
+   * Get Class from Database given its id
    */
   public static Class getClass(String classID) {
     try {

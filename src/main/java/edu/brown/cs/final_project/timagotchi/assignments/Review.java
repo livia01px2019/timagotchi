@@ -1,11 +1,13 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.users.Class;
+import edu.brown.cs.final_project.timagotchi.users.Student;
+
+import java.util.*;
 
 public class Review implements Assignment {
+  private final int numQuestions = 20;
   private String id;
   private String name;
   private Map<String, Boolean> complete;
@@ -32,11 +34,108 @@ public class Review implements Assignment {
   /**
    * Function that uses the "DocDiff" algorithm to generate review questions based on the
    * questions the user with id userId has gotten wrong.
-   * @param userId
+   *
+   * @param s The student to create the review questions for.
+   * @param classId The id of the class they want to review.
    */
-  public void generateQuestions(String userId) {
-    questions = new ArrayList<Question>();
-    // TODO: Implement algorithm!
+  public void generateQuestions(Student s, String classId) {
+    Class c = Controller.getClass(classId);
+    Set<String> wrongQuestionIds = s.getWrongQuestionIds(c.getId());
+    // Get all the questions the student got wrong in this class.
+    List<Question> wrongQuestions = new ArrayList<Question>();
+    for (String qid : wrongQuestionIds) {
+      wrongQuestions.add(Controller.getQuestion(qid));
+    }
+
+    // Get all the questions used for this class.
+    List<Question> allQuestions = Controller.getAllQuestions(classId);
+
+    // DocDiff algorithm that goes through every question in the class and gets a similarity score
+    // with the wrong questions, orders by similarity, and returns the top 20 most similar.
+
+    // Generate a list of all unique words for all questions.
+    Set<String> dictionary = new HashSet<String>();
+    for (Question q : allQuestions) {
+      // Add the unique words to the compiled list of all unique words.
+      for (String word : q.getPromptSplit()) {
+        dictionary.add(word);
+      }
+    }
+
+    // Generate the frequency vectors for all the questions and all the wrong questions.
+    List<List<Integer>> qFreq = new ArrayList<List<Integer>>();
+    List<List<Integer>> wrongQFreq = new ArrayList<List<Integer>>();
+    for (Question q : allQuestions) {
+      qFreq.add(determineFrequency(q, dictionary));
+    }
+    for (Question q : wrongQuestions) {
+      wrongQFreq.add(determineFrequency(q, dictionary));
+    }
+
+    // Calculate the similarity of score for each question
+    for (int i = 0; i < allQuestions.size(); i++) {
+      Question q = allQuestions.get(i);
+      List<Integer> vector = qFreq.get(i);
+      Double qScore = 0.0;
+      // Final score is average of all individual similarity scores.
+      Double vectMag = dotProduct(vector, vector);
+      for (List<Integer> wrongVector : wrongQFreq) {
+        // Individual similarity score is dot product of two frequency vectors
+        // divided by greater magnitude.
+        Double overlap = dotProduct(vector, wrongVector);
+        Double magnitude = Math.max(vectMag, dotProduct(wrongVector, wrongVector));
+        qScore = qScore + (overlap / magnitude);
+      }
+      q.setScore(qScore / wrongQFreq.size());
+    }
+
+    // Sort all questions according to highest score
+    Collections.sort(allQuestions, new Question.CompareByScore());
+
+    // Set the questions to top numQuestions most relevant questions.
+    if (allQuestions.size() >= numQuestions) {
+      questions = allQuestions.subList(0, numQuestions);
+    } else {
+      questions = allQuestions.subList(0, allQuestions.size());
+    }
+  }
+
+  /**
+   * Determines the dot product of two integer vectors.
+   *
+   * @param v1 The first vector.
+   * @param v2 The second vector.
+   * @return The dot product represented as a double.
+   */
+  private Double dotProduct(List<Integer> v1, List<Integer> v2) {
+    int sum = 0;
+    for (int i = 0; i < v1.size(); i++) {
+      int product = v1.get(i) * v2.get(i);
+      sum = sum + product;
+    }
+    return Double.valueOf(sum);
+  }
+
+  /**
+   * Determines the frequency of each word in a given dictionary in a given Question.
+   *
+   * @param q The question to be analyzed.
+   * @param dict The dictionary of all the words.
+   * @return The list of frequencies of each word in the dictionary.
+   */
+  private List<Integer> determineFrequency(Question q, Set<String> dict) {
+    List<Integer> freq = new ArrayList<Integer>();
+    for (String word : dict) {
+      int freqTemp = 0;
+      // Determine frequency of current word in the Question.
+      for (String qWord : q.getPromptSplit()) {
+        if (word.equals(qWord)) {
+          freqTemp++;
+        }
+      }
+      freq.add(freqTemp);
+    }
+    return freq;
   }
 
   /**

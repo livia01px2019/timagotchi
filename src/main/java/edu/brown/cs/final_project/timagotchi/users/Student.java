@@ -14,7 +14,7 @@ public class Student implements People {
   private String name;
   private List<String> classIds;
   private String petId;
-  private Set<String> wrongQuestionIds;
+  private List<HashSet<String>> wrongQuestionIds;
 
   /**
    * Initializes a Student.
@@ -31,37 +31,44 @@ public class Student implements People {
     passwordHash = pass;
     petId = p;
     name = n;
-    wrongQuestionIds = new HashSet<String>();
+    wrongQuestionIds = new ArrayList<HashSet<String>>();
     classIds = new ArrayList<String>();
   }
 
   /**
-   * Getter for the ids of all the questions the student has gotten wrong.
+   * Getter for the ids of all the questions the student has gotten wrong for the
+   * class with id cid.
    *
+   * @param cid The id of the class that is wanted.
    * @return The set of question ids of the questions the student got wrong.
    */
-  public Set<String> getWrongQuestionIds() {
-    return wrongQuestionIds;
+  public Set<String> getWrongQuestionIds(String cid) {
+    int classInd = classIds.indexOf(cid);
+    return wrongQuestionIds.get(classInd);
   }
 
   /**
-   * Adds the id of a question the student has gotten wrong.
+   * Adds the id of a question the student has gotten wrong for the class with id cid.
    *
+   * @param cid The id of the class that is wanted.
    * @param wrongQuestionId The id of the question the student got wrong.
    */
-  public void addWrongQuestionId(String wrongQuestionId) {
-    this.wrongQuestionIds.add(wrongQuestionId);
+  public void addWrongQuestionId(String wrongQuestionId, String cid) {
+    int classInd = classIds.indexOf(cid);
+    this.wrongQuestionIds.get(classInd).add(wrongQuestionId);
   }
 
   /**
    * Removes the id of a question the student got wrong at first but now got
-   * right.
+   * right for the class with id cid.
    *
+   * @param cid The id of the class that is wanted.
    * @param wrongQuestionId The id of the question the student originally got
    *                        wrong.
    */
-  public void removeWrongQuestionId(String wrongQuestionId) {
-    this.wrongQuestionIds.remove(wrongQuestionId);
+  public void removeWrongQuestionId(String wrongQuestionId, String cid) {
+    int classInd = classIds.indexOf(cid);
+    this.wrongQuestionIds.get(classInd).remove(wrongQuestionId);
   }
 
   /**
@@ -82,6 +89,7 @@ public class Student implements People {
   @Override
   public void addClassId(String classId) {
     this.classIds.add(classId);
+    this.wrongQuestionIds.add(new HashSet<String>());
   }
 
   @Override

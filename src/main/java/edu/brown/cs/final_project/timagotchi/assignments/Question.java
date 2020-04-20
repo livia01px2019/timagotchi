@@ -1,5 +1,8 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
+import edu.brown.cs.final_project.timagotchi.users.Class;
+
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -8,8 +11,10 @@ import java.util.List;
 public class Question {
   private String id;
   private String prompt;
+  private String[] promptSplit;
   private List<String> choices;
   private List<Integer> answers;
+  private Double score;
 
   /**
    * Initializes the Question.
@@ -24,6 +29,21 @@ public class Question {
     prompt = p;
     choices = c;
     answers = a;
+    score = 0.0;
+    // Convert prompt to only lowercase alphanumeric
+    String promptLower = p.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
+    // Split prompt by each word
+    promptSplit = promptLower.split("\\s+");
+  }
+
+  public static class CompareByScore implements Comparator<Question> {
+    public CompareByScore() {
+    }
+
+    @Override
+    public int compare(Question q1, Question q2) {
+      return Double.compare(q1.getScore(), q2.getScore());
+    }
   }
 
   public String getPrompt() {
@@ -56,5 +76,21 @@ public class Question {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public String[] getPromptSplit() {
+    return promptSplit;
+  }
+
+  public void setPromptSplit(String[] promptSplit) {
+    this.promptSplit = promptSplit;
+  }
+
+  public Double getScore() {
+    return score;
+  }
+
+  public void setScore(Double score) {
+    this.score = score;
   }
 }
