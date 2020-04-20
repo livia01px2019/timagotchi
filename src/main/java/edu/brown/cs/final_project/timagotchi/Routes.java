@@ -37,4 +37,16 @@ public class Routes {
       return new ModelAndView(variables, "quiz_content.ftl");
     }
   }
+
+  public static class StudentMainHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
+          "skin-file", "img/skin1.png", "name", "Student Name", "username", "studentusername",
+          "lvlXp", new int[] {
+              0, 0
+          });
+      return new ModelAndView(variables, "student-me.ftl");
+    }
+  }
 }
