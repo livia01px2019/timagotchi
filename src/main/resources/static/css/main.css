@@ -44,7 +44,7 @@
 	font-family: 'Press Start 2P', cursive;
 	text-align: center; 
 	background: #61C9A8;
-	font-size: 20pt;
+	font-size: 15pt;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -54,12 +54,12 @@
 	width: 100%;
 }
 .after-header-spacing{
-	padding:75px;
+	padding:50px;
 }
 .logo{
 	padding: 20px;
 	flex-shrink: 0;
-	width: 80px;
+	width: 60px;
 	height: auto;
 }
 body{

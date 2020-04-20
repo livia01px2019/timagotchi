@@ -1,5 +1,4 @@
 <#assign content>
-
 <div class="login-blocks"> 
 	<div class="login-block">
 		<h2> STUDENT LOGIN </h2>
@@ -34,3 +33,4 @@
 
 </#assign>
 <#include "main.ftl">
+<#include "header.ftl">

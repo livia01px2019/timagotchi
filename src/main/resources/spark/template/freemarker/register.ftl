@@ -42,3 +42,4 @@
 
 </#assign>
 <#include "main.ftl">
+<#include "header.ftl">

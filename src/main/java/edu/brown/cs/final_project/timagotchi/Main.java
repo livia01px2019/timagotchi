@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.final_project.timagotchi.utils.Command;
 import edu.brown.cs.final_project.timagotchi.utils.REPL;
@@ -15,11 +12,9 @@ import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import spark.ExceptionHandler;
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
-import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 
 /**
@@ -93,8 +88,9 @@ public final class Main {
     FreeMarkerEngine freeMarker = createEngine();
 
     // Setup Spark Routes for Stars
-    Spark.get("/login", new LoginHandler(), freeMarker);
-    Spark.get("/register", new RegisterHandler(), freeMarker);
+    Spark.get("/login", new Routes.LoginHandler(), freeMarker);
+    Spark.get("/register", new Routes.RegisterHandler(), freeMarker);
+    Spark.get("/student/quiz", new Routes.StudentQuizHandler(), freeMarker);
   }
 
   /**
@@ -111,22 +107,6 @@ public final class Main {
         pw.println("</pre>");
       }
       res.body(stacktrace.toString());
-    }
-  }
-
-  private static class LoginHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Login");
-      return new ModelAndView(variables, "login.ftl");
-    }
-  }
-
-  private static class RegisterHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Register");
-      return new ModelAndView(variables, "register.ftl");
     }
   }
 

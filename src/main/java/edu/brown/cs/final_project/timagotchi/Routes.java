@@ -14,14 +14,27 @@ import spark.TemplateViewRoute;
  */
 public class Routes {
 
-  /**
-   * Handle GET requests to the front page - /stars.
-   */
-  public static class FrontHandler implements TemplateViewRoute {
+  public static class LoginHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of("stars", "");
-      return new ModelAndView(variables, "query.ftl");
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Login");
+      return new ModelAndView(variables, "login.ftl");
+    }
+  }
+
+  public static class RegisterHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Register");
+      return new ModelAndView(variables, "register.ftl");
+    }
+  }
+
+  public static class StudentQuizHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz");
+      return new ModelAndView(variables, "quiz_content.ftl");
     }
   }
 }
