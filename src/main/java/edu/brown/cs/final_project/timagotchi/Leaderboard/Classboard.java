@@ -7,7 +7,8 @@ public class Classboard implements Leaderboard<String> {
 
   }
 
+  @Override
   public List<String> getRanking() {
-
+    return null;
   }
 }

@@ -1,9 +1,9 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
-import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 
 public class Class {
   private String id;
@@ -15,9 +15,10 @@ public class Class {
   /**
    * Initializes a Class.
    *
-   * @param i The id of the class.
-   * @param n The name of the class.
-   * @param ts The list containing just the id of the teacher who created the class.
+   * @param i  The id of the class.
+   * @param n  The name of the class.
+   * @param ts The list containing just the id of the teacher who created the
+   *           class.
    */
   public Class(String i, String n, List<String> ts) {
     id = i;
@@ -37,7 +38,8 @@ public class Class {
   }
 
   /**
-   * Adds a student to the class by adding their student id to the list of student ids.
+   * Adds a student to the class by adding their student id to the list of student
+   * ids.
    *
    * @param studentId The id of the student to be added to the class
    */
@@ -55,7 +57,8 @@ public class Class {
   }
 
   /**
-   * Adds a teacher to the class by adding their teacher id to the list of teacher ids.
+   * Adds a teacher to the class by adding their teacher id to the list of teacher
+   * ids.
    *
    * @param teacherId The id of the teacher to be added to the class.
    */

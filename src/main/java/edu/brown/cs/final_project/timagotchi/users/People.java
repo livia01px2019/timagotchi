@@ -18,7 +18,7 @@ public interface People {
 
   void setUsername(String username);
 
-  String getPassword();
+  String getPassword() throws Exception;
 
   void setPassword(String password);
 

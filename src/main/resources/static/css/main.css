@@ -39,3 +39,78 @@
 .checkoff td {
     border: 1px solid black;
 }
+
+.header {
+	font-family: 'Press Start 2P', cursive;
+	text-align: center; 
+	background: #61C9A8;
+	font-size: 20pt;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.logo{
+	padding: 20px;
+	flex-shrink: 0;
+	width: 80px;
+	height: auto;
+}
+body{
+	background: #FFEEDB;
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+}
+.sticky + .content {
+    padding-top: 102px;
+}
+
+.login-blocks{
+    display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+h2{
+	font-family: 'Press Start 2P', cursive;
+	font-size: 20pt;
+	margin: 0px;
+}
+
+.login-block{
+	background: #ADA8B6;
+	font-family: 'Roboto', sans-serif;
+	font-size: 15pt;
+	padding: 20px;
+	width: 40%;
+	margin: 40px;
+}
+
+input[type="submit"]{
+	background: #61C9A8;
+	font-family: 'Press Start 2P', cursive;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin: 30px;
+}
+.submit-button{
+	display:flex;
+    justify-content: center;
+}
+#username, #password{
+	width:100%;
+}
+.register-link{
+	font-family: 'Roboto', sans-serif;
+	font-size: 15pt;
+	text-align: center;
+}
+p{
+	margin:0px;
+}

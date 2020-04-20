@@ -130,4 +130,39 @@ public final class DBProxy {
     }
   }
 
+  /**
+   * Update SQL Query through Parameters.
+   *
+   * @param sqlCommand SQL Command.
+   * @param parameters Parameters to be placed into SQL Command.
+   * @return SQL Output.
+   * @throws Exception Exception.
+   */
+  public static Boolean updateQueryParameters(String sqlCommand, List<String> parameters)
+      throws Exception {
+    if (isConnected()) {
+      // Creates a prepared statement.
+      PreparedStatement prep = null;
+      int result = 0;
+      try {
+        prep = conn.prepareStatement(sqlCommand);
+        for (int i = 0; i < parameters.size(); i++) {
+          prep.setString(i + 1, parameters.get(i));
+        }
+        result = prep.executeUpdate();
+      } catch (SQLException e) {
+        System.err.println("ERROR: SQL Exception Error.");
+      } finally {
+        // Close the prepared statement.
+        prep.close();
+        if (result == 0) {
+          return false;
+        }
+        return true;
+      }
+    } else {
+      throw new Exception("ERROR: Database not connected.");
+    }
+  }
+
 }
