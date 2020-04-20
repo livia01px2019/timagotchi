@@ -17,6 +17,7 @@
   	 	<h1> TIMAGOTCHI </h1>
   	 	<img class="logo" src="img/main-skin-left.png" alt="timagotchi logo left">
   	 </div>
+  	 <div class="after-header-spacing"></div>
      ${content}
      <!-- Again, we're serving up the unminified source for clarity. -->
      <script src="js/jquery-2.1.1.js"></script>

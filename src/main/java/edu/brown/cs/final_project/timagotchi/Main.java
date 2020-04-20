@@ -94,6 +94,7 @@ public final class Main {
 
     // Setup Spark Routes for Stars
     Spark.get("/login", new LoginHandler(), freeMarker);
+    Spark.get("/register", new RegisterHandler(), freeMarker);
   }
 
   /**
@@ -118,6 +119,14 @@ public final class Main {
     public ModelAndView handle(Request req, Response res) {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Login");
       return new ModelAndView(variables, "login.ftl");
+    }
+  }
+
+  private static class RegisterHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Register");
+      return new ModelAndView(variables, "register.ftl");
     }
   }
 

@@ -7,6 +7,12 @@
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	position: fixed;
+    top: 0;
+	width: 100%;
+}
+.after-header-spacing{
+	padding:75px;
 }
 .logo{
 	padding: 20px;
@@ -17,20 +23,13 @@
 body{
 	background: #FFEEDB;
 }
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%
-}
-.sticky + .content {
-    padding-top: 102px;
-}
 
 .login-blocks{
     display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 h2{
@@ -61,7 +60,7 @@ input[type="submit"]{
 	display:flex;
     justify-content: center;
 }
-#username, #password{
+#username, #password, #name,#confirm-password{
 	width:100%;
 }
 .register-link{
@@ -71,4 +70,39 @@ input[type="submit"]{
 }
 p{
 	margin:0px;
+}
+.register-block{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: #ADA8B6;
+	font-family: 'Roboto', sans-serif;
+	font-size: 15pt;
+	padding: 20px;
+	width: 70%;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.form-stuff{
+	display:flex;
+	flex-direction:row;
+	justify-content: center;
+	align-items: center;
+	line-height: 2.3;
+}
+.register-form{
+	width: inherit;
+}
+.form-labels{
+	width: 30%;
+}
+.form-inputs{
+	width: 80%;
+}
+.radio-role{
+	display:flex;
+	flex-direction:row;
+	justify-content: space-between;
 }
