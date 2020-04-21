@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/html5bp.css">
-    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/w3.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300&display=swap" rel="stylesheet">
   </head>
   <body>
-  	 <#include "sidebar.ftl">
+  	 <#include "student-sidebar.ftl">
   	 <#include "header-student.ftl">
   	 <div class="after-header-spacing"></div>
      <div style="padding-left: 20%">${content}</div>
