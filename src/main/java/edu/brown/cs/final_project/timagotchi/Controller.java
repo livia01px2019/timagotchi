@@ -24,7 +24,19 @@ public class Controller {
    * @return The Pet stored in the database.
    */
   public static Pet getPet(String petId) {
-    // TODO: Implement please
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters("SELECT * FROM pets WHERE id=?;",
+          new ArrayList<>(Arrays.asList(petId)));
+      // TODO: Investigate if this will be a problem
+      Pet p = new Pet(results.get(0).get(0), results.get(0).get(1), results.get(0).get(4));
+      p.addXp(Double.parseDouble(results.get(0).get(2)));
+      p.setLevel(Integer.parseInt(results.get(0).get(3)));
+      return p;
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
   }
 
   /**
@@ -34,7 +46,17 @@ public class Controller {
    * @return The Student stored in the database.
    */
   public static Student getStudent(String id) {
-    // TODO: Implement please
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT * FROM students WHERE id=?;", new ArrayList<>(Arrays.asList(id)));
+      // TODO: Investigate if this will be a problem
+      return new Student(results.get(0).get(0), results.get(0).get(1), results.get(0).get(2),
+          results.get(0).get(3));
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
   }
 
   /**
@@ -44,7 +66,36 @@ public class Controller {
    * @return The Question stored in the database.
    */
   public static Question getQuestion(String qid) {
-    // TODO: Implement please
+    try {
+      List<List<String>> questions = DBProxy.executeQueryParameters(
+          "SELECT * FROM questions WHERE id=?;", new ArrayList<>(Arrays.asList(qid)));
+      // done in the following manner as there can be more than one answer
+      List<String> answersID = new ArrayList<>();
+      for (List<String> q : questions) {
+        answersID.add(q.get(2));
+      }
+      // get all the multiple choice options to the answers
+      List<List<String>> options = DBProxy.executeQueryParameters(
+          "SELECT * FROM options WHERE questionID=?;", new ArrayList<>(Arrays.asList(qid)));
+      List<String> choices = new ArrayList<>();
+      // get the indexes of the options that are answers
+      List<Integer> answerIndex = new ArrayList<>();
+      for (int i = 0; i < options.size(); i++) {
+        choices.add(options.get(i).get(2));
+        for (String s : answersID) {
+          // compare optionID with id of answers
+          if (s.equals(options.get(i).get(0))) {
+            answerIndex.add(i);
+          }
+        }
+      }
+      // TODO: Investigate if this will be a problem
+      return new Question(questions.get(0).get(0), questions.get(0).get(1), choices, answerIndex);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
   }
 
   /**
@@ -54,7 +105,27 @@ public class Controller {
    * @return The list of all questions belonging to that class.
    */
   public static List<Question> getAllQuestions(String classId) {
-    // TODO: Implement please
+    try {
+      List<Question> allQuestions = new ArrayList<Question>();
+      List<List<String>> assignments = DBProxy.executeQueryParameters(
+          "SELECT assignmentID FROM class_assignment WHERE classID=?;",
+          new ArrayList<>(Arrays.asList(classId)));
+      for (List<String> a : assignments) {
+        String assignmentID = a.get(0);
+        List<List<String>> questionsID = DBProxy.executeQueryParameters(
+            "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
+            new ArrayList<>(Arrays.asList(assignmentID)));
+        for (List<String> qid : questionsID) {
+          allQuestions.add(getQuestion(qid.get(0)));
+        }
+      }
+      // TODO: Investigate if this will be a problem
+      return allQuestions;
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
   }
 
   /**

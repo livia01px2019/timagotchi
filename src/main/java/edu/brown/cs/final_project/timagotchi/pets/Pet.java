@@ -39,6 +39,10 @@ public class Pet {
     level = level + 1;
   }
 
+  public void setLevel(int l) {
+    level = l;
+  }
+
   public void updateSprite(String imagePath) {
     pathToSprite = imagePath;
   }

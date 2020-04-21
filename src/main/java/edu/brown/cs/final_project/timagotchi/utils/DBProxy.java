@@ -76,6 +76,7 @@ public final class DBProxy {
           }
           result.add(row);
         }
+        // rs.close();
       } catch (SQLException e) {
         System.err.println("ERROR: SQL Exception Error.");
       } finally {
@@ -118,6 +119,7 @@ public final class DBProxy {
           }
           result.add(row);
         }
+        // rs.close();
       } catch (SQLException e) {
         System.err.println("ERROR: SQL Exception Error.");
       } finally {
