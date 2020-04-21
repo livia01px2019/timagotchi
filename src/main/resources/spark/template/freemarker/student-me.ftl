@@ -1,18 +1,17 @@
 <#assign content>
-<#import "sidebar.ftl" as sidebar>
-<sidebar>
 <div class="profile">
-	<img src="img/skin2.png">
+	<img height="100px" src=${skinFile}>
 	<div class="profile-info">
-		<h2>${name}</h2> <br>
-		<h2>${username}</h2>
+		<h3>${name}</h3> <br>
+		<h3>${username}</h3>
 	</div>
 </div>
 <div class="progress-bar">
 	<p>LVL${lvlXp[0]}</p>
-	<progress value = "65" max = "100"/></progress>
+	<div class="w3-white w3-round" style="width:70%">
+	  <div class="w3-container w3-round progress" style="width:${lvlXp[1]}%; height:40px">${lvlXp[1]}</div>
+	</div>
 	<p>${lvlXp[1]}XP</p>
 </div>
 </#assign>
-<#include "main.ftl">
-<#include "header.ftl">
+<#include "student-main.ftl">

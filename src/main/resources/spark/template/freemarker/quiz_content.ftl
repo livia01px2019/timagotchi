@@ -1,10 +1,7 @@
 <#assign content>
 <div id="grid"></div>
-<#import "sidebar.ftl" as sidebar>
-     <sidebar>
 
 <h1> STUDENT: ASSIGNMENTS </h1>
-
   <table align="center" style="width: 100%"><tr><td>
         <h2> Quizzes </h2>
 
@@ -45,7 +42,5 @@
         </div>
       </td></tr>
   </table>
-
 </#assign>
-<#include "main.ftl">
-<#include "sidebar.ftl">
+<#include "student-main.ftl">

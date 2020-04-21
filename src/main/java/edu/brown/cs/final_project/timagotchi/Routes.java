@@ -42,7 +42,7 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "skin-file", "img/skin1.png", "name", "Student Name", "username", "studentusername",
+          "skinFile", "img/skin1.png", "name", "Student Name", "username", "studentusername",
           "lvlXp", new int[] {
               0, 0
           });
