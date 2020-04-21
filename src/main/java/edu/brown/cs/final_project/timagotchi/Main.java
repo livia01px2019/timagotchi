@@ -93,6 +93,10 @@ public final class Main {
     Spark.get("/student/main", new Routes.StudentMainHandler(), freeMarker);
     Spark.get("/student/all-classes", new Routes.StudentLeaderboardHandler(), freeMarker);
     Spark.get("/student/:id", new Routes.StudentClassHandler(), freeMarker);
+    Spark.get("/teacher/main", new Routes.TeacherMainHandler(), freeMarker);
+    Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
+
+    Spark.post("/register-submit", new Routes.RegisterSubmitHandler(), freeMarker);
   }
 
   /**

@@ -1,8 +1,8 @@
 <#assign content>
-
+${message}
 <div class="register-block"> 
 	<h2> REGISTER </h2> <br>
-	<form class="register-form">
+	<form class="register-form" method="POST" action="/register-submit">
 		<div class="form-stuff">
 			<div class="form-labels">
 				<label for="role">I am a...</label><br>
@@ -31,6 +31,7 @@
 			    <input type="text" id="username" name="username"> <br>
 			    <input type="password" id="password" name="password"><br>
 			    <input type="password" id="confirm-password" name="confirm-password"><br>
+			    <span id='message'></span>
 			</div>
 		</div>
 		<div class="submit-button"> <input type="submit" value="SUBMIT"></div>
