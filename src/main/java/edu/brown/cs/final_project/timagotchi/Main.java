@@ -90,8 +90,9 @@ public final class Main {
     // Setup Spark Routes for Stars
     Spark.get("/login", new Routes.LoginHandler(), freeMarker);
     Spark.get("/register", new Routes.RegisterHandler(), freeMarker);
-    Spark.get("/student/quiz", new Routes.StudentQuizHandler(), freeMarker);
     Spark.get("/student/main", new Routes.StudentMainHandler(), freeMarker);
+    Spark.get("/student/all-classes", new Routes.StudentLeaderboardHandler(), freeMarker);
+    Spark.get("/student/:id", new Routes.StudentClassHandler(), freeMarker);
   }
 
   /**
