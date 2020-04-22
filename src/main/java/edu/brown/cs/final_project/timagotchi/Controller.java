@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Leaderboard;
+import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
@@ -16,6 +18,15 @@ import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 public class Controller {
+
+  public static Assignment getAssignment(String assignmentId) {
+    // TODO: getter for assignment, but I'm not sure if we need one for each different type? (checkoff, question, etc.)
+    // Actually I think we do because each one has different variables that we need to query for
+  }
+
+  public static Leaderboard getLeaderboard(String boardId) {
+    // TODO: getter for Leaderboard, same thing, I think we need one for each class and user b/c they contain different info??
+  }
 
   /**
    * Get Pet from Database given its id.
@@ -46,6 +57,7 @@ public class Controller {
    * @return The Student stored in the database.
    */
   public static Student getStudent(String id) {
+    // TODO: add class ids, pet id, and wrong question ids
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT * FROM students WHERE id=?;", new ArrayList<>(Arrays.asList(id)));
@@ -66,6 +78,7 @@ public class Controller {
    * @return The Teacher stored in the database.
    */
   public static Teacher getTeacher(String id) {
+    // TODO: Add class ids
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
               "SELECT * FROM teachers WHERE id=?;", new ArrayList<>(Arrays.asList(id)));
@@ -265,6 +278,7 @@ public class Controller {
    * @return The class that was wanted
    */
   public static Class getClass(String classID) {
+    // TODO: Add assignment ids and student ids
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT p1.id,p1.name,p2.teacherID FROM classes AS p1, teacher_classes AS p2 WHERE id=? AND p1.id = p2.classID;",
