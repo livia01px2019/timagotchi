@@ -60,6 +60,26 @@ public class Controller {
   }
 
   /**
+   * Get Teacher from Database given its id.
+   *
+   * @param id The id of the Teacher.
+   * @return The Teacher stored in the database.
+   */
+  public static Teacher getTeacher(String id) {
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+              "SELECT * FROM teachers WHERE id=?;", new ArrayList<>(Arrays.asList(id)));
+      // TODO: Investigate if this will be a problem
+      return new Teacher(results.get(0).get(0), results.get(0).get(1), results.get(0).get(2),
+              results.get(0).get(3));
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
    * Get Question from Database given its id.
    *
    * @param qid The id of the Question.
@@ -153,7 +173,7 @@ public class Controller {
   /**
    * Create Teacher Command
    *
-   * @param input List of parameters separated by whitespace (username, name)
+   * @param input List of parameters separated by whitespace (username, password, name)
    * @return The teacher that was added
    */
   public Teacher createTeacherCommand(String input) {
@@ -164,6 +184,27 @@ public class Controller {
       DBProxy.updateQueryParameters("INSERT INTO teachers VALUES (?,?,?,?);", new ArrayList<>(
           Arrays.asList(teacherID.toString(), inputList[0], hashedPassword, inputList[2])));
       return new Teacher(teacherID.toString(), inputList[0], hashedPassword, inputList[2]);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * Create Student Command
+   *
+   * @param input List of parameters separated by whitespace (username, password name)
+   * @return The teacher that was added
+   */
+  public Student createStudentCommand(String input) {
+    String[] inputList = input.split(" ");
+    try {
+      UUID studentID = UUID.randomUUID();
+      String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
+      DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);", new ArrayList<>(
+              Arrays.asList(studentID.toString(), inputList[0], hashedPassword, inputList[2])));
+      return new Student(studentID.toString(), inputList[0], hashedPassword, inputList[2]);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
