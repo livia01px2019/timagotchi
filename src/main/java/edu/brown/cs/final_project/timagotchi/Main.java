@@ -56,9 +56,9 @@ public final class Main {
     // REPL Handling.
     REPL repl = new REPL(new InputStreamReader(System.in));
     repl.addCommand("startup", new Command(Controller::startUpCommand));
-    repl.addCommand("addTeacher", new Command(Controller::addTeacherCommand));
-    repl.addCommand("addClass", new Command(Controller::addClassCommand));
-    repl.addCommand("addStudent", new Command(Controller::addStudentCommand));
+    repl.addCommand("addTeacher", new Command(Controller::createTeacherCommand));
+    repl.addCommand("addClass", new Command(Controller::createClassCommand));
+    repl.addCommand("addStudent", new Command(Controller::addStudentToClassCommand));
     repl.begin();
   }
 
@@ -102,7 +102,7 @@ public final class Main {
   /**
    * Display an error page when an exception occurs in the server.
    */
-  private static class ExceptionPrinter implements ExceptionHandler {
+  private static class ExceptionPrinter implements ExceptionHandler<Exception> {
     @Override
     public void handle(Exception e, Request req, Response res) {
       res.status(500);

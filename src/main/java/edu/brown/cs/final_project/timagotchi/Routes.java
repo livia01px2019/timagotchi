@@ -28,7 +28,7 @@ public class Routes {
       // Example usage of cookies to remember username information!
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String userId = cookies.get("userId");
-      cookies.set("userId", userId);
+      cookies.set("userId", "David Lee");
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Login");
       return new ModelAndView(variables, "login.ftl");
     }

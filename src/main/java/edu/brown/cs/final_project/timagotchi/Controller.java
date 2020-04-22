@@ -131,7 +131,8 @@ public class Controller {
   /**
    * Startup Command TODO: Run command to maintain foreign key.
    *
-   * @throws NoSuchAlgorithmException
+   * @param input The filename of the database to connect to.
+   * @return Whether the database was successfully connected to.
    */
   public Boolean startUpCommand(String input) {
     try {
@@ -150,9 +151,12 @@ public class Controller {
   }
 
   /**
-   * Add Teacher Command
+   * Create Teacher Command
+   *
+   * @param input List of parameters separated by whitespace (username, name)
+   * @return The teacher that was added
    */
-  public Teacher addTeacherCommand(String input) {
+  public Teacher createTeacherCommand(String input) {
     String[] inputList = input.split(" ");
     try {
       UUID teacherID = UUID.randomUUID();
@@ -168,9 +172,12 @@ public class Controller {
   }
 
   /**
-   * Add Class Command
+   * Create Class Command
+   *
+   * @param input List of parameters separated by whitespace (name, teacherId)
+   * @return Class The class that was added
    */
-  public Class addClassCommand(String input) {
+  public Class createClassCommand(String input) {
     String[] inputList = input.split(" ");
     try {
       UUID classID = UUID.randomUUID();
@@ -188,9 +195,12 @@ public class Controller {
   }
 
   /**
-   * Add Student Command
+   * Add Student To Class Command
+   *
+   * @param input List of parameters separated by whitespace (username, password, name, classIds)
+   * @return The class that was just updated
    */
-  public Class addStudentCommand(String input) {
+  public Class addStudentToClassCommand(String input) {
     String[] inputList = input.split(" ");
     try {
       UUID studentID = UUID.randomUUID();
@@ -209,6 +219,9 @@ public class Controller {
 
   /**
    * Get Class from Database given its id
+   *
+   * @param classID The id of the class to get
+   * @return The class that was wanted
    */
   public static Class getClass(String classID) {
     try {
@@ -230,6 +243,9 @@ public class Controller {
 
   /**
    * Add Assignment Command
+   *
+   * @param input The id of the assignment
+   * @return Whether the assignment addition went through successfully.
    */
   public Boolean addAssignmentCommand(String input) {
     String[] inputList = input.split(" ");

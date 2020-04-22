@@ -26,7 +26,6 @@ public class Student implements People {
    * @param i    The id of the student.
    * @param user The username of the student.
    * @param pass The password of the student.
-   * @param p    The id of the pet belonging the student.
    * @param n    The name of the student.
    */
   public Student(String i, String user, String pass, String n) throws NoSuchAlgorithmException {
