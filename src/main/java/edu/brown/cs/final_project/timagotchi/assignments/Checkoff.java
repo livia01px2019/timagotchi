@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Assignment that can just be checked off as complete (classwork, participation, etc.).
+ * Assignment that can just be checked off as complete (classwork,
+ * participation, etc.).
  */
 public class Checkoff implements Assignment {
   private String id;
@@ -27,7 +28,8 @@ public class Checkoff implements Assignment {
   }
 
   /**
-   * Getter for whether this assignment has been completed by the user with id userId.
+   * Getter for whether this assignment has been completed by the user with id
+   * userId.
    *
    * @param userId The User ID for the user.
    * @return Whether the assignment has been completed or not by the user.
@@ -38,36 +40,43 @@ public class Checkoff implements Assignment {
   }
 
   /**
-   * Setter for whether this assignment has been completed by the user with id userId.
+   * Setter for whether this assignment has been completed by the user with id
+   * userId.
    *
    * @param userId The User ID for the user.
-   * @param c Whether this assignment has been completed.
+   * @param c      Whether this assignment has been completed.
    */
   @Override
   public void setComplete(String userId, Boolean c) {
     complete.put(userId, c);
   }
 
+  @Override
   public String getId() {
     return id;
   }
 
+  @Override
   public void setId(String id) {
     this.id = id;
   }
 
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public void setName(String name) {
     this.name = name;
   }
 
+  @Override
   public int getReward() {
     return reward;
   }
 
+  @Override
   public void setReward(int reward) {
     this.reward = reward;
   }

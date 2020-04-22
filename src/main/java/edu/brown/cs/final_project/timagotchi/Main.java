@@ -58,7 +58,8 @@ public final class Main {
     repl.addCommand("startup", new Command(Controller::startUpCommand));
     repl.addCommand("addTeacher", new Command(Controller::createTeacherCommand));
     repl.addCommand("addClass", new Command(Controller::createClassCommand));
-    repl.addCommand("addStudent", new Command(Controller::addStudentToClassCommand));
+    repl.addCommand("addStudentToClass", new Command(Controller::addStudentIDToClassCommand));
+    repl.addCommand("addStudent", new Command(Controller::createStudentCommand));
     repl.begin();
   }
 
