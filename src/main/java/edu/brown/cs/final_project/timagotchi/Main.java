@@ -60,6 +60,9 @@ public final class Main {
     repl.addCommand("addClass", new Command(Controller::createClassCommand));
     repl.addCommand("addStudentToClass", new Command(Controller::addStudentIDToClassCommand));
     repl.addCommand("addStudent", new Command(Controller::createStudentCommand));
+    repl.addCommand("addCheckoff", new Command(Controller::addCheckoffAssignment));
+    repl.addCommand("addQuestion", new Command(Controller::addQuestion));
+    repl.addCommand("addQuiz", new Command(Controller::addQuizAssignment));
     repl.begin();
   }
 

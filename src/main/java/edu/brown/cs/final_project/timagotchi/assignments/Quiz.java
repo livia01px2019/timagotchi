@@ -21,12 +21,11 @@ public class Quiz implements Assignment {
    *
    * @param i  The id of the assignment.
    * @param n  The name of the assignment
-   * @param f  Whether this assignment has been finished.
    * @param r  The xp reward received from completing this assignment.
    * @param qs The list of questions associated with the assignment.
    * @param c  Whether this assignment is competitive.
    */
-  public Quiz(String i, String n, Boolean f, int r, List<Question> qs, Boolean c) {
+  public Quiz(String i, String n, int r, List<Question> qs, Boolean c) {
     id = i;
     name = n;
     complete = new HashMap<String, Boolean>();

@@ -10,6 +10,7 @@ import edu.brown.cs.final_project.timagotchi.Leaderboard.Leaderboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
+import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
@@ -19,6 +20,8 @@ import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 public class Controller {
 
+  // TODO: IDs not existing.
+
   public static Assignment getAssignment(String assignmentId) {
     // TODO: getter for assignment, but I'm not sure if we need one for each
     // different type? (checkoff, question, etc.)
@@ -27,10 +30,9 @@ public class Controller {
     try {
       List<List<String>> assignments = DBProxy.executeQueryParameters(
           "SELECT * FROM assignments WHERE id=?;", new ArrayList<>(Arrays.asList(assignmentId)));
-      Assignment a = null;
       // TODO: Investigate if this will be a problem
       if (assignments.get(0).get(2).equals("checkoff")) {
-        a = new Checkoff(assignments.get(0).get(0), assignments.get(0).get(1),
+        Assignment a = new Checkoff(assignments.get(0).get(0), assignments.get(0).get(1),
             Integer.parseInt(assignments.get(0).get(3)));
         List<List<String>> results = DBProxy.executeQueryParameters(
             "SELECT studentID,complete FROM student_assignment WHERE assignmentID=?",
@@ -38,16 +40,61 @@ public class Controller {
         for (List<String> student : results) {
           a.setComplete(student.get(0), Boolean.parseBoolean(student.get(1)));
         }
-      } else if (assignments.get(0).get(2).equals("competitive")) {
-        List<List<String>> questions = DBProxy.executeQueryParameters(
+        return a;
+      } else if (assignments.get(0).get(2).equals("competitive")
+          || assignments.get(0).get(2).equals("regular")) {
+        // creates the list of questions, cacheable!
+        List<List<String>> questionIDs = DBProxy.executeQueryParameters(
             "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
             new ArrayList<>(Arrays.asList(assignmentId)));
         List<Question> convertedQ = new ArrayList<>();
-        for (List<String> q : questions) {
-          // convertedQ.add(new Question())
+        for (List<String> qid : questionIDs) {
+          List<List<String>> questionAttributes = DBProxy.executeQueryParameters(
+              "SELECT prompt,answerID,score FROM questions WHERE id=?;",
+              new ArrayList<>(Arrays.asList(qid.get(0))));
+          List<List<String>> options = DBProxy.executeQueryParameters(
+              "SELECT option FROM options WHERE questionID=?;",
+              new ArrayList<>(Arrays.asList(qid.get(0))));
+          List<String> questionOptions = new ArrayList<>();
+          for (List<String> o : options) {
+            questionOptions.add(o.get(0));
+          }
+          List<Integer> answerIndex = new ArrayList<>(
+              Arrays.asList(Integer.parseInt(questionAttributes.get(0).get(1))));
+          Question fullQuestion = new Question(qid.get(0), questionAttributes.get(0).get(0),
+              questionOptions, answerIndex);
+          fullQuestion.setScore(Double.parseDouble(questionAttributes.get(0).get(2)));
+          convertedQ.add(fullQuestion);
         }
+        Quiz convertedQuiz = null;
+        // create quiz object
+        if (assignments.get(0).get(2).equals("competitive")) {
+          convertedQuiz = new Quiz(assignments.get(0).get(0), assignments.get(0).get(1),
+              Integer.parseInt(assignments.get(0).get(3)), convertedQ, true);
+        } else {
+          convertedQuiz = new Quiz(assignments.get(0).get(0), assignments.get(0).get(1),
+              Integer.parseInt(assignments.get(0).get(3)), convertedQ, false);
+        }
+        // for record
+        for (int i = 0; i < convertedQ.size(); i++) {
+          List<List<String>> record = DBProxy.executeQueryParameters(
+              "SELECT studentID,record FROM student_record WHERE questionID=?;",
+              new ArrayList<>(Arrays.asList(convertedQ.get(i).getId())));
+          for (List<String> r : record) {
+            convertedQuiz.setRecord(r.get(0), i, Boolean.parseBoolean(r.get(1)));
+          }
+        }
+        // for complete
+        List<List<String>> complete = DBProxy.executeQueryParameters(
+            "SELECT studentID,complete FROM student_assignment WHERE assignmentID=?;",
+            new ArrayList<>(Arrays.asList(assignmentId)));
+        for (List<String> comp : complete) {
+          convertedQuiz.setComplete(comp.get(0), Boolean.parseBoolean(comp.get(1)));
+        }
+        return convertedQuiz;
+      } else if (assignments.get(0).get(2).equals("review")) {
+
       }
-      return a;
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -105,7 +152,7 @@ public class Controller {
       }
       // add wrong question IDs
       List<List<String>> wrongs = DBProxy.executeQueryParameters(
-          "SELECT questionID,classID FROM student_wrongs WHERE studentID=?;",
+          "SELECT questionID,classID FROM student_record WHERE studentID=? AND record=\"wrong\";",
           new ArrayList<>(Arrays.asList(id)));
       for (List<String> w : wrongs) {
         s.addWrongQuestionId(w.get(0), w.get(1));
@@ -348,18 +395,17 @@ public class Controller {
   /**
    * Create Student Command
    *
-   * @param input List of parameters separated by whitespace (username, password
-   *              name)
-   * @return The teacher that was added
+   * @param input List of parameters separated by whitespace (id, username,
+   *              password, name)
+   * @return The student that was added
    */
   public Student createStudentCommand(String input) {
     String[] inputList = input.split(" ");
     try {
-      UUID studentID = UUID.randomUUID();
       String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
-      DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);", new ArrayList<>(
-          Arrays.asList(studentID.toString(), inputList[0], hashedPassword, inputList[2])));
-      return new Student(studentID.toString(), inputList[0], hashedPassword, inputList[2]);
+      DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);",
+          new ArrayList<>(Arrays.asList(inputList[0], inputList[1], hashedPassword, inputList[3])));
+      return new Student(inputList[0], inputList[1], hashedPassword, inputList[3]);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -392,8 +438,10 @@ public class Controller {
     String[] inputList = input.split(" ");
     try {
       UUID assignmentID = UUID.randomUUID();
-      DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?);", new ArrayList<>(
+      DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
           Arrays.asList(assignmentID.toString(), inputList[1], "checkoff", inputList[2])));
+      DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
+          new ArrayList<>(Arrays.asList(inputList[0], assignmentID.toString())));
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT studentID FROM class_student WHERE classID=?;",
           new ArrayList<>(Arrays.asList(inputList[0])));
@@ -404,6 +452,109 @@ public class Controller {
         c.setComplete(student.get(0), false);
       }
       return c;
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * Add Question.
+   *
+   * @param input Prompt, Option1, Option2, Option3, Option4, AnswerIndex, Score
+   * @return
+   */
+  public Question addQuestion(String input) {
+    String[] inputList = input.split(" ");
+    try {
+      UUID questionID = UUID.randomUUID();
+      UUID answer1ID = UUID.randomUUID();
+      UUID answer2ID = UUID.randomUUID();
+      UUID answer3ID = UUID.randomUUID();
+      UUID answer4ID = UUID.randomUUID();
+      List<String> uuids = new ArrayList<>(Arrays.asList(answer1ID.toString(), answer2ID.toString(),
+          answer3ID.toString(), answer4ID.toString()));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
+          Arrays.asList(answer1ID.toString(), questionID.toString(), inputList[1])));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
+          Arrays.asList(answer2ID.toString(), questionID.toString(), inputList[2])));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
+          Arrays.asList(answer3ID.toString(), questionID.toString(), inputList[3])));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
+          Arrays.asList(answer4ID.toString(), questionID.toString(), inputList[4])));
+      DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?,?);",
+          new ArrayList<>(Arrays.asList(questionID.toString(), inputList[0],
+              uuids.get(Integer.parseInt(inputList[5])), inputList[6])));
+      Question q = new Question(questionID.toString(), inputList[0], uuids,
+          new ArrayList<>(Arrays.asList(Integer.parseInt(inputList[5]))));
+      q.setScore(Double.parseDouble(inputList[6]));
+      System.out.println(q.getId());
+      return q;
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * Add Not Competitive Quiz Assignment Command, without allocating students.
+   *
+   * @param input ClassID, name, xp, [questionIDs]
+   * @return
+   */
+  public Quiz addQuizAssignment(String input) {
+    String[] inputList = input.split(" ");
+    try {
+      UUID assignmentID = UUID.randomUUID();
+      DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
+          Arrays.asList(assignmentID.toString(), inputList[1], "regular", inputList[2])));
+      DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
+          new ArrayList<>(Arrays.asList(inputList[0], assignmentID.toString())));
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT studentID FROM class_student WHERE classID=?;",
+          new ArrayList<>(Arrays.asList(inputList[0])));
+
+      // input question ID and add to the map
+      List<String> questionIDs = new ArrayList<>();
+      for (int i = 3; i < inputList.length; i++) {
+        questionIDs.add(inputList[i]);
+        DBProxy.updateQueryParameters("INSERT INTO assignment_question VALUES (?,?);",
+            new ArrayList<>(Arrays.asList(assignmentID.toString(), inputList[i])));
+      }
+      // create list of questions
+      List<Question> convertedQ = new ArrayList<>();
+      for (String qid : questionIDs) {
+        List<List<String>> questionAttributes = DBProxy.executeQueryParameters(
+            "SELECT prompt,answerID,score FROM questions WHERE id=?;",
+            new ArrayList<>(Arrays.asList(qid)));
+        List<List<String>> options = DBProxy.executeQueryParameters(
+            "SELECT option,id FROM options WHERE questionID=?;",
+            new ArrayList<>(Arrays.asList(qid)));
+        List<String> questionOptions = new ArrayList<>();
+        int index = 0;
+        for (int o = 0; o < options.size(); o++) {
+          questionOptions.add(options.get(o).get(0));
+          if (options.get(o).get(1).equals(questionAttributes.get(0).get(1))) {
+            index = o;
+          }
+        }
+        List<Integer> answerIndex = new ArrayList<>(Arrays.asList(index));
+        Question fullQuestion = new Question(qid, questionAttributes.get(0).get(0), questionOptions,
+            answerIndex);
+        fullQuestion.setScore(Double.parseDouble(questionAttributes.get(0).get(2)));
+        convertedQ.add(fullQuestion);
+      }
+      // create complete assignment object
+      Quiz q = new Quiz(assignmentID.toString(), inputList[1], Integer.parseInt(inputList[2]),
+          convertedQ, false);
+      // add assignment to each student in the class, and set the complete to false
+      for (List<String> student : results) {
+        addAssignmentToStudent(student.get(0) + " " + assignmentID.toString());
+        q.setComplete(student.get(0), false);
+      }
+      return q;
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

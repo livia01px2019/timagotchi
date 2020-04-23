@@ -1,9 +1,5 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
-import edu.brown.cs.final_project.timagotchi.users.Class;
-import edu.brown.cs.final_project.timagotchi.users.Student;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,6 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.users.Class;
+import edu.brown.cs.final_project.timagotchi.users.Student;
 
 public class Review implements Assignment {
   private final int numQuestions = 20;
@@ -26,10 +26,9 @@ public class Review implements Assignment {
    *
    * @param i The id of the assignment.
    * @param n The name of the assignment
-   * @param f Whether this assignment has been finished.
    * @param r The xp reward received from completing this assignment.
    */
-  public Review(String i, String n, Boolean f, int r) {
+  public Review(String i, String n, int r) {
     id = i;
     name = n;
     complete = new HashMap<String, Boolean>();
@@ -38,10 +37,10 @@ public class Review implements Assignment {
   }
 
   /**
-   * Function that uses the "DocDiff" algorithm to generate review questions based on the
-   * questions the user with id userId has gotten wrong.
+   * Function that uses the "DocDiff" algorithm to generate review questions based
+   * on the questions the user with id userId has gotten wrong.
    *
-   * @param s The student to create the review questions for.
+   * @param s       The student to create the review questions for.
    * @param classId The id of the class they want to review.
    */
   public void generateQuestions(Student s, String classId) {
@@ -56,8 +55,10 @@ public class Review implements Assignment {
     // Get all the questions used for this class.
     List<Question> allQuestions = Controller.getAllQuestions(classId);
 
-    // DocDiff algorithm that goes through every question in the class and gets a similarity score
-    // with the wrong questions, orders by similarity, and returns the top 20 most similar.
+    // DocDiff algorithm that goes through every question in the class and gets a
+    // similarity score
+    // with the wrong questions, orders by similarity, and returns the top 20 most
+    // similar.
 
     // Generate a list of all unique words for all questions.
     Set<String> dictionary = new HashSet<String>();
@@ -68,7 +69,8 @@ public class Review implements Assignment {
       }
     }
 
-    // Generate the frequency vectors for all the questions and all the wrong questions.
+    // Generate the frequency vectors for all the questions and all the wrong
+    // questions.
     List<List<Integer>> qFreq = new ArrayList<List<Integer>>();
     List<List<Integer>> wrongQFreq = new ArrayList<List<Integer>>();
     for (Question q : allQuestions) {
@@ -123,9 +125,10 @@ public class Review implements Assignment {
   }
 
   /**
-   * Determines the frequency of each word in a given dictionary in a given Question.
+   * Determines the frequency of each word in a given dictionary in a given
+   * Question.
    *
-   * @param q The question to be analyzed.
+   * @param q    The question to be analyzed.
    * @param dict The dictionary of all the words.
    * @return The list of frequencies of each word in the dictionary.
    */
@@ -146,6 +149,7 @@ public class Review implements Assignment {
 
   /**
    * Adds a question to the list of questions associated with the assignment.
+   * 
    * @param q The question to be added.
    */
   public void addQuestion(Question q) {
@@ -156,18 +160,19 @@ public class Review implements Assignment {
    * Getter for the answer record for this assignment by the user with id userId.
    *
    * @param userId The User ID for the user.
-   * @return The list of whether the user got the answers right or wrong for each question.
+   * @return The list of whether the user got the answers right or wrong for each
+   *         question.
    */
   public List<Boolean> getRecord(String userId) {
     return record.get(userId);
   }
 
   /**
-   * Setter for whether or not the user with id userId got aquestion with index qIdx
-   * right or wrong.
+   * Setter for whether or not the user with id userId got aquestion with index
+   * qIdx right or wrong.
    *
-   * @param userId The User ID for the user.
-   * @param qIdx The index of the question.
+   * @param userId  The User ID for the user.
+   * @param qIdx    The index of the question.
    * @param correct Whether or not the user got the answer correct.
    */
   public void setRecord(String userId, int qIdx, Boolean correct) {
@@ -180,7 +185,8 @@ public class Review implements Assignment {
   }
 
   /**
-   * Getter for whether this assignment has been completed by the user with id userId.
+   * Getter for whether this assignment has been completed by the user with id
+   * userId.
    *
    * @param userId The User ID for the user.
    * @return Whether the assignment has been completed or not by the user.
@@ -191,10 +197,11 @@ public class Review implements Assignment {
   }
 
   /**
-   * Setter for whether this assignment has been completed by the user with id userId.
+   * Setter for whether this assignment has been completed by the user with id
+   * userId.
    *
    * @param userId The User ID for the user.
-   * @param c Whether this assignment has been completed.
+   * @param c      Whether this assignment has been completed.
    */
   @Override
   public void setComplete(String userId, Boolean c) {
