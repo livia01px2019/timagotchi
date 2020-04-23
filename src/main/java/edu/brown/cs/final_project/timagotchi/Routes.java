@@ -15,12 +15,15 @@ import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 import spark.TemplateViewRoute;
+import com.google.gson.Gson;
 
 /**
  * Routes class! Holds and handles all web server routing.
  */
 public class Routes {
+  private static final Gson GSON = new Gson();
 
   public static class LoginHandler implements TemplateViewRoute {
     @Override
@@ -31,6 +34,48 @@ public class Routes {
       cookies.set("userId", "David Lee");
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Login");
       return new ModelAndView(variables, "login.ftl");
+    }
+  }
+
+  public static class LoginStudentHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      QueryParamsMap qmap = req.queryMap();
+      String username = qmap.value("username");
+      String password = qmap.value("password");
+      System.out.println(username);
+
+      // Check that username and password are valid
+      String valid = "Invalid username and password!";
+      String correctPass = Controller.getStudentPassword(username);
+      if (password.equals(correctPass)) {
+        valid = "Success!";
+      }
+
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid);
+      return GSON.toJson(responseObject);
+    }
+  }
+
+  public static class LoginTeacherHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      QueryParamsMap qmap = req.queryMap();
+      String username = qmap.value("username");
+      String password = qmap.value("password");
+      System.out.println(username);
+
+      // Check that username and password are valid
+      String valid = "Invalid username and password!";
+      String correctPass = Controller.getStudentPassword(username);
+      if (password.equals(correctPass)) {
+        valid = "Success!";
+      }
+
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid);
+      return GSON.toJson(responseObject);
     }
   }
 

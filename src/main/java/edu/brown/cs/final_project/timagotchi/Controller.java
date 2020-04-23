@@ -133,6 +133,28 @@ public class Controller {
   /**
    * Get Student from Database given its id.
    *
+   * @param username The username of the Student
+   * @return The password corresponding to that Username
+   */
+  public static String getStudentPassword(String username) {
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+              "SELECT password FROM students WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+      if (results.size() > 0) {
+        return results.get(0).get(0);
+      } else {
+        return "1234";
+      }
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return "1234";
+  }
+
+  /**
+   * Get Student from Database given its id.
+   *
    * @param id The id of the Student.
    * @return The Student stored in the database.
    */

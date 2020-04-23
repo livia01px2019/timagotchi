@@ -101,6 +101,8 @@ public final class Main {
     Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
 
     Spark.post("/register-submit", new Routes.RegisterSubmitHandler(), freeMarker);
+    Spark.post("/login-student", new Routes.LoginStudentHandler());
+    Spark.post("/login-teacher", new Routes.LoginTeacherHandler());
   }
 
   /**
