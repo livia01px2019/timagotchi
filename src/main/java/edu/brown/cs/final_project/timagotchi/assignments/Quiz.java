@@ -19,12 +19,12 @@ public class Quiz implements Assignment {
   /**
    * Initializes the Quiz assignment.
    *
-   * @param i The id of the assignment.
-   * @param n The name of the assignment
-   * @param f Whether this assignment has been finished.
-   * @param r The xp reward received from completing this assignment.
+   * @param i  The id of the assignment.
+   * @param n  The name of the assignment
+   * @param f  Whether this assignment has been finished.
+   * @param r  The xp reward received from completing this assignment.
    * @param qs The list of questions associated with the assignment.
-   * @param c Whether this assignment is competitive.
+   * @param c  Whether this assignment is competitive.
    */
   public Quiz(String i, String n, Boolean f, int r, List<Question> qs, Boolean c) {
     id = i;
@@ -38,6 +38,7 @@ public class Quiz implements Assignment {
 
   /**
    * Adds a question to the list of questions associated with the assignment.
+   *
    * @param q The question to be added.
    */
   public void addQuestion(Question q) {
@@ -48,18 +49,19 @@ public class Quiz implements Assignment {
    * Getter for the answer record for this assignment by the user with id userId.
    *
    * @param userId The User ID for the user.
-   * @return The list of whether the user got the answers right or wrong for each question.
+   * @return The list of whether the user got the answers right or wrong for each
+   *         question.
    */
   public List<Boolean> getRecord(String userId) {
     return record.get(userId);
   }
 
   /**
-   * Setter for whether or not the user with id userId got aquestion with index qIdx
-   * right or wrong.
+   * Setter for whether or not the user with id userId got aquestion with index
+   * qIdx right or wrong.
    *
-   * @param userId The User ID for the user.
-   * @param qIdx The index of the question.
+   * @param userId  The User ID for the user.
+   * @param qIdx    The index of the question.
    * @param correct Whether or not the user got the answer correct.
    */
   public void setRecord(String userId, int qIdx, Boolean correct) {
@@ -72,7 +74,8 @@ public class Quiz implements Assignment {
   }
 
   /**
-   * Getter for whether this assignment has been completed by the user with id userId.
+   * Getter for whether this assignment has been completed by the user with id
+   * userId.
    *
    * @param userId The User ID for the user.
    * @return Whether the assignment has been completed or not by the user.
@@ -83,10 +86,11 @@ public class Quiz implements Assignment {
   }
 
   /**
-   * Setter for whether this assignment has been completed by the user with id userId.
+   * Setter for whether this assignment has been completed by the user with id
+   * userId.
    *
    * @param userId The User ID for the user.
-   * @param c Whether this assignment has been completed.
+   * @param c      Whether this assignment has been completed.
    */
   @Override
   public void setComplete(String userId, Boolean c) {

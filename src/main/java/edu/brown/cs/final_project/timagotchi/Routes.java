@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
 
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
@@ -24,6 +25,10 @@ public class Routes {
   public static class LoginHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      // Example usage of cookies to remember username information!
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String userId = cookies.get("userId");
+      cookies.set("userId", "David Lee");
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Login");
       return new ModelAndView(variables, "login.ftl");
     }
@@ -32,6 +37,7 @@ public class Routes {
   public static class RegisterHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Register", "message",
           "");
       return new ModelAndView(variables, "register.ftl");
@@ -41,6 +47,7 @@ public class Routes {
   public static class StudentClassHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = req.params(":id");
       // TODO: generate class name from Id
       String classesHtml = generateClassSidebar();
@@ -53,6 +60,7 @@ public class Routes {
   public static class StudentMainHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classesHtml = generateClassSidebar();
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "fileNameUsername", new String[] {
@@ -67,6 +75,7 @@ public class Routes {
   public static class StudentLeaderboardHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classesHtml = generateClassSidebar();
       // TODO make leaderboardhtml
       String leaderboardHtml = "";
@@ -79,6 +88,7 @@ public class Routes {
   public static class TeacherClassHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = req.params(":id");
       // TODO: generate class name from Id
       String classesHtml = generateClassSidebar();
@@ -91,6 +101,7 @@ public class Routes {
   public static class TeacherMainHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classesHtml = generateClassSidebar();
       // TODO get teacher's classboard
       String leaderboardHtml = "";
@@ -105,6 +116,7 @@ public class Routes {
   public static class RegisterSubmitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       QueryParamsMap qmap = req.queryMap();
       String role = qmap.value("role");
       String name = qmap.value("name");
