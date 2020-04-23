@@ -122,6 +122,7 @@ public class Routes {
       String name = qmap.value("name");
       String username = qmap.value("username");
       String password = qmap.value("password");
+      // send to backend
 
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Register", "message",
           "<p style=\"text-align: center; width: 100%; background-color: green\"> Register successful. Please login.</p>");
