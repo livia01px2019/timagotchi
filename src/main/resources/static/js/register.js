@@ -45,10 +45,15 @@ $(document).ready(() => {
                 message.style.width = "100%";
                 message.style.backgroundColor = "green";
             } else if (success === "Passwords don't match!") {
-                matching.innerHTML = 'Passwords don\'t match!';
-                matching.style.color = "DarkRed";
+                message.innerHTML = "Error: Passwords don't match."
+                message.style.textAlign = "center";
+                message.style.width = "100%";
+                message.style.backgroundColor = "red";
             } else {
-                matching.innerHTML = success;
+                message.innerHTML = success;
+                message.style.textAlign = "center";
+                message.style.width = "100%";
+                message.style.backgroundColor = "red";
             }
         })
     }

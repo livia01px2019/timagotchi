@@ -141,7 +141,7 @@ public class Controller {
           "SELECT passwordHash FROM students WHERE username=?;",
           new ArrayList<>(Arrays.asList(username)));
       if (results == null || results.isEmpty()) {
-        return "1234"; // TODO: Change this!
+        return "";
       } else {
         return results.get(0).get(0);
       }
@@ -163,7 +163,7 @@ public class Controller {
           "SELECT passwordHash FROM teachers WHERE username=?;",
           new ArrayList<>(Arrays.asList(username)));
       if (results == null || results.isEmpty()) {
-        return "1234"; // TODO: Change this!
+        return "";
       } else {
         return results.get(0).get(0);
       }

@@ -61,6 +61,8 @@ public class Routes {
         cookies.set("student", "true");
         cookies.set("username", username);
         cookies.set("password", password);
+      } else if (correctPass.equals("")) {
+        valid = "Account with that username does not exist.";
       }
 
       Map<String, Object> responseObject = ImmutableMap.of("results", valid);
@@ -88,6 +90,8 @@ public class Routes {
         cookies.set("student", "false");
         cookies.set("username", username);
         cookies.set("password", password);
+      } else if (correctPass.equals("")) {
+        valid = "Account with that username does not exist.";
       }
 
       Map<String, Object> responseObject = ImmutableMap.of("results", valid);
@@ -132,7 +136,13 @@ public class Routes {
       String confirm = qmap.value("confirm");
       String valid = "Passwords don't match!";
 
-      if (password.equals(confirm)) {
+      if (name.equals("")) {
+        valid = "Please enter a name.";
+      } else if (username.equals("")) {
+        valid = "Please enter a username.";
+      } else if (password.equals("")) {
+        valid = "Please enter a password.";
+      } else if (password.equals(confirm)) {
         try {
           if (student.equals("true")) {
             // Create a student
@@ -142,9 +152,11 @@ public class Routes {
             // Create a teacher
             Teacher t = Controller.createTeacherCommand(username + " " + password + " " + name);
             valid = "Success!";
+          } else {
+            valid = "Please select Student or Teacher.";
           }
         } catch (Exception e) {
-          valid = "Failure!";
+          valid = "Error: Unknown";
         }
       }
 
