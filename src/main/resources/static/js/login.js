@@ -1,6 +1,8 @@
+// BEGIN REDACT
 /**
  * Front end logic for the login page.
  */
+
 $(document).ready(() => {
     const studentUsername = $("#student-username");
     const studentPassword = $("#student-password");

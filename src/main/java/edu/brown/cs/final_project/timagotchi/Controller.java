@@ -605,5 +605,16 @@ public class Controller {
     }
     return null;
   }
+  
+  public String getStudentIDFromUsername(String username) {
+    // TODO
+    return "id";
+  }
+  
+  public String getTeacherIDFromUsername(String username) {
+    // TODO
+    return "id";
+  }
+
 
 }

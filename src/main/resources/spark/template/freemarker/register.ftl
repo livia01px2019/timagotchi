@@ -1,18 +1,18 @@
 <#assign content>
 ${message}
-<div class="register-block">
+<div class="register-block"> 
 	<h2> REGISTER </h2> <br>
 	<form class="register-form" method="POST" action="/register-submit">
 		<div class="form-stuff">
 			<div class="form-labels">
 				<label for="role">I am a...</label><br>
-
+		  		
 				<label for="name">Full name:</label><br>
-
+			    
 			    <label for="username">Username:</label><br>
-
+			    
 			    <label for="password">Password:</label><br>
-
+			    
 			    <label for="confirm-password">Confirm Password:</label><br>
 			</div>
 			<div class="form-inputs">
@@ -33,10 +33,14 @@ ${message}
 			    <input type="password" id="confirm-password" name="confirm-password"><br>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<span id='message'></span>
 		<div class="submit-button-wrapper">
         	<button class="submit-button" id="submit" type="submit" type="button">SUBMIT</button>
         </div>
+=======
+		<div class="submit-button"> <input type="submit" value="SUBMIT"></div>
+>>>>>>> parent of abee698... Some minor changes to avoid merge conflicts
 	</form>
 </div>
 <div class="register-link">

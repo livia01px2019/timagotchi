@@ -118,12 +118,16 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String username = cookies.get("username");
+      Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
+      Pet currPet = Controller.getPet(currStudent.getPetId());
+      
       String classesHtml = generateClassSidebar();
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "fileNameUsername", new String[] {
-              "../img/skin1.png", "Student Name", "studentusername"
+              currPet.getImage(), currStudent.getName(), username
           }, "lvlXp", new int[] {
-              10, 30
+              currPet.getLevel(), currPet.getXp()
           });
       return new ModelAndView(variables, "student-me.ftl");
     }
