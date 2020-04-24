@@ -96,7 +96,6 @@ public class Controller {
 
       }
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -119,12 +118,12 @@ public class Controller {
       List<List<String>> results = DBProxy.executeQueryParameters("SELECT * FROM pets WHERE id=?;",
           new ArrayList<>(Arrays.asList(petId)));
       // TODO: Investigate if this will be a problem
-      Pet p = new Pet(results.get(0).get(0), results.get(0).get(1), results.get(0).get(4));
+      Pet p = new Pet(results.get(0).get(0), results.get(0).get(1));
+      p.updateSprite(results.get(0).get(4));
       p.addXp(Double.parseDouble(results.get(0).get(2)));
       p.setLevel(Integer.parseInt(results.get(0).get(3)));
       return p;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -139,7 +138,7 @@ public class Controller {
   public static String getStudentPassword(String username) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
-          "SELECT password FROM students WHERE username=?;",
+          "SELECT passwordHash FROM students WHERE username=?;",
           new ArrayList<>(Arrays.asList(username)));
       if (results == null || results.isEmpty()) {
         return "1234"; // TODO: Change this!
@@ -147,7 +146,6 @@ public class Controller {
         return results.get(0).get(0);
       }
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -162,7 +160,7 @@ public class Controller {
   public static String getTeacherPassword(String username) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
-          "SELECT password FROM teachers WHERE username=?;",
+          "SELECT passwordHash FROM teachers WHERE username=?;",
           new ArrayList<>(Arrays.asList(username)));
       if (results == null || results.isEmpty()) {
         return "1234"; // TODO: Change this!
@@ -170,7 +168,6 @@ public class Controller {
         return results.get(0).get(0);
       }
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -209,7 +206,6 @@ public class Controller {
       s.setPetId(pets.get(0).get(0)); // TODO: Pets for different class?
       return s;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -237,7 +233,6 @@ public class Controller {
       }
       return t;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -276,7 +271,6 @@ public class Controller {
       // TODO: Investigate if this will be a problem
       return new Question(questions.get(0).get(0), questions.get(0).get(1), choices, answerIndex);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -306,7 +300,6 @@ public class Controller {
       // TODO: Investigate if this will be a problem
       return allQuestions;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -350,7 +343,6 @@ public class Controller {
           Arrays.asList(teacherID.toString(), inputList[0], hashedPassword, inputList[2])));
       return new Teacher(teacherID.toString(), inputList[0], hashedPassword, inputList[2]);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -375,7 +367,6 @@ public class Controller {
       return new Class(classID.toString(), inputList[0],
           new ArrayList<>(Arrays.asList(inputList[1])));
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -412,7 +403,6 @@ public class Controller {
       }
       return c;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -434,7 +424,6 @@ public class Controller {
       c.addStudentId(studentID.toString());
       return c;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -455,13 +444,13 @@ public class Controller {
           new ArrayList<>(Arrays.asList(inputList[0], inputList[1], hashedPassword, inputList[3])));
       return new Student(inputList[0], inputList[1], hashedPassword, inputList[3]);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
   }
 
   /**
+   * Add assignment to student
    *
    * @param input StudentID, AssignmentID
    */
@@ -471,7 +460,6 @@ public class Controller {
       DBProxy.updateQueryParameters("INSERT INTO student_assignment VALUES (?,?,?);",
           new ArrayList<>(Arrays.asList(inputList[0], inputList[1], "false")));
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -501,7 +489,6 @@ public class Controller {
       }
       return c;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -540,7 +527,6 @@ public class Controller {
       System.out.println(q.getId());
       return q;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
@@ -604,25 +590,50 @@ public class Controller {
       }
       return q;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;
   }
 
   public static String getStudentIDFromUsername(String username) {
-    // TODO
-    return "id";
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT id FROM students WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+      return results.get(0).get(0);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   public static String getTeacherIDFromUsername(String username) {
-    // TODO
-    return "id";
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT id FROM teachers WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+      return results.get(0).get(0);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
+  /**
+   * Accessor method for all class IDs
+   *
+   * @return
+   */
   public static List<String> getAllClassIds() {
-    // TODO return every classid
-    return new ArrayList<String>();
+    try {
+      List<List<String>> results = DBProxy.executeQuery("SELECT id FROM classes;");
+      List<String> ids = new ArrayList<String>();
+      for (List<String> r : results) {
+        ids.add(r.get(0));
+      }
+      return ids;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
 }
