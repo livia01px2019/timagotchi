@@ -130,6 +130,10 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error");
+        return new ModelAndView(variables, "error.ftl");
+      }
       String classId = req.params(":id");
       String className = Controller.getClass(classId).getName();
       String classesHtml = generateClassSidebar(cookies);
@@ -144,6 +148,11 @@ public class Routes {
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String username = cookies.get("username");
+      if (username == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error");
+        return new ModelAndView(variables, "error.ftl");
+      }
+
       Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
       Pet currPet = Controller.getPet(currStudent.getPetId());
 
@@ -162,6 +171,10 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error");
+        return new ModelAndView(variables, "error.ftl");
+      }
       String classesHtml = generateClassSidebar(cookies);
       Classboard cb = new Classboard(Controller.getAllClassIds());
       String leaderboardHtml = generateClassboardHtml(cb);
@@ -175,6 +188,10 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error");
+        return new ModelAndView(variables, "error.ftl");
+      }
       String classId = req.params(":id");
       String className = Controller.getClass(classId).getName();
       String classesHtml = generateClassSidebar(cookies);
@@ -188,6 +205,10 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error");
+        return new ModelAndView(variables, "error.ftl");
+      }
       String classesHtml = generateClassSidebar(cookies);
       String username = cookies.get("username");
       Teacher currTeacher = Controller.getTeacher(Controller.getTeacherIDFromUsername(username));
@@ -222,8 +243,11 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      // String classesHtml = generateClassSidebar(cookies);
-      String classesHtml = "";
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error");
+        return new ModelAndView(variables, "error.ftl");
+      }
+      String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
           classesHtml);
       return new ModelAndView(variables, "teacher-new-class.ftl");
