@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import edu.brown.cs.final_project.timagotchi.Controller;
-import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 
 public class Class {
@@ -93,29 +92,25 @@ public class Class {
 
     @Override
     public int compare(Class c1, Class c2) {
-      List<String> sIds1 = c1.getStudentIds();
-      List<String> sIds2 = c2.getStudentIds();
-      double totXp1 = 0;
-      double totXp2 = 0;
-
-      // Get each student in each class, find their pet, and add its xp to the total for that class.
-      for (String tempId : sIds1) {
-        Student s = Controller.getStudent(tempId);
-        Pet p = Controller.getPet(s.getPetId());
-        totXp1 = totXp1 + p.getXp();
-      }
-      for (String tempId : sIds2) {
-        Student s = Controller.getStudent(tempId);
-        Pet p = Controller.getPet(s.getPetId());
-        totXp2 = totXp2 + p.getXp();
-      }
-
-      // Find average xp for each class.
-      double avgXp1 = totXp1 / sIds1.size();
-      double avgXp2 = totXp2 / sIds2.size();
-
-      return Double.compare(avgXp1, avgXp2);
+      return Double.compare(c1.getAvgXp(), c2.getAvgXp());
     }
+  }
+
+  public double getAvgXp() {
+    List<String> sIds = getStudentIds();
+    double totXp = 0;
+
+    // Get each student in each class, find their pet, and add its xp to the total
+    // for that class.
+    for (String tempId : sIds) {
+      Student s = Controller.getStudent(tempId);
+      Pet p = Controller.getPet(s.getPetId());
+      totXp = totXp + p.getXp();
+    }
+    // Find average xp for each class.
+    double avgXp1 = totXp / sIds.size();
+
+    return avgXp1;
   }
 
   public String getId() {

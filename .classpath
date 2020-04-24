@@ -42,5 +42,23 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/liviazhu/.m2/repository/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar" sourcepath="/Users/liviazhu/.m2/repository/com/google/code/gson/gson/2.8.6/gson-2.8.6-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.google.code.gson"/>
+			<attribute name="maven.artifactId" value="gson"/>
+			<attribute name="maven.version" value="2.8.6"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/liviazhu/.m2/repository/com/google/guava/guava/28.2-jre/guava-28.2-jre.jar" sourcepath="/Users/liviazhu/.m2/repository/com/google/guava/guava/28.2-jre/guava-28.2-jre-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.google.guava"/>
+			<attribute name="maven.artifactId" value="guava"/>
+			<attribute name="maven.version" value="28.2-jre"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

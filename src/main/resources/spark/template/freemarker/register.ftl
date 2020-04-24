@@ -33,7 +33,7 @@ ${message}
 			    <input type="password" id="confirm-password" name="confirm-password"><br>
 			</div>
 		</div>
-		<div class="submit-button"> <input type="submit" value="SUBMIT"></div>
+		<div class="submit-button-wrapper"> <input class="submit-button" type="submit" value="SUBMIT"></div>
 	</form>
 </div>
 <div class="register-link">

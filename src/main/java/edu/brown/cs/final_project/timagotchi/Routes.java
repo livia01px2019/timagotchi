@@ -13,6 +13,7 @@ import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
+import edu.brown.cs.final_project.timagotchi.users.Teacher;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -92,6 +93,29 @@ public class Routes {
     }
   }
 
+  public static class SubmitNewClassHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      QueryParamsMap qmap = req.queryMap();
+      String name = qmap.value("name");
+      Class newClass = Controller.createClassCommand(new String[] {
+          name, cookies.get("username")
+      });
+
+      // Check that name is valid
+      String valid = "Name invalid!";
+      if (name.equals("")) {
+        valid = "Please enter a class name.";
+      } else if (!(newClass == null)) {
+        valid = "Success!";
+      }
+
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid);
+      return GSON.toJson(responseObject);
+    }
+  }
+
   public static class RegisterHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -107,10 +131,10 @@ public class Routes {
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = req.params(":id");
-      // TODO: generate class name from Id
-      String classesHtml = generateClassSidebar();
+      String className = Controller.getClass(classId).getName();
+      String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
-          "classes", classesHtml, "className", classId);
+          "classes", classesHtml, "className", className);
       return new ModelAndView(variables, "quiz_content.ftl");
     }
   }
@@ -123,7 +147,7 @@ public class Routes {
       Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
       Pet currPet = Controller.getPet(currStudent.getPetId());
 
-      String classesHtml = generateClassSidebar();
+      String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "fileNameUsername", new String[] {
               currPet.getImage(), currStudent.getName(), username
@@ -138,9 +162,9 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      String classesHtml = generateClassSidebar();
-      // TODO make leaderboardhtml
-      String leaderboardHtml = "";
+      String classesHtml = generateClassSidebar(cookies);
+      Classboard cb = new Classboard(Controller.getAllClassIds());
+      String leaderboardHtml = generateClassboardHtml(cb);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "leaderboard", leaderboardHtml);
       return new ModelAndView(variables, "student-all-classes.ftl");
@@ -152,10 +176,10 @@ public class Routes {
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = req.params(":id");
-      // TODO: generate class name from Id
-      String classesHtml = generateClassSidebar();
+      String className = Controller.getClass(classId).getName();
+      String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
-          "classes", classesHtml, "className", classId);
+          "classes", classesHtml, className, classId);
       return new ModelAndView(variables, "teacher-class-page.ftl");
     }
   }
@@ -164,12 +188,14 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      String classesHtml = generateClassSidebar();
-      // TODO get teacher's classboard
-      String leaderboardHtml = "";
+      String classesHtml = generateClassSidebar(cookies);
+      String username = cookies.get("username");
+      Teacher currTeacher = Controller.getTeacher(Controller.getTeacherIDFromUsername(username));
+      Classboard cb = new Classboard(currTeacher.getClassIds());
+      String leaderboardHtml = generateClassboardHtml(cb);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
           classesHtml, "fileNameUsername", new String[] {
-              "../img/skin6.png", "Teacher Name", "teacherusername"
+              currTeacher.getName(), currTeacher.getUsername()
           }, "leaderboard", leaderboardHtml);
       return new ModelAndView(variables, "teacher-me.ftl");
     }
@@ -192,9 +218,34 @@ public class Routes {
     }
   }
 
-  private static String generateClassSidebar() {
+  public static class NewClassHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      // String classesHtml = generateClassSidebar(cookies);
+      String classesHtml = "";
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
+          classesHtml);
+      return new ModelAndView(variables, "teacher-new-class.ftl");
+    }
+  }
+
+  private static String generateClassSidebar(Cookies cookies) {
+    String username = cookies.get("username");
     List<Class> classes = new ArrayList<Class>();
-    classes.add(new Class("class1id", "Class 1", new ArrayList<String>()));
+    if (cookies.get("student").equals("true")) {
+      Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
+      List<String> classIds = currStudent.getClassIds();
+      for (String id : classIds) {
+        classes.add(Controller.getClass(id));
+      }
+    } else {
+      Teacher currTeacher = Controller.getTeacher(Controller.getTeacherIDFromUsername(username));
+      List<String> classIds = currTeacher.getClassIds();
+      for (String id : classIds) {
+        classes.add(Controller.getClass(id));
+      }
+    }
     String classesHtml = "";
     for (Class currClass : classes) {
       classesHtml += "<a href=\"" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
@@ -213,7 +264,7 @@ public class Routes {
       sb.append("<h2> \n" + "            <p>");
       sb.append(s.getName());
       sb.append("<p>\n" + "        </div>\n" + "        <p>");
-      int petXp = 100; // TODO fix
+      double petXp = Controller.getPet(s.getPetId()).getXp();
       sb.append(petXp);
       sb.append("</p>\n" + "    </div>");
     }
@@ -231,8 +282,7 @@ public class Routes {
       sb.append("<h2> \n" + "            <p>");
       sb.append(c.getName());
       sb.append("<p>\n" + "        </div>\n" + "        <p>");
-      int classXp = 100; // TODO fix
-      sb.append(classXp);
+      sb.append(c.getAvgXp());
       sb.append("</p>\n" + "    </div>");
     }
     return sb.toString();

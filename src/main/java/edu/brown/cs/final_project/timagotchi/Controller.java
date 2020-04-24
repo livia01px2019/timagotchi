@@ -139,7 +139,8 @@ public class Controller {
   public static String getStudentPassword(String username) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
-              "SELECT password FROM students WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+          "SELECT password FROM students WHERE username=?;",
+          new ArrayList<>(Arrays.asList(username)));
       if (results == null || results.isEmpty()) {
         return "1234"; // TODO: Change this!
       } else {
@@ -161,7 +162,8 @@ public class Controller {
   public static String getTeacherPassword(String username) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
-              "SELECT password FROM teachers WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+          "SELECT password FROM teachers WHERE username=?;",
+          new ArrayList<>(Arrays.asList(username)));
       if (results == null || results.isEmpty()) {
         return "1234"; // TODO: Change this!
       } else {
@@ -360,8 +362,10 @@ public class Controller {
    * @param input List of parameters separated by whitespace (name, teacherId)
    * @return Class The class that was added
    */
-  public Class createClassCommand(String input) {
-    String[] inputList = input.split(" ");
+  public static Class createClassCommand(String[] input) {
+    // TODO fix so this takes in array of string
+    String[] inputList = input;
+//    String[] inputList = input.split(" ");
     try {
       UUID classID = UUID.randomUUID();
       DBProxy.updateQueryParameters("INSERT INTO classes VALUES (?,?);",
@@ -605,16 +609,20 @@ public class Controller {
     }
     return null;
   }
-  
+
   public static String getStudentIDFromUsername(String username) {
     // TODO
     return "id";
   }
-  
+
   public static String getTeacherIDFromUsername(String username) {
     // TODO
     return "id";
   }
 
+  public static List<String> getAllClassIds() {
+    // TODO return every classid
+    return new ArrayList<String>();
+  }
 
 }
