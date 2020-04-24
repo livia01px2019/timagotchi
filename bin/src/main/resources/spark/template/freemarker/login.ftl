@@ -12,9 +12,7 @@
 			<br>
 		</form>
         <b class="error" id="student-error">&nbsp;</b>
-        <div class="submit-button-wrapper">
-        	<button class="submit-button" id="student-button" type="submit" type="button">SUBMIT</button>
-        </div>
+        <button class="submit-button" id="student-button" type="submit" type="button">SUBMIT</button>
 	</div>
 	<div class="login-block">
 		<h2> TEACHER LOGIN </h2>
@@ -28,9 +26,7 @@
 			<br>
 		</form>
         <b class="error" id="teacher-error">&nbsp;</b>
-        <div class="submit-button-wrapper">
-        	<button class="submit-button" id="teacher-button" type="submit" type="button">SUBMIT</button>
-        </div>
+        <button class="submit-button" id="teacher-button" type="submit" type="button">SUBMIT</button>
 	</div>
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/login.js"></script>

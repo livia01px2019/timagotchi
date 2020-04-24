@@ -31,12 +31,10 @@ ${message}
 			    <input type="text" id="username" name="username"> <br>
 			    <input type="password" id="password" name="password"><br>
 			    <input type="password" id="confirm-password" name="confirm-password"><br>
+			    <span id='message'></span>
 			</div>
 		</div>
-		<span id='message'></span>
-		<div class="submit-button-wrapper">
-        	<button class="submit-button" id="submit" type="submit" type="button">SUBMIT</button>
-        </div>
+        <button class="submit-button" id="submit" type="submit" type="button">SUBMIT</button>
 	</form>
 </div>
 <div class="register-link">
