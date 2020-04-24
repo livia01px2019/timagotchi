@@ -606,12 +606,12 @@ public class Controller {
     return null;
   }
   
-  public String getStudentIDFromUsername(String username) {
+  public static String getStudentIDFromUsername(String username) {
     // TODO
     return "id";
   }
   
-  public String getTeacherIDFromUsername(String username) {
+  public static String getTeacherIDFromUsername(String username) {
     // TODO
     return "id";
   }

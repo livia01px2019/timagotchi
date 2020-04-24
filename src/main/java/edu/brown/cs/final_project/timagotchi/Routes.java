@@ -6,9 +6,11 @@ import java.util.Map;
 
 import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
 
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 import spark.ModelAndView;
@@ -17,7 +19,6 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.TemplateViewRoute;
-import com.google.gson.Gson;
 
 /**
  * Routes class! Holds and handles all web server routing.
@@ -121,12 +122,12 @@ public class Routes {
       String username = cookies.get("username");
       Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
       Pet currPet = Controller.getPet(currStudent.getPetId());
-      
+
       String classesHtml = generateClassSidebar();
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "fileNameUsername", new String[] {
               currPet.getImage(), currStudent.getName(), username
-          }, "lvlXp", new int[] {
+          }, "lvlXp", new double[] {
               currPet.getLevel(), currPet.getXp()
           });
       return new ModelAndView(variables, "student-me.ftl");
