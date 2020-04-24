@@ -13,14 +13,10 @@
 <#--			<div class="submit-button"> <input type="submit" id="student-submit" value="SUBMIT"></div>-->
 		</form>
         <b class="error" id="student-error">&nbsp;</b>
-<<<<<<< HEAD
         <div class="submit-button-wrapper">
         	<button class="submit-button" id="student-button" type="submit" type="button">SUBMIT</button>
         </div>
-=======
-        <button class="submit-button" id="student-button" type="submit" type="button">SUBMIT</button>
-        <#-- Fix the CSS for this button please! -->
->>>>>>> parent of abee698... Some minor changes to avoid merge conflicts
+
 	</div>
 	<div class="login-block">
 		<h2> TEACHER LOGIN </h2>

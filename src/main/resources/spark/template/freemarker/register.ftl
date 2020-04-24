@@ -33,14 +33,7 @@ ${message}
 			    <input type="password" id="confirm-password" name="confirm-password"><br>
 			</div>
 		</div>
-<<<<<<< HEAD
-		<span id='message'></span>
-		<div class="submit-button-wrapper">
-        	<button class="submit-button" id="submit" type="submit" type="button">SUBMIT</button>
-        </div>
-=======
 		<div class="submit-button"> <input type="submit" value="SUBMIT"></div>
->>>>>>> parent of abee698... Some minor changes to avoid merge conflicts
 	</form>
 </div>
 <div class="register-link">
