@@ -5,7 +5,7 @@
     z-index: 1; /* Stay on top */
     top: 80px; /* Stay at the top */
     left: 0;
-    background-color: #8B8694; 
+    background-color: #8B8694;
     overflow-x: hidden; /* Disable horizontal scroll */
 }
 
@@ -48,7 +48,7 @@
 
 .header {
 	font-family: 'Press Start 2P', cursive;
-	text-align: left; 
+	text-align: left;
 	background: #61C9A8;
 	font-size: 15pt;
 	display: flex;
@@ -61,7 +61,7 @@
 }
 .header-student {
 	font-family: 'Press Start 2P', cursive;
-	text-align: left; 
+	text-align: left;
 	background: #61C9A8;
 	font-size: 15pt;
 	display: flex;
@@ -107,19 +107,21 @@ h2{
 	width: 40%;
 	margin: 40px;
 }
-
-input[type="submit"]{
-	background: #61C9A8;
-	font-family: 'Press Start 2P', cursive;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 30px;
-	padding-right: 30px;
-	margin: 30px;
-}
 .submit-button{
 	display:flex;
     justify-content: center;
+    background: #61C9A8;
+    font-family: 'Press Start 2P', cursive;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 10px;
+}
+.error{
+    color: darkred;
+    font-size: 13pt;
+    font-family: 'Roboto', sans-serif;
 }
 #username, #password, #name,#confirm-password{
 	width:100%;

@@ -44,13 +44,19 @@ public class Routes {
       QueryParamsMap qmap = req.queryMap();
       String username = qmap.value("username");
       String password = qmap.value("password");
-      System.out.println(username);
 
       // Check that username and password are valid
       String valid = "Invalid username and password!";
       String correctPass = Controller.getStudentPassword(username);
-      if (password.equals(correctPass)) {
+      if (username.equals("")) {
+        valid = "Please enter a username.";
+      } else if (password.equals("")) {
+        valid = "Please enter a password.";
+      } else if (password.equals(correctPass)) {
         valid = "Success!";
+        cookies.set("student", "true");
+        cookies.set("username", username);
+        cookies.set("password", password);
       }
 
       Map<String, Object> responseObject = ImmutableMap.of("results", valid);
@@ -65,13 +71,19 @@ public class Routes {
       QueryParamsMap qmap = req.queryMap();
       String username = qmap.value("username");
       String password = qmap.value("password");
-      System.out.println(username);
 
       // Check that username and password are valid
       String valid = "Invalid username and password!";
-      String correctPass = Controller.getStudentPassword(username);
-      if (password.equals(correctPass)) {
+      String correctPass = Controller.getTeacherPassword(username);
+      if (username.equals("")) {
+        valid = "Please enter a username.";
+      } else if (password.equals("")) {
+        valid = "Please enter a password.";
+      } else if (password.equals(correctPass)) {
         valid = "Success!";
+        cookies.set("student", "false");
+        cookies.set("username", username);
+        cookies.set("password", password);
       }
 
       Map<String, Object> responseObject = ImmutableMap.of("results", valid);

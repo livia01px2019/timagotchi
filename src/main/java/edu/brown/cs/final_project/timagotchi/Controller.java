@@ -131,7 +131,7 @@ public class Controller {
   }
 
   /**
-   * Get Student from Database given its id.
+   * Get Student password from database given a username.
    *
    * @param username The username of the Student
    * @return The password corresponding to that Username
@@ -140,16 +140,38 @@ public class Controller {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
               "SELECT password FROM students WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
-      if (results.size() > 0) {
-        return results.get(0).get(0);
+      if (results == null || results.isEmpty()) {
+        return "1234"; // TODO: Change this!
       } else {
-        return "1234";
+        return results.get(0).get(0);
       }
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    return "1234";
+    return null;
+  }
+
+  /**
+   * Get Teacher password from database given a username.
+   *
+   * @param username The username of the Teacher
+   * @return The password corresponding to that Teacher
+   */
+  public static String getTeacherPassword(String username) {
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+              "SELECT password FROM teachers WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+      if (results == null || results.isEmpty()) {
+        return "1234"; // TODO: Change this!
+      } else {
+        return results.get(0).get(0);
+      }
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
   }
 
   /**

@@ -76,12 +76,10 @@ public final class DBProxy {
           }
           result.add(row);
         }
-        // rs.close();
-      } catch (SQLException e) {
-        System.err.println("ERROR: SQL Exception Error.");
-      } finally {
         // Close the prepared statement.
         prep.close();
+      } catch (SQLException e) {
+        System.err.println("ERROR: SQL Exception Error.");
       }
       return result;
     } else {
@@ -119,12 +117,10 @@ public final class DBProxy {
           }
           result.add(row);
         }
-        // rs.close();
-      } catch (SQLException e) {
-        System.err.println("ERROR: SQL Exception Error.");
-      } finally {
         // Close the prepared statement.
         prep.close();
+      } catch (SQLException e) {
+        System.err.println("ERROR: SQL Exception Error.");
       }
       return result;
     } else {
@@ -152,12 +148,12 @@ public final class DBProxy {
           prep.setString(i + 1, parameters.get(i));
         }
         result = prep.executeUpdate();
-      } catch (SQLException e) {
-        System.err.println("ERROR: SQL Exception Error.");
-      } finally {
         // Close the prepared statement.
         prep.close();
+      } catch (SQLException e) {
+        System.err.println("ERROR: SQL Exception Error.");
       }
+
       if (result == 0) {
         return false;
       }

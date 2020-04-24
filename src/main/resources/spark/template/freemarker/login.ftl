@@ -12,6 +12,7 @@
 			<br>
 <#--			<div class="submit-button"> <input type="submit" id="student-submit" value="SUBMIT"></div>-->
 		</form>
+        <b class="error" id="student-error">&nbsp;</b>
         <button class="submit-button" id="student-button" type="submit" type="button">SUBMIT</button>
         <#-- Fix the CSS for this button please! -->
 	</div>
@@ -27,6 +28,7 @@
 			<br>
 <#--			<div class="submit-button"> <input type="submit" id="teacher-submit" value="SUBMIT"></div>-->
 		</form>
+        <b class="error" id="teacher-error">&nbsp;</b>
         <button class="submit-button" id="teacher-button" type="submit" type="button">SUBMIT</button>
 	</div>
     <script src="js/jquery-2.1.1.js"></script>

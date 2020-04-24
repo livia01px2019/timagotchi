@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import edu.brown.cs.final_project.timagotchi.utils.Command;
+import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import edu.brown.cs.final_project.timagotchi.utils.REPL;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
@@ -22,7 +23,7 @@ import spark.template.freemarker.FreeMarkerEngine;
  */
 public final class Main {
   private static final int DEFAULT_PORT = 4567;
-  private static Controller Controller = new Controller();
+  private static Controller controller = new Controller();
 
   /**
    * The initial method called when execution begins.
@@ -48,6 +49,11 @@ public final class Main {
     parser.accepts("gui");
     parser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(DEFAULT_PORT);
     OptionSet options = parser.parse(args);
+    try {
+      DBProxy.connect("data/working.sqlite3");
+    } catch (Exception e) {
+      System.err.println("Database not connected");
+    }
 
     if (options.has("gui")) {
       runSparkServer((int) options.valueOf("port"));
@@ -55,14 +61,14 @@ public final class Main {
 
     // REPL Handling.
     REPL repl = new REPL(new InputStreamReader(System.in));
-    repl.addCommand("startup", new Command(Controller::startUpCommand));
-    repl.addCommand("addTeacher", new Command(Controller::createTeacherCommand));
-    repl.addCommand("addClass", new Command(Controller::createClassCommand));
-    repl.addCommand("addStudentToClass", new Command(Controller::addStudentIDToClassCommand));
-    repl.addCommand("addStudent", new Command(Controller::createStudentCommand));
-    repl.addCommand("addCheckoff", new Command(Controller::addCheckoffAssignment));
-    repl.addCommand("addQuestion", new Command(Controller::addQuestion));
-    repl.addCommand("addQuiz", new Command(Controller::addQuizAssignment));
+    repl.addCommand("startup", new Command(controller::startUpCommand));
+    repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
+    repl.addCommand("addClass", new Command(controller::createClassCommand));
+    repl.addCommand("addStudentToClass", new Command(controller::addStudentIDToClassCommand));
+    repl.addCommand("addStudent", new Command(controller::createStudentCommand));
+    repl.addCommand("addCheckoff", new Command(controller::addCheckoffAssignment));
+    repl.addCommand("addQuestion", new Command(controller::addQuestion));
+    repl.addCommand("addQuiz", new Command(controller::addQuizAssignment));
     repl.begin();
   }
 
