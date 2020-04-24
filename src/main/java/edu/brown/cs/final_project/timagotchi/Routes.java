@@ -1,5 +1,6 @@
 package edu.brown.cs.final_project.timagotchi;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 import edu.brown.cs.final_project.timagotchi.users.Teacher;
+import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -41,11 +43,11 @@ public class Routes {
 
   public static class LoginStudentHandler implements Route {
     @Override
-    public String handle(Request req, Response res) {
+    public String handle(Request req, Response res) throws NoSuchAlgorithmException {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       QueryParamsMap qmap = req.queryMap();
       String username = qmap.value("username");
-      String password = qmap.value("password");
+      String password = PasswordHashing.hashSHA256(qmap.value("password"));
 
       // Check that username and password are valid
       String valid = "Invalid username and password!";
@@ -68,11 +70,11 @@ public class Routes {
 
   public static class LoginTeacherHandler implements Route {
     @Override
-    public String handle(Request req, Response res) {
+    public String handle(Request req, Response res) throws NoSuchAlgorithmException {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       QueryParamsMap qmap = req.queryMap();
       String username = qmap.value("username");
-      String password = qmap.value("password");
+      String password = PasswordHashing.hashSHA256(qmap.value("password"));
 
       // Check that username and password are valid
       String valid = "Invalid username and password!";
@@ -109,6 +111,41 @@ public class Routes {
         valid = "Please enter a class name.";
       } else if (!(newClass == null)) {
         valid = "Success!";
+      }
+
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid);
+      return GSON.toJson(responseObject);
+    }
+  }
+
+  public static class RegisterSubmitHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      QueryParamsMap qmap = req.queryMap();
+      String student = qmap.value("student");
+      String teacher = qmap.value("teacher");
+      System.out.println(student);
+      String name = qmap.value("name");
+      String username = qmap.value("username");
+      String password = qmap.value("password");
+      String confirm = qmap.value("confirm");
+      String valid = "Passwords don't match!";
+
+      if (password.equals(confirm)) {
+        try {
+          if (student.equals("true")) {
+            // Create a student
+            Student s = Controller.createStudentCommand(username + " " + password + " " + name);
+            valid = "Success!";
+          } else if (teacher.equals("true")) {
+            // Create a teacher
+            Teacher t = Controller.createTeacherCommand(username + " " + password + " " + name);
+            valid = "Success!";
+          }
+        } catch (Exception e) {
+          valid = "Failure!";
+        }
       }
 
       Map<String, Object> responseObject = ImmutableMap.of("results", valid);
@@ -219,23 +256,6 @@ public class Routes {
               currTeacher.getName(), currTeacher.getUsername()
           }, "leaderboard", leaderboardHtml);
       return new ModelAndView(variables, "teacher-me.ftl");
-    }
-  }
-
-  public static class RegisterSubmitHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      QueryParamsMap qmap = req.queryMap();
-      String role = qmap.value("role");
-      String name = qmap.value("name");
-      String username = qmap.value("username");
-      String password = qmap.value("password");
-      // send to backend
-
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Register", "message",
-          "<p style=\"text-align: center; width: 100%; background-color: green\"> Register successful. Please login.</p>");
-      return new ModelAndView(variables, "register.ftl");
     }
   }
 

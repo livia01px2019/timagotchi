@@ -341,7 +341,7 @@ public class Controller {
    *              name)
    * @return The teacher that was added
    */
-  public Teacher createTeacherCommand(String input) {
+  public static Teacher createTeacherCommand(String input) {
     String[] inputList = input.split(" ");
     try {
       UUID teacherID = UUID.randomUUID();
@@ -443,17 +443,18 @@ public class Controller {
   /**
    * Create Student Command
    *
-   * @param input List of parameters separated by whitespace (id, username,
+   * @param input List of parameters separated by whitespace (username,
    *              password, name)
    * @return The student that was added
    */
-  public Student createStudentCommand(String input) {
+  public static Student createStudentCommand(String input) {
     String[] inputList = input.split(" ");
     try {
+      UUID studentID = UUID.randomUUID();
       String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
       DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], inputList[1], hashedPassword, inputList[3])));
-      return new Student(inputList[0], inputList[1], hashedPassword, inputList[3]);
+          new ArrayList<>(Arrays.asList(studentID.toString(), inputList[0], hashedPassword, inputList[2])));
+      return new Student(studentID.toString(), inputList[0], hashedPassword, inputList[2]);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
