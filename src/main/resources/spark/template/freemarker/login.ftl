@@ -10,11 +10,9 @@
 			<label for="student-password">Password:</label><br>
 			<input type="password" id="student-password" name="student-password"><br>
 			<br>
-<#--			<div class="submit-button"> <input type="submit" id="student-submit" value="SUBMIT"></div>-->
 		</form>
         <b class="error" id="student-error">&nbsp;</b>
         <button class="submit-button" id="student-button" type="submit" type="button">SUBMIT</button>
-        <#-- Fix the CSS for this button please! -->
 	</div>
 	<div class="login-block">
 		<h2> TEACHER LOGIN </h2>
@@ -26,7 +24,6 @@
 			<label for="teacher-password">Password:</label><br>
 			<input type="password" id="teacher-password" name="teacher-password"><br>
 			<br>
-<#--			<div class="submit-button"> <input type="submit" id="teacher-submit" value="SUBMIT"></div>-->
 		</form>
         <b class="error" id="teacher-error">&nbsp;</b>
         <button class="submit-button" id="teacher-button" type="submit" type="button">SUBMIT</button>
