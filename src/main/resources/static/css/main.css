@@ -187,13 +187,12 @@ p{
 .profile{
 	display:flex;
 	flex-direction:row;
-	padding-left: 10%;
-	padding-top: 60px;
-	padding-bottom: 60px;
-}
-.profile-info{
+	margin: 40px;
 	font-family: 'Roboto', sans-serif;
 	font-size: 25px;
+	align-items: center;
+	justify-content: space-between;
+	margin-right: 10%;
 }
 .progress-bar{
 	display:flex;
