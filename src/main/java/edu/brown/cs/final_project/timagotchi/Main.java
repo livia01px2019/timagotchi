@@ -62,9 +62,9 @@ public final class Main {
     // REPL Handling.
     REPL repl = new REPL(new InputStreamReader(System.in));
     repl.addCommand("startup", new Command(controller::startUpCommand));
-    //repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
+    // repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
     repl.addCommand("addStudentToClass", new Command(controller::addStudentIDToClassCommand));
-    //repl.addCommand("addStudent", new Command(controller::createStudentCommand));
+    // repl.addCommand("addStudent", new Command(controller::createStudentCommand));
     repl.addCommand("addCheckoff", new Command(controller::addCheckoffAssignment));
     repl.addCommand("addQuestion", new Command(controller::addQuestion));
     repl.addCommand("addQuiz", new Command(controller::addQuizAssignment));
@@ -105,6 +105,7 @@ public final class Main {
     Spark.get("/teacher/main", new Routes.TeacherMainHandler(), freeMarker);
     Spark.get("/teacher/new-class", new Routes.NewClassHandler(), freeMarker);
     Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
+    Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
 
     Spark.post("/register-submit", new Routes.RegisterSubmitHandler());
     Spark.post("/login-student", new Routes.LoginStudentHandler());

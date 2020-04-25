@@ -27,6 +27,7 @@ import spark.TemplateViewRoute;
  * Routes class! Holds and handles all web server routing.
  */
 public class Routes {
+
   private static final Gson GSON = new Gson();
 
   public static class LoginHandler implements TemplateViewRoute {
@@ -289,6 +290,19 @@ public class Routes {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
           classesHtml);
       return new ModelAndView(variables, "teacher-new-class.ftl");
+    }
+  }
+
+  public static class LogoutHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      cookies.remove("username");
+      cookies.remove("password");
+      cookies.remove("student");
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+          "<script>window.location.href = '/login';</script>");
+      return new ModelAndView(variables, "error.ftl");
     }
   }
 
