@@ -16,7 +16,7 @@ public class Pet {
     level = 1;
     Random rand = new Random();
     int randomElement = rand.nextInt(7);
-    // TODO: need to make it relative?
+    // TODO: need to make the path relative?
     pathToSprite = "skin" + randomElement + ".png";
   }
 

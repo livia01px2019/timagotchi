@@ -130,6 +130,84 @@ public class Controller {
   }
 
   /**
+   * Add pet to student.
+   *
+   * @param input studentID, pet name
+   * @return
+   */
+  public static Pet addPet(String input) {
+    String[] inputList = input.split(" ");
+    try {
+      UUID petID = UUID.randomUUID();
+      Pet p = new Pet(petID.toString(), inputList[1]);
+      DBProxy.updateQueryParameters("INSERT INTO pets VALUES (?,?,?,?,?);",
+          new ArrayList<>(Arrays.asList(petID.toString(), inputList[1], "0", "1", p.getImage())));
+      DBProxy.updateQueryParameters("INSERT INTO student_pet VALUES (?,?);",
+          new ArrayList<>(Arrays.asList(inputList[0], petID.toString())));
+      return p;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * Complete Assignment for Student.
+   *
+   * @param input studentID, assignmentID
+   * @return
+   */
+  public static Assignment completeAssignment(String input) {
+    String[] inputList = input.split(" ");
+    try {
+      Assignment a = getAssignment(inputList[1]);
+      a.setComplete(inputList[0], true);
+      return a;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * Add Student Record (Quiz) to Student.
+   *
+   * @param studentID
+   * @param assignmentID
+   * @param inputList    List of the student's answers (index) to the assignment.
+   * @return
+   */
+  public static Assignment addStudentRecord(String studentID, String assignmentID,
+      List<Integer> inputList) {
+    try {
+      Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
+      List<List<String>> questions = DBProxy.executeQueryParameters(
+          "SELECT DISTINCT p1.id,p1.answerID,p1.score FROM questions AS p1, assignment_question AS p2 WHERE p2.assignmentID=?;",
+          new ArrayList<>(Arrays.asList(assignmentID)));
+      if (inputList.size() == questions.size()) {
+        for (int i = 0; i < questions.size(); i++) {
+          // look up index to optionID
+          String questionID = questions.get(i).get(0);
+          List<List<String>> options = DBProxy.executeQueryParameters(
+              "SELECT id FROM option WHERE questionID=?",
+              new ArrayList<>(Arrays.asList(questionID)));
+          String correctOptionID = options.get(inputList.get(i)).get(0);
+          // compare optionID to answerID
+          if (correctOptionID.equals(questions.get(i).get(1))) {
+            a.setRecord(studentID, inputList.get(i), true);
+          } else {
+            a.setRecord(studentID, inputList.get(i), false);
+          }
+        }
+      }
+      return a;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
    * Get Student password from database given a username.
    *
    * @param username The username of the Student

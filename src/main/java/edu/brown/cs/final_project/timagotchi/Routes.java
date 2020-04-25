@@ -53,6 +53,8 @@ public class Routes {
       // Check that username and password are valid
       String valid = "Invalid username and password!";
       String correctPass = Controller.getStudentPassword(username);
+      System.out.println(correctPass);
+      System.out.println(password);
       if (username.equals("")) {
         valid = "Please enter a username.";
       } else if (password.equals("")) {
