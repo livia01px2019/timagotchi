@@ -521,8 +521,10 @@ public class Controller {
       String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
       DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);", new ArrayList<>(
           Arrays.asList(studentID.toString(), inputList[0], hashedPassword, inputList[2])));
-      // TODO create pet!!
-      return new Student(studentID.toString(), inputList[0], hashedPassword, inputList[2]);
+      Pet p = addPet(studentID.toString() + " aaa"); // TODO: Change for pet name
+      Student s = new Student(studentID.toString(), inputList[0], hashedPassword, inputList[2]);
+      s.setPetId(p.getId());
+      return s;
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -17,7 +17,7 @@ public class Pet {
     Random rand = new Random();
     int randomElement = rand.nextInt(7);
     // TODO: need to make the path relative?
-    pathToSprite = "skin" + randomElement + ".png";
+    pathToSprite = "../img/skin" + randomElement + ".png";
   }
 
   public String getName() {
