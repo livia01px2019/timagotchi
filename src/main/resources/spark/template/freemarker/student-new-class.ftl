@@ -18,7 +18,6 @@
 	    </div>
 	</div>
 </div>
-<script src="../js/student-new-class.js"></script>
 
 </#assign>
 <#include "student-main.ftl">
