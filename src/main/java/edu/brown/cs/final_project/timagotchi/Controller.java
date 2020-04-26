@@ -308,6 +308,7 @@ public class Controller {
           new ArrayList<>(Arrays.asList(id)));
       for (List<String> c : classes) {
         t.addClassId(c.get(0));
+        System.out.println("class id: " + c.get(0));
       }
       return t;
     } catch (Exception e) {
@@ -432,10 +433,7 @@ public class Controller {
    * @param input List of parameters separated by whitespace (name, teacherId)
    * @return Class The class that was added
    */
-  public static Class createClassCommand(String[] input) {
-    // TODO fix so this takes in array of string
-    String[] inputList = input;
-//    String[] inputList = input.split(" ");
+  public static Class createClassCommand(String[] inputList) {
     try {
       UUID classID = UUID.randomUUID();
       DBProxy.updateQueryParameters("INSERT INTO classes VALUES (?,?);",

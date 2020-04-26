@@ -112,7 +112,7 @@ public class Routes {
       QueryParamsMap qmap = req.queryMap();
       String name = qmap.value("name");
       Class newClass = Controller.createClassCommand(new String[] {
-          name, cookies.get("username")
+          name, Controller.getTeacherIDFromUsername(cookies.get("username"))
       });
 
       // Check that name is valid
@@ -496,8 +496,10 @@ public class Routes {
       Teacher currTeacher = Controller.getTeacher(id);
       if (currTeacher.getClassIds() != null) {
         classIds = currTeacher.getClassIds();
+        System.out.println("class ids: " + classIds);
+        System.out.println("teacher name: " + currTeacher.getName());
+        System.out.println("teacher id: " + currTeacher.getId());
       }
-
     }
     for (String id : classIds) {
       classes.add(Controller.getClass(id));
