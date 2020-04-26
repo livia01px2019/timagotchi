@@ -21,6 +21,7 @@
      <script src="js/jquery-2.1.1.js"></script>
      <script src="js/main.js"></script>
      <script src="js/page-logic.js"></script>
+     <script src="js/register.js"></script>
   </body>
   <!-- See http://html5boilerplate.com/ for a good place to start
        dealing with real world issues like old browsers.  -->

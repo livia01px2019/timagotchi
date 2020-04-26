@@ -3,25 +3,31 @@
     width: 16%; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
-    top: 70px; /* Stay at the top */
+    top: 80px; /* Stay at the top */
     left: 0;
-    background-color: #111; /* Black */
+    background-color: #8B8694;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
 }
 
 /* The navigation menu links */
 .sidenav a {
-    padding: 6px 8px 6px 16px;
+    padding-top:20px;
+	padding-bottom:20px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+	background-color: #ADA8B6;
+    color: black;
     display: block;
+	text-align: center;
+}
+.sidenav img {
+    width: 30px;
+	height:auto;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-    color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 .main {
@@ -42,38 +48,46 @@
 
 .header {
 	font-family: 'Press Start 2P', cursive;
-	text-align: center; 
+	text-align: left;
 	background: #61C9A8;
 	font-size: 15pt;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center;
 	position: fixed;
     top: 0;
 	width: 100%;
-	height: 70px;
+	height: 80px;
 }
-.header-student {
-	font-family: 'Press Start 2P', cursive;
-	text-align: center; 
-	background: #61C9A8;
-	font-size: 15pt;
+.header-student{
+	font-family: 'Roboto', sans-serif;
 	display: flex;
 	flex-direction: row;
 	position: fixed;
-    top: 0;
+	justify-content: space-between;
 	width: 100%;
-	height: 70px;
+	height: 80px;
+    top: 0;
+	background: #61C9A8;
+	padding-right: 40px;
+	align-items: center;
+}
+.header-left {
+	font-family: 'Press Start 2P', cursive;
+	text-align: left;
+	font-size: 15pt;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 }
 .after-header-spacing{
-	padding:70px;
+	padding:40px;
 }
 .logo{
-	padding: 20px;
+	padding: 10px;
 	flex-shrink: 0;
-	width: 70px;
-	height: auto;
+	width: auto;
+	height: 80px;
 }
 body{
 	background: #FFEEDB;
@@ -101,19 +115,28 @@ h2{
 	width: 40%;
 	margin: 40px;
 }
-
-input[type="submit"]{
-	background: #61C9A8;
-	font-family: 'Press Start 2P', cursive;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 30px;
-	padding-right: 30px;
-	margin: 30px;
+.login-block input{
+	width: 100%;
 }
 .submit-button{
+    background: #61C9A8;
+    font-family: 'Press Start 2P', cursive;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 10px;
+}
+.submit-button-wrapper{
 	display:flex;
     justify-content: center;
+	align-content: center;
+	text-align: center;
+}
+.error{
+    color: darkred;
+    font-size: 13pt;
+    font-family: 'Roboto', sans-serif;
 }
 #username, #password, #name,#confirm-password{
 	width:100%;
@@ -164,18 +187,79 @@ p{
 .profile{
 	display:flex;
 	flex-direction:row;
-	justify-content: center;
-	align-items: center;
-}
-.profile-info{
+	margin: 40px;
 	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	align-items: center;
+	justify-content: space-between;
+	margin-right: 10%;
 }
 .progress-bar{
 	display:flex;
 	flex-direction:row;
 	justify-content: center;
 	align-items: center;
+	font-size: 20px;
 }
 .progress{
 	color: #61C9A8;
+}
+h3{
+	margin-bottom:0.5em;
+	margin-top:0.5em;
+}
+.leaderboard{
+	display:flex;
+	flex-direction: column;
+	margin: 40px;
+	margin-right: 10%;
+}
+.leaderboard-header{
+	font-family: 'Press Start 2P', cursive;
+	background-color: #61C9A8;
+	text-align: center;
+	width: 100%;
+	font-size: 20px;
+}
+.leaderboard-item{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background-color: white;
+	margin-top: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.leaderboard-item h2{
+	font-family: 'Press Start 2P', cursive;
+	font-size:20px;
+	padding-right: 10px;
+}
+.leaderboard-item p{
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+}
+.leaderboard-row{
+	display:flex;
+	flex-direction: row;
+}
+.new-class{
+	margin-left: 8%;
+	margin-right: 10%;
+	margin-top: 30px;
+}
+.new-class-block{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: #ADA8B6;
+	font-family: 'Roboto', sans-serif;
+	font-size: 15pt;
+	padding: 20px;
+	width: 100%;
+	margin: 0;
+	margin-top: 30px;
 }

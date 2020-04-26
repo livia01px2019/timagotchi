@@ -1,5 +1,7 @@
 package edu.brown.cs.final_project.timagotchi.pets;
 
+import java.util.Random;
+
 public class Pet {
   private String id;
   private String name;
@@ -7,12 +9,15 @@ public class Pet {
   private int level;
   private String pathToSprite;
 
-  public Pet(String i, String petName, String imagePath) {
+  public Pet(String i, String petName) {
     id = i;
     name = petName;
     xp = 0;
     level = 1;
-    pathToSprite = imagePath;
+    Random rand = new Random();
+    int randomElement = rand.nextInt(7);
+    // TODO: need to make the path relative?
+    pathToSprite = "skin" + randomElement + ".png";
   }
 
   public String getName() {
@@ -37,6 +42,10 @@ public class Pet {
 
   public void incrementLevel() {
     level = level + 1;
+  }
+
+  public void setLevel(int l) {
+    level = l;
   }
 
   public void updateSprite(String imagePath) {

@@ -1,7 +1,7 @@
 <#assign content>
 <div id="grid"></div>
 
-<h1> STUDENT: ASSIGNMENTS </h1>
+<h1> ${className} </h1>
   <table align="center" style="width: 100%"><tr><td>
         <h2> Quizzes </h2>
 
@@ -25,7 +25,9 @@
             ${checkofflist}
           </table>
         </div>
-      </td></tr>
+      </td>
+      </tr>
   </table>
+  <#include "leaderboard.ftl">
 </#assign>
 <#include "student-main.ftl">

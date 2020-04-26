@@ -1,7 +1,11 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import edu.brown.cs.final_project.timagotchi.Controller;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
@@ -22,14 +26,12 @@ public class Student implements People {
    * @param i    The id of the student.
    * @param user The username of the student.
    * @param pass The password of the student.
-   * @param p    The id of the pet belonging the student.
    * @param n    The name of the student.
    */
-  public Student(String i, String user, String pass, String p, String n) throws NoSuchAlgorithmException {
+  public Student(String i, String user, String pass, String n) throws NoSuchAlgorithmException {
     id = i;
     username = user;
     passwordHash = pass;
-    petId = p;
     name = n;
     wrongQuestionIds = new ArrayList<HashSet<String>>();
     classIds = new ArrayList<String>();
@@ -48,9 +50,10 @@ public class Student implements People {
   }
 
   /**
-   * Adds the id of a question the student has gotten wrong for the class with id cid.
+   * Adds the id of a question the student has gotten wrong for the class with id
+   * cid.
    *
-   * @param cid The id of the class that is wanted.
+   * @param cid             The id of the class that is wanted.
    * @param wrongQuestionId The id of the question the student got wrong.
    */
   public void addWrongQuestionId(String wrongQuestionId, String cid) {
@@ -59,10 +62,10 @@ public class Student implements People {
   }
 
   /**
-   * Removes the id of a question the student got wrong at first but now got
-   * right for the class with id cid.
+   * Removes the id of a question the student got wrong at first but now got right
+   * for the class with id cid.
    *
-   * @param cid The id of the class that is wanted.
+   * @param cid             The id of the class that is wanted.
    * @param wrongQuestionId The id of the question the student originally got
    *                        wrong.
    */

@@ -116,6 +116,16 @@
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.30.1</version>
     </dependency>
+
+    <!--
+        Hamcrest is used for creating assertion tests in junit.
+        https://github.com/js-cookie/java-cookie.
+    -->
+    <dependency>
+      <groupId>com.github.js-cookie</groupId>
+      <artifactId>java-cookie</artifactId>
+      <version>0.0.2</version>
+    </dependency>
   </dependencies>
 
   <!-- Build section -->

@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300&display=swap" rel="stylesheet">
   </head>
   <body>
-  	 <#include "student-sidebar.ftl">
   	 <#include "header-student.ftl">
   	 <div class="after-header-spacing"></div>
      <div style="padding-left: 20%">${content}</div>

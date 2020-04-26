@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import edu.brown.cs.final_project.timagotchi.utils.Command;
+import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import edu.brown.cs.final_project.timagotchi.utils.REPL;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
@@ -22,7 +23,7 @@ import spark.template.freemarker.FreeMarkerEngine;
  */
 public final class Main {
   private static final int DEFAULT_PORT = 4567;
-  private static Controller Controller = new Controller();
+  private static Controller controller = new Controller();
 
   /**
    * The initial method called when execution begins.
@@ -48,6 +49,11 @@ public final class Main {
     parser.accepts("gui");
     parser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(DEFAULT_PORT);
     OptionSet options = parser.parse(args);
+    try {
+      DBProxy.connect("data/working.sqlite3");
+    } catch (Exception e) {
+      System.err.println("Database not connected");
+    }
 
     if (options.has("gui")) {
       runSparkServer((int) options.valueOf("port"));
@@ -55,10 +61,13 @@ public final class Main {
 
     // REPL Handling.
     REPL repl = new REPL(new InputStreamReader(System.in));
-    repl.addCommand("startup", new Command(Controller::startUpCommand));
-    repl.addCommand("addTeacher", new Command(Controller::addTeacherCommand));
-    repl.addCommand("addClass", new Command(Controller::addClassCommand));
-    repl.addCommand("addStudent", new Command(Controller::addStudentCommand));
+    repl.addCommand("startup", new Command(controller::startUpCommand));
+    // repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
+    repl.addCommand("addStudentToClass", new Command(controller::addStudentIDToClassCommand));
+    // repl.addCommand("addStudent", new Command(controller::createStudentCommand));
+    repl.addCommand("addCheckoff", new Command(controller::addCheckoffAssignment));
+    repl.addCommand("addQuestion", new Command(controller::addQuestion));
+    repl.addCommand("addQuiz", new Command(controller::addQuizAssignment));
     repl.begin();
   }
 
@@ -95,12 +104,24 @@ public final class Main {
     Spark.get("/student/quiz-finished", new Routes.FinishedQuizHandler(), freeMarker);
     Spark.get("/student/quiz", new Routes.StudentQuizHandler(), freeMarker);
     Spark.get("/teacher/create-assignment", new Routes.TeacherNewAssignmentHandler(), freeMarker);
+    Spark.get("/student/main", new Routes.StudentMainHandler(), freeMarker);
+    Spark.get("/student/all-classes", new Routes.StudentLeaderboardHandler(), freeMarker);
+    Spark.get("/student/:id", new Routes.StudentClassHandler(), freeMarker);
+    Spark.get("/teacher/main", new Routes.TeacherMainHandler(), freeMarker);
+    Spark.get("/teacher/new-class", new Routes.NewClassHandler(), freeMarker);
+    Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
+    Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
+
+    Spark.post("/register-submit", new Routes.RegisterSubmitHandler());
+    Spark.post("/login-student", new Routes.LoginStudentHandler());
+    Spark.post("/login-teacher", new Routes.LoginTeacherHandler());
+    Spark.post("/teacher/submit-new-class", new Routes.SubmitNewClassHandler());
   }
 
   /**
    * Display an error page when an exception occurs in the server.
    */
-  private static class ExceptionPrinter implements ExceptionHandler {
+  private static class ExceptionPrinter implements ExceptionHandler<Exception> {
     @Override
     public void handle(Exception e, Request req, Response res) {
       res.status(500);

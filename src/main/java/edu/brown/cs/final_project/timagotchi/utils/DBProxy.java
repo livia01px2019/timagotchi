@@ -76,13 +76,12 @@ public final class DBProxy {
           }
           result.add(row);
         }
-      } catch (SQLException e) {
-        System.err.println("ERROR: SQL Exception Error.");
-      } finally {
         // Close the prepared statement.
         prep.close();
-        return result;
+      } catch (SQLException e) {
+        System.err.println("ERROR: SQL Exception Error.");
       }
+      return result;
     } else {
       throw new Exception("ERROR: Database not connected.");
     }
@@ -118,13 +117,12 @@ public final class DBProxy {
           }
           result.add(row);
         }
-      } catch (SQLException e) {
-        System.err.println("ERROR: SQL Exception Error.");
-      } finally {
         // Close the prepared statement.
         prep.close();
-        return result;
+      } catch (SQLException e) {
+        System.err.println("ERROR: SQL Exception Error.");
       }
+      return result;
     } else {
       throw new Exception("ERROR: Database not connected.");
     }
@@ -150,16 +148,16 @@ public final class DBProxy {
           prep.setString(i + 1, parameters.get(i));
         }
         result = prep.executeUpdate();
-      } catch (SQLException e) {
-        System.err.println("ERROR: SQL Exception Error.");
-      } finally {
         // Close the prepared statement.
         prep.close();
-        if (result == 0) {
-          return false;
-        }
-        return true;
+      } catch (SQLException e) {
+        System.err.println("ERROR: SQL Exception Error.");
       }
+
+      if (result == 0) {
+        return false;
+      }
+      return true;
     } else {
       throw new Exception("ERROR: Database not connected.");
     }
