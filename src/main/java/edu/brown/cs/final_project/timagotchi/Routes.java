@@ -189,7 +189,7 @@ public class Routes {
       String id = "john";
       List<Quiz> quizList = new ArrayList<>();
       List<Question> qs = new ArrayList<Question>();
-      Quiz quiz1 = new Quiz("john", "Quiz 1", false, 1, qs, false);
+      Quiz quiz1 = new Quiz("john", "Quiz 1", 1, qs, false);
       quizList.add(quiz1);
       String htmlQuiz = "";
       for (Quiz quiz : quizList) {
@@ -230,7 +230,7 @@ public class Routes {
       // TODO: Integration with backend
       String id = "john";
       List<Question> qs = new ArrayList<Question>();
-      Quiz quiz = new Quiz("john", "Quiz 1", false, 1, qs, false);
+      Quiz quiz = new Quiz("john", "Quiz 1", 1, qs, false);
       String htmlQuizDone = "";
       List<Question> questionList = quiz.getQuestions();
       for (int i = 0; i < questionList.size(); i++) {
