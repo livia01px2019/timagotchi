@@ -308,7 +308,6 @@ public class Controller {
           new ArrayList<>(Arrays.asList(id)));
       for (List<String> c : classes) {
         t.addClassId(c.get(0));
-        System.out.println("class id: " + c.get(0));
       }
       return t;
     } catch (Exception e) {

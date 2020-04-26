@@ -486,7 +486,6 @@ public class Routes {
     if (cookies.get("student").equals("true")) {
       String id = Controller.getStudentIDFromUsername(username);
       Student currStudent = Controller.getStudent(id);
-      System.out.println("student class ids" + currStudent.getClassIds());
       if (currStudent.getClassIds() != null) {
         classIds = currStudent.getClassIds();
       }
@@ -496,9 +495,6 @@ public class Routes {
       Teacher currTeacher = Controller.getTeacher(id);
       if (currTeacher.getClassIds() != null) {
         classIds = currTeacher.getClassIds();
-        System.out.println("class ids: " + classIds);
-        System.out.println("teacher name: " + currTeacher.getName());
-        System.out.println("teacher id: " + currTeacher.getId());
       }
     }
     for (String id : classIds) {
