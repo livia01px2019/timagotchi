@@ -1,6 +1,5 @@
 package edu.brown.cs.final_project.timagotchi;
 
-
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +9,11 @@ import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
@@ -219,7 +218,7 @@ public class Routes {
         }
       }
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-              "quizlist", htmlQuiz, "checkofflist", htmlCheckoff);
+          "quizlist", htmlQuiz, "checkofflist", htmlCheckoff);
       return new ModelAndView(variables, "student-assignment.ftl");
     }
   }
@@ -243,11 +242,11 @@ public class Routes {
           }
           htmlQuizDone += "</td></tr>";
         } else {
-          htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer"  + "</td></tr>";
+          htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer" + "</td></tr>";
         }
       }
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-              "quizresult", htmlQuizDone);
+          "quizresult", htmlQuizDone);
       return new ModelAndView(variables, "quiz_result.ftl");
     }
   }
