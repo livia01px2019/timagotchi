@@ -56,8 +56,6 @@ public class Routes {
       // Check that username and password are valid
       String valid = "Invalid username and password!";
       String correctPass = Controller.getStudentPassword(username);
-      System.out.println(correctPass);
-      System.out.println(password);
       if (username.equals("")) {
         valid = "Please enter a username.";
       } else if (password.equals("")) {
@@ -134,20 +132,16 @@ public class Routes {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       QueryParamsMap qmap = req.queryMap();
       String classID = qmap.value("code");
-      Class newClass = Controller.addStudentIDToClassCommand(new String[] {
-          classID, Controller.getStudentIDFromUsername(cookies.get("username"))
-      });
-
       // Check that name is valid
       String valid = "Name invalid!";
-      if (classID.equals("")) {
-        valid = "Please enter a class code.";
-      } else if ((newClass == null)) {
-        valid = "Code not valid";
-      } else {
+      if (Controller.checkValidClassID(classID)) {
+        Controller.addStudentIDToClassCommand(new String[] {
+            classID, Controller.getStudentIDFromUsername(cookies.get("username"))
+        });
         valid = "Success!";
+      } else {
+        valid = "Code not valid";
       }
-
       Map<String, Object> responseObject = ImmutableMap.of("results", valid);
       return GSON.toJson(responseObject);
     }
@@ -485,7 +479,9 @@ public class Routes {
     List<String> classIds = new ArrayList<String>();
     if (cookies.get("student").equals("true")) {
       String id = Controller.getStudentIDFromUsername(username);
+      System.out.println(id);
       Student currStudent = Controller.getStudent(id);
+      System.out.println(currStudent.getClassIds());
       if (currStudent.getClassIds() != null) {
         classIds = currStudent.getClassIds();
       }
