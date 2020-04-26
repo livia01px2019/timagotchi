@@ -11,17 +11,10 @@
               <th align="left">Quiz</th>
               <th align="left">Status</th>
             </tr>
-            <tr>
-              <td>Quiz 1</td>
-              <td>10/10</td>
-            </tr>
-            <tr>
-              <td>Quiz 2</td>
-              <td>7/10</td>
-            </tr>
+            ${quizlist}
           </table>
         </div>
-      </td><td style="padding-left:10%">
+      </td><td style="padding-left:10%; padding-right:5%">
         <h2> Checkoff Work </h2>
 
         <div class="checkoff">
@@ -29,15 +22,7 @@
             <tr>
               <th align="left">Assignment</th>
               <th align="left">Status</th>
-            </tr>
-            <tr>
-              <td>Checkoff 1</td>
-              <td>1/1</td>
-            </tr>
-            <tr>
-              <td>Checkoff 2</td>
-              <td>0/1</td>
-            </tr>
+            ${checkofflist}
           </table>
         </div>
       </td></tr>

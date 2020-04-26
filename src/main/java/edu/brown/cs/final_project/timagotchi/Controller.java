@@ -25,6 +25,7 @@ public class Controller {
    */
   public static Pet getPet(String petId) {
     // TODO: Implement please
+    return null;
   }
 
   /**
@@ -35,6 +36,7 @@ public class Controller {
    */
   public static Student getStudent(String id) {
     // TODO: Implement please
+    return null;
   }
 
   /**
@@ -45,6 +47,7 @@ public class Controller {
    */
   public static Question getQuestion(String qid) {
     // TODO: Implement please
+    return null;
   }
 
   /**
@@ -55,6 +58,7 @@ public class Controller {
    */
   public static List<Question> getAllQuestions(String classId) {
     // TODO: Implement please
+    return null;
   }
 
   /**
