@@ -105,7 +105,7 @@ public class Routes {
     }
   }
 
-  public static class SubmitNewClassHandler implements Route {
+  public static class SubmitTeacherNewClassHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
@@ -120,6 +120,31 @@ public class Routes {
       if (name.equals("")) {
         valid = "Please enter a class name.";
       } else if (!(newClass == null)) {
+        valid = "Success!";
+      }
+
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid);
+      return GSON.toJson(responseObject);
+    }
+  }
+
+  public static class SubmitStudentNewClassHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      QueryParamsMap qmap = req.queryMap();
+      String classID = qmap.value("code");
+      Class newClass = Controller.addStudentIDToClassCommand(new String[] {
+          classID, Controller.getStudentIDFromUsername(cookies.get("username"))
+      });
+
+      // Check that name is valid
+      String valid = "Name invalid!";
+      if (classID.equals("")) {
+        valid = "Please enter a class code.";
+      } else if ((newClass == null)) {
+        valid = "Code not valid";
+      } else {
         valid = "Success!";
       }
 
@@ -227,6 +252,8 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       // TODO: Integration with backend
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String classesHtml = generateClassSidebar(cookies);
       String id = "john";
       List<Question> qs = new ArrayList<Question>();
       Quiz quiz = new Quiz("john", "Quiz 1", 1, qs, false);
@@ -246,7 +273,7 @@ public class Routes {
         }
       }
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "quizresult", htmlQuizDone);
+          "quizresult", htmlQuizDone, "classes", classesHtml);
       return new ModelAndView(variables, "quiz_result.ftl");
     }
   }
@@ -254,7 +281,10 @@ public class Routes {
   public static class StudentQuizHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz");
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String classesHtml = generateClassSidebar(cookies);
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
+          "classes", classesHtml);
       return new ModelAndView(variables, "student-quiz.ftl");
     }
   }
@@ -388,7 +418,7 @@ public class Routes {
     }
   }
 
-  public static class NewClassHandler implements TemplateViewRoute {
+  public static class TeacherNewClassHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
@@ -405,6 +435,26 @@ public class Routes {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
           classesHtml);
       return new ModelAndView(variables, "teacher-new-class.ftl");
+    }
+  }
+
+  public static class StudentNewClassHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/login';</script>");
+        return new ModelAndView(variables, "error.ftl");
+      } else if (cookies.get("student").equals("false")) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/teacher/main';</script>");
+        return new ModelAndView(variables, "error-teacher.ftl");
+      }
+      String classesHtml = generateClassSidebar(cookies);
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
+          classesHtml);
+      return new ModelAndView(variables, "student-new-class.ftl");
     }
   }
 
@@ -428,11 +478,18 @@ public class Routes {
     if (cookies.get("student").equals("true")) {
       String id = Controller.getStudentIDFromUsername(username);
       Student currStudent = Controller.getStudent(id);
-      classIds = currStudent.getClassIds();
+      System.out.println("student class ids" + currStudent.getClassIds());
+      if (currStudent.getClassIds() != null) {
+        classIds = currStudent.getClassIds();
+      }
+
     } else {
       String id = Controller.getTeacherIDFromUsername(username);
       Teacher currTeacher = Controller.getTeacher(id);
-      classIds = currTeacher.getClassIds();
+      if (currTeacher.getClassIds() != null) {
+        classIds = currTeacher.getClassIds();
+      }
+
     }
     for (String id : classIds) {
       classes.add(Controller.getClass(id));

@@ -489,17 +489,15 @@ public class Controller {
   /**
    * Add Student ID To Class Command
    *
-   * @param input List of parameters separated by whitespace (classID)
+   * @param input List of parameters (classID studentID)
    * @return The class that was just updated
    */
-  public Class addStudentIDToClassCommand(String input) {
-    String[] inputList = input.split(" ");
+  public static Class addStudentIDToClassCommand(String[] inputList) {
     try {
-      UUID studentID = UUID.randomUUID();
       DBProxy.updateQueryParameters("INSERT INTO class_student VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], studentID.toString())));
+          new ArrayList<>(Arrays.asList(inputList[0], inputList[1])));
       Class c = getClass(inputList[0]);
-      c.addStudentId(studentID.toString());
+      c.addStudentId(inputList[1]);
       return c;
     } catch (Exception e) {
       e.printStackTrace();
