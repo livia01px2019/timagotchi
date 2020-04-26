@@ -303,11 +303,19 @@ public class Routes {
         return new ModelAndView(variables, "error-teacher.ftl");
       }
       String classId = req.params(":id");
-      String className = Controller.getClass(classId).getName();
-      String classesHtml = generateClassSidebar(cookies);
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
-          "classes", classesHtml, "className", className);
-      return new ModelAndView(variables, "quiz_content.ftl");
+      try {
+        String className = Controller.getClass(classId).getName();
+        String classesHtml = generateClassSidebar(cookies);
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
+            "classes", classesHtml, "className", className);
+        return new ModelAndView(variables, "quiz_content.ftl");
+      } catch (Exception e) {
+        e.printStackTrace();
+        // classID is incorrect
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/student/main';</script>");
+        return new ModelAndView(variables, "error.ftl");
+      }
     }
   }
 

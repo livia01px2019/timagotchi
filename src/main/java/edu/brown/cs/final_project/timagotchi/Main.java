@@ -106,8 +106,8 @@ public final class Main {
     Spark.get("/teacher/create-assignment", new Routes.TeacherNewAssignmentHandler(), freeMarker);
     Spark.get("/student/main", new Routes.StudentMainHandler(), freeMarker);
     Spark.get("/student/all-classes", new Routes.StudentLeaderboardHandler(), freeMarker);
-    Spark.get("/student/:id", new Routes.StudentClassHandler(), freeMarker);
     Spark.get("/student/new-class", new Routes.StudentNewClassHandler(), freeMarker);
+    Spark.get("/student/:id", new Routes.StudentClassHandler(), freeMarker);
     Spark.get("/teacher/main", new Routes.TeacherMainHandler(), freeMarker);
     Spark.get("/teacher/new-class", new Routes.TeacherNewClassHandler(), freeMarker);
     Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
