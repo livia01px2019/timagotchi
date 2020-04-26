@@ -1,6 +1,5 @@
 package edu.brown.cs.final_project.timagotchi;
 
-
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +9,11 @@ import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
@@ -189,7 +188,7 @@ public class Routes {
       String id = "john";
       List<Quiz> quizList = new ArrayList<>();
       List<Question> qs = new ArrayList<Question>();
-      Quiz quiz1 = new Quiz("john", "Quiz 1", false, 1, qs, false);
+      Quiz quiz1 = new Quiz("john", "Quiz 1", 1, qs, false);
       quizList.add(quiz1);
       String htmlQuiz = "";
       for (Quiz quiz : quizList) {
@@ -219,7 +218,7 @@ public class Routes {
         }
       }
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-              "quizlist", htmlQuiz, "checkofflist", htmlCheckoff);
+          "quizlist", htmlQuiz, "checkofflist", htmlCheckoff);
       return new ModelAndView(variables, "student-assignment.ftl");
     }
   }
@@ -230,7 +229,7 @@ public class Routes {
       // TODO: Integration with backend
       String id = "john";
       List<Question> qs = new ArrayList<Question>();
-      Quiz quiz = new Quiz("john", "Quiz 1", false, 1, qs, false);
+      Quiz quiz = new Quiz("john", "Quiz 1", 1, qs, false);
       String htmlQuizDone = "";
       List<Question> questionList = quiz.getQuestions();
       for (int i = 0; i < questionList.size(); i++) {
@@ -243,11 +242,11 @@ public class Routes {
           }
           htmlQuizDone += "</td></tr>";
         } else {
-          htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer"  + "</td></tr>";
+          htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer" + "</td></tr>";
         }
       }
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-              "quizresult", htmlQuizDone);
+          "quizresult", htmlQuizDone);
       return new ModelAndView(variables, "quiz_result.ftl");
     }
   }
