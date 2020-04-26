@@ -308,7 +308,7 @@ public class Routes {
         String classesHtml = generateClassSidebar(cookies);
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
             "classes", classesHtml, "className", className);
-        return new ModelAndView(variables, "quiz_content.ftl");
+        return new ModelAndView(variables, "student_class.ftl");
       } catch (Exception e) {
         e.printStackTrace();
         // classID is incorrect
