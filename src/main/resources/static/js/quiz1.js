@@ -6,6 +6,7 @@
     const quizContainer = document.getElementById('quiz');
     const resultsContainer = document.getElementById('results');
     const submitButton = document.getElementById('submit');
+	const reward = 0;
     let myQuestions = [];
 
     //new code
@@ -16,6 +17,7 @@
     };
     $.post(address, postParameters, response => {
         const convertedAssignment = JSON.parse(response).assignment;
+		reward = convertedAssignment.reward;
         const questionSet = convertedAssignment.questions;
         for (let q of questionSet) {
             let a={}
@@ -98,7 +100,7 @@
         function showResults(){
 	
 			document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
-			"style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+30XP</p></div></img>";
+			"style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+" + reward + "XP</p></div></img>";
 
             let newHTML = "<table style=\"width:100%;margin-left:auto;margin-right:auto\"><tr><th>Question</th>" +
                 "<th>Answer</th></tr>";

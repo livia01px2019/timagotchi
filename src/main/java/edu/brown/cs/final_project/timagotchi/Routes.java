@@ -297,8 +297,9 @@ public class Routes {
           htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer" + "</td></tr>";
         }
       }
+      int xp = quiz.getReward();
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "quizresult", htmlQuizDone, "classes", classesHtml);
+          "quizresult", htmlQuizDone, "classes", classesHtml, "xp", xp);
       return new ModelAndView(variables, "quiz_result.ftl");
     }
   }
@@ -508,7 +509,8 @@ public class Routes {
             totalScores.add(temp.getTotalScore().toString());
           }
         }
-        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
+            assignmentNames);
         return GSON.toJson(responseObject);
       } else if (qmap.value("type").equals("checkoff")) {
         for (String id : allAssignmentIds) {
@@ -520,7 +522,8 @@ public class Routes {
             totalScores.add(temp.getTotalScore().toString());
           }
         }
-        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
+            assignmentNames);
         return GSON.toJson(responseObject);
       } else if (qmap.value("type").equals("review")) {
         for (String id : allAssignmentIds) {
