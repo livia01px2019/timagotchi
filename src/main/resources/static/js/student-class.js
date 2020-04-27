@@ -51,7 +51,7 @@ $(document).ready(() => {
                 document.getElementById("quizList").style.backgroundColor = "Transparent";
             }
 
-            document.getElementById("quizList").innerHTML = "<li class=\"outer\"><button class=\"inner\" id=\"review\">Review</button></li>";
+            document.getElementById("quizList").innerHTML = "<li class=\"review\"><button class=\"inner\" id=\"review\">Review</button></li>";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(complete[i]);
@@ -68,7 +68,18 @@ $(document).ready(() => {
 
                 $(".outer").click(function() {
                     const id = this.id;
-                    window.location.href = '/student/view-quiz/' + assignmentIds[i];
+                    window.location.href = '/student/view-quiz/' + assignmentIds[id];
+                })
+                $(".review").click(function() {
+                    // Get assignment information.
+                    const postParameters = {
+                        type: "review"
+                    };
+
+                    $.post("/student-class-get", postParameters, response => {
+                        const assignmentId = JSON.parse(response).ids;
+                        window.location.href = '/student/view-quiz/' + assignmentId;
+                    })
                 })
             }
         })
@@ -144,20 +155,6 @@ $(document).ready(() => {
         leaderboardTab.className += " active";
 
 
-    }
-
-    review.onclick = reviewQuiz;
-    function reviewQuiz() {
-        // Get assignment information.
-        const postParameters = {
-            type: "review"
-        };
-
-        $.post("/student-class-get", postParameters, response => {
-            const assignmentId = JSON.parse(response).ids;
-
-            window.location.href = '/student/view-quiz/' + assignmentId;
-        })
     }
 
     // Open the assignments tab to start.

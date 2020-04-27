@@ -673,13 +673,14 @@ public class Routes {
           if (temp instanceof Checkoff) {
             assignmentIds.add(id);
             assignmentNames.add(temp.getName());
-            scores.add(temp.getScore(userId).toString());
-            totalScores.add(temp.getTotalScore().toString());
-            if (temp.getComplete(userId) == null) {
-              complete.add("false");
-            } else {
+            try {
+              scores.add(temp.getScore(userId).toString());
               complete.add(temp.getComplete(userId).toString());
+            } catch (Exception e) {
+              scores.add("INCOMPLETE");
+              complete.add("false");
             }
+            totalScores.add(temp.getTotalScore().toString());
           }
         }
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
