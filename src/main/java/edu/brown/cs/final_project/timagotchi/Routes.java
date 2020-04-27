@@ -8,6 +8,8 @@ import java.util.Map;
 import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
@@ -397,6 +399,53 @@ public class Routes {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
           "classes", classesHtml, className, classId);
       return new ModelAndView(variables, "teacher-class-page.ftl");
+    }
+  }
+
+  public static class TeacherAssignmentHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/login';</script>");
+        return new ModelAndView(variables, "error.ftl");
+      } else if (cookies.get("student").equals("true")) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/student/main';</script>");
+        return new ModelAndView(variables, "error-student.ftl");
+      }
+      String classId = req.params(":classid");
+      String assignmentId = req.params(":assignmentid");
+//      Class classObject = Controller.getClass(classId);
+//      Assignment assignment = Controller.getAssignment(assignmentId);
+//      System.out.println("assignment id" + assignmentId);
+//      JsonArray students = new JsonArray();
+//      for (String studentId: classObject.getStudentIds()) {
+//        Student currStudent = Controller.getStudent(studentId);
+//        JsonObject student = new JsonObject();
+//        student.addProperty("id", studentId);
+//        student.addProperty("name", currStudent.getName());
+//        if (assignment.getComplete(studentId)) {
+//
+//        }
+//      }
+
+      JsonArray students = new JsonArray();
+      for (int i = 0; i < 5; i++) {
+        JsonObject student = new JsonObject();
+        student.addProperty("id", "student" + i);
+        student.addProperty("name", "student" + i);
+        student.addProperty("score", i);
+        students.add(student);
+      }
+      int totalScore = 5;
+//      String className = Controller.getClass(classId).getName();
+      String classesHtml = generateClassSidebar(cookies);
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
+          "classes", classesHtml, "students", GSON.toJson(students), "totalScore", totalScore,
+          "assignmentName", assignmentId);
+      return new ModelAndView(variables, "teacher-assignment.ftl");
     }
   }
 
