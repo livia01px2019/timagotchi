@@ -450,19 +450,19 @@ public class Routes {
     @Override
     public String handle(Request req, Response res) {
       String assignmentID = req.params(":id");
-//      Assignment assignment = Controller.getAssignment(assignmentID);
-      List<String> ans = new ArrayList<>();
-      ans.add("first");
-      ans.add("second");
-      ans.add("third");
-      ans.add("fourth");
-      List<Integer> correct = new ArrayList<>();
-      correct.add(1);
-      Question question = new Question("Q1", "Test", ans, correct);
-      List<Question> qs = new ArrayList<Question>();
-      qs.add(question);
-      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
-      assignment.setReward(100);
+      Assignment assignment = Controller.getAssignment(assignmentID);
+//      List<String> ans = new ArrayList<>();
+//      ans.add("first");
+//      ans.add("second");
+//      ans.add("third");
+//      ans.add("fourth");
+//      List<Integer> correct = new ArrayList<>();
+//      correct.add(1);
+//      Question question = new Question("Q1", "Test", ans, correct);
+//      List<Question> qs = new ArrayList<Question>();
+//      qs.add(question);
+//      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
+//      assignment.setReward(100);
       Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
       return GSON.toJson(variables);
     }
