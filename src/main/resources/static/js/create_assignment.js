@@ -93,7 +93,7 @@ $(document).ready(function () {
         destroy();
         updateRemoveLinks();
     });
-	
+
 	$("input[name='atype']").change(function(){
 		document.getElementById('repeater').hidden = !document.getElementById('repeater').hidden;
 	});
@@ -140,7 +140,7 @@ $(document).ready(function () {
 		console.log(third);
 		console.log(fourth);
 		console.log(questionsList);
-		
+
         let correct = [];
         for (let item of correctAnswers) {
             correct.push($(item).val());
@@ -202,4 +202,3 @@ $(document).ready(function () {
         window.location.href = "/teacher/main";
     }
 });
-  

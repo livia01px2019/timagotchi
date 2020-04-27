@@ -48,12 +48,11 @@ $(document).ready(() => {
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(name);
-                document.getElementById("quizList").innerHTML += "<li><button id=" + i + ">" + name + "</button></li>";
+                document.getElementById("quizList").innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name + "</button></li>";
 
-                $("#" + i).onclick = assign;
-                function assign() {
+                $("#" + i).click(function() {
                     window.location.href = '/student/view-quiz/' + assignmentIds[i];
-                }
+                })
             }
         })
     }
@@ -93,7 +92,7 @@ $(document).ready(() => {
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(name);
-                document.getElementById("checkoffList").innerHTML += "<li><button id=" + i + ">name</button></li>";
+                document.getElementById("checkoffList").innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">name</button></li>";
             }
         })
     }

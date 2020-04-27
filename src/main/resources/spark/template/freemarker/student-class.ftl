@@ -30,19 +30,18 @@
         <button class="ghost"></button>
         <button class="tablinks" id="checkoff">&nbsp;
             <a href="main"><img class="class-logo" src="../img/check-icon.png"></a>
-            Check-off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            Check-off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
         <button class="ghost"></button>
         <button class="tablinks" id="leaderboard">&nbsp;
             <a href="main"><img class="class-logo" src="../img/class-icon.png"></a>
-            Leaderboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            Leaderboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
     </div>
     <div id="quizzes" class="tabcontent">
-        <h3>HELLO?</h3>
         <button class="assignment" id="review">Review</button>
-        <ul class="assignment" id="quizList"></ul>
+        <ul class="assignment-list" id="quizList"></ul>
     </div>
     <div id="checkoffs" class="tabcontent">
-        <ul class="assignment" id="checkoffList"></ul>
+        <ul class="assignment-list" id="checkoffList"></ul>
     </div>
     <div id="leaderboards" class="tabcontent">
         <#include "leaderboard.ftl">

@@ -305,7 +305,7 @@ h3{
     padding: 15px 12px;
     border: 0px;
     border-top: none;
-    width: 90%;
+    width: 70%;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
@@ -317,6 +317,25 @@ h3{
     padding: 8px 15px;
     font-size: 17pt;
 }
+.assignment-list {
+    list-style-type: none;
+    background-color: #ADA8B6;
+    width: 100%;
+    border: 0;
+    padding: 5px 15px;
+    font-size: 17pt;
+}
+.outer {
+    margin: 5px;
+}
+.inner {
+    background-color: #ADA8B6;
+    width: 100%;
+    text-align: left;
+    border: 0;
+    padding: 0px 0px;
+    font-size: 17pt;
+}
 .ghost {
     background-color: transparent;
     visibility: hidden;
@@ -326,4 +345,8 @@ h3{
     flex-shrink: 0;
     width: auto;
     height: 30px;
+}
+#review {
+    padding: 13px 15px;
+    text-align: left;
 }
