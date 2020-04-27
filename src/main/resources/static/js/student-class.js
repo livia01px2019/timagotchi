@@ -66,8 +66,8 @@ $(document).ready(() => {
                         "<p class=\"right\">" + scores[i] + "/" + totalScores[i] + " pts</p></button></li>";
                 }
 
-
-                $("#" + i).click(function() {
+                $(".outer").click(function() {
+                    const id = this.id;
                     window.location.href = '/student/view-quiz/' + assignmentIds[i];
                 })
             }
