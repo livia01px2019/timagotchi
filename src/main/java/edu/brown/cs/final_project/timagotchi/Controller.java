@@ -183,31 +183,15 @@ public class Controller {
    *
    * @param studentID
    * @param assignmentID
-   * @param inputList    List of the student's answers (index) to the assignment.
+   * @param inputList    List of True/Falses
    * @return
    */
   public static Assignment addStudentRecord(String studentID, String assignmentID,
-      List<Integer> inputList) {
+      List<String> inputList) {
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
-      List<List<String>> questions = DBProxy.executeQueryParameters(
-          "SELECT DISTINCT p1.id,p1.answerID FROM questions AS p1, assignment_question AS p2 WHERE p2.assignmentID=?;",
-          new ArrayList<>(Arrays.asList(assignmentID)));
-      if (inputList.size() == questions.size()) {
-        for (int i = 0; i < questions.size(); i++) {
-          // look up index to optionID
-          String questionID = questions.get(i).get(0);
-          List<List<String>> options = DBProxy.executeQueryParameters(
-              "SELECT id FROM option WHERE questionID=?",
-              new ArrayList<>(Arrays.asList(questionID)));
-          String correctOptionID = options.get(inputList.get(i)).get(0);
-          // compare optionID to answerID
-          if (correctOptionID.equals(questions.get(i).get(1))) {
-            a.setRecord(studentID, inputList.get(i), true);
-          } else {
-            a.setRecord(studentID, inputList.get(i), false);
-          }
-        }
+      for (int i = 0; i < inputList.size(); i++) {
+        a.setRecord(studentID, i, Boolean.parseBoolean(inputList.get(i)));
       }
       return a;
     } catch (Exception e) {

@@ -1,7 +1,7 @@
 // To add javascript functionality - if javascript is enabled
 $(document).ready(function () {
     // insert an "add more" button after the last element
-    $('#count').before('<input class="add_btn" id="add_btn" type="button" value="Add Question">');
+    $('#count').before('<input class="add_btn" id="add_btn" type="button" value="ADD QUESTION">');
 
     // add the "remove" link to each section
     $('.repeatable').prepend('<a class="remove" href="javascript:void(0);">[Remove Question]</a>');
@@ -93,7 +93,10 @@ $(document).ready(function () {
         destroy();
         updateRemoveLinks();
     });
-
+	
+	$("input[name='atype']").change(function(){
+		document.getElementById('repeater').hidden = !document.getElementById('repeater').hidden;
+	});
 
     const submit = document.getElementById('submit');
     submit.onclick = createAssignment;

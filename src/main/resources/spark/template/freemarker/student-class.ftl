@@ -37,11 +37,12 @@
             Leaderboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
     </div>
     <div id="quizzes" class="tabcontent">
+        <h3>HELLO?</h3>
         <button class="assignment" id="review">Review</button>
-        <ul class="assignment" id="quiz-list"></ul>
+        <ul class="assignment" id="quizList"></ul>
     </div>
     <div id="checkoffs" class="tabcontent">
-        <ul class="assignment" id="checkoff-list"></ul>
+        <ul class="assignment" id="checkoffList"></ul>
     </div>
     <div id="leaderboards" class="tabcontent">
         <#include "leaderboard.ftl">
