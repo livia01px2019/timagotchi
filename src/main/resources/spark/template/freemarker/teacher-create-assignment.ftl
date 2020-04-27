@@ -3,6 +3,8 @@
     <script src="../js/create_assignment.js"></script>
     <link href="../css/create_assignment.css" rel="stylesheet">
 <#--    <script src="script.js"></script>-->
+	<h1>NEW ASSIGNMENT</h1>
+	
     <form novalidate='novalidate' class='questionbox'>
         <div class='head' >
             <div class='header-field'>
@@ -11,15 +13,17 @@
                 <label style="height: 40px">Points</label>
                 <input id="points" style="width: 22%; height: 40px; margin-left: 5px; margin-bottom: 20px"/>
             </div>
-            <div class='button'>
-                <input id='checkoff' required='required' type='radio' value='checkoff' name='atype'>Checkoff</input>
-                <input id='quiz' required='required' type='radio' value='quiz' name='atype'>Quiz</input>
-            </div>
-            <div class='button' style='padding-top: 15px'>
-                <input id='competitive' required='required' type='radio' value='competitive'>Competitive</input>
-            </div>
+            <div class = "radio-buttons">
+	            <div class='button'>
+	                <input id='checkoff' required='required' type='radio' value='checkoff' name='atype'>Checkoff</input>
+	                <input id='quiz' required='required' type='radio' value='quiz' name='atype'>Quiz</input>
+	            </div>
+	            <div class='button' style='padding-left: 10%'>
+	                <input id='competitive' required='required' type='radio' value='competitive'>Competitive</input>
+	            </div>
+	        </div>
         </div>
-        <div class='repeater'>
+        <div class='repeater' id = 'repeater'>
             <section class='repeatable'>
                 <h2>Question 1</h2>
                 <label style="padding-bottom: 0.5rem">
@@ -119,8 +123,8 @@
             <input id='count' name='count' type='hidden' value='3'>
         </div>
         <div class="submit">
-            <input id='discard' name='discard' type='submit' value='Discard' style="background-color: #A5280D">
-            <input id='submit' name='submit' type='submit' value='Create Assignment'>
+            <input id='discard' name='discard' type='submit' value='DISCARD'>
+            <input id='submit' name='submit' type='submit' value='ADD ASSIGNMENT'>
         </div>
     </form>
 </#assign>
