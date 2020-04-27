@@ -1,0 +1,27 @@
+.teacher-assignment-main {
+	margin-left: 5%;
+	margin-right: 15%;
+	margin-top: 50px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.teacher-assignment-main h2 {
+	font-size: 50px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.assignmentBlock {
+	margin-top: 20px;
+	background-color: #ADA8B6;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+}
+
+.studentBlock {
+	background-color: #BEB9C7;
+	margin: 10px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
