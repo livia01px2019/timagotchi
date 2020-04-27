@@ -614,6 +614,7 @@ public class Routes {
       String username = cookies.get("username");
       String userId = Controller.getStudentIDFromUsername(username);
       QueryParamsMap qmap = req.queryMap();
+
       List<String> allAssignmentIds = Controller.getClass(classId).getAssignmentIds();
       List<String> assignmentIds = new ArrayList<>();
       List<String> assignmentNames = new ArrayList<>();
@@ -622,14 +623,21 @@ public class Routes {
 
       if (qmap.value("type").equals("quiz")) {
         for (String id : allAssignmentIds) {
+          System.out.println("id " + id);
           Assignment temp = Controller.getAssignment(id);
           if (temp instanceof Quiz) {
             assignmentIds.add(id);
             assignmentNames.add(temp.getName());
-            scores.add(temp.getScore(userId).toString());
+            if (temp.getScore(userId) == null) {
+              scores.add("INCOMPLETE");
+            } else {
+              scores.add(temp.getScore(userId).toString());
+            }
             totalScores.add(temp.getTotalScore().toString());
           }
         }
+        System.out.println("Assignments");
+        System.out.println(assignmentIds);
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
             assignmentNames);
         return GSON.toJson(responseObject);

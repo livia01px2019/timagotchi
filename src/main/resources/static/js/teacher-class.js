@@ -48,11 +48,12 @@ $(document).ready(() => {
             for(let i = 0; i < classNames.length; i++) {
                 let name = classNames[i];
                 console.log(name);
-                assignments.innerHTML += "<li><button id=" + i + ">name</button></li>";
+                assignments.innerHTML += "<li><button id=" + i + ">" + name + "</button></li>";
 
-                $("#" + i).onclick(function() {
+                $("#" + i).onclick = assign;
+                function assign() {
                     window.location.href = '/teacher/viewAssignment/' + classIds[i];
-                })
+                }
             }
         })
     }

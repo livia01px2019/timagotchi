@@ -41,18 +41,19 @@ $(document).ready(() => {
             assignmentNames = JSON.parse(response).names;
 
             if (assignmentNames.length === 0) {
-                document.getElementById("quiz-list").style.backgroundColor = "Transparent";
+                document.getElementById("quizList").style.backgroundColor = "Transparent";
             }
 
-            quizzes.innerHTML = "";
+            document.getElementById("quizList").innerHTML = "";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(name);
-                quizzes.innerHTML += "<li><button id=" + i + ">name</button></li>";
+                document.getElementById("quizList").innerHTML += "<li><button id=" + i + ">" + name + "</button></li>";
 
-                $("#" + i).onclick(function() {
+                $("#" + i).onclick = assign;
+                function assign() {
                     window.location.href = '/student/view-quiz/' + assignmentIds[i];
-                })
+                }
             }
         })
     }
@@ -85,14 +86,14 @@ $(document).ready(() => {
             assignmentNames = JSON.parse(response).names;
 
             if (assignmentNames.length === 0) {
-                document.getElementById("checkoff-list").style.backgroundColor = "Transparent";
+                document.getElementById("checkoffList").style.backgroundColor = "Transparent";
             }
 
-            checkoffs.innerHTML = "";
+            document.getElementById("checkoffList").innerHTML = "";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(name);
-                checkoffs.innerHTML += "<li><button id=" + i + ">name</button></li>";
+                document.getElementById("checkoffList").innerHTML += "<li><button id=" + i + ">name</button></li>";
             }
         })
     }
@@ -115,7 +116,7 @@ $(document).ready(() => {
         leaderboards.style.display = "block";
         leaderboardTab.className += " active";
 
-        
+
     }
 
     review.onclick = reviewQuiz;
