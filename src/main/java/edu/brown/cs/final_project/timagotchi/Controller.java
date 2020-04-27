@@ -55,14 +55,18 @@ public class Controller {
               "SELECT prompt,answerID FROM questions WHERE id=?;",
               new ArrayList<>(Arrays.asList(qid.get(0))));
           List<List<String>> options = DBProxy.executeQueryParameters(
-              "SELECT option FROM options WHERE questionID=?;",
+              "SELECT option,id FROM options WHERE questionID=?;",
               new ArrayList<>(Arrays.asList(qid.get(0))));
           List<String> questionOptions = new ArrayList<>();
+          List<Integer> answerIndex = new ArrayList<>();
+          int i = 0;
           for (List<String> o : options) {
             questionOptions.add(o.get(0));
+            if (o.get(1).equals(questionAttributes.get(0).get(1))) {
+              answerIndex.add(i);
+            }
+            i += 1;
           }
-          List<Integer> answerIndex = new ArrayList<>(
-              Arrays.asList(Integer.parseInt(questionAttributes.get(0).get(1))));
           Question fullQuestion = new Question(qid.get(0), questionAttributes.get(0).get(0),
               questionOptions, answerIndex);
           convertedQ.add(fullQuestion);
