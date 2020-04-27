@@ -640,6 +640,7 @@ public class Routes {
       List<String> assignmentNames = new ArrayList<>();
       List<String> scores = new ArrayList<>();
       List<String> totalScores = new ArrayList<>();
+      List<String> complete = new ArrayList<>();
 
       if (qmap.value("type").equals("quiz")) {
         for (String id : allAssignmentIds) {
@@ -654,12 +655,17 @@ public class Routes {
               scores.add(temp.getScore(userId).toString());
             }
             totalScores.add(temp.getTotalScore().toString());
+            if (temp.getComplete(userId) == null) {
+              complete.add("false");
+            } else {
+              complete.add(temp.getComplete(userId).toString());
+            }
           }
         }
         System.out.println("Assignments");
         System.out.println(assignmentIds);
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
-            assignmentNames);
+            assignmentNames, "scores", scores, "totalScores", totalScores, "completed", complete);
         return GSON.toJson(responseObject);
       } else if (qmap.value("type").equals("checkoff")) {
         for (String id : allAssignmentIds) {
@@ -669,10 +675,15 @@ public class Routes {
             assignmentNames.add(temp.getName());
             scores.add(temp.getScore(userId).toString());
             totalScores.add(temp.getTotalScore().toString());
+            if (temp.getComplete(userId) == null) {
+              complete.add("false");
+            } else {
+              complete.add(temp.getComplete(userId).toString());
+            }
           }
         }
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
-            assignmentNames);
+            assignmentNames, "scores", scores, "totalScores", totalScores, "completed", complete);
         return GSON.toJson(responseObject);
       } else if (qmap.value("type").equals("review")) {
         for (String id : allAssignmentIds) {

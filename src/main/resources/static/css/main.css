@@ -326,7 +326,7 @@ h3{
 }
 .outer {
     background-color: #ADA8B6;
-    margin-top: 15px;
+    margin-top: 8px;
     padding: 10px 0px;
 }
 .inner {
@@ -346,4 +346,7 @@ h3{
     flex-shrink: 0;
     width: auto;
     height: 30px;
+}
+.right{
+    float: right;
 }
