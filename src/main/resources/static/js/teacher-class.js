@@ -7,11 +7,10 @@ $(document).ready(() => {
     const studentsTab = document.getElementById('students');
     const classId = document.getElementById('class-code');
     const assignments = document.getElementById('assignments-list');
-
+    let buttons = null;
     const create = document.getElementById('create-assignment');
     let classNames = [];
     let classIds = [];
-
 
     assignmentsTab.onclick = openAssignmentsTab;
     function openAssignmentsTab() {
@@ -48,11 +47,12 @@ $(document).ready(() => {
             for(let i = 0; i < classNames.length; i++) {
                 let name = classNames[i];
                 assignments.innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name + "</button></li>";
-
-                $("#" + i).click(function() {
-                    window.location.href = '/teacher/viewAssignment/' + classIds[i];
-                })
             }
+
+            $(".outer").click(function() {
+                const id = this.id;
+                window.location.href = '/teacher/viewAssignment/' + classIds[id];
+            })
         })
     }
 

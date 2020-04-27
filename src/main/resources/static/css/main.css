@@ -319,21 +319,27 @@ h3{
 }
 .assignment-list {
     list-style-type: none;
-    background-color: #ADA8B6;
     width: 100%;
     border: 0;
-    padding: 5px 15px;
+    padding: 5px 0px;
     font-size: 17pt;
 }
 .outer {
-    margin: 5px;
+    background-color: #ADA8B6;
+    margin-top: 8px;
+    padding: 10px 0px;
+}
+.review {
+    background-color: #ADA8B6;
+    margin-top: 8px;
+    padding: 10px 0px;
 }
 .inner {
     background-color: #ADA8B6;
     width: 100%;
     text-align: left;
     border: 0;
-    padding: 0px 0px;
+    padding: 0px 10px;
     font-size: 17pt;
 }
 .ghost {
@@ -346,7 +352,6 @@ h3{
     width: auto;
     height: 30px;
 }
-#review {
-    padding: 13px 15px;
-    text-align: left;
+.right{
+    float: right;
 }

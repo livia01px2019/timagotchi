@@ -37,8 +37,9 @@
             Leaderboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
     </div>
     <div id="quizzes" class="tabcontent">
-        <button class="assignment" id="review">Review</button>
-        <ul class="assignment-list" id="quizList"></ul>
+        <ul class="assignment-list" id="quizList">
+            <li class="outer"><button class="inner" id="review">Review</button></li>
+        </ul>
     </div>
     <div id="checkoffs" class="tabcontent">
         <ul class="assignment-list" id="checkoffList"></ul>

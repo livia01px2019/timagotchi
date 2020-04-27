@@ -263,6 +263,6 @@ public class Review implements Assignment {
 
   @Override
   public Integer getTotalScore() {
-    return questions.size();
+    return numQuestions;
   }
 }

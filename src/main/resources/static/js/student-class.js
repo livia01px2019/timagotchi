@@ -11,6 +11,9 @@ $(document).ready(() => {
     const checkoffs = document.getElementById('checkoffs');
     let assignmentNames = [];
     let assignmentIds = [];
+    let scores = [];
+    let totalScores = [];
+    let complete = [];
 
 
     quizTab.onclick = openAssignmentsTab;
@@ -39,19 +42,44 @@ $(document).ready(() => {
         $.post("/student-class-get", postParameters, response => {
             assignmentIds = JSON.parse(response).ids;
             assignmentNames = JSON.parse(response).names;
+            scores = JSON.parse(response).scores;
+            totalScores = JSON.parse(response).totalScores;
+            complete = JSON.parse(response).completed;
+
 
             if (assignmentNames.length === 0) {
                 document.getElementById("quizList").style.backgroundColor = "Transparent";
             }
 
-            document.getElementById("quizList").innerHTML = "";
+            document.getElementById("quizList").innerHTML = "<li class=\"review\"><button class=\"inner\" id=\"review\">Review</button></li>";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
-                console.log(name);
-                document.getElementById("quizList").innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name + "</button></li>";
+                console.log(complete[i]);
+                if (complete[i] === "false") {
+                    document.getElementById("quizList").innerHTML +=
+                        "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name +
+                        "<p class=\"right\" style=\"color:black\">/" + totalScores[i] +
+                        " pts</p><p class=\"right\" style=\"color:red\">INCOMPLETE</p></button></li>";
+                } else {
+                    document.getElementById("quizList").innerHTML +=
+                        "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name +
+                        "<p class=\"right\">" + scores[i] + "/" + totalScores[i] + " pts</p></button></li>";
+                }
 
-                $("#" + i).click(function() {
-                    window.location.href = '/student/view-quiz/' + assignmentIds[i];
+                $(".outer").click(function() {
+                    const id = this.id;
+                    window.location.href = '/student/view-quiz/' + assignmentIds[id];
+                })
+                $(".review").click(function() {
+                    // Get assignment information.
+                    const postParameters = {
+                        type: "review"
+                    };
+
+                    $.post("/student-class-get", postParameters, response => {
+                        const assignmentId = JSON.parse(response).ids;
+                        window.location.href = '/student/view-quiz/' + assignmentId;
+                    })
                 })
             }
         })
@@ -83,6 +111,9 @@ $(document).ready(() => {
         $.post("/student-class-get", postParameters, response => {
             assignmentIds = JSON.parse(response).ids;
             assignmentNames = JSON.parse(response).names;
+            scores = JSON.parse(response).scores;
+            totalScores = JSON.parse(response).totalScores;
+            complete = JSON.parse(response).completed;
 
             if (assignmentNames.length === 0) {
                 document.getElementById("checkoffList").style.backgroundColor = "Transparent";
@@ -91,8 +122,16 @@ $(document).ready(() => {
             document.getElementById("checkoffList").innerHTML = "";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
-                console.log(name);
-                document.getElementById("checkoffList").innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">name</button></li>";
+                if (complete[i] === "false") {
+                    document.getElementById("checkoffList").innerHTML +=
+                        "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name +
+                        "<p class=\"right\" style=\"color:black\">/" + totalScores[i] +
+                        " pts</p><p class=\"right\" style=\"color:red\">INCOMPLETE</p></button></li>";
+                } else {
+                    document.getElementById("checkoffList").innerHTML +=
+                        "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name +
+                        "<p class=\"right\">" + scores[i] + "/" + totalScores[i] + " pts</p></button></li>";
+                }
             }
         })
     }
@@ -116,20 +155,6 @@ $(document).ready(() => {
         leaderboardTab.className += " active";
 
 
-    }
-
-    review.onclick = reviewQuiz;
-    function reviewQuiz() {
-        // Get assignment information.
-        const postParameters = {
-            type: "review"
-        };
-
-        $.post("/student-class-get", postParameters, response => {
-            const assignmentId = JSON.parse(response).ids;
-
-            window.location.href = '/student/view-quiz/' + assignmentId;
-        })
     }
 
     // Open the assignments tab to start.
