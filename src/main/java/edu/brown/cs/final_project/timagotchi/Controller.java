@@ -565,7 +565,7 @@ public class Controller {
    *
    * @param assignmentID
    */
-  public void deleteAssignment(String assignmentID) {
+  public static void deleteAssignment(String assignmentID) {
     try {
       DBProxy.updateQueryParameters("DELETE FROM assignments WHERE id=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
@@ -746,10 +746,6 @@ public class Controller {
       e.printStackTrace();
     }
     return null;
-  }
-
-  public static void deleteAssignment(String assignmentId) {
-    // TODO
   }
 
 }
