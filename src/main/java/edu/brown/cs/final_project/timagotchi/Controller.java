@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Leaderboard;
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
@@ -105,11 +104,11 @@ public class Controller {
     return null;
   }
 
-  public static Leaderboard getLeaderboard(List<String> classIDs) {
+  public static Classboard getLeaderboard(List<String> classIDs) {
     return new Classboard(classIDs);
   }
 
-  public static Leaderboard getLeaderboard(String classID) {
+  public static Userboard getLeaderboard(String classID) {
     return new Userboard(classID);
   }
 

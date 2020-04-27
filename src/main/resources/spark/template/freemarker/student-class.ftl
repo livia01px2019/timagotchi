@@ -31,6 +31,10 @@
         <button class="tablinks" id="checkoff">&nbsp;
             <a href="main"><img class="class-logo" src="../img/check-icon.png"></a>
             Check-off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <button class="ghost"></button>
+        <button class="tablinks" id="leaderboard">&nbsp;
+            <a href="main"><img class="class-logo" src="../img/class-icon.png"></a>
+            Leaderboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
     </div>
     <div id="quizzes" class="tabcontent">
         <button class="assignment" id="review">Review</button>
@@ -38,6 +42,9 @@
     </div>
     <div id="checkoffs" class="tabcontent">
         <ul class="assignment" id="checkoff-list"></ul>
+    </div>
+    <div id="leaderboards" class="tabcontent">
+        <#include "leaderboard.ftl">
     </div>
 </div>
 

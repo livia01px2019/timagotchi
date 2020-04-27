@@ -466,8 +466,11 @@ public class Routes {
       try {
         String className = Controller.getClass(classId).getName();
         String classesHtml = generateClassSidebar(cookies);
+        Userboard userboard = Controller.getLeaderboard(classId);
+        String leaderboardHtml = generateUserboardHtml(userboard);
+
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
-            "classes", classesHtml, "className", className);
+            "classes", classesHtml, "className", className, "leaderboard", leaderboardHtml);
         return new ModelAndView(variables, "student-class.ftl");
       } catch (Exception e) {
         e.printStackTrace();
@@ -570,8 +573,11 @@ public class Routes {
       cookies.set("classId", classId);
       String className = Controller.getClass(classId).getName();
       String classesHtml = generateClassSidebar(cookies);
+      Userboard userboard = Controller.getLeaderboard(classId);
+      String leaderBoardHtml = generateUserboardHtml(userboard);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
-          "classes", classesHtml, "className", className, "classId", classId);
+          "classes", classesHtml, "className", className, "classId", classId, "leaderboard",
+          leaderBoardHtml);
       return new ModelAndView(variables, "teacher-class.ftl");
     }
   }
@@ -818,6 +824,7 @@ public class Routes {
       double petXp = Controller.getPet(s.getPetId()).getXp();
       sb.append(petXp);
       sb.append("</p>\n" + "    </div>");
+      i++;
     }
     return sb.toString();
   }
@@ -835,6 +842,7 @@ public class Routes {
       sb.append("<p>\n" + "        </div>\n" + "        <p>");
       sb.append(c.getAvgXp());
       sb.append("</p>\n" + "    </div>");
+      i++;
     }
     return sb.toString();
   }
