@@ -101,8 +101,10 @@ public final class Main {
     Spark.get("/register", new Routes.RegisterHandler(), freeMarker);
     Spark.get("/student/assignment", new Routes.StudentAssignmentHandler(), freeMarker);
     Spark.get("/student", new Routes.StudentMainHandler(), freeMarker);
-    Spark.get("/student/quiz-finished", new Routes.FinishedQuizHandler(), freeMarker);
-    Spark.get("/student/quiz", new Routes.StudentQuizHandler(), freeMarker);
+//    Spark.get("/student/quiz-finished", new Routes.FinishedQuizHandler(), freeMarker);
+    Spark.get("/student/view-quiz/:id", new Routes.StudentQuizHandler(), freeMarker);
+    Spark.post("/student/load-quiz/:id", new Routes.StudentAssignmentLoader());
+    Spark.post("/student/finish-quiz/:id", new Routes.FinishedQuizHandler());
     Spark.get("/teacher/create-assignment", new Routes.TeacherNewAssignmentHandler(), freeMarker);
     Spark.get("/student/main", new Routes.StudentMainHandler(), freeMarker);
     Spark.get("/student/all-classes", new Routes.StudentLeaderboardHandler(), freeMarker);

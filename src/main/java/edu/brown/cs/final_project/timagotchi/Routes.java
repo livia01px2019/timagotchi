@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
@@ -223,7 +224,7 @@ public class Routes {
     }
   }
 
-  public static class FinishedQuizHandler implements TemplateViewRoute {
+  public static class FinishedQuizHandler implements Route {
     @Override
     public ModelAndView handle(Request req, Response res) {
       // TODO: Integration with backend
@@ -254,8 +255,43 @@ public class Routes {
   public static class StudentQuizHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz");
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+                "<script>window.location.href = '/login';</script>");
+        return new ModelAndView(variables, "error.ftl");
+      } else if (cookies.get("student").equals("false")) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+                "<script>window.location.href = '/teacher/main';</script>");
+        return new ModelAndView(variables, "error-teacher.ftl");
+      }
+      String assignmentID = req.params(":id");
+      String classesHtml = generateClassSidebar(cookies);
+      String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
+              "classes", classesHtml, "hidden", hidden);
       return new ModelAndView(variables, "student-quiz.ftl");
+    }
+  }
+
+  public static class StudentAssignmentLoader implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      String assignmentID = req.params(":id");
+      Assignment assignment = Controller.getAssignment(assignmentID);
+//      List<String> ans = new ArrayList<>();
+//      ans.add("first");
+//      ans.add("second");
+//      ans.add("third");
+//      ans.add("fourth");
+//      List<Integer> correct = new ArrayList<>();
+//      correct.add(1);
+//      Question question = new Question("Q1", "Test", ans, correct);
+//      List<Question> qs = new ArrayList<Question>();
+//      qs.add(question);
+//      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
+      Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
+      return GSON.toJson(variables);
     }
   }
 
