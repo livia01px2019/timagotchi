@@ -809,7 +809,12 @@ public class Routes {
     }
     String classesHtml = "";
     for (Class currClass : classes) {
-      classesHtml += "<a href=\"" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
+      if (cookies.get("classId").equals(currClass.getId())) {
+        classesHtml += "<a href=\"" + currClass.getId() + "\" style=\"background-color: #FFEEDB\"> "
+            + currClass.getName() + "</a>";
+      } else {
+        classesHtml += "<a href=\"" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
+      }
     }
     return classesHtml;
   }
@@ -818,17 +823,23 @@ public class Routes {
     StringBuilder sb = new StringBuilder();
     List<Student> studentList = ub.getRanking();
     int i = 1;
-    for (Student s : studentList) {
-      sb.append("<div class=\"leaderboard-item\">\n" + "        <div class=\"leaderboard-row\">\n"
-          + "            <h2>");
-      sb.append(i);
-      sb.append("<h2> \n" + "            <p>");
-      sb.append(s.getName());
-      sb.append("<p>\n" + "        </div>\n" + "        <p>");
-      double petXp = Controller.getPet(s.getPetId()).getXp();
-      sb.append(petXp);
-      sb.append("</p>\n" + "    </div>");
-      i++;
+    if (studentList.size() == 0) {
+      sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
+      sb.append("<p>");
+      sb.append("No students yet!");
+      sb.append("</p></div>");
+    } else {
+      for (Student s : studentList) {
+        sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>");
+        sb.append(i);
+        sb.append("<h2><p>");
+        sb.append(s.getName());
+        sb.append("<p></div><p>");
+        double petXp = Controller.getPet(s.getPetId()).getXp();
+        sb.append(petXp);
+        sb.append("</p>/div>");
+        i++;
+      }
     }
     return sb.toString();
   }
@@ -837,16 +848,22 @@ public class Routes {
     StringBuilder sb = new StringBuilder();
     List<Class> classList = cb.getRanking();
     int i = 1;
-    for (Class c : classList) {
-      sb.append("<div class=\"leaderboard-item\">\n" + "        <div class=\"leaderboard-row\">\n"
-          + "            <h2>");
-      sb.append(i);
-      sb.append("<h2> \n" + "            <p>");
-      sb.append(c.getName());
-      sb.append("<p>\n" + "        </div>\n" + "        <p>");
-      sb.append(c.getAvgXp());
-      sb.append("</p>\n" + "    </div>");
-      i++;
+    if (classList.size() == 0) {
+      sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
+      sb.append("<p>");
+      sb.append("No classes yet!");
+      sb.append("</p></div>");
+    } else {
+      for (Class c : classList) {
+        sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>");
+        sb.append(i);
+        sb.append("<h2><p>");
+        sb.append(c.getName());
+        sb.append("<p></div><p>");
+        sb.append(c.getAvgXp());
+        sb.append("</p></div>");
+        i++;
+      }
     }
     return sb.toString();
   }
