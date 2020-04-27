@@ -529,6 +529,7 @@ public class Routes {
             "<script>window.location.href = '/student/main';</script>");
         return new ModelAndView(variables, "error-student.ftl");
       }
+      cookies.remove("classId");
       String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
           "classes", classesHtml);
@@ -735,6 +736,9 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (!(cookies.get("classId") == null)) {
+        cookies.remove("classId");
+      }
       if (cookies.get("username") == null) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
             "<script>window.location.href = '/login';</script>");
@@ -755,6 +759,9 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (!(cookies.get("classId") == null)) {
+        cookies.remove("classId");
+      }
       if (cookies.get("username") == null) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
             "<script>window.location.href = '/login';</script>");
