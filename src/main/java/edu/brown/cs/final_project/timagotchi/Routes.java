@@ -315,10 +315,11 @@ public class Routes {
       }
       String assignmentID = req.params(":id");
 //      String classesHtml = generateClassSidebar(cookies);
+//      String assignmentTitle = Controller.getAssignment(assignmentID).getName();
       String classesHtml = "";
       String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "classes", classesHtml, "hidden", hidden);
+          "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentID);
       return new ModelAndView(variables, "student-quiz.ftl");
     }
   }
@@ -471,7 +472,8 @@ public class Routes {
         for (String id : assignmentIds) {
           assignmentNames.add(Controller.getAssignment(id).getName());
         }
-        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
+            assignmentNames);
         return GSON.toJson(responseObject);
       }
       return null;
