@@ -553,34 +553,27 @@ public class Routes {
       }
       String assignmentId = req.params(":assignmentid");
       cookies.set("assignmentId", assignmentId);
-//      Class classObject = Controller.getClass(classId);
-//      Assignment assignment = Controller.getAssignment(assignmentId);
-//      System.out.println("assignment id" + assignmentId);
-//      JsonArray students = new JsonArray();
-//      for (String studentId: classObject.getStudentIds()) {
-//        Student currStudent = Controller.getStudent(studentId);
-//        JsonObject student = new JsonObject();
-//        student.addProperty("id", studentId);
-//        student.addProperty("name", currStudent.getName());
-//        if (assignment.getComplete(studentId)) {
-//
-//        }
-//      }
-
+      Class classObject = Controller.getClass(cookies.get("classId"));
+      Assignment assignment = Controller.getAssignment(assignmentId);
+      System.out.println("assignment id" + assignmentId);
       JsonArray students = new JsonArray();
-      for (int i = 0; i < 5; i++) {
+      for (String studentId : classObject.getStudentIds()) {
+        Student currStudent = Controller.getStudent(studentId);
         JsonObject student = new JsonObject();
-        student.addProperty("id", "student" + i);
-        student.addProperty("name", "student" + i);
-        student.addProperty("score", i);
-        students.add(student);
+        student.addProperty("id", studentId);
+        student.addProperty("name", currStudent.getName());
+        if (assignment.getScore(studentId) == null) {
+          student.addProperty("score", "INCOMPLETE");
+        } else {
+          student.addProperty("score", assignment.getScore(studentId));
+        }
       }
-      int totalScore = 5;
-//      String className = Controller.getClass(classId).getName();
+      int totalScore = assignment.getTotalScore();
+      String className = classObject.getName();
       String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
           "classes", classesHtml, "students", GSON.toJson(students), "totalScore", totalScore,
-          "assignmentName", assignmentId);
+          "assignmentName", assignment.getName());
       return new ModelAndView(variables, "teacher-assignment.ftl");
     }
   }
