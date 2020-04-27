@@ -47,13 +47,11 @@ $(document).ready(() => {
             assignments.innerHTML = "";
             for(let i = 0; i < classNames.length; i++) {
                 let name = classNames[i];
-                console.log(name);
-                assignments.innerHTML += "<li class=\"outer\"><button class=\"inner\" id=" + i + ">" + name + "</button></li>";
+                assignments.innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name + "</button></li>";
 
-                $("#" + i).onclick = assign;
-                function assign() {
+                $("#" + i).click(function() {
                     window.location.href = '/teacher/viewAssignment/' + classIds[i];
-                }
+                })
             }
         })
     }
