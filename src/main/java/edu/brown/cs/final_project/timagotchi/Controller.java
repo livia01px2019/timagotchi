@@ -551,7 +551,7 @@ public class Controller {
    *
    * @param input StudentID, AssignmentID
    */
-  public void addAssignmentToStudent(String input) {
+  public static void addAssignmentToStudent(String input) {
     String[] inputList = input.split(" ");
     try {
       DBProxy.updateQueryParameters("INSERT INTO student_assignment VALUES (?,?,?);",
@@ -567,7 +567,7 @@ public class Controller {
    * @param input The classID, name and xp reward
    * @return The Checkoff that was added
    */
-  public Checkoff addCheckoffAssignment(String input) {
+  public static Checkoff addCheckoffAssignment(String input) {
     String[] inputList = input.split(" ");
     try {
       UUID assignmentID = UUID.randomUUID();
@@ -597,7 +597,7 @@ public class Controller {
    * @param input Prompt, Option1, Option2, Option3, Option4, AnswerIndex, Score
    * @return
    */
-  public Question addQuestion(String input) {
+  public static Question addQuestion(String input) {
     String[] inputList = input.split(" ");
     try {
       UUID questionID = UUID.randomUUID();
@@ -635,7 +635,7 @@ public class Controller {
    * @param input ClassID, name, xp, [questionIDs]
    * @return
    */
-  public Quiz addQuizAssignment(String input) {
+  public static Quiz addQuizAssignment(String input) {
     String[] inputList = input.split(" ");
     try {
       UUID assignmentID = UUID.randomUUID();

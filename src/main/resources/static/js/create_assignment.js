@@ -37,9 +37,9 @@ $(document).ready(function () {
                 // go through all text box elements within...
                 $(r).find('input, textarea').each(function(){
                     // ...change their "structure" data attributes to reflect the index+1 value of the "repeatable" element
-                    dattr = $(this).data('structure') + num;
+                    dattr = $(this).data('structure');
                     $(this).attr({
-                        'id':dattr,
+                        'id':dattr + num,
                         'name':dattr
                         // update the "for" attribute on the parent element (label)
                     }).parent('label').attr('for',dattr);
@@ -67,9 +67,9 @@ $(document).ready(function () {
         // now, go through all text boxes within the last "repeatable" element...
         $('.repeatable').last().find('input, textarea').each(function(){
             // ...change their "structure" data attributes to reflect the index+1 value of the "repeatable" element
-            dattr = $(this).data('structure') + num;
+            dattr = $(this).data('structure');
             $(this).attr({
-                'id':dattr,
+                'id':dattr + num,
                 'name':dattr
                 // update the "for" attribute on the parent element (label)
             }).parent('label').attr('for',dattr);
@@ -93,5 +93,90 @@ $(document).ready(function () {
         destroy();
         updateRemoveLinks();
     });
+
+
+    const submit = document.getElementById('submit');
+    submit.onclick = createAssignment;
+    function createAssignment()
+    {
+        const quizRadio = document.getElementById('quiz');
+        const checkoffRadio = document.getElementById('checkoff');
+        const competitiveRadio = document.getElementById('competitive');
+        const title = document.getElementById('assignmentTitle');
+        const points = document.getElementById('points');
+        const questions = document.getElementsByName('question');
+        const firstAnswers = document.getElementsByName('answer_1');
+        const secondAnswers = document.getElementsByName('answer_2');
+        const thirdAnswers = document.getElementsByName('answer_3');
+        const fourthAnswers = document.getElementsByName('answer_4');
+        const correctAnswers = document.getElementsByName('correct');
+
+        let first = [];
+        for (let item of firstAnswers) {
+            first.push($(item).val());
+        }
+        let second = [];
+        for (let item of secondAnswers) {
+            second.push($(item).val());
+        }
+        let third = [];
+        for (let item of thirdAnswers) {
+            third.push($(item).val());
+        }
+        let fourth = [];
+        for (let item of fourthAnswers) {
+            fourth.push($(item).val());
+        }
+        let questionsList = [];
+        for (let item of questions) {
+            questionsList.push($(item).val());
+        }
+        let correct = [];
+        for (let item of correctAnswers) {
+            correct.push($(item).val());
+        }
+
+        console.log("nice");
+
+        console.log("nice");
+        console.log("nice");
+
+        console.log("nice");
+
+        console.log("nice");
+        console.log("nice");
+        console.log("nice");
+
+
+
+
+        const postParameters = {
+            quiz: quizRadio.checked.toString(),
+            checkoff: checkoffRadio.checked.toString(),
+            competitive: competitiveRadio.checked.toString(),
+            title: title.value,
+            points: points.value,
+            questions: questionsList,
+            firstAnswers: first,
+            secondAnswers: second,
+            thirdAnswers: third,
+            fourthAnswers: fourth,
+            correctAnswers: correct
+        };
+        console.log(questionsList);
+        console.log(first);
+
+        $.post("/teacher/create-assignment-submit", postParameters, response => {
+            const message = JSON.parse(response).results;
+
+            if (message === "Assignment successfully created!") {
+                const assignment = "/teacher/viewAssignment/" + JSON.parse(response).assignmentid;
+                window.alert(message);
+                window.location.href= assignment;
+            } else {
+                window.alert(message);
+            }
+        })
+    }
 });
   

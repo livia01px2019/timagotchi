@@ -65,9 +65,9 @@ public final class Main {
     // repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
 //    repl.addCommand("addStudentToClass", new Command(controller::addStudentIDToClassCommand));
     // repl.addCommand("addStudent", new Command(controller::createStudentCommand));
-    repl.addCommand("addCheckoff", new Command(controller::addCheckoffAssignment));
-    repl.addCommand("addQuestion", new Command(controller::addQuestion));
-    repl.addCommand("addQuiz", new Command(controller::addQuizAssignment));
+//    repl.addCommand("addCheckoff", new Command(controller::addCheckoffAssignment));
+//    repl.addCommand("addQuestion", new Command(controller::addQuestion));
+//    repl.addCommand("addQuiz", new Command(controller::addQuizAssignment));
     repl.begin();
   }
 
@@ -116,7 +116,7 @@ public final class Main {
     Spark.get("/teacher/viewAssignment/:assignmentid", new Routes.TeacherAssignmentHandler(),
         freeMarker);
     Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
-
+    Spark.post("/teacher/create-assignment-submit", new Routes.CreateNewAssignmentHandler());
     Spark.post("/register-submit", new Routes.RegisterSubmitHandler());
     Spark.post("/login-student", new Routes.LoginStudentHandler());
     Spark.post("/login-teacher", new Routes.LoginTeacherHandler());

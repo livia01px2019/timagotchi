@@ -193,6 +193,104 @@ public class Routes {
     }
   }
 
+  public static class CreateNewAssignmentHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String classID = cookies.get("classId");
+      QueryParamsMap qmap = req.queryMap();
+      String title = qmap.value("title");
+      String points = qmap.value("points");
+      String isQuiz = qmap.value("quiz");
+      String isCheckoff = qmap.value("checkoff");
+      String competitive = qmap.value("competitive");
+      List<String> questions = GSON.fromJson(qmap.value("questions"), ArrayList.class);
+      System.out.println(qmap.value("questions"));
+      List<String> firstAnswers = GSON.fromJson(qmap.value("firstAnswers"), ArrayList.class);
+      System.out.println(qmap.value("firstAnswers"));
+      List<String> secondAnswers = GSON.fromJson(qmap.value("secondAnswers"), ArrayList.class);
+      System.out.println(secondAnswers);
+      List<String> thirdAnswers = GSON.fromJson(qmap.value("thirdAnswers"), ArrayList.class);
+      List<String> fourthAnswers = GSON.fromJson(qmap.value("fourthAnswers"), ArrayList.class);
+      List<String> correctAnswers = GSON.fromJson(qmap.value("correctAnswers"), ArrayList.class);
+      String valid = "ERROR: Unknown";
+      String assignmentID = "";
+
+      if (title.equals("")) {
+        valid = "Assignment needs a title!";
+      } else {
+        try {
+          double pointNum = Double.parseDouble(points);
+          String assignmentString = classID + " " + title + " " + points;
+          if (isCheckoff.equals("true")) {
+            Checkoff assignment = Controller.addCheckoffAssignment(assignmentString);
+            assignmentID = assignment.getId();
+            valid = "Assignment successfully created!";
+          } else if (isQuiz.equals("true")) {
+            int questionCounter = 0;
+            List<String> questionStrings = new ArrayList<>();
+            for (int i = 0; i < questions.size(); i++) {
+              String question = firstAnswers.get(i);
+              String firstAnswer = firstAnswers.get(i);
+              String secondAnswer = secondAnswers.get(i);
+              String thirdAnswer = thirdAnswers.get(i);
+              String fourthAnswer = fourthAnswers.get(i);
+              String correctAnswer = correctAnswers.get(i);
+
+              if (question.equals("") || correctAnswer.equals("") || firstAnswer.equals("")
+                      || secondAnswer.equals("") || thirdAnswer.equals("") || fourthAnswer.equals("")) {
+                valid = "At least one question is missing the prompt, correct answer, or answer choices";
+                break;
+              } else {
+                try {
+                  int correctNum = Integer.parseInt(correctAnswer);
+                  if (correctNum < 1 || correctNum > 4) {
+                    throw new NumberFormatException();
+                  } else {
+                    correctNum--;
+                  }
+                  String questionString = question + " " + firstAnswer + " " + secondAnswer + " "
+                          + thirdAnswer + " " + fourthAnswer + " " + Integer.toString(correctNum)
+                          + " ";
+                  questionStrings.add(questionString);
+                  questionCounter++;
+                } catch (NumberFormatException numErr) {
+                  valid = "Correct answer must be between 1 and 4";
+                  break;
+                } catch (Exception err) {
+                  err.printStackTrace();
+                  break;
+                }
+              }
+            }
+            if (valid.equals("ERROR: Unknown")) {
+              double pointsPerQuestion = pointNum / questionCounter;
+              for (String qs : questionStrings) {
+                Question q = Controller.addQuestion(qs + " " + pointsPerQuestion);
+                assignmentString += " " + q.getId();
+              }
+              Quiz assignment = Controller.addQuizAssignment(assignmentString);
+              assignmentID = assignment.getId();
+              valid = "Assignment successfully created!";
+            }
+          } else {
+            valid = "Please select Quiz or Checkoff";
+          }
+        } catch (NumberFormatException numErr) {
+          valid = "Invalid number of points";
+        } catch (Exception err) {
+          err.printStackTrace();
+        }
+      }
+      List<String> assignmentIds = Controller.getClass(classID).getAssignmentIds();
+      for (String id : assignmentIds) {
+        System.out.println(id);
+      }
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid, "assignmentid", assignmentID);
+      return GSON.toJson(responseObject);
+    }
+  }
+
   public static class RegisterHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -279,17 +377,17 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      if (cookies.get("username") == null) {
-        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
-                "<script>window.location.href = '/login';</script>");
-        return new ModelAndView(variables, "error.ftl");
-      } else if (cookies.get("student").equals("false")) {
-        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
-                "<script>window.location.href = '/teacher/main';</script>");
-        return new ModelAndView(variables, "error-teacher.ftl");
-      }
+//      if (cookies.get("username") == null) {
+//        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+//                "<script>window.location.href = '/login';</script>");
+//        return new ModelAndView(variables, "error.ftl");
+//      } else if (cookies.get("student").equals("false")) {
+//        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+//                "<script>window.location.href = '/teacher/main';</script>");
+//        return new ModelAndView(variables, "error-teacher.ftl");
+//      }
       String assignmentID = req.params(":id");
-      String classesHtml = generateClassSidebar(cookies);
+      String classesHtml = "";
       String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
               "classes", classesHtml, "hidden", hidden);
@@ -301,18 +399,18 @@ public class Routes {
     @Override
     public String handle(Request req, Response res) {
       String assignmentID = req.params(":id");
-      Assignment assignment = Controller.getAssignment(assignmentID);
-//      List<String> ans = new ArrayList<>();
-//      ans.add("first");
-//      ans.add("second");
-//      ans.add("third");
-//      ans.add("fourth");
-//      List<Integer> correct = new ArrayList<>();
-//      correct.add(1);
-//      Question question = new Question("Q1", "Test", ans, correct);
-//      List<Question> qs = new ArrayList<Question>();
-//      qs.add(question);
-//      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
+//      Assignment assignment = Controller.getAssignment(assignmentID);
+      List<String> ans = new ArrayList<>();
+      ans.add("first");
+      ans.add("second");
+      ans.add("third");
+      ans.add("fourth");
+      List<Integer> correct = new ArrayList<>();
+      correct.add(1);
+      Question question = new Question("Q1", "Test", ans, correct);
+      List<Question> qs = new ArrayList<Question>();
+      qs.add(question);
+      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
       Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
       return GSON.toJson(variables);
     }
@@ -383,7 +481,19 @@ public class Routes {
   public static class TeacherNewAssignmentHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz");
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+                "<script>window.location.href = '/login';</script>");
+        return new ModelAndView(variables, "error.ftl");
+      } else if (cookies.get("student").equals("true")) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+                "<script>window.location.href = '/student/main';</script>");
+        return new ModelAndView(variables, "error-student.ftl");
+      }
+      String classesHtml = generateClassSidebar(cookies);
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
+              "classes", classesHtml);
       return new ModelAndView(variables, "teacher-create-assignment.ftl");
     }
   }

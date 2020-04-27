@@ -7,8 +7,14 @@ $(document).ready(() => {
     const studentsTab = document.getElementById('students');
     const classId = document.getElementById('class-code');
     const assignments = document.getElementById('assignments-list');
+    const createAssignment = document.getElementById('create-assignment');
     let classNames = [];
     let classIds = [];
+
+    createAssignment.onclick = newAssignment;
+    function newAssignment() {
+        window.location.href = "/teacher/create-assignment";
+    }
 
 
     assignmentsTab.onclick = openAssignmentsTab;
