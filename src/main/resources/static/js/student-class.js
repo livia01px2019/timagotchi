@@ -44,7 +44,7 @@ $(document).ready(() => {
                 document.getElementById("quizList").style.backgroundColor = "Transparent";
             }
 
-            document.getElementById("quizList").innerHTML = "";
+            document.getElementById("quizList").innerHTML = "<li class=\"outer\"><button class=\"inner\" id=\"review\">Review</button></li>";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(name);

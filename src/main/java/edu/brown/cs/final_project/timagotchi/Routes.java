@@ -843,7 +843,12 @@ public class Routes {
     }
     String classesHtml = "";
     for (Class currClass : classes) {
-      classesHtml += "<a href=\"" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
+      if (cookies.get("student").equals("true")) {
+        classesHtml += "<a href=\"/student/" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
+      } else {
+        classesHtml += "<a href=\"/teacher/" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
+      }
+
     }
     return classesHtml;
   }
