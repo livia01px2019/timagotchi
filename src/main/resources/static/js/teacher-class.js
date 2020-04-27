@@ -44,6 +44,7 @@ $(document).ready(() => {
                 assignments.style.backgroundColor = "Transparent";
             }
 
+            assignments.innerHTML = "";
             for(let i = 0; i < classNames.length; i++) {
                 let name = classNames[i];
                 console.log(name);

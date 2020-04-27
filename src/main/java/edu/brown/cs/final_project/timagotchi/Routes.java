@@ -594,8 +594,10 @@ public class Routes {
         for (String id : assignmentIds) {
           assignmentNames.add(Controller.getAssignment(id).getName());
         }
+        System.out.println("in assignments");
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
             assignmentNames);
+        System.out.println(responseObject);
         return GSON.toJson(responseObject);
       }
       return null;
