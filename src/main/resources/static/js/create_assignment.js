@@ -131,6 +131,12 @@ $(document).ready(function () {
         for (let item of questions) {
             questionsList.push($(item).val());
         }
+		console.log(first);
+		console.log(second);
+		console.log(third);
+		console.log(fourth);
+		console.log(questionsList);
+		
         let correct = [];
         for (let item of correctAnswers) {
             correct.push($(item).val());
@@ -156,18 +162,19 @@ $(document).ready(function () {
             competitive: competitiveRadio.checked.toString(),
             title: title.value,
             points: points.value,
-            questions: questionsList,
-            firstAnswers: first,
-            secondAnswers: second,
-            thirdAnswers: third,
-            fourthAnswers: fourth,
-            correctAnswers: correct
+            questions: JSON.stringify(questionsList),
+            firstAnswers: JSON.stringify(first),
+            secondAnswers: JSON.stringify(second),
+            thirdAnswers: JSON.stringify(third),
+            fourthAnswers: JSON.stringify(fourth),
+            correctAnswers: JSON.stringify(correct)
         };
         console.log(questionsList);
         console.log(first);
 
         $.post("/teacher/create-assignment-submit", postParameters, response => {
             const message = JSON.parse(response).results;
+			console.log(message);
 
             if (message === "Assignment successfully created!") {
                 const assignment = "/teacher/viewAssignment/" + JSON.parse(response).assignmentid;

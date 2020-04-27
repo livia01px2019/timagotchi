@@ -24,7 +24,7 @@
                 <h2>Question 1</h2>
                 <label style="padding-bottom: 0.5rem">
                     Question:
-                    <textarea class='textbox' data-structure='question_' maxlength='65535' name='question' placeholder='Enter your question here...' rows='3'></textarea>
+                    <textarea class='textbox' data-structure='question' maxlength='65535' name='question' placeholder='Enter your question here...' rows='3'></textarea>
                 </label>
                 <div class='half-holder clearfix'>
                     <label class='half'>
@@ -49,14 +49,14 @@
                 </div>
                 <label style="padding-bottom: 0.5rem">
                     Correct Answer:
-                    <textarea class='textbox' data-structure='correct_' maxlength='255' name='correct' placeholder='Please enter the number representing the correct answer (1-4)' rows='1'></textarea>
+                    <textarea class='textbox' data-structure='correct' maxlength='255' name='correct' placeholder='Please enter the number representing the correct answer (1-4)' rows='1'></textarea>
                 </label>
             </section>
             <section class='repeatable'>
                 <h2>Question 2</h2>
                 <label style="padding-bottom: 0.5rem">
                     Question:
-                    <textarea class='textbox' data-structure='question_' maxlength='65535' name='question' placeholder='Enter your question here...' rows='3'></textarea>
+                    <textarea class='textbox' data-structure='question' maxlength='65535' name='question' placeholder='Enter your question here...' rows='3'></textarea>
                 </label>
                 <div class='half-holder clearfix'>
                     <label class='half'>
@@ -81,14 +81,14 @@
                 </div>
                 <label style="padding-bottom: 0.5rem">
                     Correct Answer:
-                    <textarea class='textbox' data-structure='correct_' maxlength='255' name='correct' placeholder='Please enter the number representing the correct answer (1-4)' rows='1'></textarea>
+                    <textarea class='textbox' data-structure='correct' maxlength='255' name='correct' placeholder='Please enter the number representing the correct answer (1-4)' rows='1'></textarea>
                 </label>
             </section>
             <section class='repeatable'>
                 <h2>Question 3</h2>
                 <label style="padding-bottom: 0.5rem">
                     Question:
-                    <textarea class='textbox' data-structure='question_' maxlength='65535' name='question' placeholder='Enter your question here...' rows='3'></textarea>
+                    <textarea class='textbox' data-structure='question' maxlength='65535' name='question' placeholder='Enter your question here...' rows='3'></textarea>
                 </label>
                 <div class='half-holder clearfix'>
                     <label class='half'>
@@ -113,7 +113,7 @@
                 </div>
                 <label style="padding-bottom: 0.5rem">
                     Correct Answer:
-                    <textarea class='textbox' data-structure='correct_' maxlength='255' name='correct' placeholder='Please enter the number representing the correct answer (1-4)' rows='1'></textarea>
+                    <textarea class='textbox' data-structure='correct' maxlength='255' name='correct' placeholder='Please enter the number representing the correct answer (1-4)' rows='1'></textarea>
                 </label>
             </section>
             <input id='count' name='count' type='hidden' value='3'>

@@ -232,6 +232,7 @@ public class Routes {
       String isQuiz = qmap.value("quiz");
       String isCheckoff = qmap.value("checkoff");
       String competitive = qmap.value("competitive");
+
       List<String> questions = GSON.fromJson(qmap.value("questions"), ArrayList.class);
       System.out.println(qmap.value("questions"));
       List<String> firstAnswers = GSON.fromJson(qmap.value("firstAnswers"), ArrayList.class);
