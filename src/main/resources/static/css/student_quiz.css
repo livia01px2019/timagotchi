@@ -83,7 +83,6 @@
 /*    display: none;*/
 /*}*/
 
-@import url(https://fonts.googleapis.com/css?family=Work+Sans:300,600);
 
 body{
     font-size: 20px;
@@ -167,4 +166,25 @@ label {
 	flex-direction: column;
 	justify-content: center;
 	margin-top: 20px;
+}
+
+.congrats-banner {
+  position: relative;
+  text-align: center;
+}
+
+.congrats-words{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.congrats-words h1 {
+	font-family: 'Press Start 2P', cursive;
+}
+
+table{
+	border: none;
 }

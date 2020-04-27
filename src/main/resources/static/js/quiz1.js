@@ -96,6 +96,9 @@
         }
 
         function showResults(){
+	
+			document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
+			"style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+30XP</p></div></img>";
 
             let newHTML = "<table style=\"width:100%;margin-left:auto;margin-right:auto\"><tr><th>Question</th>" +
                 "<th>Answer</th></tr>";
@@ -142,7 +145,7 @@
                         chosenAnswer + "</td></tr>"
                 }
             });
-
+			document.getElementById('finishButton').innerHTML = "<a href=\"/student/main\"><button style=\"width:100%\">FINISH</button></a>";		
             // show number of correct answers out of total
             document.getElementById('test').innerHTML = newHTML;
             resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;

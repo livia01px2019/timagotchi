@@ -31,6 +31,7 @@
 <div style="padding-left: 20%">
     <div id="grid"></div>
 	<div class="student-quiz-main">
+		<div id="congrats-banner" class="congrats-banner"> </div>
 	    <h2>${assignmentName}</h2>
 	    <link href="../../css/student_quiz.css" rel="stylesheet">
 	    <script defer src="../../js/quiz1.js"></script>
@@ -47,6 +48,7 @@
 	    </div>
 	
 	    <div id="results"></div>
+	    <div id="finishButton"></div>
 	</div>
 </div>
 <!-- Again, we're serving up the unminified source for clarity. -->
