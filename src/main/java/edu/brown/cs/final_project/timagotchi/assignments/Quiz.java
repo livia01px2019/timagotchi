@@ -15,6 +15,7 @@ public class Quiz implements Assignment {
   private List<Question> questions;
   private Boolean competitive;
   private Map<String, List<Boolean>> record;
+  // TODO: Override score for a student
 
   /**
    * Initializes the Quiz assignment.
@@ -140,5 +141,25 @@ public class Quiz implements Assignment {
 
   public void setCompetitive(Boolean competitive) {
     this.competitive = competitive;
+  }
+
+  @Override
+  public Integer getScore(String userID) {
+    List<Boolean> l = getRecord(userID);
+    if (l != null) {
+      int score = 0;
+      for (Boolean b : l) {
+        if (b) {
+          score += 1;
+        }
+      }
+      return score;
+    }
+    return null;
+  }
+
+  @Override
+  public Integer getTotalScore() {
+    return questions.size();
   }
 }

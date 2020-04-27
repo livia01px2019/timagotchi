@@ -1,7 +1,5 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
-import edu.brown.cs.final_project.timagotchi.users.Class;
-
 import java.util.Comparator;
 import java.util.List;
 

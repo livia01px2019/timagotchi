@@ -50,7 +50,7 @@ public class Controller {
         List<Question> convertedQ = new ArrayList<>();
         for (List<String> qid : questionIDs) {
           List<List<String>> questionAttributes = DBProxy.executeQueryParameters(
-              "SELECT prompt,answerID,score FROM questions WHERE id=?;",
+              "SELECT prompt,answerID FROM questions WHERE id=?;",
               new ArrayList<>(Arrays.asList(qid.get(0))));
           List<List<String>> options = DBProxy.executeQueryParameters(
               "SELECT option FROM options WHERE questionID=?;",
@@ -63,7 +63,6 @@ public class Controller {
               Arrays.asList(Integer.parseInt(questionAttributes.get(0).get(1))));
           Question fullQuestion = new Question(qid.get(0), questionAttributes.get(0).get(0),
               questionOptions, answerIndex);
-          fullQuestion.setScore(Double.parseDouble(questionAttributes.get(0).get(2)));
           convertedQ.add(fullQuestion);
         }
         Quiz convertedQuiz = null;
@@ -182,7 +181,7 @@ public class Controller {
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
       List<List<String>> questions = DBProxy.executeQueryParameters(
-          "SELECT DISTINCT p1.id,p1.answerID,p1.score FROM questions AS p1, assignment_question AS p2 WHERE p2.assignmentID=?;",
+          "SELECT DISTINCT p1.id,p1.answerID FROM questions AS p1, assignment_question AS p2 WHERE p2.assignmentID=?;",
           new ArrayList<>(Arrays.asList(assignmentID)));
       if (inputList.size() == questions.size()) {
         for (int i = 0; i < questions.size(); i++) {
@@ -562,6 +561,26 @@ public class Controller {
   }
 
   /**
+   * Deletes an assignment.
+   *
+   * @param assignmentID
+   */
+  public void deleteAssignment(String assignmentID) {
+    try {
+      DBProxy.updateQueryParameters("DELETE FROM assignments WHERE id=?",
+          new ArrayList<>(Arrays.asList(assignmentID)));
+      DBProxy.updateQueryParameters("DELETE FROM assignment_question WHERE questionID=?",
+          new ArrayList<>(Arrays.asList(assignmentID)));
+      DBProxy.updateQueryParameters("DELETE FROM class_assignment WHERE questionID=?",
+          new ArrayList<>(Arrays.asList(assignmentID)));
+      DBProxy.updateQueryParameters("DELETE FROM student_assignment WHERE questionID=?",
+          new ArrayList<>(Arrays.asList(assignmentID)));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
    * Add Checkoff Assignment Command
    *
    * @param input The classID, name and xp reward
@@ -594,7 +613,7 @@ public class Controller {
   /**
    * Add Question.
    *
-   * @param input Prompt, Option1, Option2, Option3, Option4, AnswerIndex, Score
+   * @param input Prompt, Option1, Option2, Option3, Option4, AnswerIndex
    * @return
    */
   public Question addQuestion(String input) {
@@ -615,13 +634,10 @@ public class Controller {
           Arrays.asList(answer3ID.toString(), questionID.toString(), inputList[3])));
       DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
           Arrays.asList(answer4ID.toString(), questionID.toString(), inputList[4])));
-      DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?,?);",
-          new ArrayList<>(Arrays.asList(questionID.toString(), inputList[0],
-              uuids.get(Integer.parseInt(inputList[5])), inputList[6])));
+      DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?);", new ArrayList<>(Arrays
+          .asList(questionID.toString(), inputList[0], uuids.get(Integer.parseInt(inputList[5])))));
       Question q = new Question(questionID.toString(), inputList[0], uuids,
           new ArrayList<>(Arrays.asList(Integer.parseInt(inputList[5]))));
-      q.setScore(Double.parseDouble(inputList[6]));
-      System.out.println(q.getId());
       return q;
     } catch (Exception e) {
       e.printStackTrace();
@@ -658,7 +674,7 @@ public class Controller {
       List<Question> convertedQ = new ArrayList<>();
       for (String qid : questionIDs) {
         List<List<String>> questionAttributes = DBProxy.executeQueryParameters(
-            "SELECT prompt,answerID,score FROM questions WHERE id=?;",
+            "SELECT prompt,answerID FROM questions WHERE id=?;",
             new ArrayList<>(Arrays.asList(qid)));
         List<List<String>> options = DBProxy.executeQueryParameters(
             "SELECT option,id FROM options WHERE questionID=?;",
@@ -674,7 +690,6 @@ public class Controller {
         List<Integer> answerIndex = new ArrayList<>(Arrays.asList(index));
         Question fullQuestion = new Question(qid, questionAttributes.get(0).get(0), questionOptions,
             answerIndex);
-        fullQuestion.setScore(Double.parseDouble(questionAttributes.get(0).get(2)));
         convertedQ.add(fullQuestion);
       }
       // create complete assignment object
