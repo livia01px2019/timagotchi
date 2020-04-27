@@ -194,6 +194,7 @@ p{
 	align-items: center;
 	justify-content: space-between;
 	margin-right: 10%;
+    margin-left: 0%;
 }
 .progress-bar{
 	display:flex;

@@ -123,6 +123,7 @@ public final class Main {
     Spark.post("/teacher/submit-new-class", new Routes.SubmitTeacherNewClassHandler());
     Spark.post("/student/submit-new-class", new Routes.SubmitStudentNewClassHandler());
     Spark.post("/teacher-class-get", new Routes.TeacherClassGetHandler());
+    Spark.post("/student-class-get", new Routes.StudentClassGetHandler());
   }
 
   /**

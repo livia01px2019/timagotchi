@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
@@ -332,12 +333,13 @@ public class Routes {
         return new ModelAndView(variables, "error-teacher.ftl");
       }
       String classId = req.params(":id");
+      cookies.set("classId", classId);
       try {
         String className = Controller.getClass(classId).getName();
         String classesHtml = generateClassSidebar(cookies);
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
             "classes", classesHtml, "className", className);
-        return new ModelAndView(variables, "student_class.ftl");
+        return new ModelAndView(variables, "student-class.ftl");
       } catch (Exception e) {
         e.printStackTrace();
         // classID is incorrect
@@ -444,6 +446,42 @@ public class Routes {
         List<String> assignmentNames = new ArrayList<>();
         for (String id : assignmentIds) {
           assignmentNames.add(Controller.getAssignment(id).getName());
+        }
+        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+        return GSON.toJson(responseObject);
+      }
+      return null;
+    }
+  }
+
+  public static class StudentClassGetHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String classId = cookies.get("classId");
+      QueryParamsMap qmap = req.queryMap();
+      List<String> allAssignmentIds = Controller.getClass(classId).getAssignmentIds();
+      if (qmap.value("type").equals("quiz")) {
+        List<String> assignmentIds = new ArrayList<>();
+        List<String> assignmentNames = new ArrayList<>();
+        for (String id : allAssignmentIds) {
+          Assignment temp = Controller.getAssignment(id);
+          if (temp instanceof Quiz) {
+            assignmentIds.add(id);
+            assignmentNames.add(temp.getName());
+          }
+        }
+        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+        return GSON.toJson(responseObject);
+      } else if (qmap.value("type").equals("checkoff")) {
+        List<String> assignmentIds = new ArrayList<>();
+        List<String> assignmentNames = new ArrayList<>();
+        for (String id : allAssignmentIds) {
+          Assignment temp = Controller.getAssignment(id);
+          if (temp instanceof Checkoff) {
+            assignmentIds.add(id);
+            assignmentNames.add(temp.getName());
+          }
         }
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
         return GSON.toJson(responseObject);
