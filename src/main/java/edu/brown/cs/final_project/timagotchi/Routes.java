@@ -446,9 +446,8 @@ public class Routes {
         }
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
         return GSON.toJson(responseObject);
-      } else {
-
       }
+      return null;
     }
   }
 
