@@ -87,7 +87,6 @@
 
 body{
     font-size: 20px;
-    font-family: 'Work Sans', sans-serif;
     color: #333;
     font-weight: 300;
     text-align: center;
@@ -115,9 +114,9 @@ h2{
     margin-bottom: 10px;
 }
 button{
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Press Start 2P', cursive;
     font-size: 22px;
-    background-color: #279;
+    background-color: #61C9A8;
     color: #fff;
     border: 0px;
     border-radius: 3px;
@@ -147,4 +146,11 @@ button:hover{
     position: relative;
     height: 200px;
     margin-top: 40px;
+}
+
+.student-quiz-main {
+	margin-left: 5%;
+	margin-right: 15%;
+	margin-top: 50px;
+	font-family: 'Roboto', sans-serif;
 }
