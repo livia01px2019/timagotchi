@@ -534,7 +534,7 @@ public class Routes {
             assignmentIds.add(id);
           }
         }
-        Map<String, Object> responseObject = ImmutableMap.of("id", assignmentIds.get(0));
+        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds.get(0));
         return GSON.toJson(responseObject);
       }
       return null;

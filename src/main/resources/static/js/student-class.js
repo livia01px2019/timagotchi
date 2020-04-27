@@ -102,7 +102,7 @@ $(document).ready(() => {
         };
 
         $.post("/student-class-get", postParameters, response => {
-            assignmentId = JSON.parse(response).id;
+            const assignmentId = JSON.parse(response).ids;
 
             window.location.href = '/student/view-quiz/' + assignmentId;
         })
