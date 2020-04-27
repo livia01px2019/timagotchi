@@ -16,7 +16,7 @@
             <div class = "radio-buttons">
 	            <div class='button'>
 	                <input id='checkoff' required='required' type='radio' value='checkoff' name='atype'>Checkoff</input>
-	                <input id='quiz' required='required' type='radio' value='quiz' name='atype'>Quiz</input>
+	                <input id='quiz' required='required' type='radio' value='quiz' name='atype' checked>Quiz</input>
 	            </div>
 	            <div class='button' style='padding-left: 10%'>
 	                <input id='competitive' required='required' type='radio' value='competitive'>Competitive</input>
