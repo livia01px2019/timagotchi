@@ -32,19 +32,23 @@ $(document).ready(() => {
 
         // Get assignment information.
         const postParameters = {
+            type: "assignments"
         };
 
         $.post("/teacher-class-get", postParameters, response => {
             classIds = JSON.parse(response).ids;
             classNames = JSON.parse(response).names;
 
+            if (classNames.length === 0) {
+                assignments.style.backgroundColor = "Transparent";
+            }
+
             for(let i = 0; i < classNames.length; i++) {
                 let name = classNames[i];
                 console.log(name);
-                var li = "<li id=" + i + ">" + name + "</li>";
+                assignments.innerHTML += "<li><button id=" + i + ">name</button></li>";
 
-                assignments.append(li);
-                $("#" + i).click(function() {
+                $("#" + i).onclick(function() {
                     console.log("hi");
                     window.location.href = '/teacher/viewAssignment/' + classIds[i];
                 })
