@@ -10,9 +10,9 @@
 		for (const currentStudent of studentsList) {
 			output.push(
                     `<div class="studentBlock"> <a href="/${currentStudent.id}">
-            <div class="name"> ${currentStudent.name} </div>
-            <div class="score"> ${currentStudent.score} / ${totalScore} </div>
-          </a></div>`
+            <div class="name"> ${currentStudent.name} </div> </a>
+            <div class="score"> ${currentStudent.score} / ${totalScore} pts </div>
+          </div>`
                 );
 			console.log(`${currentStudent.name}`);
 		}
