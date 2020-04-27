@@ -149,6 +149,32 @@ public class Routes {
     }
   }
 
+  public static class DeleteAssignmentHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      System.out.println("delete assignment called");
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      QueryParamsMap qmap = req.queryMap();
+      String assignmentId = cookies.get("assignmentId");
+      String classId = cookies.get("classId");
+      cookies.remove("assignmentId");
+
+      String valid = "";
+
+      try {
+        Controller.deleteAssignment(assignmentId);
+        valid = "Success!";
+      } catch (Exception e) {
+        e.printStackTrace();
+        valid = "Error deleting assignment.";
+      }
+
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid, "classId", classId);
+      System.out.println("i am here!!");
+      return GSON.toJson(responseObject);
+    }
+  }
+
   public static class RegisterSubmitHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -464,6 +490,7 @@ public class Routes {
         return new ModelAndView(variables, "error-student.ftl");
       }
       String assignmentId = req.params(":assignmentid");
+      cookies.set("assignmentId", assignmentId);
 //      Class classObject = Controller.getClass(classId);
 //      Assignment assignment = Controller.getAssignment(assignmentId);
 //      System.out.println("assignment id" + assignmentId);

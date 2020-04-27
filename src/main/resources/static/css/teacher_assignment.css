@@ -27,3 +27,13 @@
 	padding: 10px;
 	font-size: 20px;
 }
+
+.delete-button {
+	background: #9C3848;
+    font-family: 'Press Start 2P', cursive;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 10px;
+}
