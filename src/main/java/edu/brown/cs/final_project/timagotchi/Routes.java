@@ -17,6 +17,7 @@ import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
+import edu.brown.cs.final_project.timagotchi.assignments.Review;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
@@ -115,6 +116,7 @@ public class Routes {
       Class newClass = Controller.createClassCommand(new String[] {
           name, Controller.getTeacherIDFromUsername(cookies.get("username"))
       });
+      Controller.addReviewAssignment(newClass.getId() + " Review 100");
 
       // Check that name is valid
       String valid = "Name invalid!";
@@ -487,31 +489,49 @@ public class Routes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = cookies.get("classId");
+      String username = cookies.get("username");
+      String userId = Controller.getStudentIDFromUsername(username);
       QueryParamsMap qmap = req.queryMap();
       List<String> allAssignmentIds = Controller.getClass(classId).getAssignmentIds();
+      List<String> assignmentIds = new ArrayList<>();
+      List<String> assignmentNames = new ArrayList<>();
+      List<String> scores = new ArrayList<>();
+      List<String> totalScores = new ArrayList<>();
+
       if (qmap.value("type").equals("quiz")) {
-        List<String> assignmentIds = new ArrayList<>();
-        List<String> assignmentNames = new ArrayList<>();
         for (String id : allAssignmentIds) {
           Assignment temp = Controller.getAssignment(id);
           if (temp instanceof Quiz) {
             assignmentIds.add(id);
             assignmentNames.add(temp.getName());
+            scores.add(temp.getScore(userId).toString());
+            totalScores.add(temp.getTotalScore().toString());
           }
         }
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
         return GSON.toJson(responseObject);
       } else if (qmap.value("type").equals("checkoff")) {
-        List<String> assignmentIds = new ArrayList<>();
-        List<String> assignmentNames = new ArrayList<>();
         for (String id : allAssignmentIds) {
           Assignment temp = Controller.getAssignment(id);
           if (temp instanceof Checkoff) {
             assignmentIds.add(id);
             assignmentNames.add(temp.getName());
+            scores.add(temp.getScore(userId).toString());
+            totalScores.add(temp.getTotalScore().toString());
           }
         }
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+        return GSON.toJson(responseObject);
+      } else if (qmap.value("type").equals("review")) {
+        for (String id : allAssignmentIds) {
+          Assignment temp = Controller.getAssignment(id);
+          if (temp instanceof Review) {
+            Student s = Controller.getStudent(userId);
+            ((Review) temp).generateQuestions(s, classId);
+            assignmentIds.add(id);
+          }
+        }
+        Map<String, Object> responseObject = ImmutableMap.of("id", assignmentIds.get(0));
         return GSON.toJson(responseObject);
       }
       return null;
