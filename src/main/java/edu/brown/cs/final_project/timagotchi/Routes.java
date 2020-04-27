@@ -464,15 +464,17 @@ public class Routes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = cookies.get("classId");
-      List<String> assignmentIds = Controller.getClass(classId).getAssignmentIds();
-      List<String> assignmentNames = new ArrayList<>();
-      for (String id : assignmentIds) {
-        assignmentNames.add(Controller.getAssignment(id).getName());
+      QueryParamsMap qmap = req.queryMap();
+      if (qmap.value("type").equals("assignments")) {
+        List<String> assignmentIds = Controller.getClass(classId).getAssignmentIds();
+        List<String> assignmentNames = new ArrayList<>();
+        for (String id : assignmentIds) {
+          assignmentNames.add(Controller.getAssignment(id).getName());
+        }
+        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+        return GSON.toJson(responseObject);
       }
-
-      Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
-          assignmentNames);
-      return GSON.toJson(responseObject);
+      return null;
     }
   }
 
