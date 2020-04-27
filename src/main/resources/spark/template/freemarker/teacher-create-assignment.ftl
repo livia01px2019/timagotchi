@@ -21,27 +21,27 @@
                 <h2>Question 1</h2>
                 <label style="padding-bottom: 0.5rem">
                     Question:
-                    <textarea class='textbox' data-structure='notes_' id='notes_1' maxlength='65535' name='notes_1' placeholder='Enter your question here...' rows='3'></textarea>
+                    <textarea class='textbox' data-structure='question_' id='notes_1' maxlength='65535' name='notes_1' placeholder='Enter your question here...' rows='3'></textarea>
                 </label>
                 <div class='half-holder clearfix'>
                     <label class='half'>
                         First Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                         Second Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                 </div>
                 <div class='half-holder clearfix'>
                     <label class='half'>
                         Third Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                         Fourth Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                 </div>
             </section>
@@ -49,27 +49,27 @@
                 <h2>Question 2</h2>
                 <label style="padding-bottom: 0.5rem">
                     Question:
-                    <textarea class='textbox' data-structure='notes_' id='notes_1' maxlength='65535' name='notes_1' placeholder='Enter your question here...' rows='3'></textarea>
+                    <textarea class='textbox' data-structure='question_' id='notes_1' maxlength='65535' name='notes_1' placeholder='Enter your question here...' rows='3'></textarea>
                 </label>
                 <div class='half-holder clearfix'>
                     <label class='half'>
                         First Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                         Second Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                 </div>
                 <div class='half-holder clearfix'>
                     <label class='half'>
                         Third Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                         Fourth Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                 </div>
             </section>
@@ -77,27 +77,27 @@
                 <h2>Question 3</h2>
                 <label style="padding-bottom: 0.5rem">
                     Question:
-                    <textarea class='textbox' data-structure='notes_' id='notes_1' maxlength='65535' name='notes_1' placeholder='Enter your question here...' rows='3'></textarea>
+                    <textarea class='textbox' data-structure='question_' id='notes_1' maxlength='65535' name='notes_1' placeholder='Enter your question here...' rows='3'></textarea>
                 </label>
                 <div class='half-holder clearfix'>
                     <label class='half'>
                         First Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                         Second Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                 </div>
                 <div class='half-holder clearfix'>
                     <label class='half'>
                         Third Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                     <label class='half'>
                         Fourth Answer:
-                        <input class='textbox' data-structure='first_name_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
+                        <input class='textbox' data-structure='answer_' id='first_name_1' maxlength='255' name='first_name_1' type='text'>
                     </label>
                 </div>
             </section>
