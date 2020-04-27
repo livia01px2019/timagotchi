@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Leaderboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
@@ -34,7 +36,7 @@ public class Controller {
       // TODO: Investigate if this will be a problem
       if (assignments.get(0).get(2).equals("checkoff")) {
         Assignment a = new Checkoff(assignments.get(0).get(0), assignments.get(0).get(1),
-            Integer.parseInt(assignments.get(0).get(3)));
+            (int) Double.parseDouble(assignments.get(0).get(3)));
         List<List<String>> results = DBProxy.executeQueryParameters(
             "SELECT studentID,complete FROM student_assignment WHERE assignmentID=?",
             new ArrayList<>(Arrays.asList(assignmentId)));
@@ -70,10 +72,10 @@ public class Controller {
         // create quiz object
         if (assignments.get(0).get(2).equals("competitive")) {
           convertedQuiz = new Quiz(assignments.get(0).get(0), assignments.get(0).get(1),
-              Integer.parseInt(assignments.get(0).get(3)), convertedQ, true);
+              (int) Double.parseDouble(assignments.get(0).get(3)), convertedQ, true);
         } else {
           convertedQuiz = new Quiz(assignments.get(0).get(0), assignments.get(0).get(1),
-              Integer.parseInt(assignments.get(0).get(3)), convertedQ, false);
+              (int) Double.parseDouble(assignments.get(0).get(3)), convertedQ, false);
         }
         // for record
         for (int i = 0; i < convertedQ.size(); i++) {
@@ -93,7 +95,9 @@ public class Controller {
         }
         return convertedQuiz;
       } else if (assignments.get(0).get(2).equals("review")) {
-
+        Review r = new Review(assignments.get(0).get(0), assignments.get(0).get(1),
+            (int) Double.parseDouble(assignments.get(0).get(3)));
+        return r;
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -101,10 +105,12 @@ public class Controller {
     return null;
   }
 
-  public static Leaderboard getLeaderboard(String boardId) {
-    // TODO: getter for Leaderboard, same thing, I think we need one for each class
-    // and user b/c they contain different info??
-    return null;
+  public static Leaderboard getLeaderboard(List<String> classIDs) {
+    return new Classboard(classIDs);
+  }
+
+  public static Leaderboard getLeaderboard(String classID) {
+    return new Userboard(classID);
   }
 
   /**
