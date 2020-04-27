@@ -27,7 +27,7 @@ $(document).ready(() => {
         }
 
         // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById("quizzes").style.display = "block";
+        quizzes.style.display = "block";
         quizTab.className += " active";
 
         // Get assignment information.
@@ -40,7 +40,7 @@ $(document).ready(() => {
             assignmentNames = JSON.parse(response).names;
 
             if (assignmentNames.length === 0) {
-                quizzes.style.backgroundColor = "Transparent";
+                document.getElementById("quiz-list").style.backgroundColor = "Transparent";
             }
 
             for(let i = 0; i < assignmentNames.length; i++) {
@@ -70,13 +70,42 @@ $(document).ready(() => {
         }
 
         // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById("checkoffs").style.display = "block";
+        checkoffs.style.display = "block";
         checkoffTab.className += " active";
+
+        // Get assignment information.
+        const postParameters = {
+            type: "checkoff"
+        };
+
+        $.post("/student-class-get", postParameters, response => {
+            assignmentIds = JSON.parse(response).ids;
+            assignmentNames = JSON.parse(response).names;
+
+            if (assignmentNames.length === 0) {
+                document.getElementById("checkoff-list").style.backgroundColor = "Transparent";
+            }
+
+            for(let i = 0; i < assignmentNames.length; i++) {
+                let name = assignmentNames[i];
+                console.log(name);
+                checkoffs.innerHTML += "<li><button id=" + i + ">name</button></li>";
+            }
+        })
     }
 
     review.onclick = reviewQuiz;
     function reviewQuiz() {
-        window.location.href = '/student/class/review';
+        // Get assignment information.
+        const postParameters = {
+            type: "review"
+        };
+
+        $.post("/student-class-get", postParameters, response => {
+            assignmentId = JSON.parse(response).id;
+
+            window.location.href = '/student/view-quiz/' + assignmentId;
+        })
     }
 
     // Open the assignments tab to start.
