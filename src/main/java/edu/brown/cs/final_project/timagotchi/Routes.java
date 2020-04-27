@@ -234,11 +234,8 @@ public class Routes {
       String competitive = qmap.value("competitive");
 
       List<String> questions = GSON.fromJson(qmap.value("questions"), ArrayList.class);
-      System.out.println(qmap.value("questions"));
       List<String> firstAnswers = GSON.fromJson(qmap.value("firstAnswers"), ArrayList.class);
-      System.out.println(qmap.value("firstAnswers"));
       List<String> secondAnswers = GSON.fromJson(qmap.value("secondAnswers"), ArrayList.class);
-      System.out.println(secondAnswers);
       List<String> thirdAnswers = GSON.fromJson(qmap.value("thirdAnswers"), ArrayList.class);
       List<String> fourthAnswers = GSON.fromJson(qmap.value("fourthAnswers"), ArrayList.class);
       List<String> correctAnswers = GSON.fromJson(qmap.value("correctAnswers"), ArrayList.class);
@@ -256,10 +253,15 @@ public class Routes {
             assignmentID = assignment.getId();
             valid = "Assignment successfully created!";
           } else if (isQuiz.equals("true")) {
+            if (competitive.equals("true")) {
+              assignmentID += " competitive";
+            } else {
+              assignmentID += " regular";
+            }
             int questionCounter = 0;
             List<String> questionStrings = new ArrayList<>();
             for (int i = 0; i < questions.size(); i++) {
-              String question = firstAnswers.get(i);
+              String question = questions.get(i);
               String firstAnswer = firstAnswers.get(i);
               String secondAnswer = secondAnswers.get(i);
               String thirdAnswer = thirdAnswers.get(i);

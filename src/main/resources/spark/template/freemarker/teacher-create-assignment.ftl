@@ -16,7 +16,7 @@
                 <input id='quiz' required='required' type='radio' value='quiz' name='atype'>Quiz</input>
             </div>
             <div class='button' style='padding-top: 15px'>
-                <input id='competitive' required='required' type='radio' value='competitive'>Competitive</input>
+                <input id='competitive' required='required' type='checkbox' value='competitive'>Competitive</input>
             </div>
         </div>
         <div class='repeater'>
