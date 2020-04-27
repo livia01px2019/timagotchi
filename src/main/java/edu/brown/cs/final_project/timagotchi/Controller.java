@@ -11,6 +11,7 @@ import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
+import edu.brown.cs.final_project.timagotchi.assignments.Review;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
@@ -607,6 +608,17 @@ public class Controller {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return null;
+  }
+
+  /**
+   * Add Review Assignment Command
+   *
+   * @param input The classID, name and xp reward
+   * @return The Review that was added
+   */
+  public static Review addReviewAssignment(String input) {
+    // TODO: Thanks Ocean!!
     return null;
   }
 
