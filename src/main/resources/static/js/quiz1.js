@@ -6,7 +6,6 @@
     const quizContainer = document.getElementById('quiz');
     const resultsContainer = document.getElementById('results');
     const submitButton = document.getElementById('submit');
-	let reward = 0;
     let myQuestions = [];
     let record = [];
 
@@ -18,7 +17,7 @@
     };
     $.post(address, postParameters, response => {
         const convertedAssignment = JSON.parse(response).assignment;
-		reward = convertedAssignment.reward;
+		const reward = convertedAssignment.reward;
         const questionSet = convertedAssignment.questions;
         for (let q of questionSet) {
             let a={}
@@ -149,6 +148,17 @@
                         chosenAnswer + "</td></tr>"
                 }
             });
+
+            const postParams = {
+                record: JSON.stringify(record),
+                id: assignmentID,
+                reward: reward
+            };
+
+            $.post("/student/quiz-finished", postParams, response => {
+                window.location.ref = "/student/main";
+            });
+
 			document.getElementById('finishButton').innerHTML = "<a href=\"/student/main\"><button style=\"width:100%\">FINISH</button></a>";		
             // show number of correct answers out of total
             document.getElementById('test').innerHTML = newHTML;

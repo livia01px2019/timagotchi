@@ -102,6 +102,7 @@ $(document).ready(function () {
     submit.onclick = createAssignment;
     function createAssignment()
     {
+
         const quizRadio = document.getElementById('quiz');
         const checkoffRadio = document.getElementById('checkoff');
         const competitiveRadio = document.getElementById('competitive');
@@ -178,6 +179,10 @@ $(document).ready(function () {
         $.post("/teacher/create-assignment-submit", postParameters, response => {
             const message = JSON.parse(response).results;
 			console.log(message);
+            console.log(message);
+            console.log(message);
+            console.log(message);
+
 
             if (message === "Assignment successfully created!") {
                 const assignment = "/teacher/viewAssignment/" + JSON.parse(response).assignmentid;
@@ -185,13 +190,13 @@ $(document).ready(function () {
                 window.location.href = assignment;
             } else {
                 window.alert(message);
-                return false;
             }
         })
+        return false;
     }
 
     const discard = document.getElementById('discard');
-    submit.onclick = discardAssignment;
+    discard.onclick = discardAssignment;
     function discardAssignment()
     {
         window.location.href = "/teacher/main";

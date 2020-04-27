@@ -422,7 +422,7 @@ public class Controller {
   /**
    * Create Class Command
    *
-   * @param input List of parameters separated by whitespace (name, teacherId)
+   * @param inputList List of parameters separated by whitespace (name, teacherId)
    * @return Class The class that was added
    */
   public static Class createClassCommand(String[] inputList) {
@@ -607,11 +607,12 @@ public class Controller {
   /**
    * Add Question.
    *
-   * @param input Prompt, Option1, Option2, Option3, Option4, AnswerIndex
+   * @param inputList (Prompt, Option1, Option2, Option3, Option4, AnswerIndex)
    * @return
    */
-  public static Question addQuestion(String input) {
-    String[] inputList = input.split(" ");
+  public static Question addQuestion(List<String> inputList) {
+//    String[] inputList = input.split(" ");
+//    System.out.println(inputList.length);
     try {
       UUID questionID = UUID.randomUUID();
       UUID answer1ID = UUID.randomUUID();
@@ -621,17 +622,17 @@ public class Controller {
       List<String> uuids = new ArrayList<>(Arrays.asList(answer1ID.toString(), answer2ID.toString(),
           answer3ID.toString(), answer4ID.toString()));
       DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer1ID.toString(), questionID.toString(), inputList[1])));
+          Arrays.asList(answer1ID.toString(), questionID.toString(), inputList.get(1))));
       DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer2ID.toString(), questionID.toString(), inputList[2])));
+          Arrays.asList(answer2ID.toString(), questionID.toString(), inputList.get(2))));
       DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer3ID.toString(), questionID.toString(), inputList[3])));
+          Arrays.asList(answer3ID.toString(), questionID.toString(), inputList.get(3))));
       DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer4ID.toString(), questionID.toString(), inputList[4])));
+          Arrays.asList(answer4ID.toString(), questionID.toString(), inputList.get(4))));
       DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?);", new ArrayList<>(Arrays
-          .asList(questionID.toString(), inputList[0], uuids.get(Integer.parseInt(inputList[5])))));
-      Question q = new Question(questionID.toString(), inputList[0], uuids,
-          new ArrayList<>(Arrays.asList(Integer.parseInt(inputList[5]))));
+          .asList(questionID.toString(), inputList.get(0), uuids.get(Integer.parseInt(inputList.get(5))))));
+      Question q = new Question(questionID.toString(), inputList.get(0), uuids,
+          new ArrayList<>(Arrays.asList(Integer.parseInt(inputList.get(5)))));
       return q;
     } catch (Exception e) {
       e.printStackTrace();

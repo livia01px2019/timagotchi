@@ -226,6 +226,7 @@ public class Routes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classID = cookies.get("classId");
+      System.out.println(classID);
       QueryParamsMap qmap = req.queryMap();
       String title = qmap.value("title");
       String points = qmap.value("points");
@@ -259,7 +260,7 @@ public class Routes {
               assignmentID += " regular";
             }
             int questionCounter = 0;
-            List<String> questionStrings = new ArrayList<>();
+            List<List<String>> questionLists = new ArrayList<>();
             for (int i = 0; i < questions.size(); i++) {
               String question = questions.get(i);
               String firstAnswer = firstAnswers.get(i);
@@ -280,9 +281,17 @@ public class Routes {
                   } else {
                     correctNum--;
                   }
+                  List<String> toAdd = new ArrayList<>();
+                  toAdd.add(question);
+                  toAdd.add(firstAnswer);
+                  toAdd.add(secondAnswer);
+                  toAdd.add(thirdAnswer);
+                  toAdd.add(fourthAnswer);
+                  toAdd.add(Integer.toString(correctNum));
                   String questionString = question + " " + firstAnswer + " " + secondAnswer + " "
-                      + thirdAnswer + " " + fourthAnswer + " " + Integer.toString(correctNum) + " ";
-                  questionStrings.add(questionString);
+                      + thirdAnswer + " " + fourthAnswer + " " + correctNum + " ";
+                  System.out.println(questionString);
+                  questionLists.add(toAdd);
                   questionCounter++;
                 } catch (NumberFormatException numErr) {
                   valid = "Correct answer must be between 1 and 4";
@@ -295,10 +304,11 @@ public class Routes {
             }
             if (valid.equals("ERROR: Unknown")) {
               double pointsPerQuestion = pointNum / questionCounter;
-              for (String qs : questionStrings) {
-                Question q = Controller.addQuestion(qs + " " + pointsPerQuestion);
+              for (List<String> qList : questionLists) {
+                Question q = Controller.addQuestion(qList);
                 assignmentString += " " + q.getId();
               }
+              System.out.println("nice");
               Quiz assignment = Controller.addQuizAssignment(assignmentString);
               assignmentID = assignment.getId();
               valid = "Assignment successfully created!";
@@ -311,10 +321,6 @@ public class Routes {
         } catch (Exception err) {
           err.printStackTrace();
         }
-      }
-      List<String> assignmentIds = Controller.getClass(classID).getAssignmentIds();
-      for (String id : assignmentIds) {
-        System.out.println(id);
       }
       Map<String, Object> responseObject = ImmutableMap.of("results", valid, "assignmentid",
           assignmentID);
@@ -376,32 +382,42 @@ public class Routes {
 
   public static class FinishedQuizHandler implements Route {
     @Override
-    public ModelAndView handle(Request req, Response res) {
+    public String handle(Request req, Response res) {
       // TODO: Integration with backend
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      String classesHtml = generateClassSidebar(cookies);
-      String id = "john";
-      List<Question> qs = new ArrayList<Question>();
-      Quiz quiz = new Quiz("john", "Quiz 1", 1, qs, false);
-      String htmlQuizDone = "";
-      List<Question> questionList = quiz.getQuestions();
-      for (int i = 0; i < questionList.size(); i++) {
-        Question question = questionList.get(i);
-        htmlQuizDone += "<tr><td>" + "Q: " + question.getPrompt() + "</td>";
-        if (quiz.getRecord(id).get(i)) {
-          htmlQuizDone += "<td bgcolor=\"teal\"> A: ";
-          for (int a : question.getAnswers()) {
-            htmlQuizDone += question.getChoices().get(a) + "\n";
-          }
-          htmlQuizDone += "</td></tr>";
-        } else {
-          htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer" + "</td></tr>";
-        }
+      String username = cookies.get("username");
+      String studentId = Controller.getStudentIDFromUsername(username);
+//      String classesHtml = generateClassSidebar(cookies);
+//      String id = "john";
+//      List<Question> qs = new ArrayList<Question>();
+//      Quiz quiz = new Quiz("john", "Quiz 1", 1, qs, false);
+//      String htmlQuizDone = "";
+//      List<Question> questionList = quiz.getQuestions();
+//      for (int i = 0; i < questionList.size(); i++) {
+//        Question question = questionList.get(i);
+//        htmlQuizDone += "<tr><td>" + "Q: " + question.getPrompt() + "</td>";
+//        if (quiz.getRecord(id).get(i)) {
+//          htmlQuizDone += "<td bgcolor=\"teal\"> A: ";
+//          for (int a : question.getAnswers()) {
+//            htmlQuizDone += question.getChoices().get(a) + "\n";
+//          }
+//          htmlQuizDone += "</td></tr>";
+//        } else {
+//          htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer" + "</td></tr>";
+//        }
+//      }
+//      int xp = quiz.getReward();
+      QueryParamsMap qm = req.queryMap();
+      String assignmentID = qm.value("id");
+      List<String> record = GSON.fromJson(qm.value("record"), ArrayList.class);
+      try {
+        //TODO: add xp reward to Student
+        int reward = Integer.parseInt(qm.value("reward"));
+        Assignment assignment = Controller.addStudentRecord(studentId, assignmentID, record);
+      } catch (NumberFormatException numErr) {
+        numErr.printStackTrace();
       }
-      int xp = quiz.getReward();
-      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "quizresult", htmlQuizDone, "classes", classesHtml, "xp", xp);
-      return new ModelAndView(variables, "quiz_result.ftl");
+      return "";
     }
   }
 
@@ -530,7 +546,6 @@ public class Routes {
             "<script>window.location.href = '/student/main';</script>");
         return new ModelAndView(variables, "error-student.ftl");
       }
-      cookies.remove("classId");
       String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
           "classes", classesHtml);
