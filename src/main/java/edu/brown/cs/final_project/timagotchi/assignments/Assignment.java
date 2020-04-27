@@ -19,4 +19,6 @@ public interface Assignment {
   int getReward();
 
   void setReward(int reward);
+
+  // TODO: please implement a get score for each student type function :)
 }
