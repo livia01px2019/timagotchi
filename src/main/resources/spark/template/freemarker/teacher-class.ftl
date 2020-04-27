@@ -35,7 +35,7 @@
          </div>
          <div id="Assignments" class="tabcontent">
              <button class="assignment" id="create-assignment">+</button>
-             <ul class="assignment" id="assignments-list"></ul>
+             <ul class="assignment-list" id="assignments-list"></ul>
          </div>
          <div id="Students" class="tabcontent">
              <#include "leaderboard.ftl">

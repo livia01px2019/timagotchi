@@ -456,6 +456,7 @@ public class Controller {
         teacherIDs.add(s.get(2));
       }
       // TODO: Investigate if this will be a problem
+      System.out.println(results);
       Class c = new Class(results.get(0).get(0), results.get(0).get(1), teacherIDs);
       List<List<String>> assignments = DBProxy.executeQueryParameters(
           "SELECT assignmentID FROM class_assignment WHERE classID=?;",

@@ -248,6 +248,7 @@ public class Routes {
         try {
           double pointNum = Double.parseDouble(points);
           String assignmentString = classID + " " + title + " " + points;
+          System.out.println("BRUH:" + assignmentString);
           if (isCheckoff.equals("true")) {
             Checkoff assignment = Controller.addCheckoffAssignment(assignmentString);
             assignmentID = assignment.getId();
@@ -594,6 +595,8 @@ public class Routes {
       QueryParamsMap qmap = req.queryMap();
       if (qmap.value("type").equals("assignments")) {
         List<String> assignmentIds = Controller.getClass(classId).getAssignmentIds();
+        System.out.println("assignments");
+        System.out.println(assignmentIds);
         List<String> assignmentNames = new ArrayList<>();
         for (String id : assignmentIds) {
           assignmentNames.add(Controller.getAssignment(id).getName());
