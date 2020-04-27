@@ -6,8 +6,9 @@
     const quizContainer = document.getElementById('quiz');
     const resultsContainer = document.getElementById('results');
     const submitButton = document.getElementById('submit');
-	const reward = 0;
+	let reward = 0;
     let myQuestions = [];
+    let record = [];
 
     //new code
     const assignmentID = document.getElementById("hidden").className;
@@ -137,12 +138,13 @@
                 if(userAnswer === currentQuestion.correctAnswer){
                     // add to the number of correct answers
                     numCorrect++;
-
+                    record.push("true");
                     newHTML += "<td bgcolor=\"teal\" style=\"outline: thin solid; border-collapse: collapse\">" +
                         chosenAnswer + "</td></tr>"
                 }
                 // if answer is wrong or blank
                 else{
+                    record.push("false");
                     newHTML += "<td bgcolor=\"#C31F48\" style=\"outline: thin solid; border-collapse: collapse\">" +
                         chosenAnswer + "</td></tr>"
                 }

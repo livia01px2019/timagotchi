@@ -445,6 +445,7 @@ public class Routes {
       List<Question> qs = new ArrayList<Question>();
       qs.add(question);
       Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
+      assignment.setReward(100);
       Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
       return GSON.toJson(variables);
     }

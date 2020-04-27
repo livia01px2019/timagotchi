@@ -179,11 +179,19 @@ $(document).ready(function () {
             if (message === "Assignment successfully created!") {
                 const assignment = "/teacher/viewAssignment/" + JSON.parse(response).assignmentid;
                 window.alert(message);
-                window.location.href= assignment;
+                window.location.href = assignment;
             } else {
                 window.alert(message);
+                return false;
             }
         })
+    }
+
+    const discard = document.getElementById('discard');
+    submit.onclick = discardAssignment;
+    function discardAssignment()
+    {
+        window.location.href = "/teacher/main";
     }
 });
   
