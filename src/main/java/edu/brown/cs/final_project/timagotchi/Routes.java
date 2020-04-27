@@ -266,7 +266,7 @@ public class Routes {
               String correctAnswer = correctAnswers.get(i);
 
               if (question.equals("") || correctAnswer.equals("") || firstAnswer.equals("")
-                      || secondAnswer.equals("") || thirdAnswer.equals("") || fourthAnswer.equals("")) {
+                  || secondAnswer.equals("") || thirdAnswer.equals("") || fourthAnswer.equals("")) {
                 valid = "At least one question is missing the prompt, correct answer, or answer choices";
                 break;
               } else {
@@ -278,8 +278,7 @@ public class Routes {
                     correctNum--;
                   }
                   String questionString = question + " " + firstAnswer + " " + secondAnswer + " "
-                          + thirdAnswer + " " + fourthAnswer + " " + Integer.toString(correctNum)
-                          + " ";
+                      + thirdAnswer + " " + fourthAnswer + " " + Integer.toString(correctNum) + " ";
                   questionStrings.add(questionString);
                   questionCounter++;
                 } catch (NumberFormatException numErr) {
@@ -314,7 +313,8 @@ public class Routes {
       for (String id : assignmentIds) {
         System.out.println(id);
       }
-      Map<String, Object> responseObject = ImmutableMap.of("results", valid, "assignmentid", assignmentID);
+      Map<String, Object> responseObject = ImmutableMap.of("results", valid, "assignmentid",
+          assignmentID);
       return GSON.toJson(responseObject);
     }
   }
@@ -516,16 +516,16 @@ public class Routes {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       if (cookies.get("username") == null) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
-                "<script>window.location.href = '/login';</script>");
+            "<script>window.location.href = '/login';</script>");
         return new ModelAndView(variables, "error.ftl");
       } else if (cookies.get("student").equals("true")) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
-                "<script>window.location.href = '/student/main';</script>");
+            "<script>window.location.href = '/student/main';</script>");
         return new ModelAndView(variables, "error-student.ftl");
       }
       String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-              "classes", classesHtml);
+          "classes", classesHtml);
       return new ModelAndView(variables, "teacher-create-assignment.ftl");
     }
   }

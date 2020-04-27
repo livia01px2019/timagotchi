@@ -96,34 +96,36 @@ public final class Main {
 
     FreeMarkerEngine freeMarker = createEngine();
 
-    // Setup Spark Routes for Stars
+    // Setup Spark Routes
     Spark.get("/login", new Routes.LoginHandler(), freeMarker);
     Spark.get("/register", new Routes.RegisterHandler(), freeMarker);
+    Spark.post("/register-submit", new Routes.RegisterSubmitHandler());
+    Spark.post("/login-student", new Routes.LoginStudentHandler());
+    Spark.post("/login-teacher", new Routes.LoginTeacherHandler());
+    Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
+
     Spark.get("/student/assignment", new Routes.StudentAssignmentHandler(), freeMarker);
     Spark.get("/student", new Routes.StudentMainHandler(), freeMarker);
 //    Spark.get("/student/quiz-finished", new Routes.FinishedQuizHandler(), freeMarker);
     Spark.get("/student/view-quiz/:id", new Routes.StudentQuizHandler(), freeMarker);
-    Spark.post("/student/load-quiz/:id", new Routes.StudentAssignmentLoader());
-    Spark.post("/student/finish-quiz/:id", new Routes.FinishedQuizHandler());
-    Spark.get("/teacher/create-assignment", new Routes.TeacherNewAssignmentHandler(), freeMarker);
     Spark.get("/student/main", new Routes.StudentMainHandler(), freeMarker);
     Spark.get("/student/all-classes", new Routes.StudentLeaderboardHandler(), freeMarker);
     Spark.get("/student/new-class", new Routes.StudentNewClassHandler(), freeMarker);
     Spark.get("/student/:id", new Routes.StudentClassHandler(), freeMarker);
+    Spark.post("/student/load-quiz/:id", new Routes.StudentAssignmentLoader());
+    Spark.post("/student/finish-quiz/:id", new Routes.FinishedQuizHandler());
+    Spark.post("/student-class-get", new Routes.StudentClassGetHandler());
+    Spark.post("/student/submit-new-class", new Routes.SubmitStudentNewClassHandler());
+
+    Spark.get("/teacher/create-assignment", new Routes.TeacherNewAssignmentHandler(), freeMarker);
     Spark.get("/teacher/main", new Routes.TeacherMainHandler(), freeMarker);
     Spark.get("/teacher/new-class", new Routes.TeacherNewClassHandler(), freeMarker);
     Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
     Spark.get("/teacher/viewAssignment/:assignmentid", new Routes.TeacherAssignmentHandler(),
         freeMarker);
-    Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
     Spark.post("/teacher/create-assignment-submit", new Routes.CreateNewAssignmentHandler());
-    Spark.post("/register-submit", new Routes.RegisterSubmitHandler());
-    Spark.post("/login-student", new Routes.LoginStudentHandler());
-    Spark.post("/login-teacher", new Routes.LoginTeacherHandler());
     Spark.post("/teacher/submit-new-class", new Routes.SubmitTeacherNewClassHandler());
-    Spark.post("/student/submit-new-class", new Routes.SubmitStudentNewClassHandler());
     Spark.post("/teacher-class-get", new Routes.TeacherClassGetHandler());
-    Spark.post("/student-class-get", new Routes.StudentClassGetHandler());
     Spark.post("/teacher/viewAssignment/delete-assignment", new Routes.DeleteAssignmentHandler());
   }
 

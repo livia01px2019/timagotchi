@@ -77,7 +77,7 @@ $(document).ready(() => {
 
     create.onclick = createAssignment;
     function createAssignment() {
-        window.location.href = '/teacher/create-assignment/';
+        window.location.href = '/teacher/create-assignment';
     }
 
     // Open the assignments tab to start.
