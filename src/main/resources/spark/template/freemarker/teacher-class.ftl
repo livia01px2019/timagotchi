@@ -34,10 +34,12 @@
                  Students&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
          </div>
          <div id="Assignments" class="tabcontent">
-             <button class="assignments" id="create-assignment">+</button>
-             <ul id="assignments-list"></ul>
+             <button class="assignment" id="create-assignment">+</button>
+             <ul class="assignment" id="assignments-list"></ul>
          </div>
-         <div id="Students" class="tabcontent"></div>
+         <div id="Students" class="tabcontent">
+             <#include "leaderboard.ftl">
+         </div>
      </div>
 
      <!-- Again, we're serving up the unminified source for clarity. -->

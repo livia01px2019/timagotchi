@@ -7,14 +7,10 @@ $(document).ready(() => {
     const studentsTab = document.getElementById('students');
     const classId = document.getElementById('class-code');
     const assignments = document.getElementById('assignments-list');
-    const createAssignment = document.getElementById('create-assignment');
+
+    const create = document.getElementById('create-assignment');
     let classNames = [];
     let classIds = [];
-
-    createAssignment.onclick = newAssignment;
-    function newAssignment() {
-        window.location.href = "/teacher/create-assignment";
-    }
 
 
     assignmentsTab.onclick = openAssignmentsTab;
@@ -37,26 +33,26 @@ $(document).ready(() => {
 
         // Get assignment information.
         const postParameters = {
-            classId: classId.val()
+            type: "assignments"
         };
 
         $.post("/teacher-class-get", postParameters, response => {
             classIds = JSON.parse(response).ids;
             classNames = JSON.parse(response).names;
 
+            if (classNames.length === 0) {
+                assignments.style.backgroundColor = "Transparent";
+            }
+
             for(let i = 0; i < classNames.length; i++) {
                 let name = classNames[i];
                 console.log(name);
-                var li = "<li id=" + i + ">" + name + "</li>";
+                assignments.innerHTML += "<li><button id=" + i + ">name</button></li>";
 
-                assignments.append(li);
-                $("#" + i).click(function() {
-                    console.log("hi");
-                    window.location.href = '/teacher/viewassignments/';
+                $("#" + i).onclick(function() {
+                    window.location.href = '/teacher/viewAssignment/' + classIds[i];
                 })
             }
-
-            document.getElementById("Assignments").innerHTML = "<h3>London</h3> <p>London is the capital city of England.</p>";
         })
     }
 
@@ -77,6 +73,11 @@ $(document).ready(() => {
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById("Students").style.display = "block";
         studentsTab.className += " active";
+    }
+
+    create.onclick = createAssignment;
+    function createAssignment() {
+        window.location.href = '/teacher/create-assignment/';
     }
 
     // Open the assignments tab to start.

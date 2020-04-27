@@ -83,23 +83,17 @@
 /*    display: none;*/
 /*}*/
 
-@import url(https://fonts.googleapis.com/css?family=Work+Sans:300,600);
 
 body{
     font-size: 20px;
-    font-family: 'Work Sans', sans-serif;
     color: #333;
     font-weight: 300;
-    text-align: center;
     padding-right: 3.5%;
 }
 h2{
-    font-weight: 300;
+	font-family: 'Roboto', sans-serif;
     margin: 0px;
-    padding: 10px;
-    font-size: 20px;
-    background-color: #444;
-    color: #fff;
+    font-size: 60px;
 }
 .question{
     font-size: 30px;
@@ -109,21 +103,20 @@ h2{
     margin-bottom: 20px;
     text-align: left;
     display: inline-block;
+	width: 100%;
 }
 .answers label{
     display: block;
     margin-bottom: 10px;
 }
 button{
-    font-family: 'Work Sans', sans-serif;
+    font-family: 'Press Start 2P', cursive;
     font-size: 22px;
-    background-color: #279;
-    color: #fff;
+    background-color: #61C9A8;
     border: 0px;
-    border-radius: 3px;
     padding: 20px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 100px;
     margin-bottom: 20px;
 }
 button:hover{
@@ -138,6 +131,7 @@ button:hover{
     z-index: 1;
     opacity: 0;
     transition: opacity 0.5s;
+	
 }
 .active-slide{
     opacity: 1;
@@ -146,5 +140,51 @@ button:hover{
 .quiz-container{
     position: relative;
     height: 200px;
-    margin-top: 40px;
+}
+
+.student-quiz-main {
+	margin-left: 5%;
+	margin-right: 15%;
+	margin-top: 50px;
+	font-family: 'Roboto', sans-serif;
+}
+
+label {
+	background-color: #BEB9C7;
+	width: 100%;
+	padding: 10px;
+	margin: 2px;
+}
+
+.test {
+	background-color: white;
+	padding: 10px;
+}
+.buttons{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.congrats-banner {
+  position: relative;
+  text-align: center;
+}
+
+.congrats-words{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.congrats-words h1 {
+	font-family: 'Press Start 2P', cursive;
+}
+
+table{
+	border: none;
 }

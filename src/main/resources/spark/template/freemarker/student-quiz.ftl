@@ -30,21 +30,26 @@
 <div class="after-header-spacing"></div>
 <div style="padding-left: 20%">
     <div id="grid"></div>
-
-    <h2>Quiz</h2>
-    <link href="../../css/student_quiz.css" rel="stylesheet">
-    <script defer src="../../js/quiz1.js"></script>
-    ${hidden}
-    <div id="test">
-        <div class="quiz-container">
-            <div id="quiz"></div>
-        </div>
-        <button id="previous">Previous Question</button>
-        <button id="next">Next Question</button>
-        <button id="submit">Submit Quiz</button>
-    </div>
-
-    <div id="results"></div>
+	<div class="student-quiz-main">
+		<div id="congrats-banner" class="congrats-banner"> </div>
+	    <h2>${assignmentName}</h2>
+	    <link href="../../css/student_quiz.css" rel="stylesheet">
+	    <script defer src="../../js/quiz1.js"></script>
+	    ${hidden}
+	    <div id="test" class="test">
+	        <div class="quiz-container">
+	            <div id="quiz"></div>
+	        </div>
+	        <div class="buttons">
+		        <button id="previous">PREVIOUS</button>
+		        <button id="next">NEXT</button>
+		        <button id="submit">SUBMIT</button>
+		    </div>
+	    </div>
+	
+	    <div id="results"></div>
+	    <div id="finishButton"></div>
+	</div>
 </div>
 <!-- Again, we're serving up the unminified source for clarity. -->
 <script src="../../js/jquery-2.1.1.js"></script>

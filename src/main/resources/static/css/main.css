@@ -194,6 +194,7 @@ p{
 	align-items: center;
 	justify-content: space-between;
 	margin-right: 10%;
+    margin-left: 0%;
 }
 .progress-bar{
 	display:flex;
@@ -301,11 +302,20 @@ h3{
 /* Style the tab content */
 .tabcontent {
     background-color: #fff;
-    display: none;
-    padding: 6px 12px;
+    padding: 15px 12px;
     border: 0px;
     border-top: none;
     width: 90%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.assignment {
+    background-color: #ADA8B6;
+    width: 100%;
+    border: 0;
+    padding: 8px 15px;
+    font-size: 17pt;
 }
 .ghost {
     background-color: transparent;

@@ -245,4 +245,24 @@ public class Review implements Assignment {
   public void setQuestions(List<Question> questions) {
     this.questions = questions;
   }
+
+  @Override
+  public Integer getScore(String userID) {
+    List<Boolean> l = getRecord(userID);
+    if (l != null) {
+      int score = 0;
+      for (Boolean b : l) {
+        if (b) {
+          score += 1;
+        }
+      }
+      return score;
+    }
+    return null;
+  }
+
+  @Override
+  public Integer getTotalScore() {
+    return questions.size();
+  }
 }
