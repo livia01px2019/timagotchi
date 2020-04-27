@@ -43,6 +43,7 @@ $(document).ready(() => {
                 document.getElementById("quiz-list").style.backgroundColor = "Transparent";
             }
 
+            quizzes.innerHTML = "";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(name);
@@ -86,6 +87,7 @@ $(document).ready(() => {
                 document.getElementById("checkoff-list").style.backgroundColor = "Transparent";
             }
 
+            checkoffs.innerHTML = "";
             for(let i = 0; i < assignmentNames.length; i++) {
                 let name = assignmentNames[i];
                 console.log(name);
