@@ -255,12 +255,15 @@ public class Routes {
             assignmentID = assignment.getId();
             valid = "Assignment successfully created!";
           } else if (isQuiz.equals("true")) {
+            List<String> quizList = new ArrayList<>();
+            quizList.add(classID);
+            quizList.add(title);
+            quizList.add(points);
             if (competitive.equals("true")) {
-              assignmentID += " competitive";
+              quizList.add("competitive");
             } else {
-              assignmentID += " regular";
+              quizList.add("regular");
             }
-            int questionCounter = 0;
             List<List<String>> questionLists = new ArrayList<>();
             for (int i = 0; i < questions.size(); i++) {
               String question = questions.get(i);
@@ -293,7 +296,6 @@ public class Routes {
                       + thirdAnswer + " " + fourthAnswer + " " + correctNum + " ";
                   System.out.println(questionString);
                   questionLists.add(toAdd);
-                  questionCounter++;
                 } catch (NumberFormatException numErr) {
                   valid = "Correct answer must be between 1 and 4";
                   break;
@@ -304,13 +306,11 @@ public class Routes {
               }
             }
             if (valid.equals("ERROR: Unknown")) {
-              double pointsPerQuestion = pointNum / questionCounter;
               for (List<String> qList : questionLists) {
                 Question q = Controller.addQuestion(qList);
-                assignmentString += " " + q.getId();
+                quizList.add(q.getId());
               }
-              System.out.println("nice");
-              Quiz assignment = Controller.addQuizAssignment(assignmentString);
+              Quiz assignment = Controller.addQuizAssignment(quizList);
               assignmentID = assignment.getId();
               valid = "Assignment successfully created!";
             }
