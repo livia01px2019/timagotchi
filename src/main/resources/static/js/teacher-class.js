@@ -7,6 +7,7 @@ $(document).ready(() => {
     const studentsTab = document.getElementById('students');
     const classId = document.getElementById('class-code');
     const assignments = document.getElementById('assignments-list');
+    const create = document.getElementById('create-assignment');
     let classNames = [];
     let classIds = [];
 
@@ -31,7 +32,6 @@ $(document).ready(() => {
 
         // Get assignment information.
         const postParameters = {
-            classId: classId.val()
         };
 
         $.post("/teacher-class-get", postParameters, response => {
@@ -46,11 +46,9 @@ $(document).ready(() => {
                 assignments.append(li);
                 $("#" + i).click(function() {
                     console.log("hi");
-                    window.location.href = '/teacher/viewassignments/';
+                    window.location.href = '/teacher/viewAssignment/' + classIds[i];
                 })
             }
-
-            document.getElementById("Assignments").innerHTML = "<h3>London</h3> <p>London is the capital city of England.</p>";
         })
     }
 
@@ -71,6 +69,11 @@ $(document).ready(() => {
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById("Students").style.display = "block";
         studentsTab.className += " active";
+    }
+
+    create.onclick = createAssignment;
+    function createAssignment() {
+        window.location.href = '/teacher/create-assignment/';
     }
 
     // Open the assignments tab to start.
