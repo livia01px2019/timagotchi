@@ -484,6 +484,26 @@ public class Controller {
   }
 
   /**
+   * Check whether a classID is valid.
+   *
+   * @param input
+   * @return
+   */
+  public static Boolean checkValidClassID(String input) {
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT * FROM classes WHERE id=?;", new ArrayList<>(Arrays.asList(input)));
+      if (results.size() != 0) {
+        return true;
+      }
+      return false;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
    * Add Student ID To Class Command
    *
    * @param input List of parameters (classID studentID)
