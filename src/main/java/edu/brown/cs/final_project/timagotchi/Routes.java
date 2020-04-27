@@ -438,7 +438,8 @@ public class Routes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = cookies.get("classId");
-      if (req.params("type").equals("assignments")) {
+      QueryParamsMap qmap = req.queryMap();
+      if (qmap.value("type").equals("assignments")) {
         List<String> assignmentIds = Controller.getClass(classId).getAssignmentIds();
         List<String> assignmentNames = new ArrayList<>();
         for (String id : assignmentIds) {
