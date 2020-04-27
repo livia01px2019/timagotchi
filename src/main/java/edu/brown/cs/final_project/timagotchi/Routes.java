@@ -317,6 +317,9 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (!(cookies.get("classId") == null)) {
+        cookies.remove("classId");
+      }
       String username = cookies.get("username");
       if (username == null) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
@@ -378,19 +381,36 @@ public class Routes {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       if (cookies.get("username") == null) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
-            "<script>window.location.href = '/login';</script>");
+                "<script>window.location.href = '/login';</script>");
         return new ModelAndView(variables, "error.ftl");
       } else if (cookies.get("student").equals("true")) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
-            "<script>window.location.href = '/student/main';</script>");
+                "<script>window.location.href = '/student/main';</script>");
         return new ModelAndView(variables, "error-student.ftl");
       }
       String classId = req.params(":id");
+      cookies.set("classId", classId);
       String className = Controller.getClass(classId).getName();
       String classesHtml = generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
-          "classes", classesHtml, className, classId);
-      return new ModelAndView(variables, "teacher-class-page.ftl");
+              "classes", classesHtml, "className", className, "classId", classId);
+      return new ModelAndView(variables, "teacher-class.ftl");
+    }
+  }
+
+  public static class TeacherClassGetHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String classId = cookies.get("classId");
+      List<String> assignmentIds = Controller.getClass(classId).getAssignmentIds();
+      List<String> assignmentNames = new ArrayList<>();
+      for (String id : assignmentIds) {
+        assignmentNames.add(Controller.getAssignment(id).getName());
+      }
+
+      Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names", assignmentNames);
+      return GSON.toJson(responseObject);
     }
   }
 
@@ -398,6 +418,9 @@ public class Routes {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (!(cookies.get("classId") == null)) {
+        cookies.remove("classId");
+      }
       if (cookies.get("username") == null) {
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
             "<script>window.location.href = '/login';</script>");
