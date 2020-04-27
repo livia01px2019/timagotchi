@@ -3,16 +3,16 @@
  */
 
 $(document).ready(() => {
-    const assignmentsTab = document.getElementById('assignments');
-    const studentsTab = document.getElementById('students');
-    const classId = document.getElementById('class-code');
-    const assignments = document.getElementById('assignments-list');
-    const create = document.getElementById('create-assignment');
-    let classNames = [];
-    let classIds = [];
+    const quizTab = document.getElementById('quiz');
+    const checkoffTab = document.getElementById('checkoff');
+    const quizzes = document.getElementById('quizzes');
+    const review = document.getElementById('review');
+    const checkoffs = document.getElementById('checkoffs');
+    let assignmentNames = [];
+    let assignmentIds = [];
 
 
-    assignmentsTab.onclick = openAssignmentsTab;
+    quizTab.onclick = openAssignmentsTab;
     function openAssignmentsTab() {
         // Get all elements with class="tabcontent" and hide them
         const tabcontent = document.getElementsByClassName("tabcontent");
@@ -27,36 +27,36 @@ $(document).ready(() => {
         }
 
         // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById("Assignments").style.display = "block";
-        assignmentsTab.className += " active";
+        document.getElementById("quizzes").style.display = "block";
+        quizTab.className += " active";
 
         // Get assignment information.
         const postParameters = {
-            type: "assignments"
+            type: "quiz"
         };
 
-        $.post("/teacher-class-get", postParameters, response => {
-            classIds = JSON.parse(response).ids;
-            classNames = JSON.parse(response).names;
+        $.post("/student-class-get", postParameters, response => {
+            assignmentIds = JSON.parse(response).ids;
+            assignmentNames = JSON.parse(response).names;
 
-            if (classNames.length === 0) {
-                assignments.style.backgroundColor = "Transparent";
+            if (assignmentNames.length === 0) {
+                quizzes.style.backgroundColor = "Transparent";
             }
 
-            for(let i = 0; i < classNames.length; i++) {
-                let name = classNames[i];
+            for(let i = 0; i < assignmentNames.length; i++) {
+                let name = assignmentNames[i];
                 console.log(name);
-                assignments.innerHTML += "<li><button id=" + i + ">name</button></li>";
+                quizzes.innerHTML += "<li><button id=" + i + ">name</button></li>";
 
                 $("#" + i).onclick(function() {
-                    window.location.href = '/teacher/viewAssignment/' + classIds[i];
+                    window.location.href = '/student/view-quiz/' + assignmentIds[i];
                 })
             }
         })
     }
 
-    studentsTab.onclick = openStudentsTab;
-    function openStudentsTab() {
+    checkoffTab.onclick = openCheckoffTab;
+    function openCheckoffTab() {
         // Get all elements with class="tabcontent" and hide them
         const tabcontent = document.getElementsByClassName("tabcontent");
         for (var i = 0; i < tabcontent.length; i++) {
@@ -70,13 +70,13 @@ $(document).ready(() => {
         }
 
         // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById("Students").style.display = "block";
-        studentsTab.className += " active";
+        document.getElementById("checkoffs").style.display = "block";
+        checkoffTab.className += " active";
     }
 
-    create.onclick = createAssignment;
-    function createAssignment() {
-        window.location.href = '/teacher/create-assignment/';
+    review.onclick = reviewQuiz;
+    function reviewQuiz() {
+        window.location.href = '/student/class/review';
     }
 
     // Open the assignments tab to start.
