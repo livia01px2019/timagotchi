@@ -22,6 +22,7 @@
 	                <input id='competitive' required='required' type='radio' value='competitive'>Competitive</input>
 	            </div>
 	        </div>
+
         </div>
         <div class='repeater' id = 'repeater'>
             <section class='repeatable'>
