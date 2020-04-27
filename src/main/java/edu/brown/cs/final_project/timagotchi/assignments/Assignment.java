@@ -20,5 +20,7 @@ public interface Assignment {
 
   void setReward(int reward);
 
-  // TODO: please implement a get score for each student type function :)
+  Integer getScore(String userID);
+
+  Integer getTotalScore();
 }

@@ -80,4 +80,18 @@ public class Checkoff implements Assignment {
   public void setReward(int reward) {
     this.reward = reward;
   }
+
+  @Override
+  public Integer getScore(String userID) {
+    if (complete.get(userID)) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  @Override
+  public Integer getTotalScore() {
+    return 1;
+  }
 }
