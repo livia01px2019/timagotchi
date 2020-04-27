@@ -809,12 +809,7 @@ public class Routes {
     }
     String classesHtml = "";
     for (Class currClass : classes) {
-      if (cookies.get("classId").equals(currClass.getId())) {
-        classesHtml += "<a href=\"" + currClass.getId() + "\" style=\"background-color: #FFEEDB\"> "
-            + currClass.getName() + "</a>";
-      } else {
-        classesHtml += "<a href=\"" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
-      }
+      classesHtml += "<a href=\"" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
     }
     return classesHtml;
   }
