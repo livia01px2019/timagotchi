@@ -111,7 +111,8 @@ public final class Main {
     Spark.get("/teacher/main", new Routes.TeacherMainHandler(), freeMarker);
     Spark.get("/teacher/new-class", new Routes.TeacherNewClassHandler(), freeMarker);
     Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
-    Spark.get("/teacher/:classid/:assignmentid", new Routes.TeacherAssignmentHandler(), freeMarker);
+    Spark.get("/teacher/viewAssignment/:assignmentid", new Routes.TeacherAssignmentHandler(),
+        freeMarker);
     Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
 
     Spark.post("/register-submit", new Routes.RegisterSubmitHandler());

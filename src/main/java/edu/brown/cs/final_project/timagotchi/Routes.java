@@ -409,7 +409,6 @@ public class Routes {
             "<script>window.location.href = '/student/main';</script>");
         return new ModelAndView(variables, "error-student.ftl");
       }
-      String classId = req.params(":classid");
       String assignmentId = req.params(":assignmentid");
 //      Class classObject = Controller.getClass(classId);
 //      Assignment assignment = Controller.getAssignment(assignmentId);
