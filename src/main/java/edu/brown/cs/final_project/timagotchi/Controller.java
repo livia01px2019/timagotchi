@@ -578,22 +578,21 @@ public class Controller {
   /**
    * Add Checkoff Assignment Command
    *
-   * @param input The classID, name and xp reward
+   * @param inputList The classID, name and xp reward
    * @return The Checkoff that was added
    */
-  public static Checkoff addCheckoffAssignment(String input) {
-    String[] inputList = input.split(" ");
+  public static Checkoff addCheckoffAssignment(List<String> inputList) {
     try {
       UUID assignmentID = UUID.randomUUID();
       DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-          Arrays.asList(assignmentID.toString(), inputList[1], "checkoff", inputList[2])));
+          Arrays.asList(assignmentID.toString(), inputList.get(1), "checkoff", inputList.get(2))));
       DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], assignmentID.toString())));
+          new ArrayList<>(Arrays.asList(inputList.get(0), assignmentID.toString())));
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT studentID FROM class_student WHERE classID=?;",
-          new ArrayList<>(Arrays.asList(inputList[0])));
-      Checkoff c = new Checkoff(assignmentID.toString(), inputList[1],
-          Integer.parseInt(inputList[2]));
+          new ArrayList<>(Arrays.asList(inputList.get(0))));
+      Checkoff c = new Checkoff(assignmentID.toString(), inputList.get(1),
+          Integer.parseInt(inputList.get(2)));
       for (List<String> student : results) {
         addAssignmentToStudent(student.get(0) + " " + assignmentID.toString());
         c.setComplete(student.get(0), false);

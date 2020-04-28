@@ -248,17 +248,15 @@ public class Routes {
       } else {
         try {
           double pointNum = Double.parseDouble(points);
-          String assignmentString = classID + " " + title + " " + points;
-          System.out.println("BRUH:" + assignmentString);
+          List<String> quizList = new ArrayList<>();
+          quizList.add(classID);
+          quizList.add(title);
+          quizList.add(points);
           if (isCheckoff.equals("true")) {
-            Checkoff assignment = Controller.addCheckoffAssignment(assignmentString);
+            Checkoff assignment = Controller.addCheckoffAssignment(quizList);
             assignmentID = assignment.getId();
             valid = "Assignment successfully created!";
           } else if (isQuiz.equals("true")) {
-            List<String> quizList = new ArrayList<>();
-            quizList.add(classID);
-            quizList.add(title);
-            quizList.add(points);
             if (competitive.equals("true")) {
               quizList.add("competitive");
             } else {
@@ -717,7 +715,7 @@ public class Routes {
       String assignmentId = req.params(":assignmentid");
       cookies.set("assignmentId", assignmentId);
       Class classObject = Controller.getClass(cookies.get("classId"));
-      System.out.println("sstudents from class:" + classObject.getStudentIds());
+      System.out.println("students from class:" + classObject.getStudentIds());
 
       Assignment assignment = Controller.getAssignment(assignmentId);
       System.out.println("assignment id" + assignmentId);
