@@ -1,5 +1,6 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,9 @@ public class Quiz implements Assignment {
   public void setRecord(String userId, int qIdx, Boolean correct) {
     List<Boolean> curRecord = record.get(userId);
     // Question being answered is the next question in the list of questions.
+    if (curRecord == null) {
+      curRecord = new ArrayList<>();
+    }
     if (qIdx == curRecord.size()) {
       curRecord.add(correct);
     }

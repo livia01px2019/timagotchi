@@ -15,7 +15,7 @@ public class Pet {
     xp = 0;
     level = 1;
     Random rand = new Random();
-    int randomElement = rand.nextInt(7 + 1) + 1;
+    int randomElement = rand.nextInt(7) + 1;
     pathToSprite = "../img/skin" + randomElement + ".png";
   }
 
