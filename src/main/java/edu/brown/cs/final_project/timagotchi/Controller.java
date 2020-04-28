@@ -188,10 +188,6 @@ public class Controller {
    */
   public static Assignment addStudentRecord(String studentID, String assignmentID, String classID,
       List<String> inputList) {
-    System.out.println("hello " + classID);
-    System.out.println("hello " + studentID);
-    System.out.println("hello " + assignmentID);
-    System.out.println("hello " + inputList);
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
       for (int i = 0; i < inputList.size(); i++) {
@@ -204,6 +200,11 @@ public class Controller {
               new ArrayList<>(Arrays.asList(studentID, q.get(0), inputList.get(i), classID)));
         }
       }
+      Student s = getStudent(studentID);
+      String p = s.getPetId();
+      double xp = a.getReward() * (a.getScore(studentID) / a.getTotalScore());
+      DBProxy.updateQueryParameters("REPLACE INTO pets (id, xp) VALUES (?,?);",
+          new ArrayList<>(Arrays.asList(p, "" + xp)));
       return a;
     } catch (Exception e) {
       e.printStackTrace();
