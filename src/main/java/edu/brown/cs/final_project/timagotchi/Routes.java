@@ -447,8 +447,13 @@ public class Routes {
   public static class StudentAssignmentLoader implements Route {
     @Override
     public String handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      String userId = Controller.getStudentIDFromUsername(cookies.get("username"));
+      Student s = Controller.getStudent(userId);
+      String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
       Assignment assignment = Controller.getAssignment(assignmentID);
+      ((Review) assignment).generateQuestions(s, classId);
 //      List<String> ans = new ArrayList<>();
 //      ans.add("first");
 //      ans.add("second");
