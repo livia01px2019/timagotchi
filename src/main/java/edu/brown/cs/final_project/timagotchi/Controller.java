@@ -500,7 +500,7 @@ public class Controller {
   /**
    * Add Student ID To Class Command
    *
-   * @param input List of parameters (classID studentID)
+   * @param inputList List of parameters (classID studentID)
    * @return The class that was just updated
    */
   public static Class addStudentIDToClassCommand(String[] inputList) {
@@ -675,33 +675,32 @@ public class Controller {
   /**
    * Add Not Competitive Quiz Assignment Command, without allocating students.
    *
-   * @param input ClassID, name, xp, String for competitive / false for regular,
+   * @param inputList ClassID, name, xp, String for competitive / false for regular,
    *              [questionIDs]
    * @return
    */
-  public static Quiz addQuizAssignment(String input) {
-    String[] inputList = input.split(" ");
+  public static Quiz addQuizAssignment(List<String> inputList) {
     try {
       UUID assignmentID = UUID.randomUUID();
-      if (inputList[3].equals("competitive")) {
+      if (inputList.get(3).equals("competitive")) {
         DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-            Arrays.asList(assignmentID.toString(), inputList[1], "competitive", inputList[2])));
+            Arrays.asList(assignmentID.toString(), inputList.get(1), "competitive", inputList.get(2))));
       } else {
         DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-            Arrays.asList(assignmentID.toString(), inputList[1], "regular", inputList[2])));
+            Arrays.asList(assignmentID.toString(), inputList.get(1), "regular", inputList.get(2))));
       }
       DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], assignmentID.toString())));
+          new ArrayList<>(Arrays.asList(inputList.get(0), assignmentID.toString())));
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT studentID FROM class_student WHERE classID=?;",
-          new ArrayList<>(Arrays.asList(inputList[0])));
+          new ArrayList<>(Arrays.asList(inputList.get(0))));
 
       // input question ID and add to the map
       List<String> questionIDs = new ArrayList<>();
-      for (int i = 4; i < inputList.length; i++) {
-        questionIDs.add(inputList[i]);
+      for (int i = 4; i < inputList.size(); i++) {
+        questionIDs.add(inputList.get(i));
         DBProxy.updateQueryParameters("INSERT INTO assignment_question VALUES (?,?);",
-            new ArrayList<>(Arrays.asList(assignmentID.toString(), inputList[i])));
+            new ArrayList<>(Arrays.asList(assignmentID.toString(), inputList.get(i))));
       }
       // create list of questions
       List<Question> convertedQ = new ArrayList<>();
@@ -727,11 +726,11 @@ public class Controller {
       }
       Quiz q = null;
       // create complete assignment object
-      if (inputList[3].equals("competitive")) {
-        q = new Quiz(assignmentID.toString(), inputList[1], Integer.parseInt(inputList[2]),
+      if (inputList.get(3).equals("competitive")) {
+        q = new Quiz(assignmentID.toString(), inputList.get(1), Integer.parseInt(inputList.get(2)),
             convertedQ, true);
       } else {
-        q = new Quiz(assignmentID.toString(), inputList[1], Integer.parseInt(inputList[2]),
+        q = new Quiz(assignmentID.toString(), inputList.get(1), Integer.parseInt(inputList.get(2)),
             convertedQ, false);
       }
       // add assignment to each student in the class, and set the complete to false
