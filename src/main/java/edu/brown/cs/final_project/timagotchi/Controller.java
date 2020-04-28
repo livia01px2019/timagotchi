@@ -186,8 +186,12 @@ public class Controller {
    * @param inputList    List of True/Falses
    * @return
    */
-  public static Assignment addStudentRecord(String studentID, String assignmentID,
+  public static Assignment addStudentRecord(String studentID, String assignmentID, String classID,
       List<String> inputList) {
+    System.out.println("hello " + classID);
+    System.out.println("hello " + studentID);
+    System.out.println("hello " + assignmentID);
+    System.out.println("hello " + inputList);
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
       for (int i = 0; i < inputList.size(); i++) {
@@ -196,8 +200,8 @@ public class Controller {
             "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
             new ArrayList<>(Arrays.asList(assignmentID)));
         for (List<String> q : questions) {
-          DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?);",
-              new ArrayList<>(Arrays.asList(studentID, q.get(0), inputList.get(i))));
+          DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?);",
+              new ArrayList<>(Arrays.asList(studentID, q.get(0), inputList.get(i), classID)));
         }
       }
       return a;

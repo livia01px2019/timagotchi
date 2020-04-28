@@ -414,7 +414,8 @@ public class Routes {
       try {
         // TODO: add xp reward to Student
         int reward = Integer.parseInt(qm.value("reward"));
-        Assignment assignment = Controller.addStudentRecord(studentId, assignmentID, record);
+        Assignment assignment = Controller.addStudentRecord(studentId, assignmentID,
+            cookies.get("classId"), record);
       } catch (NumberFormatException numErr) {
         numErr.printStackTrace();
       }
