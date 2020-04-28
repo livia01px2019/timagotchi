@@ -412,7 +412,7 @@ public class Routes {
       String assignmentID = qm.value("id");
       List<String> record = GSON.fromJson(qm.value("record"), ArrayList.class);
       try {
-        //TODO: add xp reward to Student
+        // TODO: add xp reward to Student
         int reward = Integer.parseInt(qm.value("reward"));
         Assignment assignment = Controller.addStudentRecord(studentId, assignmentID, record);
       } catch (NumberFormatException numErr) {
@@ -721,11 +721,15 @@ public class Routes {
       String assignmentId = req.params(":assignmentid");
       cookies.set("assignmentId", assignmentId);
       Class classObject = Controller.getClass(cookies.get("classId"));
+      System.out.println("sstudents from class:" + classObject.getStudentIds());
+
       Assignment assignment = Controller.getAssignment(assignmentId);
       System.out.println("assignment id" + assignmentId);
+
       JsonArray students = new JsonArray();
       for (String studentId : classObject.getStudentIds()) {
         Student currStudent = Controller.getStudent(studentId);
+        System.out.println("a student added");
         JsonObject student = new JsonObject();
         student.addProperty("id", studentId);
         student.addProperty("name", currStudent.getName());
@@ -734,7 +738,9 @@ public class Routes {
         } else {
           student.addProperty("score", assignment.getScore(studentId));
         }
+        students.add(student);
       }
+      System.out.println("students: " + students);
       int totalScore = assignment.getTotalScore();
       String className = classObject.getName();
       String classesHtml = generateClassSidebar(cookies);
@@ -859,9 +865,11 @@ public class Routes {
     String classesHtml = "";
     for (Class currClass : classes) {
       if (cookies.get("student").equals("true")) {
-        classesHtml += "<a href=\"/student/" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
+        classesHtml += "<a href=\"/student/" + currClass.getId() + "\"> " + currClass.getName()
+            + "</a>";
       } else {
-        classesHtml += "<a href=\"/teacher/" + currClass.getId() + "\"> " + currClass.getName() + "</a>";
+        classesHtml += "<a href=\"/teacher/" + currClass.getId() + "\"> " + currClass.getName()
+            + "</a>";
       }
 
     }
@@ -886,7 +894,7 @@ public class Routes {
         sb.append("<p></div><p>");
         double petXp = Controller.getPet(s.getPetId()).getXp();
         sb.append(petXp);
-        sb.append("</p>/div>");
+        sb.append("</p></div>");
         i++;
       }
     }
