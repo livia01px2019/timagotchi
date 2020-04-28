@@ -436,9 +436,7 @@ public class Routes {
         return new ModelAndView(variables, "error-teacher.ftl");
       }
       String assignmentID = req.params(":id");
-//      String classesHtml = generateClassSidebar(cookies);
-//      String assignmentTitle = Controller.getAssignment(assignmentID).getName();
-      String classesHtml = "";
+      String classesHtml = generateClassSidebar(cookies);
       String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
           "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentID);
