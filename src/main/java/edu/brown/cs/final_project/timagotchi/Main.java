@@ -104,30 +104,32 @@ public final class Main {
     Spark.post("/login-teacher", new Routes.LoginTeacherHandler());
     Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
 
-    Spark.get("/student/assignment", new Routes.StudentAssignmentHandler(), freeMarker);
-    Spark.get("/student", new Routes.StudentMainHandler(), freeMarker);
-    Spark.post("/student/quiz-finished", new Routes.FinishedQuizHandler());
-    Spark.get("/student/view-quiz/:id", new Routes.StudentQuizHandler(), freeMarker);
-    Spark.get("/student/main", new Routes.StudentMainHandler(), freeMarker);
-    Spark.get("/student/all-classes", new Routes.StudentLeaderboardHandler(), freeMarker);
-    Spark.get("/student/new-class", new Routes.StudentNewClassHandler(), freeMarker);
-    Spark.get("/student/:id", new Routes.StudentClassHandler(), freeMarker);
-    Spark.post("/student/load-quiz/:id", new Routes.StudentAssignmentLoader());
-    Spark.post("/student/finish-quiz/:id", new Routes.FinishedQuizHandler());
-    Spark.post("/student-class-get", new Routes.StudentClassGetHandler());
-    Spark.post("/student/submit-new-class", new Routes.SubmitStudentNewClassHandler());
+    Spark.get("/student/assignment", new StudentRoutes.StudentAssignmentHandler(), freeMarker);
+    Spark.get("/student/view-quiz/:id", new StudentRoutes.StudentQuizHandler(), freeMarker);
+    Spark.get("/student/main", new StudentRoutes.StudentMainHandler(), freeMarker);
+    Spark.get("/student/all-classes", new StudentRoutes.StudentLeaderboardHandler(), freeMarker);
+    Spark.get("/student/new-class", new StudentRoutes.StudentNewClassHandler(), freeMarker);
+    Spark.get("/student/:id", new StudentRoutes.StudentClassHandler(), freeMarker);
+    Spark.get("/student", new StudentRoutes.StudentMainHandler(), freeMarker);
+    Spark.post("/student/quiz-finished", new StudentRoutes.FinishedQuizHandler());
+    Spark.post("/student/load-quiz/:id", new StudentRoutes.StudentAssignmentLoader());
+    Spark.post("/student/finish-quiz/:id", new StudentRoutes.FinishedQuizHandler());
+    Spark.post("/student-class-get", new StudentRoutes.StudentClassGetHandler());
+    Spark.post("/student/submit-new-class", new StudentRoutes.SubmitStudentNewClassHandler());
 
-    Spark.get("/teacher/create-assignment", new Routes.TeacherNewAssignmentHandler(), freeMarker);
-    Spark.get("/teacher/main", new Routes.TeacherMainHandler(), freeMarker);
-    Spark.get("/teacher/new-class", new Routes.TeacherNewClassHandler(), freeMarker);
-    Spark.get("/teacher/:id", new Routes.TeacherClassHandler(), freeMarker);
-    Spark.get("/teacher/viewAssignment/:assignmentid", new Routes.TeacherAssignmentHandler(),
+    Spark.get("/teacher/create-assignment", new TeacherRoutes.TeacherNewAssignmentHandler(),
         freeMarker);
-    Spark.post("/teacher/create-assignment-submit", new Routes.CreateNewAssignmentHandler());
-    Spark.post("/teacher/submit-new-class", new Routes.SubmitTeacherNewClassHandler());
-    Spark.post("/teacher-class-get", new Routes.TeacherClassGetHandler());
-    Spark.post("/teacher/viewAssignment/delete-assignment", new Routes.DeleteAssignmentHandler());
-    Spark.post("/teacher/update-checkoff-submit", new Routes.UpdateCheckoffHandler());
+    Spark.get("/teacher/main", new TeacherRoutes.TeacherMainHandler(), freeMarker);
+    Spark.get("/teacher/new-class", new TeacherRoutes.TeacherNewClassHandler(), freeMarker);
+    Spark.get("/teacher/:id", new TeacherRoutes.TeacherClassHandler(), freeMarker);
+    Spark.get("/teacher/viewAssignment/:assignmentid", new TeacherRoutes.TeacherAssignmentHandler(),
+        freeMarker);
+    Spark.post("/teacher/create-assignment-submit", new TeacherRoutes.CreateNewAssignmentHandler());
+    Spark.post("/teacher/submit-new-class", new TeacherRoutes.SubmitTeacherNewClassHandler());
+    Spark.post("/teacher-class-get", new TeacherRoutes.TeacherClassGetHandler());
+    Spark.post("/teacher/viewAssignment/delete-assignment",
+        new TeacherRoutes.DeleteAssignmentHandler());
+    Spark.post("/teacher/update-checkoff-submit", new TeacherRoutes.UpdateCheckoffHandler());
   }
 
   /**
