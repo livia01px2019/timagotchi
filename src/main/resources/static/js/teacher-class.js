@@ -53,7 +53,7 @@ $(document).ready(() => {
 					quizzes.innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + currentAssignment.name + "</button></li>";
 				} else {
 					checkoffs.innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + currentAssignment.name + "</button></li>";
-				}                
+				}
             }
 
             $(".outer").click(function() {
