@@ -453,7 +453,9 @@ public class Routes {
       String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
       Assignment assignment = Controller.getAssignment(assignmentID);
-      ((Review) assignment).generateQuestions(s, classId);
+      if (assignment instanceof Review) {
+        ((Review) assignment).generateQuestions(s, classId);
+      }
 //      List<String> ans = new ArrayList<>();
 //      ans.add("first");
 //      ans.add("second");
