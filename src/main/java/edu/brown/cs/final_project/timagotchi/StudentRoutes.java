@@ -367,7 +367,7 @@ public class StudentRoutes {
         List<String> assignments = c.getAssignmentIds();
         for (String a : assignments) {
           Controller.addAssignmentToStudent(
-              Controller.getStudentIDFromUsername(cookies.get("username")) + " " + a);
+              Controller.getStudentIDFromUsername(cookies.get("username")), a);
         }
         valid = "Success!";
       } else {

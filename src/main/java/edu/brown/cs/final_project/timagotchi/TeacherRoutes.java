@@ -235,19 +235,12 @@ public class TeacherRoutes {
         try {
           double pointNum = Double.parseDouble(points);
           List<String> quizList = new ArrayList<>();
-          quizList.add(classID);
-          quizList.add(title);
-          quizList.add(points);
           if (isCheckoff.equals("true")) {
-            Checkoff assignment = Controller.addCheckoffAssignment(quizList);
+            Checkoff assignment = Controller.addCheckoffAssignment(classID, title, points);
             assignmentID = assignment.getId();
             valid = "Assignment successfully created!";
           } else if (isQuiz.equals("true")) {
-            if (competitive.equals("true")) {
-              quizList.add("competitive");
-            } else {
-              quizList.add("regular");
-            }
+
             List<List<String>> questionLists = new ArrayList<>();
             for (int i = 0; i < questions.size(); i++) {
               String question = questions.get(i);
@@ -276,10 +269,6 @@ public class TeacherRoutes {
                   toAdd.add(thirdAnswer);
                   toAdd.add(fourthAnswer);
                   toAdd.add(Integer.toString(correctNum));
-                  String questionString = question + " " + firstAnswer + " " + secondAnswer + " "
-                      + thirdAnswer + " " + fourthAnswer + " " + correctNum + " ";
-                  System.out.println(questionString);
-                  questionLists.add(toAdd);
                 } catch (NumberFormatException numErr) {
                   valid = "Correct answer must be between 1 and 4";
                   break;
@@ -291,10 +280,18 @@ public class TeacherRoutes {
             }
             if (valid.equals("ERROR: Unknown")) {
               for (List<String> qList : questionLists) {
-                Question q = Controller.addQuestion(qList);
+                Question q = Controller.addQuestion(qList.get(0), qList.get(1), qList.get(2),
+                    qList.get(3), qList.get(4), qList.get(5));
                 quizList.add(q.getId());
               }
-              Quiz assignment = Controller.addQuizAssignment(quizList);
+              Quiz assignment = null;
+              if (competitive.equals("true")) {
+                assignment = Controller.addQuizAssignment(classID, title, points, "competitive",
+                    quizList);
+              } else {
+                assignment = Controller.addQuizAssignment(classID, title, points, "regular",
+                    quizList);
+              }
               assignmentID = assignment.getId();
               valid = "Assignment successfully created!";
             }
@@ -322,7 +319,7 @@ public class TeacherRoutes {
       String name = qmap.value("name");
       Class newClass = Controller.createClassCommand(name,
           Controller.getTeacherIDFromUsername(cookies.get("username")));
-      Controller.addReviewAssignment(newClass.getId() + " Review 100");
+      Controller.addReviewAssignment(newClass.getId(), "Review", "100");
 
       // Check that name is valid
       String valid = "Name invalid!";

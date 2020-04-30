@@ -123,12 +123,20 @@ public class Routes {
         try {
           if (student.equals("true")) {
             // Create a student
-            Student s = Controller.createStudentCommand(username + " " + password + " " + name);
-            valid = "Success!";
+            Student s = Controller.createStudentCommand(username, password, name);
+            if (s == null) {
+              valid = "Username is taken. Please pick another one.";
+            } else {
+              valid = "Success!";
+            }
           } else if (teacher.equals("true")) {
             // Create a teacher
             Teacher t = Controller.createTeacherCommand(username, password, name);
-            valid = "Success!";
+            if (t == null) {
+              valid = "Username is taken. Please pick another one.";
+            } else {
+              valid = "Success!";
+            }
           } else {
             valid = "Please select Student or Teacher.";
           }
