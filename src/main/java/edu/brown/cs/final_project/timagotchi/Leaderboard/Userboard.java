@@ -33,11 +33,21 @@ public class Userboard implements Leaderboard<Student> {
     for (String sid : studentIds) {
       students.add(Controller.getStudent(sid));
     }
-
     // Return list of students sorted by their pets' xp.
     Collections.sort(students, new Student.CompareByXp());
     return students;
   }
 
-  // TODO: Sort by number of correct
+  public List<Student> getRankingScore() {
+    Class c = Controller.getClass(classId);
+    List<String> studentIds = c.getStudentIds();
+    // Construct a list of all the students
+    List<Student> students = new ArrayList<Student>();
+    for (String sid : studentIds) {
+      students.add(Controller.getStudent(sid));
+    }
+    // Return list of students sorted by their pets' xp.
+    Collections.sort(students, new Student.CompareByScore(classId));
+    return students;
+  }
 }

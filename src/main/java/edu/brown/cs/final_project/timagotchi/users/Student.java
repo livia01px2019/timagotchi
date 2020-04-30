@@ -120,6 +120,20 @@ public class Student implements People {
     }
   }
 
+  public static class CompareByScore implements Comparator<Student> {
+    private String classID;
+
+    public CompareByScore(String cid) {
+      classID = cid;
+    }
+
+    @Override
+    public int compare(Student s1, Student s2) {
+      return Double.compare(s1.getWrongQuestionIds(classID).size(),
+          s2.getWrongQuestionIds(classID).size());
+    }
+  }
+
   @Override
   public String getUsername() {
     return username;
