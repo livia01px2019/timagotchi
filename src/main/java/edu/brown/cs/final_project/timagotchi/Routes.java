@@ -113,9 +113,8 @@ public class Routes {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       QueryParamsMap qmap = req.queryMap();
       String name = qmap.value("name");
-      Class newClass = Controller.createClassCommand(new String[] {
-          name, Controller.getTeacherIDFromUsername(cookies.get("username"))
-      });
+      Class newClass = Controller.createClassCommand(name,
+          Controller.getTeacherIDFromUsername(cookies.get("username")));
       Controller.addReviewAssignment(newClass.getId() + " Review 100");
 
       // Check that name is valid
@@ -140,9 +139,8 @@ public class Routes {
       // Check that name is valid
       String valid = "Name invalid!";
       if (Controller.checkValidClassID(classID)) {
-        Class c = Controller.addStudentIDToClassCommand(new String[] {
-            classID, Controller.getStudentIDFromUsername(cookies.get("username"))
-        });
+        Class c = Controller.addStudentIDToClassCommand(classID,
+            Controller.getStudentIDFromUsername(cookies.get("username")));
         List<String> assignments = c.getAssignmentIds();
         for (String a : assignments) {
           Controller.addAssignmentToStudent(
@@ -211,7 +209,7 @@ public class Routes {
             valid = "Success!";
           } else if (teacher.equals("true")) {
             // Create a teacher
-            Teacher t = Controller.createTeacherCommand(username + " " + password + " " + name);
+            Teacher t = Controller.createTeacherCommand(username, password, name);
             valid = "Success!";
           } else {
             valid = "Please select Student or Teacher.";
@@ -347,14 +345,10 @@ public class Routes {
 
       try {
         for (String s : completed) {
-          Controller.completeAssignment(new String[] {
-              s, assignmentID
-          });
+          Controller.completeAssignment(s, assignmentID);
         }
         for (String s : notCompleted) {
-          Controller.uncompleteAssignment(new String[] {
-              s, assignmentID
-          });
+          Controller.uncompleteAssignment(s, assignmentID);
         }
       } catch (Exception e) {
         valid = e.toString();

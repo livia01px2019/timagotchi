@@ -144,20 +144,20 @@ public class Controller {
   }
 
   /**
-   * Add pet to student.
+   * Adds pet to database.
    *
-   * @param input studentID, pet name
-   * @return
+   * @param studentID String studentId
+   * @param petName   String pet name
+   * @return Pet object
    */
-  public static Pet addPet(String input) {
-    String[] inputList = input.split(" ");
+  public static Pet addPet(String studentID, String petName) {
     try {
       UUID petID = UUID.randomUUID();
-      Pet p = new Pet(petID.toString(), inputList[1]);
+      Pet p = new Pet(petID.toString(), petName);
       DBProxy.updateQueryParameters("INSERT INTO pets VALUES (?,?,?,?,?);",
-          new ArrayList<>(Arrays.asList(petID.toString(), inputList[1], "0", "1", p.getImage())));
+          new ArrayList<>(Arrays.asList(petID.toString(), petName, "0", "1", p.getImage())));
       DBProxy.updateQueryParameters("INSERT INTO student_pet VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], petID.toString())));
+          new ArrayList<>(Arrays.asList(studentID, petID.toString())));
       return p;
     } catch (Exception e) {
       e.printStackTrace();
@@ -168,16 +168,17 @@ public class Controller {
   /**
    * Complete Assignment for Student.
    *
-   * @param inputList [studentID, assignmentID]
-   * @return
+   * @param studentID
+   * @param assignmentID
+   * @return Assignment that has been set to complete
    */
-  public static Assignment completeAssignment(String[] inputList) {
+  public static Assignment completeAssignment(String studentID, String assignmentID) {
     try {
-      Assignment a = getAssignment(inputList[1]);
-      a.setComplete(inputList[0], true);
+      Assignment a = getAssignment(assignmentID);
+      a.setComplete(studentID, true);
       DBProxy.updateQueryParameters(
           "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
-          new ArrayList<>(Arrays.asList("true", inputList[0], inputList[1])));
+          new ArrayList<>(Arrays.asList("true", studentID, assignmentID)));
       return a;
     } catch (Exception e) {
       e.printStackTrace();
@@ -188,10 +189,11 @@ public class Controller {
   /**
    * Uncomplete Assignment for Student.
    *
-   * @param inputList [studentID, assignmentID]
-   * @return
+   * @param studentID
+   * @param assignmentID
+   * @return Assignment that has been set to complete
    */
-  public static Assignment uncompleteAssignment(String[] inputList) {
+  public static Assignment uncompleteAssignment(String studentID, String assignmentID) {
     // TODO: implement- remember to update DB
     return null;
   }
@@ -201,8 +203,9 @@ public class Controller {
    *
    * @param studentID
    * @param assignmentID
-   * @param inputList    List of True/Falses
-   * @return
+   * @param inputList    List of True/Falses for students' answers where true
+   *                     means correct and false means incorrect
+   * @return Assignment that student record has been added to
    */
   public static Assignment addStudentRecord(String studentID, String assignmentID, String classID,
       List<String> inputList) {
@@ -223,9 +226,7 @@ public class Controller {
           }
         }
         // update student status as complete
-        completeAssignment(new String[] {
-            studentID, assignmentID
-        });
+        completeAssignment(studentID, assignmentID);
         // update pet xp
         Student s = getStudent(studentID);
         String p = s.getPetId();
@@ -441,19 +442,19 @@ public class Controller {
   /**
    * Create Teacher Command
    *
-   * @param input List of parameters separated by whitespace (username, password,
-   *              name)
+   * @param username
+   * @param password
+   * @param name
    * @return The teacher that was added
    */
-  public static Teacher createTeacherCommand(String input) {
-    String[] inputList = input.split(" ");
+  public static Teacher createTeacherCommand(String username, String password, String name) {
     try {
       // TODO return null if username is already taken
       UUID teacherID = UUID.randomUUID();
-      String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
-      DBProxy.updateQueryParameters("INSERT INTO teachers VALUES (?,?,?,?);", new ArrayList<>(
-          Arrays.asList(teacherID.toString(), inputList[0], hashedPassword, inputList[2])));
-      return new Teacher(teacherID.toString(), inputList[0], hashedPassword, inputList[2]);
+      String hashedPassword = PasswordHashing.hashSHA256(password);
+      DBProxy.updateQueryParameters("INSERT INTO teachers VALUES (?,?,?,?);",
+          new ArrayList<>(Arrays.asList(teacherID.toString(), username, hashedPassword, name)));
+      return new Teacher(teacherID.toString(), username, hashedPassword, name);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -463,18 +464,18 @@ public class Controller {
   /**
    * Create Class Command
    *
-   * @param inputList List of parameters separated by whitespace (name, teacherId)
+   * @param name
+   * @param teacherId
    * @return Class The class that was added
    */
-  public static Class createClassCommand(String[] inputList) {
+  public static Class createClassCommand(String name, String teacherId) {
     try {
       UUID classID = UUID.randomUUID();
       DBProxy.updateQueryParameters("INSERT INTO classes VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(classID.toString(), inputList[0])));
+          new ArrayList<>(Arrays.asList(classID.toString(), name)));
       DBProxy.updateQueryParameters("INSERT INTO teacher_classes VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[1], classID.toString())));
-      return new Class(classID.toString(), inputList[0],
-          new ArrayList<>(Arrays.asList(inputList[1])));
+          new ArrayList<>(Arrays.asList(teacherId, classID.toString())));
+      return new Class(classID.toString(), name, new ArrayList<>(Arrays.asList(teacherId)));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -521,13 +522,13 @@ public class Controller {
   /**
    * Check whether a classID is valid.
    *
-   * @param input
+   * @param classID
    * @return
    */
-  public static Boolean checkValidClassID(String input) {
+  public static Boolean checkValidClassID(String classID) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
-          "SELECT * FROM classes WHERE id=?;", new ArrayList<>(Arrays.asList(input)));
+          "SELECT * FROM classes WHERE id=?;", new ArrayList<>(Arrays.asList(classID)));
       if (results.size() != 0) {
         return true;
       }
@@ -541,15 +542,16 @@ public class Controller {
   /**
    * Add Student ID To Class Command
    *
-   * @param inputList List of parameters (classID studentID)
+   * @param classID
+   * @param studentID
    * @return The class that was just updated
    */
-  public static Class addStudentIDToClassCommand(String[] inputList) {
+  public static Class addStudentIDToClassCommand(String classID, String studentID) {
     try {
       DBProxy.updateQueryParameters("INSERT INTO class_student VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], inputList[1])));
-      Class c = getClass(inputList[0]);
-      c.addStudentId(inputList[1]);
+          new ArrayList<>(Arrays.asList(classID, studentID)));
+      Class c = getClass(classID);
+      c.addStudentId(studentID);
       return c;
     } catch (Exception e) {
       e.printStackTrace();
@@ -572,7 +574,7 @@ public class Controller {
       String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
       DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);", new ArrayList<>(
           Arrays.asList(studentID.toString(), inputList[0], hashedPassword, inputList[2])));
-      Pet p = addPet(studentID.toString() + " aaa"); // TODO: Change for pet name
+      Pet p = addPet(studentID.toString(), "aaa"); // TODO: Change for pet name
       Student s = new Student(studentID.toString(), inputList[0], hashedPassword, inputList[2]);
       s.setPetId(p.getId());
       return s;
