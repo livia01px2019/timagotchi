@@ -175,13 +175,9 @@ public class Controller {
     try {
       Assignment a = getAssignment(inputList[1]);
       a.setComplete(inputList[0], true);
-<<<<<<< HEAD
-      // TODO update DB
-=======
       DBProxy.updateQueryParameters(
           "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList("true", inputList[0], inputList[1])));
->>>>>>> f12e6aea3b0df30fed9906a1b66667fdd545b36f
       return a;
     } catch (Exception e) {
       e.printStackTrace();
@@ -227,7 +223,9 @@ public class Controller {
           }
         }
         // update student status as complete
-        completeAssignment(studentID + " " + assignmentID);
+        completeAssignment(new String[] {
+            studentID, assignmentID
+        });
         // update pet xp
         Student s = getStudent(studentID);
         String p = s.getPetId();
