@@ -8,10 +8,10 @@
 		const studentsList = JSON.parse(students);
 		
 		for (const currentStudent of studentsList) {
-			const checked = "";
+			let checked = "";
 			if (currentStudent.score == 1) {
 				checked = "checked";
-			}
+			} 
 			output.push(
                     `<div class="studentBlock"> <a href="/${currentStudent.id}">
             <div class="name"> ${currentStudent.name} </div> </a>

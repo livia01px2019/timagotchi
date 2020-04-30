@@ -34,6 +34,10 @@ public class TeacherRoutes {
 
   private static final Gson GSON = new Gson();
 
+  /**
+   * Handler for creating a new assignment.
+   *
+   */
   public static class TeacherNewAssignmentHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -54,6 +58,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Handler to display information for a class.
+   *
+   */
   public static class TeacherClassHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -80,6 +88,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Post request handler to display information for a class.
+   *
+   */
   public static class TeacherClassGetHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -104,6 +116,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Handler to get information on a specific assignment in a class.
+   *
+   */
   public static class TeacherAssignmentHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -155,6 +171,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Handler for teacher's main page.
+   *
+   */
   public static class TeacherMainHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -184,6 +204,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Handler for creating a new class.
+   *
+   */
   public static class TeacherNewClassHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -207,6 +231,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Post request handler for creating a new assignment.
+   *
+   */
   public static class CreateNewAssignmentHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -311,6 +339,10 @@ public class TeacherRoutes {
 
   }
 
+  /**
+   * Post request handler for creating a new class.
+   *
+   */
   public static class SubmitTeacherNewClassHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -334,6 +366,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Post request handler for deleting an assignment.
+   *
+   */
   public static class DeleteAssignmentHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -360,6 +396,10 @@ public class TeacherRoutes {
     }
   }
 
+  /**
+   * Post request handler for updating checkoff.
+   *
+   */
   public static class UpdateCheckoffHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -380,6 +420,7 @@ public class TeacherRoutes {
         for (String s : notCompleted) {
           Controller.uncompleteAssignment(s, assignmentID);
         }
+        valid = "Update successful";
       } catch (Exception e) {
         valid = e.toString();
         e.printStackTrace();

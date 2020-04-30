@@ -33,6 +33,11 @@ public class StudentRoutes {
 
   private static final Gson GSON = new Gson();
 
+  /**
+   * Handler for student assignment page where student can view all of their
+   * assignments. TODO is this ever used??
+   *
+   */
   public static class StudentAssignmentHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -75,6 +80,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Handler for when a student attempts a quiz.
+   *
+   */
   public static class StudentQuizHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -98,6 +107,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Handler for the main student page where they can see their pet.
+   *
+   */
   public static class StudentMainHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -130,6 +143,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Handler for page where student can see leaderboard for all of the classes.
+   *
+   */
   public static class StudentLeaderboardHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -152,6 +169,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Handler for when student adds themselves to a class.
+   *
+   */
   public static class StudentNewClassHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -175,6 +196,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Handler for what a student sees when in a class's page.
+   *
+   */
   public static class StudentClassHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -208,6 +233,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Handler for when student finishes a quiz.
+   *
+   */
   public static class FinishedQuizHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -248,6 +277,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Post request handler to load a student's quiz.
+   *
+   */
   public static class StudentAssignmentLoader implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -277,6 +310,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Post request handler to get info in student class page.
+   *
+   */
   public static class StudentClassGetHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -353,6 +390,10 @@ public class StudentRoutes {
     }
   }
 
+  /**
+   * Post request handler when student adds themself to a class.
+   *
+   */
   public static class SubmitStudentNewClassHandler implements Route {
     @Override
     public String handle(Request req, Response res) {

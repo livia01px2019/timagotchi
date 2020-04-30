@@ -8,7 +8,7 @@
 		const studentsList = JSON.parse(students);
 		
 		for (const currentStudent of studentsList) {
-			const score = currentStudent.score;
+			let score = currentStudent.score;
 			if(currentStudent.score == null){
 				score = "INCOMPLETE";
 			}

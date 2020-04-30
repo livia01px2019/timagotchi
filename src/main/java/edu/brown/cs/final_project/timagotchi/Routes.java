@@ -29,6 +29,10 @@ public class Routes {
 
   private static final Gson GSON = new Gson();
 
+  /**
+   * Handler for logging in.
+   *
+   */
   public static class LoginHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -41,6 +45,10 @@ public class Routes {
     }
   }
 
+  /**
+   * Post request handler for logging in as student.
+   *
+   */
   public static class LoginStudentHandler implements Route {
     @Override
     public String handle(Request req, Response res) throws NoSuchAlgorithmException {
@@ -70,6 +78,10 @@ public class Routes {
     }
   }
 
+  /**
+   * Post request handler for logging in as teacher.
+   *
+   */
   public static class LoginTeacherHandler implements Route {
     @Override
     public String handle(Request req, Response res) throws NoSuchAlgorithmException {
@@ -99,6 +111,10 @@ public class Routes {
     }
   }
 
+  /**
+   * Post request handler for registering.
+   *
+   */
   public static class RegisterSubmitHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
@@ -150,6 +166,10 @@ public class Routes {
     }
   }
 
+  /**
+   * Handler for register page.
+   *
+   */
   public static class RegisterHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -160,6 +180,10 @@ public class Routes {
     }
   }
 
+  /**
+   * Handler for logging out.
+   *
+   */
   public static class LogoutHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -173,6 +197,12 @@ public class Routes {
     }
   }
 
+  /**
+   * Given cookies, returns HTML code to display classes in sidebar.
+   *
+   * @param cookies cookies for current user
+   * @return HTML code for sidebar.
+   */
   public static String generateClassSidebar(Cookies cookies) {
     String username = cookies.get("username");
     List<Class> classes = new ArrayList<Class>();
@@ -210,6 +240,12 @@ public class Routes {
     return classesHtml;
   }
 
+  /**
+   * Generates HTML code for a userboard.
+   *
+   * @param ub userboard
+   * @return HTML code for userboard
+   */
   public static String generateUserboardHtml(Userboard ub) {
     StringBuilder sb = new StringBuilder();
     List<Student> studentList = ub.getRanking();
@@ -235,6 +271,12 @@ public class Routes {
     return sb.toString();
   }
 
+  /**
+   * Generates HTML code for classboard.
+   *
+   * @param cb classboard
+   * @return HTML code for cb
+   */
   public static String generateClassboardHtml(Classboard cb) {
     StringBuilder sb = new StringBuilder();
     List<Class> classList = cb.getRanking();

@@ -238,6 +238,7 @@ public class Controller {
       DBProxy.updateQueryParameters(
           "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList("true", studentID, assignmentID)));
+      // TODO update xp as well!
       return a;
     } catch (Exception e) {
       e.printStackTrace();
@@ -259,6 +260,7 @@ public class Controller {
       DBProxy.updateQueryParameters(
           "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList("false", studentID, assignmentID)));
+      // TODO update xp as well!
       return a;
     } catch (Exception e) {
       e.printStackTrace();
