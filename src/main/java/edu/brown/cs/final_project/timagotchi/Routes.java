@@ -411,7 +411,6 @@ public class Routes {
       List<String> record = GSON.fromJson(qm.value("record"), ArrayList.class);
       try {
         // TODO: add xp reward to Student
-        int reward = Integer.parseInt(qm.value("reward"));
         Assignment assignment = Controller.addStudentRecord(studentId, assignmentID,
             cookies.get("classId"), record);
       } catch (NumberFormatException numErr) {
@@ -453,6 +452,9 @@ public class Routes {
       String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
       Assignment assignment = Controller.getAssignment(assignmentID);
+      if (assignment instanceof Review) {
+        ((Review) assignment).generateQuestions(s, classId);
+      }
 //      List<String> ans = new ArrayList<>();
 //      ans.add("first");
 //      ans.add("second");

@@ -190,6 +190,7 @@ public class Controller {
       List<String> inputList) {
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
+      // TODO: set student status to complete
       for (int i = 0; i < inputList.size(); i++) {
         a.setRecord(studentID, i, Boolean.parseBoolean(inputList.get(i)));
         List<List<String>> questions = DBProxy.executeQueryParameters(
