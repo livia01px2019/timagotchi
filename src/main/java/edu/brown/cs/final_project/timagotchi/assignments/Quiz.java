@@ -74,7 +74,7 @@ public class Quiz implements Assignment {
     if (qIdx == curRecord.size()) {
       curRecord.add(correct);
     }
-    record.replace(userId, curRecord);
+    record.put(userId, curRecord);
   }
 
   /**
