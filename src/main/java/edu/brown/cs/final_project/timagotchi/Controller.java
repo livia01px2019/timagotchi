@@ -22,8 +22,35 @@ import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 public class Controller {
 
-  public static List<String> getWhatever(String studentID, String classID) {
-    // TODO:
+  public static List<String> getWrongQuestionIDs(String studentID, String classID) {
+    List<String> allWrongs = new ArrayList<>();
+    try {
+      List<List<String>> assignments = DBProxy.executeQueryParameters(
+          "SELECT questionID from student_record WHERE studentID=? AND classID=? AND record=\"false\";",
+          new ArrayList<>(Arrays.asList(studentID, classID)));
+      for (List<String> a : assignments) {
+        allWrongs.add(a.get(0));
+      }
+      return allWrongs;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public static List<String> getAllAssignmentID(String studentID, String classID) {
+    List<String> allAssignments = new ArrayList<>();
+    try {
+      List<List<String>> assignments = DBProxy.executeQueryParameters(
+          "SELECT DISTINCT p1.assignmentID FROM class_assignment AS p1, student_assignment AS p2 WHERE p1.classID=? AND p2.studentID=?;",
+          new ArrayList<>(Arrays.asList(classID, studentID)));
+      for (List<String> a : assignments) {
+        allAssignments.add(a.get(0));
+      }
+      return allAssignments;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return null;
   }
 
@@ -194,7 +221,16 @@ public class Controller {
    * @return Assignment that has been set to complete
    */
   public static Assignment uncompleteAssignment(String studentID, String assignmentID) {
-    // TODO: implement- remember to update DB
+    try {
+      Assignment a = getAssignment(assignmentID);
+      a.setComplete(studentID, false);
+      DBProxy.updateQueryParameters(
+          "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
+          new ArrayList<>(Arrays.asList("false", studentID, assignmentID)));
+      return a;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return null;
   }
 
@@ -315,7 +351,7 @@ public class Controller {
       // add pet ID
       List<List<String>> pets = DBProxy.executeQueryParameters(
           "SELECT petID FROM student_pet WHERE studentID=?;", new ArrayList<>(Arrays.asList(id)));
-      s.setPetId(pets.get(0).get(0)); // TODO: Pets for different class?
+      s.setPetId(pets.get(0).get(0));
       return s;
     } catch (Exception e) {
       e.printStackTrace();
