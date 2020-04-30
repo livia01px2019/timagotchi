@@ -297,6 +297,7 @@ public class TeacherRoutes {
                   toAdd.add(thirdAnswer);
                   toAdd.add(fourthAnswer);
                   toAdd.add(Integer.toString(correctNum));
+                  questionLists.add(toAdd);
                 } catch (NumberFormatException numErr) {
                   valid = "Correct answer must be between 1 and 4";
                   break;

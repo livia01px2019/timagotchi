@@ -238,7 +238,12 @@ public class Controller {
       DBProxy.updateQueryParameters(
           "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList("true", studentID, assignmentID)));
-      // TODO update xp as well!
+      // update pet xp
+      Student s = getStudent(studentID);
+      String p = s.getPetId();
+      double xp = a.getReward() + getPet(p).getXp(); // (a.getScore(studentID) / a.getTotalScore());
+      DBProxy.updateQueryParameters("UPDATE pets SET xp=? WHERE id=?;",
+          new ArrayList<>(Arrays.asList("" + xp, p)));
       return a;
     } catch (Exception e) {
       e.printStackTrace();
@@ -260,7 +265,13 @@ public class Controller {
       DBProxy.updateQueryParameters(
           "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList("false", studentID, assignmentID)));
-      // TODO update xp as well!
+      // update pet xp
+      Student s = getStudent(studentID);
+      String p = s.getPetId();
+      double xp = getPet(p).getXp() - a.getReward();
+      // (a.getScore(studentID) / a.getTotalScore());
+      DBProxy.updateQueryParameters("UPDATE pets SET xp=? WHERE id=?;",
+          new ArrayList<>(Arrays.asList("" + xp, p)));
       return a;
     } catch (Exception e) {
       e.printStackTrace();
@@ -297,12 +308,6 @@ public class Controller {
         }
         // update student status as complete
         completeAssignment(studentID, assignmentID);
-        // update pet xp
-        Student s = getStudent(studentID);
-        String p = s.getPetId();
-        double xp = a.getReward(); // * (a.getScore(studentID) / a.getTotalScore());
-        DBProxy.updateQueryParameters("UPDATE pets SET xp=? WHERE id=?;",
-            new ArrayList<>(Arrays.asList("" + xp, p)));
       }
       return a;
     } catch (Exception e) {
