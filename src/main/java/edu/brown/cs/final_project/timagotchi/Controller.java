@@ -1,6 +1,5 @@
 package edu.brown.cs.final_project.timagotchi;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -487,43 +486,26 @@ public class Controller {
   }
 
   /**
-   * Startup Command TODO: Run command to maintain foreign key.
-   *
-   * @param input The filename of the database to connect to.
-   * @return Whether the database was successfully connected to.
-   */
-  public Boolean startUpCommand(String input) {
-    try {
-      DBProxy.connect(input);
-      if (DBProxy.isConnected()) {
-        System.out.println("Connected to: " + input);
-        return true;
-      } else {
-        System.out.println("ERROR: Not connected to: " + input);
-        return false;
-      }
-    } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
-    }
-    return false;
-  }
-
-  /**
    * Create Teacher Command
    *
-   * @param username
-   * @param password
-   * @param name
-   * @return The teacher that was added
+   * @param username the new account username
+   * @param password the new account password, unhashed
+   * @param name     the new account name
+   * @return Teacher The teacher that was added
    */
   public static Teacher createTeacherCommand(String username, String password, String name) {
     try {
-      // TODO return null if username is already taken
-      UUID teacherID = UUID.randomUUID();
-      String hashedPassword = PasswordHashing.hashSHA256(password);
-      DBProxy.updateQueryParameters("INSERT INTO teachers VALUES (?,?,?,?);",
-          new ArrayList<>(Arrays.asList(teacherID.toString(), username, hashedPassword, name)));
-      return new Teacher(teacherID.toString(), username, hashedPassword, name);
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT * FROM teachers WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+      if (results.size() == 0) {
+        UUID teacherID = UUID.randomUUID();
+        String hashedPassword = PasswordHashing.hashSHA256(password);
+        DBProxy.updateQueryParameters("INSERT INTO teachers VALUES (?,?,?,?);",
+            new ArrayList<>(Arrays.asList(teacherID.toString(), username, hashedPassword, name)));
+        return new Teacher(teacherID.toString(), username, hashedPassword, name);
+      } else {
+        return null;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -533,18 +515,19 @@ public class Controller {
   /**
    * Create Class Command
    *
-   * @param name
-   * @param teacherId
-   * @return Class The class that was added
+   * @param name      The name of the new account.
+   * @param teacherID The id of the teacher.
+   * @return Class The class that was added.
    */
-  public static Class createClassCommand(String name, String teacherId) {
+
+  public static Class createClassCommand(String name, String teacherID) {
     try {
       UUID classID = UUID.randomUUID();
       DBProxy.updateQueryParameters("INSERT INTO classes VALUES (?,?);",
           new ArrayList<>(Arrays.asList(classID.toString(), name)));
       DBProxy.updateQueryParameters("INSERT INTO teacher_classes VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(teacherId, classID.toString())));
-      return new Class(classID.toString(), name, new ArrayList<>(Arrays.asList(teacherId)));
+          new ArrayList<>(Arrays.asList(teacherID, classID.toString())));
+      return new Class(classID.toString(), name, new ArrayList<>(Arrays.asList(teacherID)));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -591,8 +574,13 @@ public class Controller {
   /**
    * Check whether a classID is valid.
    *
+   * <<<<<<< Updated upstream
+   *
    * @param classID
-   * @return
+   * @return =======
+   * @param input The classID.
+   * @return Boolean True if classID is valid, False otherwise. >>>>>>> Stashed
+   *         changes
    */
   public static Boolean checkValidClassID(String classID) {
     try {
@@ -609,11 +597,16 @@ public class Controller {
   }
 
   /**
-   * Add Student ID To Class Command
+   * Add StudentID to Class.
+   *
+   * <<<<<<< Updated upstream
    *
    * @param classID
    * @param studentID
-   * @return The class that was just updated
+   * @return The class that was just updated =======
+   * @param classID   The class id to be added to.
+   * @param studentID The student id to be added.
+   * @return Class The class with the studentID added. >>>>>>> Stashed changes
    */
   public static Class addStudentIDToClassCommand(String classID, String studentID) {
     try {
@@ -629,24 +622,29 @@ public class Controller {
   }
 
   /**
-   * Create Student Command
+   * Create Student Command.
    *
-   * @param input List of parameters separated by whitespace (username, password,
-   *              name)
-   * @return The student that was added
+   * @param username The username of the new account.
+   * @param password The password of the new account, unhashed.
+   * @param name     The name of the new account.
+   * @return The student that was added.
    */
-  public static Student createStudentCommand(String input) {
-    String[] inputList = input.split(" ");
+  public static Student createStudentCommand(String username, String password, String name) {
     try {
-      // TODO return null if username is already taken
-      UUID studentID = UUID.randomUUID();
-      String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
-      DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);", new ArrayList<>(
-          Arrays.asList(studentID.toString(), inputList[0], hashedPassword, inputList[2])));
-      Pet p = addPet(studentID.toString(), "aaa"); // TODO: Change for pet name
-      Student s = new Student(studentID.toString(), inputList[0], hashedPassword, inputList[2]);
-      s.setPetId(p.getId());
-      return s;
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT * FROM students WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
+      if (results.size() == 0) {
+        UUID studentID = UUID.randomUUID();
+        String hashedPassword = PasswordHashing.hashSHA256(password);
+        DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);",
+            new ArrayList<>(Arrays.asList(studentID.toString(), username, hashedPassword, name)));
+        Pet p = addPet(studentID.toString(), "aaa"); // TODO: Change for pet name
+        Student s = new Student(studentID.toString(), username, hashedPassword, name);
+        s.setPetId(p.getId());
+        return s;
+      } else {
+        return null;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -654,15 +652,16 @@ public class Controller {
   }
 
   /**
-   * Add assignment to student.
+   * <<<<<<< Updated upstream Add assignment to student. ======= Add assignment to
+   * the student. >>>>>>> Stashed changes
    *
-   * @param input StudentID, AssignmentID
+   * @param studentID    The ID for the student.
+   * @param assignmentID The ID of the assignment, to be added to the student.
    */
-  public static void addAssignmentToStudent(String input) {
-    String[] inputList = input.split(" ");
+  public static void addAssignmentToStudent(String studentID, String assignmentID) {
     try {
       DBProxy.updateQueryParameters("INSERT INTO student_assignment VALUES (?,?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], inputList[1], "false")));
+          new ArrayList<>(Arrays.asList(studentID, assignmentID, "false")));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -692,23 +691,24 @@ public class Controller {
   /**
    * Add Checkoff Assignment Command
    *
-   * @param inputList The classID, name and xp reward
-   * @return The Checkoff that was added
+   * @param classID The id of the class to add to.
+   * @param name    The name of the assignment.
+   * @param reward  The xp reward for completing the assignment.
+   * @return The new Checkoff assignment.
    */
-  public static Checkoff addCheckoffAssignment(List<String> inputList) {
+  public static Checkoff addCheckoffAssignment(String classID, String name, String reward) {
     try {
       UUID assignmentID = UUID.randomUUID();
-      DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-          Arrays.asList(assignmentID.toString(), inputList.get(1), "checkoff", inputList.get(2))));
+      DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);",
+          new ArrayList<>(Arrays.asList(assignmentID.toString(), name, "checkoff", reward)));
       DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList.get(0), assignmentID.toString())));
+          new ArrayList<>(Arrays.asList(classID, assignmentID.toString())));
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT studentID FROM class_student WHERE classID=?;",
-          new ArrayList<>(Arrays.asList(inputList.get(0))));
-      Checkoff c = new Checkoff(assignmentID.toString(), inputList.get(1),
-          Integer.parseInt(inputList.get(2)));
+          new ArrayList<>(Arrays.asList(classID)));
+      Checkoff c = new Checkoff(assignmentID.toString(), name, Integer.parseInt(reward));
       for (List<String> student : results) {
-        addAssignmentToStudent(student.get(0) + " " + assignmentID.toString());
+        addAssignmentToStudent(student.get(0), assignmentID.toString());
         c.setComplete(student.get(0), false);
       }
       return c;
@@ -719,14 +719,18 @@ public class Controller {
   }
 
   /**
-   * Add Question.
+   * Create a Question.
    *
-   * @param inputList (Prompt, Option1, Option2, Option3, Option4, AnswerIndex)
-   * @return
+   * @param prompt      The prompt of the question.
+   * @param option1     Multiple Choice 1.
+   * @param option2     Multiple Choice 2.
+   * @param option3     Multiple Choice 3.
+   * @param option4     Multiple Choice 4.
+   * @param answerIndex The index of the right option.
+   * @return The newly created Question.
    */
-  public static Question addQuestion(List<String> inputList) {
-//    String[] inputList = input.split(" ");
-//    System.out.println(inputList.length);
+  public static Question addQuestion(String prompt, String option1, String option2, String option3,
+      String option4, String answerIndex) {
     try {
       UUID questionID = UUID.randomUUID();
       UUID answer1ID = UUID.randomUUID();
@@ -735,19 +739,18 @@ public class Controller {
       UUID answer4ID = UUID.randomUUID();
       List<String> uuids = new ArrayList<>(Arrays.asList(answer1ID.toString(), answer2ID.toString(),
           answer3ID.toString(), answer4ID.toString()));
-      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer1ID.toString(), questionID.toString(), inputList.get(1))));
-      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer2ID.toString(), questionID.toString(), inputList.get(2))));
-      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer3ID.toString(), questionID.toString(), inputList.get(3))));
-      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
-          Arrays.asList(answer4ID.toString(), questionID.toString(), inputList.get(4))));
-      DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?);",
-          new ArrayList<>(Arrays.asList(questionID.toString(), inputList.get(0),
-              uuids.get(Integer.parseInt(inputList.get(5))))));
-      Question q = new Question(questionID.toString(), inputList.get(0), uuids,
-          new ArrayList<>(Arrays.asList(Integer.parseInt(inputList.get(5)))));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);",
+          new ArrayList<>(Arrays.asList(answer1ID.toString(), questionID.toString(), option1)));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);",
+          new ArrayList<>(Arrays.asList(answer2ID.toString(), questionID.toString(), option2)));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);",
+          new ArrayList<>(Arrays.asList(answer3ID.toString(), questionID.toString(), option3)));
+      DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);",
+          new ArrayList<>(Arrays.asList(answer4ID.toString(), questionID.toString(), option4)));
+      DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?);", new ArrayList<>(
+          Arrays.asList(questionID.toString(), prompt, uuids.get(Integer.parseInt(answerIndex)))));
+      Question q = new Question(questionID.toString(), prompt, uuids,
+          new ArrayList<>(Arrays.asList(Integer.parseInt(answerIndex))));
       return q;
     } catch (Exception e) {
       e.printStackTrace();
@@ -756,27 +759,28 @@ public class Controller {
   }
 
   /**
-   * Add Review Assignment Command
+   * Add Review Assignment Command.
    *
-   * @param input The classID, name and xp reward
-   * @return The Review that was added
+   * @param classID The ID of the class that has the new review assignment.
+   * @param name    The name of the assignment.
+   * @param reward  The xp reward for completing the reward assignment.
+   * @return
    */
-  public static Review addReviewAssignment(String input) {
-    String[] inputList = input.split(" ");
+  public static Review addReviewAssignment(String classID, String name, String reward) {
     try {
       UUID assignmentID = UUID.randomUUID();
-      DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-          Arrays.asList(assignmentID.toString(), inputList[1], "review", inputList[2])));
+      DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);",
+          new ArrayList<>(Arrays.asList(assignmentID.toString(), name, "review", reward)));
       DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], assignmentID.toString())));
+          new ArrayList<>(Arrays.asList(classID, assignmentID.toString())));
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT studentID FROM class_student WHERE classID=?;",
-          new ArrayList<>(Arrays.asList(inputList[0])));
-      Review r = new Review(assignmentID.toString(), inputList[1], Integer.parseInt(inputList[2]));
+          new ArrayList<>(Arrays.asList(classID)));
+      Review r = new Review(assignmentID.toString(), name, Integer.parseInt(reward));
 
       // add assignment to each student in the class, and set the complete to false
       for (List<String> student : results) {
-        addAssignmentToStudent(student.get(0) + " " + assignmentID.toString());
+        addAssignmentToStudent(student.get(0), assignmentID.toString());
         r.setComplete(student.get(0), false);
       }
       return r;
@@ -787,45 +791,44 @@ public class Controller {
   }
 
   /**
-   * Add Not Competitive Quiz Assignment Command, without allocating students.
+   * Add Quiz Assignment Command.
    *
-   * @param inputList ClassID, name, xp, String for competitive / false for
-   *                  regular, [questionIDs]
-   * @return
+   * @param classID            The class that this assignment belongs to.
+   * @param name               The name of the assignment.
+   * @param reward             The xp reward for completing the assignment.
+   * @param competitive_toggle Whether the assignment is "competitive" or
+   *                           "regular"
+   * @param qids               The list of question IDs that belong to this
+   *                           assignment.
+   * @return The quiz object.
    */
-  public static Quiz addQuizAssignment(List<String> inputList) {
+  public static Quiz addQuizAssignment(String classID, String name, String reward,
+      String competitive_toggle, List<String> qids) {
     try {
       UUID assignmentID = UUID.randomUUID();
-      if (inputList.get(3).equals("competitive")) {
+      if (competitive_toggle.equals("competitive")) {
         DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);",
-            new ArrayList<>(Arrays.asList(assignmentID.toString(), inputList.get(1), "competitive",
-                inputList.get(2))));
+            new ArrayList<>(Arrays.asList(assignmentID.toString(), name, "competitive", reward)));
       } else {
-        DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-            Arrays.asList(assignmentID.toString(), inputList.get(1), "regular", inputList.get(2))));
+        DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);",
+            new ArrayList<>(Arrays.asList(assignmentID.toString(), name, "regular", reward)));
       }
       DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList.get(0), assignmentID.toString())));
+          new ArrayList<>(Arrays.asList(classID, assignmentID.toString())));
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT studentID FROM class_student WHERE classID=?;",
-          new ArrayList<>(Arrays.asList(inputList.get(0))));
+          new ArrayList<>(Arrays.asList(classID)));
 
-      // input question ID and add to the map
-      List<String> questionIDs = new ArrayList<>();
-      for (int i = 4; i < inputList.size(); i++) {
-        questionIDs.add(inputList.get(i));
-        DBProxy.updateQueryParameters("INSERT INTO assignment_question VALUES (?,?);",
-            new ArrayList<>(Arrays.asList(assignmentID.toString(), inputList.get(i))));
-      }
-      // create list of questions
       List<Question> convertedQ = new ArrayList<>();
-      for (String qid : questionIDs) {
+      for (String q : qids) {
+        // input question ID into database
+        DBProxy.updateQueryParameters("INSERT INTO assignment_question VALUES (?,?);",
+            new ArrayList<>(Arrays.asList(assignmentID.toString(), q)));
+        // create list of questions
         List<List<String>> questionAttributes = DBProxy.executeQueryParameters(
-            "SELECT prompt,answerID FROM questions WHERE id=?;",
-            new ArrayList<>(Arrays.asList(qid)));
+            "SELECT prompt,answerID FROM questions WHERE id=?;", new ArrayList<>(Arrays.asList(q)));
         List<List<String>> options = DBProxy.executeQueryParameters(
-            "SELECT option,id FROM options WHERE questionID=?;",
-            new ArrayList<>(Arrays.asList(qid)));
+            "SELECT option,id FROM options WHERE questionID=?;", new ArrayList<>(Arrays.asList(q)));
         List<String> questionOptions = new ArrayList<>();
         int index = 0;
         for (int o = 0; o < options.size(); o++) {
@@ -835,22 +838,20 @@ public class Controller {
           }
         }
         List<Integer> answerIndex = new ArrayList<>(Arrays.asList(index));
-        Question fullQuestion = new Question(qid, questionAttributes.get(0).get(0), questionOptions,
+        Question fullQuestion = new Question(q, questionAttributes.get(0).get(0), questionOptions,
             answerIndex);
         convertedQ.add(fullQuestion);
       }
       Quiz q = null;
       // create complete assignment object
-      if (inputList.get(3).equals("competitive")) {
-        q = new Quiz(assignmentID.toString(), inputList.get(1), Integer.parseInt(inputList.get(2)),
-            convertedQ, true);
+      if (competitive_toggle.equals("competitive")) {
+        q = new Quiz(assignmentID.toString(), name, Integer.parseInt(reward), convertedQ, true);
       } else {
-        q = new Quiz(assignmentID.toString(), inputList.get(1), Integer.parseInt(inputList.get(2)),
-            convertedQ, false);
+        q = new Quiz(assignmentID.toString(), name, Integer.parseInt(reward), convertedQ, false);
       }
       // add assignment to each student in the class, and set the complete to false
       for (List<String> student : results) {
-        addAssignmentToStudent(student.get(0) + " " + assignmentID.toString());
+        addAssignmentToStudent(student.get(0), assignmentID.toString());
         q.setComplete(student.get(0), false);
       }
       return q;
@@ -860,22 +861,42 @@ public class Controller {
     return null;
   }
 
+  /**
+   * Get the studentID from a username.
+   *
+   * @param username The username.
+   * @return The student ID, if found. Returns null otherwise.
+   */
   public static String getStudentIDFromUsername(String username) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT id FROM students WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
-      return results.get(0).get(0);
+      if (results.size() != 0) {
+        return results.get(0).get(0);
+      } else {
+        return null;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
     return null;
   }
 
+  /**
+   * Get the teacherID from a username.
+   *
+   * @param username The username.
+   * @return The teacher ID, if found. Returns null otherwise.
+   */
   public static String getTeacherIDFromUsername(String username) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT id FROM teachers WHERE username=?;", new ArrayList<>(Arrays.asList(username)));
-      return results.get(0).get(0);
+      if (results.size() != 0) {
+        return results.get(0).get(0);
+      } else {
+        return null;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -885,7 +906,7 @@ public class Controller {
   /**
    * Accessor method for all class IDs
    *
-   * @return
+   * @return The list of all class IDs.
    */
   public static List<String> getAllClassIds() {
     try {

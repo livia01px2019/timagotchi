@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import edu.brown.cs.final_project.timagotchi.utils.Command;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import edu.brown.cs.final_project.timagotchi.utils.REPL;
 import freemarker.template.Configuration;
@@ -61,7 +60,7 @@ public final class Main {
 
     // REPL Handling.
     REPL repl = new REPL(new InputStreamReader(System.in));
-    repl.addCommand("startup", new Command(controller::startUpCommand));
+    // repl.addCommand("startup", new Command(controller::startUpCommand));
     // repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
 //    repl.addCommand("addStudentToClass", new Command(controller::addStudentIDToClassCommand));
     // repl.addCommand("addStudent", new Command(controller::createStudentCommand));
