@@ -22,6 +22,14 @@ import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 public class Controller {
 
+  /**
+   * Returns all the ids of questions a student got wrong given student ID and
+   * class ID
+   *
+   * @param studentID
+   * @param classID
+   * @return List of string of question ids
+   */
   public static List<String> getWrongQuestionIDs(String studentID, String classID) {
     List<String> allWrongs = new ArrayList<>();
     try {
@@ -38,6 +46,13 @@ public class Controller {
     return null;
   }
 
+  /**
+   * Returns all assignment IDs given a student and class.
+   *
+   * @param studentID
+   * @param classID
+   * @return List of String of assignment IDs
+   */
   public static List<String> getAllAssignmentID(String studentID, String classID) {
     List<String> allAssignments = new ArrayList<>();
     try {
@@ -56,6 +71,12 @@ public class Controller {
 
   // TODO: IDs not existing.
 
+  /**
+   * Returns Assignment of correct type given assignmentID.
+   *
+   * @param assignmentId
+   * @return Assignment of correct type and info from DB
+   */
   public static Assignment getAssignment(String assignmentId) {
     // TODO: getter for assignment, but I'm not sure if we need one for each
     // different type? (checkoff, question, etc.)
@@ -140,10 +161,22 @@ public class Controller {
     return null;
   }
 
+  /**
+   * Returns Classboard given a list of classIDs.
+   *
+   * @param classIDs
+   * @return Classboard
+   */
   public static Classboard getLeaderboard(List<String> classIDs) {
     return new Classboard(classIDs);
   }
 
+  /**
+   * Returns Userboard of every student in a class given a classID.
+   *
+   * @param classID
+   * @return Userboard
+   */
   public static Userboard getLeaderboard(String classID) {
     return new Userboard(classID);
   }
@@ -621,7 +654,7 @@ public class Controller {
   }
 
   /**
-   * Add assignment to student
+   * Add assignment to student.
    *
    * @param input StudentID, AssignmentID
    */
