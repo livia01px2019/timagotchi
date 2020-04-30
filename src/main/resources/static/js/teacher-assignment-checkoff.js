@@ -8,14 +8,14 @@
 		const studentsList = JSON.parse(students);
 		
 		for (const currentStudent of studentsList) {
-			const score = currentStudent.score;
-			if(currentStudent.score == null){
-				score = "INCOMPLETE";
+			const checked = "";
+			if (currentStudent.score == 1) {
+				checked = "checked";
 			}
 			output.push(
                     `<div class="studentBlock"> <a href="/${currentStudent.id}">
             <div class="name"> ${currentStudent.name} </div> </a>
-            <div class="score"> ${score} / ${totalScore} pts </div>
+            <input type="checkbox" name="complete" value="${currentStudent.id}" ${checked}>
           </div>`
                 );
 			console.log(`${currentStudent.name}`);
@@ -45,6 +45,37 @@
         })
     }
 
+	function updateAssignment()
+    {
+
+        const checkBoxes = document.getElementsByName('complete');
+
+        let completed = [];
+		let notCompleted = [];
+        for (let item of checkBoxes) {
+			if ($(item).checked == true){
+				completed.push($(item).val());
+			} else {
+				notCompleted.push($(item).val());
+			}
+		}
+
+        const postParameters = {
+            complete: JSON.stringify(completed),
+            notComplete: JSON.stringify(notCompleted)
+        };
+        console.log("complete: "+ complete);
+        console.log("not complete: "+ notComplete);
+
+        $.post("/teacher/update-checkoff-submit", postParameters, response => {
+            const message = JSON.parse(response).results;
+			console.log(message);
+			window.alert(message);
+			location.reload();
+        })
+        return false;
+    }
+
     // Variables
     const assignmentContainer = document.getElementById('assignmentBlock');
     
@@ -52,8 +83,11 @@
     // Kick things off
     buildTable();
 	const deleteButton = document.getElementById('delete-button');
+	const updateButton = document.getElementById('update-button');
     const error = document.getElementById('error-message');
 
+	
     deleteButton.onclick = deleteAssignment;
+	updateButton.onclick = updateAssignment;
 
 })();

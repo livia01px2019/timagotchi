@@ -127,6 +127,7 @@ public final class Main {
     Spark.post("/teacher/submit-new-class", new Routes.SubmitTeacherNewClassHandler());
     Spark.post("/teacher-class-get", new Routes.TeacherClassGetHandler());
     Spark.post("/teacher/viewAssignment/delete-assignment", new Routes.DeleteAssignmentHandler());
+    Spark.post("/teacher/update-checkoff-submit", new Routes.UpdateCheckoffHandler());
   }
 
   /**

@@ -163,18 +163,29 @@ public class Controller {
   /**
    * Complete Assignment for Student.
    *
-   * @param input studentID, assignmentID
+   * @param inputList [studentID, assignmentID]
    * @return
    */
-  public static Assignment completeAssignment(String input) {
-    String[] inputList = input.split(" ");
+  public static Assignment completeAssignment(String[] inputList) {
     try {
       Assignment a = getAssignment(inputList[1]);
       a.setComplete(inputList[0], true);
+      // TODO update DB
       return a;
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return null;
+  }
+
+  /**
+   * Uncomplete Assignment for Student.
+   *
+   * @param inputList [studentID, assignmentID]
+   * @return
+   */
+  public static Assignment uncompleteAssignment(String[] inputList) {
+    // TODO: implement- remember to update DB
     return null;
   }
 
@@ -422,6 +433,7 @@ public class Controller {
   public static Teacher createTeacherCommand(String input) {
     String[] inputList = input.split(" ");
     try {
+      // TODO return null if username is already taken
       UUID teacherID = UUID.randomUUID();
       String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
       DBProxy.updateQueryParameters("INSERT INTO teachers VALUES (?,?,?,?);", new ArrayList<>(
@@ -540,6 +552,7 @@ public class Controller {
   public static Student createStudentCommand(String input) {
     String[] inputList = input.split(" ");
     try {
+      // TODO return null if username is already taken
       UUID studentID = UUID.randomUUID();
       String hashedPassword = PasswordHashing.hashSHA256(inputList[1]);
       DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);", new ArrayList<>(
