@@ -576,11 +576,11 @@ public class Controller {
     try {
       DBProxy.updateQueryParameters("DELETE FROM assignments WHERE id=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
-      DBProxy.updateQueryParameters("DELETE FROM assignment_question WHERE questionID=?",
+      DBProxy.updateQueryParameters("DELETE FROM assignment_question WHERE assignmentID=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
-      DBProxy.updateQueryParameters("DELETE FROM class_assignment WHERE questionID=?",
+      DBProxy.updateQueryParameters("DELETE FROM class_assignment WHERE assignmentID=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
-      DBProxy.updateQueryParameters("DELETE FROM student_assignment WHERE questionID=?",
+      DBProxy.updateQueryParameters("DELETE FROM student_assignment WHERE assignmentID=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
     } catch (Exception e) {
       e.printStackTrace();
