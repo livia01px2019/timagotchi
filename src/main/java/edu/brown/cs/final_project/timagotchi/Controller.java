@@ -578,6 +578,7 @@ public class Controller {
     try {
       DBProxy.updateQueryParameters("DELETE FROM assignments WHERE id=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
+      // TODO delete all questions from questions table
       DBProxy.updateQueryParameters("DELETE FROM assignment_question WHERE assignmentID=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
       DBProxy.updateQueryParameters("DELETE FROM class_assignment WHERE assignmentID=?",
