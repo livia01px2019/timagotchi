@@ -37,3 +37,13 @@
     padding-right: 30px;
     margin: 10px;
 }
+
+.update-button {
+	background: #61C9A8;
+    font-family: 'Press Start 2P', cursive;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 10px;
+}

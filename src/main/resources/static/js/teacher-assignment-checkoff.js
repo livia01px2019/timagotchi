@@ -53,8 +53,9 @@
         let completed = [];
 		let notCompleted = [];
         for (let item of checkBoxes) {
-			if ($(item).checked == true){
+			if (item.checked){
 				completed.push($(item).val());
+				console.log("checked");
 			} else {
 				notCompleted.push($(item).val());
 			}
@@ -64,8 +65,8 @@
             complete: JSON.stringify(completed),
             notComplete: JSON.stringify(notCompleted)
         };
-        console.log("complete: "+ complete);
-        console.log("not complete: "+ notComplete);
+        console.log("complete: "+ completed);
+        console.log("not complete: "+ notCompleted);
 
         $.post("/teacher/update-checkoff-submit", postParameters, response => {
             const message = JSON.parse(response).results;
