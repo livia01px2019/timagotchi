@@ -221,7 +221,7 @@ public class Controller {
   public static Assignment uncompleteAssignment(String[] inputList) {
     try {
       Assignment a = getAssignment(inputList[1]);
-      a.setComplete(inputList[0], true);
+      a.setComplete(inputList[0], false);
       DBProxy.updateQueryParameters(
           "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList("false", inputList[0], inputList[1])));
