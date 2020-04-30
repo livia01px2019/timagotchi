@@ -576,13 +576,8 @@ public class Controller {
   /**
    * Check whether a classID is valid.
    *
-   * <<<<<<< Updated upstream
-   *
-   * @param classID
-   * @return =======
    * @param input The classID.
-   * @return Boolean True if classID is valid, False otherwise. >>>>>>> Stashed
-   *         changes
+   * @return Boolean True if classID is valid, False otherwise. changes
    */
   public static Boolean checkValidClassID(String classID) {
     try {
@@ -601,14 +596,9 @@ public class Controller {
   /**
    * Add StudentID to Class.
    *
-   * <<<<<<< Updated upstream
-   *
-   * @param classID
-   * @param studentID
-   * @return The class that was just updated =======
    * @param classID   The class id to be added to.
    * @param studentID The student id to be added.
-   * @return Class The class with the studentID added. >>>>>>> Stashed changes
+   * @return Class The class with the studentID added.
    */
   public static Class addStudentIDToClassCommand(String classID, String studentID) {
     try {
@@ -654,8 +644,7 @@ public class Controller {
   }
 
   /**
-   * <<<<<<< Updated upstream Add assignment to student. ======= Add assignment to
-   * the student. >>>>>>> Stashed changes
+   * Add assignment to the student.
    *
    * @param studentID    The ID for the student.
    * @param assignmentID The ID of the assignment, to be added to the student.
