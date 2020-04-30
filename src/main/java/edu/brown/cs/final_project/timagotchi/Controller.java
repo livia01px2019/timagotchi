@@ -186,13 +186,25 @@ public class Controller {
    * @param inputList    List of True/Falses
    * @return
    */
-  public static Assignment addStudentRecord(String studentID, String assignmentID,
+  public static Assignment addStudentRecord(String studentID, String assignmentID, String classID,
       List<String> inputList) {
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
       for (int i = 0; i < inputList.size(); i++) {
         a.setRecord(studentID, i, Boolean.parseBoolean(inputList.get(i)));
+        List<List<String>> questions = DBProxy.executeQueryParameters(
+            "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
+            new ArrayList<>(Arrays.asList(assignmentID)));
+        for (List<String> q : questions) {
+          DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?);",
+              new ArrayList<>(Arrays.asList(studentID, q.get(0), inputList.get(i), classID)));
+        }
       }
+      Student s = getStudent(studentID);
+      String p = s.getPetId();
+      double xp = a.getReward() * (a.getScore(studentID) / a.getTotalScore());
+      DBProxy.updateQueryParameters("REPLACE INTO pets (id, xp) VALUES (?,?);",
+          new ArrayList<>(Arrays.asList(p, "" + xp)));
       return a;
     } catch (Exception e) {
       e.printStackTrace();
@@ -578,22 +590,21 @@ public class Controller {
   /**
    * Add Checkoff Assignment Command
    *
-   * @param input The classID, name and xp reward
+   * @param inputList The classID, name and xp reward
    * @return The Checkoff that was added
    */
-  public static Checkoff addCheckoffAssignment(String input) {
-    String[] inputList = input.split(" ");
+  public static Checkoff addCheckoffAssignment(List<String> inputList) {
     try {
       UUID assignmentID = UUID.randomUUID();
       DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-          Arrays.asList(assignmentID.toString(), inputList[1], "checkoff", inputList[2])));
+          Arrays.asList(assignmentID.toString(), inputList.get(1), "checkoff", inputList.get(2))));
       DBProxy.updateQueryParameters("INSERT INTO class_assignment VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(inputList[0], assignmentID.toString())));
+          new ArrayList<>(Arrays.asList(inputList.get(0), assignmentID.toString())));
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT studentID FROM class_student WHERE classID=?;",
-          new ArrayList<>(Arrays.asList(inputList[0])));
-      Checkoff c = new Checkoff(assignmentID.toString(), inputList[1],
-          Integer.parseInt(inputList[2]));
+          new ArrayList<>(Arrays.asList(inputList.get(0))));
+      Checkoff c = new Checkoff(assignmentID.toString(), inputList.get(1),
+          Integer.parseInt(inputList.get(2)));
       for (List<String> student : results) {
         addAssignmentToStudent(student.get(0) + " " + assignmentID.toString());
         c.setComplete(student.get(0), false);
@@ -630,8 +641,9 @@ public class Controller {
           Arrays.asList(answer3ID.toString(), questionID.toString(), inputList.get(3))));
       DBProxy.updateQueryParameters("INSERT INTO options VALUES (?,?,?);", new ArrayList<>(
           Arrays.asList(answer4ID.toString(), questionID.toString(), inputList.get(4))));
-      DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?);", new ArrayList<>(Arrays
-          .asList(questionID.toString(), inputList.get(0), uuids.get(Integer.parseInt(inputList.get(5))))));
+      DBProxy.updateQueryParameters("INSERT INTO questions VALUES (?,?,?);",
+          new ArrayList<>(Arrays.asList(questionID.toString(), inputList.get(0),
+              uuids.get(Integer.parseInt(inputList.get(5))))));
       Question q = new Question(questionID.toString(), inputList.get(0), uuids,
           new ArrayList<>(Arrays.asList(Integer.parseInt(inputList.get(5)))));
       return q;
@@ -675,16 +687,17 @@ public class Controller {
   /**
    * Add Not Competitive Quiz Assignment Command, without allocating students.
    *
-   * @param inputList ClassID, name, xp, String for competitive / false for regular,
-   *              [questionIDs]
+   * @param inputList ClassID, name, xp, String for competitive / false for
+   *                  regular, [questionIDs]
    * @return
    */
   public static Quiz addQuizAssignment(List<String> inputList) {
     try {
       UUID assignmentID = UUID.randomUUID();
       if (inputList.get(3).equals("competitive")) {
-        DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
-            Arrays.asList(assignmentID.toString(), inputList.get(1), "competitive", inputList.get(2))));
+        DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);",
+            new ArrayList<>(Arrays.asList(assignmentID.toString(), inputList.get(1), "competitive",
+                inputList.get(2))));
       } else {
         DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);", new ArrayList<>(
             Arrays.asList(assignmentID.toString(), inputList.get(1), "regular", inputList.get(2))));

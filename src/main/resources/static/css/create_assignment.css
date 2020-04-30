@@ -86,7 +86,7 @@ input[type="submit"] {
     justify-content: space-around;
 }
 
-input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
     width: auto;
     margin-right: 0.5rem;
 }

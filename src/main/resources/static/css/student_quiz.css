@@ -116,8 +116,8 @@ button{
     border: 0px;
     padding: 20px;
     cursor: pointer;
-    margin-top: 100px;
     margin-bottom: 20px;
+	margin-top: 100px;
 }
 button:hover{
     background-color: #38a;
@@ -161,9 +161,8 @@ label {
 	padding: 10px;
 }
 .buttons{
-	width: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
 	margin-top: 20px;
 }

@@ -248,17 +248,15 @@ public class Routes {
       } else {
         try {
           double pointNum = Double.parseDouble(points);
-          String assignmentString = classID + " " + title + " " + points;
-          System.out.println("BRUH:" + assignmentString);
+          List<String> quizList = new ArrayList<>();
+          quizList.add(classID);
+          quizList.add(title);
+          quizList.add(points);
           if (isCheckoff.equals("true")) {
-            Checkoff assignment = Controller.addCheckoffAssignment(assignmentString);
+            Checkoff assignment = Controller.addCheckoffAssignment(quizList);
             assignmentID = assignment.getId();
             valid = "Assignment successfully created!";
           } else if (isQuiz.equals("true")) {
-            List<String> quizList = new ArrayList<>();
-            quizList.add(classID);
-            quizList.add(title);
-            quizList.add(points);
             if (competitive.equals("true")) {
               quizList.add("competitive");
             } else {
@@ -414,7 +412,8 @@ public class Routes {
       try {
         // TODO: add xp reward to Student
         int reward = Integer.parseInt(qm.value("reward"));
-        Assignment assignment = Controller.addStudentRecord(studentId, assignmentID, record);
+        Assignment assignment = Controller.addStudentRecord(studentId, assignmentID,
+            cookies.get("classId"), record);
       } catch (NumberFormatException numErr) {
         numErr.printStackTrace();
       }
@@ -436,10 +435,11 @@ public class Routes {
         return new ModelAndView(variables, "error-teacher.ftl");
       }
       String assignmentID = req.params(":id");
+      String assignmentName = Controller.getAssignment(assignmentID).getName();
       String classesHtml = generateClassSidebar(cookies);
       String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentID);
+          "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentName);
       return new ModelAndView(variables, "student-quiz.ftl");
     }
   }
@@ -721,7 +721,7 @@ public class Routes {
       String assignmentId = req.params(":assignmentid");
       cookies.set("assignmentId", assignmentId);
       Class classObject = Controller.getClass(cookies.get("classId"));
-      System.out.println("sstudents from class:" + classObject.getStudentIds());
+      System.out.println("students from class:" + classObject.getStudentIds());
 
       Assignment assignment = Controller.getAssignment(assignmentId);
       System.out.println("assignment id" + assignmentId);
