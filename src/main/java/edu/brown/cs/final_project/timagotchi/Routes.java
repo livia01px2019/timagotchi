@@ -140,9 +140,14 @@ public class Routes {
       // Check that name is valid
       String valid = "Name invalid!";
       if (Controller.checkValidClassID(classID)) {
-        Controller.addStudentIDToClassCommand(new String[] {
+        Class c = Controller.addStudentIDToClassCommand(new String[] {
             classID, Controller.getStudentIDFromUsername(cookies.get("username"))
         });
+        List<String> assignments = c.getAssignmentIds();
+        for (String a : assignments) {
+          Controller.addAssignmentToStudent(
+              Controller.getStudentIDFromUsername(cookies.get("username")) + " " + a);
+        }
         valid = "Success!";
       } else {
         valid = "Code not valid";
@@ -410,7 +415,6 @@ public class Routes {
       String assignmentID = qm.value("id");
       List<String> record = GSON.fromJson(qm.value("record"), ArrayList.class);
       try {
-        // TODO: add xp reward to Student
         Assignment assignment = Controller.addStudentRecord(studentId, assignmentID,
             cookies.get("classId"), record);
       } catch (NumberFormatException numErr) {
@@ -492,7 +496,6 @@ public class Routes {
         String classesHtml = generateClassSidebar(cookies);
         Userboard userboard = Controller.getLeaderboard(classId);
         String leaderboardHtml = generateUserboardHtml(userboard);
-
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
             "classes", classesHtml, "className", className, "leaderboard", leaderboardHtml);
         return new ModelAndView(variables, "student-class.ftl");

@@ -22,6 +22,11 @@ import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 public class Controller {
 
+  public static List<String> getWhatever(String studentID, String classID) {
+    // TODO:
+    return null;
+  }
+
   // TODO: IDs not existing.
 
   public static Assignment getAssignment(String assignmentId) {
@@ -171,6 +176,9 @@ public class Controller {
     try {
       Assignment a = getAssignment(inputList[1]);
       a.setComplete(inputList[0], true);
+      DBProxy.updateQueryParameters(
+          "UPDATE student_assignment SET complete=? WHERE studentID=? AND assignmentID=?;",
+          new ArrayList<>(Arrays.asList("true", inputList[0], inputList[1])));
       return a;
     } catch (Exception e) {
       e.printStackTrace();
@@ -190,23 +198,29 @@ public class Controller {
       List<String> inputList) {
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
-      // TODO: set student status to complete
-      for (int i = 0; i < inputList.size(); i++) {
-        a.setRecord(studentID, i, Boolean.parseBoolean(inputList.get(i)));
-        List<List<String>> questions = DBProxy.executeQueryParameters(
-            "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
-            new ArrayList<>(Arrays.asList(assignmentID)));
-        for (List<String> q : questions) {
-          DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?);",
-              new ArrayList<>(Arrays.asList(studentID, q.get(0), inputList.get(i), classID)));
+      List<List<String>> complete = DBProxy.executeQueryParameters(
+          "SELECT complete FROM student_assignment WHERE studentID=? AND assignmentID=?;",
+          new ArrayList<>(Arrays.asList(studentID, assignmentID)));
+      if (!Boolean.parseBoolean(complete.get(0).get(0))) {
+        for (int i = 0; i < inputList.size(); i++) {
+          a.setRecord(studentID, i, Boolean.parseBoolean(inputList.get(i)));
+          List<List<String>> questions = DBProxy.executeQueryParameters(
+              "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
+              new ArrayList<>(Arrays.asList(assignmentID)));
+          for (List<String> q : questions) {
+            DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?);",
+                new ArrayList<>(Arrays.asList(studentID, q.get(0), inputList.get(i), classID)));
+          }
         }
+        // update student status as complete
+        completeAssignment(studentID + " " + assignmentID);
+        // update pet xp
+        Student s = getStudent(studentID);
+        String p = s.getPetId();
+        double xp = a.getReward(); // * (a.getScore(studentID) / a.getTotalScore());
+        DBProxy.updateQueryParameters("UPDATE pets SET xp=? WHERE id=?;",
+            new ArrayList<>(Arrays.asList("" + xp, p)));
       }
-      Student s = getStudent(studentID);
-      String p = s.getPetId();
-      double xp = a.getReward() * (a.getScore(studentID) / a.getTotalScore());
-      int lvl = (int) xp / 100;
-      DBProxy.updateQueryParameters("REPLACE INTO pets (id, xp, level) VALUES (?,?,?);",
-          new ArrayList<>(Arrays.asList(p, "" + xp, "" + lvl)));
       return a;
     } catch (Exception e) {
       e.printStackTrace();
