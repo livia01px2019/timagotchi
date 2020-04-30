@@ -2,4 +2,4 @@
 /bin/
 .classpath
 .mvn-classpath
-data/working.sqlite3
+#data/working.sqlite3

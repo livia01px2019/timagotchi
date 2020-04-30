@@ -1,12 +1,12 @@
 package edu.brown.cs.final_project.timagotchi.Leaderboard;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
-import edu.brown.cs.final_project.timagotchi.users.Class;
-import edu.brown.cs.final_project.timagotchi.users.Student;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.users.Class;
+import edu.brown.cs.final_project.timagotchi.users.Student;
 
 /**
  * A Leaderboard to rank students, both overall in a class and after a quiz
@@ -38,4 +38,6 @@ public class Userboard implements Leaderboard<Student> {
     Collections.sort(students, new Student.CompareByXp());
     return students;
   }
+
+  // TODO: Sort by number of correct
 }
