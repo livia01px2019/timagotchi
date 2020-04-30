@@ -203,8 +203,9 @@ public class Controller {
       Student s = getStudent(studentID);
       String p = s.getPetId();
       double xp = a.getReward() * (a.getScore(studentID) / a.getTotalScore());
-      DBProxy.updateQueryParameters("REPLACE INTO pets (id, xp) VALUES (?,?);",
-          new ArrayList<>(Arrays.asList(p, "" + xp)));
+      int lvl = (int) xp / 100;
+      DBProxy.updateQueryParameters("REPLACE INTO pets (id, xp, level) VALUES (?,?,?);",
+          new ArrayList<>(Arrays.asList(p, "" + xp, "" + lvl)));
       return a;
     } catch (Exception e) {
       e.printStackTrace();

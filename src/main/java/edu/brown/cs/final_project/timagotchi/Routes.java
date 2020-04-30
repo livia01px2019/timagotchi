@@ -453,7 +453,6 @@ public class Routes {
       String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
       Assignment assignment = Controller.getAssignment(assignmentID);
-      ((Review) assignment).generateQuestions(s, classId);
 //      List<String> ans = new ArrayList<>();
 //      ans.add("first");
 //      ans.add("second");
@@ -530,8 +529,8 @@ public class Routes {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "fileNameUsername", new String[] {
               currPet.getImage(), currStudent.getName(), username
-          }, "lvlXp", new double[] {
-              currPet.getLevel(), currPet.getXp()
+          }, "lvlXpProgress", new double[] {
+              currPet.getLevel(), currPet.getXp(), currPet.getXp() % 100
           });
       return new ModelAndView(variables, "student-me.ftl");
     }

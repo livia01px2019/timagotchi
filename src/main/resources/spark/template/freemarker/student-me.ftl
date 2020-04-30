@@ -7,11 +7,11 @@
 	</div>
 </div>
 <div class="progress-bar">
-	<p>LVL ${lvlXp[0]}</p>
+	<p>LVL ${lvlXpProgress[0]}</p>
 	<div class="w3-white w3-round" style="width:70%; margin: 20px">
-	  <div class="w3-container w3-round" style="height:30px; width:${lvlXp[1]}%; background-color: #61C9A8"></div>
+	  <div class="w3-container w3-round" style="height:30px; width:${lvlXpProgress[2]}%; background-color: #61C9A8"></div>
 	</div>
-	<p>${lvlXp[1]} XP</p>
+	<p>${lvlXpProgress[1]} XP</p>
 </div>
 </#assign>
 <#include "student-main.ftl">
