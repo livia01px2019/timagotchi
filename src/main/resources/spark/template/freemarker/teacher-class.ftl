@@ -34,8 +34,11 @@
                  Students&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
          </div>
          <div id="Assignments" class="tabcontent">
-             <button class="assignment" id="create-assignment">+</button>
-             <ul class="assignment-list" id="assignments-list"></ul>
+             <button class="new-assignment" id="create-assignment">+</button>
+             <div class="assignment-columns">
+             	<div style="width:50%"> QUIZZES <ul class="quiz-list" id="quiz-list"></ul> </div>
+             	<div style="width:50%"> CHECKOFFS <ul class="checkoff-list" id="checkoff-list"></ul> </div>
+             </div>
          </div>
          <div id="Students" class="tabcontent">
              <#include "leaderboard.ftl">

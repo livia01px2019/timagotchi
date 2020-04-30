@@ -6,7 +6,9 @@ $(document).ready(() => {
     const assignmentsTab = document.getElementById('assignments');
     const studentsTab = document.getElementById('students');
     const classId = document.getElementById('class-code');
-    const assignments = document.getElementById('assignments-list');
+    const quizzes = document.getElementById('quiz-list');
+	const checkoffs = document.getElementById('checkoff-list');
+	const assignments = document.getElementById('assignments-list');
     let buttons = null;
     const create = document.getElementById('create-assignment');
     let classNames = [];
@@ -36,22 +38,27 @@ $(document).ready(() => {
         };
 
         $.post("/teacher-class-get", postParameters, response => {
-            classIds = JSON.parse(response).ids;
-            classNames = JSON.parse(response).names;
+            assignmentObjects = JSON.parse(JSON.parse(response).assignments);
 
-            if (classNames.length === 0) {
-                assignments.style.backgroundColor = "Transparent";
+            if (assignmentObjects.length === 0) {
+                quizzes.style.backgroundColor = "Transparent";
+				checkoffs.style.backgroundColor = "Transparent";
             }
 
-            assignments.innerHTML = "";
-            for(let i = 0; i < classNames.length; i++) {
-                let name = classNames[i];
-                assignments.innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name + "</button></li>";
+            quizzes.innerHTML = "";
+			checkoffs.innerHTML = "";
+            for(let i = 0; i < assignmentObjects.length; i++) {
+				const currentAssignment = assignmentObjects[i];
+				if (currentAssignment.type == "quiz") {
+					quizzes.innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + currentAssignment.name + "</button></li>";
+				} else {
+					checkoffs.innerHTML += "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + currentAssignment.name + "</button></li>";
+				}                
             }
 
             $(".outer").click(function() {
-                const id = this.id;
-                window.location.href = '/teacher/viewAssignment/' + classIds[id];
+                const i = this.id;
+                window.location.href = '/teacher/viewAssignment/' + assignmentObjects[i].id;
             })
         })
     }

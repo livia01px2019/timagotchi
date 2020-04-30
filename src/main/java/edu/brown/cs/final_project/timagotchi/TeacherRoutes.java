@@ -107,8 +107,25 @@ public class TeacherRoutes {
           assignmentNames.add(Controller.getAssignment(id).getName());
         }
         System.out.println("in assignments");
-        Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
-            assignmentNames);
+
+        JsonArray assignments = new JsonArray();
+        for (String id : assignmentIds) {
+          Assignment currAssignment = Controller.getAssignment(id);
+          JsonObject assignment = new JsonObject();
+          assignment.addProperty("id", id);
+          assignment.addProperty("name", currAssignment.getName());
+          if (currAssignment instanceof Checkoff) {
+            assignment.addProperty("type", "checkoff");
+          } else {
+            assignment.addProperty("type", "quiz");
+          }
+          assignments.add(assignment);
+        }
+
+        System.out.println(assignments);
+
+        Map<String, Object> responseObject = ImmutableMap.of("assignments",
+            GSON.toJson(assignments));
         System.out.println(responseObject);
         return GSON.toJson(responseObject);
       }

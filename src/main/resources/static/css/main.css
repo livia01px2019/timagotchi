@@ -200,6 +200,7 @@ p{
 .profile{
 	display:flex;
 	flex-direction:row;
+	justify-content: space-between;
 	margin: 40px;
 	font-family: 'Roboto', sans-serif;
 	font-size: 25px;
@@ -320,6 +321,13 @@ h3{
     flex-direction: row;
     justify-content: space-between;
 }
+.new-assignment {
+    background-color: #61C9A8;
+    width: 100%;
+    border: 0;
+    padding: 8px 15px;
+    font-size: 17pt;
+}
 .assignment {
     background-color: #ADA8B6;
     width: 100%;
@@ -364,4 +372,12 @@ h3{
 }
 .right{
     float: right;
+}
+.assignment-columns{
+	display:flex;
+    flex-direction: row;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	font-size: 20pt;
+	margin-top: 30px;
 }

@@ -13,9 +13,9 @@
 				checked = "checked";
 			} 
 			output.push(
-                    `<div class="studentBlock"> <a href="/${currentStudent.id}">
-            <div class="name"> ${currentStudent.name} </div> </a>
-            <input type="checkbox" name="complete" value="${currentStudent.id}" ${checked}>
+                    `<div class="studentBlock">
+            <div class="name"> ${currentStudent.name} </div>
+            <div> Complete: <input type="checkbox" name="complete" style="width:30px; height:20px" value="${currentStudent.id}" ${checked}></div>
           </div>`
                 );
 			console.log(`${currentStudent.name}`);
