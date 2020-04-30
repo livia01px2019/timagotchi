@@ -132,12 +132,26 @@ public class StudentRoutes {
       Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
       Pet currPet = Controller.getPet(currStudent.getPetId());
 
+      System.out.println("studentxplvl: " + (int) currPet.getXp() / 100 + ", " + currPet.getXp()
+          + ", " + currPet.getXp() % 100);
+      String imageFile = currPet.getImage();
+      int level = (int) currPet.getXp() / 100;
+      if (level < 2) {
+        imageFile = "../img/stage1.png";
+      } else if (level < 5) {
+        imageFile = "../img/stage2.png";
+      } else if (level < 10) {
+        imageFile = "../img/stage3.png";
+      } else if (level < 15) {
+        imageFile = "../img/stage4.png";
+      }
+
       String classesHtml = Routes.generateClassSidebar(cookies);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "fileNameUsername", new String[] {
-              currPet.getImage(), currStudent.getName(), username
+              imageFile, currStudent.getName(), username
           }, "lvlXpProgress", new double[] {
-              currPet.getLevel(), currPet.getXp(), currPet.getXp() % 100
+              level, currPet.getXp(), currPet.getXp() % 100
           });
       return new ModelAndView(variables, "student-me.ftl");
     }

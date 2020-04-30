@@ -185,6 +185,18 @@ p{
 	flex-direction:row;
 	justify-content: space-between;
 }
+.profile-main{
+	display:flex;
+	flex-direction:row;
+	margin: 40px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	align-items: center;
+	justify-content: space-around;
+	margin-right: 10%;
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
 .profile{
 	display:flex;
 	flex-direction:row;
@@ -192,7 +204,6 @@ p{
 	font-family: 'Roboto', sans-serif;
 	font-size: 25px;
 	align-items: center;
-	justify-content: space-between;
 	margin-right: 10%;
 }
 .progress-bar{

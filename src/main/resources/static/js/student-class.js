@@ -130,7 +130,7 @@ $(document).ready(() => {
                 } else {
                     document.getElementById("checkoffList").innerHTML +=
                         "<li class=\"outer\" id=" + i + "><button class=\"inner\">" + name +
-                        "<p class=\"right\">" + scores[i] + "/" + totalScores[i] + " pts</p></button></li>";
+                        "<p class=\"right\">COMPLETE</p></button></li>";
                 }
             }
         })

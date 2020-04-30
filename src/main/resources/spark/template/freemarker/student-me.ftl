@@ -1,5 +1,5 @@
 <#assign content>
-<div class="profile">
+<div class="profile-main">
 	<img style="height:300px; padding-right: 50px" src=${fileNameUsername[0]}>
 	<div class="profile-info">
 		<h3 style="font-size:50px">${fileNameUsername[1]}</h3>
