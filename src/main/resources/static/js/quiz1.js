@@ -163,6 +163,9 @@
             // show number of correct answers out of total
             document.getElementById('test').innerHTML = newHTML;
             resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+            if (convertedAssignment.competitive == true) {
+
+            }
         }
 
         function showSlide(n) {
