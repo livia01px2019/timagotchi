@@ -16,6 +16,10 @@
         id: assignmentID
     };
     $.post(address, postParameters, response => {
+        const retry = JSON.parse(response).retry;
+        const ranking = JSON.parse(response).ranking;
+        const studentName = JSON.parse(response).name;
+        console.log(retry);
         const convertedAssignment = JSON.parse(response).assignment;
 		const reward = convertedAssignment.reward;
         const questionSet = convertedAssignment.questions;
@@ -98,9 +102,14 @@
         }
 
         function showResults(){
-	
-			document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
-			"style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+" + reward + "XP</p></div></img>";
+            if (retry === false) {
+                document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
+                    "style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+" + reward + "XP</p></div></img>";
+            } else {
+                document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
+                    "style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1></div></img>";
+            }
+
 
             let newHTML = "<table style=\"width:100%;margin-left:auto;margin-right:auto\"><tr><th>Question</th>" +
                 "<th>Answer</th></tr>";
@@ -164,7 +173,29 @@
             document.getElementById('test').innerHTML = newHTML;
             resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
             if (convertedAssignment.competitive == true) {
-
+                if (retry == false) {
+                    let index = 0;
+                    for (let entry = 0; entry < ranking.length; entry++) {
+                        if (numCorrect.toString > ranking[entry][1]) {
+                            break;
+                        }
+                        index++;
+                    }
+                    ranking.splice(index, 0, [studentName, numCorrect]);
+                }
+                let rank = 1;
+                let leaderboardHTML = "<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>";
+                for (let i = 0; i < ranking.length; i++) {
+                    leaderboardHTML += rank + "<h2><p>" + ranking[i][0] + "<p></div><p>";
+                    leaderboardHTML += ranking[i][1] + "</p></div>";
+                    rank++;
+                }
+                leaderboardHTML = "<div class=\"leaderboard\"><div class=\"leaderboard-header\">" +
+                    "<h3>LEADERBOARD</h3></div>" + leaderboardHTML + "</div>";
+                console.log(leaderboardHTML);
+                let leaderboard = document.getElementById('scoreboard');
+                leaderboard.insertAdjacentHTML('beforeend', leaderboardHTML);
+                leaderboard.style.display = 'block';
             }
         }
 

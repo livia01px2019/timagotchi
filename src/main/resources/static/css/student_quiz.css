@@ -187,3 +187,51 @@ label {
 table{
 	border: none;
 }
+
+.leaderboard{
+    display:flex;
+    flex-direction: column;
+    margin: 40px;
+    margin-right: 10%;
+}
+.leaderboard-header{
+    font-family: 'Press Start 2P', cursive;
+    background-color: #61C9A8;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+}
+.leaderboard-item{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+    margin-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.leaderboard-item h2{
+    font-family: 'Press Start 2P', cursive;
+    font-size:20px;
+    padding-right: 10px;
+}
+.leaderboard-item p{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+}
+.leaderboard-row{
+    display:flex;
+    flex-direction: row;
+}
+#results{
+    font-family: 'Press Start 2P', cursive;
+    font-size:20px;
+    padding-left: 38%;
+    padding-top: 20px;
+}
+#scoreboard{
+    display: none;
+    padding-left: 4%
+}

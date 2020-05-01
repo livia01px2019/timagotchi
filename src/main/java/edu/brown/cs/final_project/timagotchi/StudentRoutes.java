@@ -299,7 +299,8 @@ public class StudentRoutes {
     @Override
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      String userId = Controller.getStudentIDFromUsername(cookies.get("username"));
+      String username = cookies.get("username");
+      String userId = Controller.getStudentIDFromUsername(username);
       Student s = Controller.getStudent(userId);
       String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
@@ -307,6 +308,9 @@ public class StudentRoutes {
       if (assignment instanceof Review) {
         ((Review) assignment).generateQuestions(s, classId);
       }
+      List<List<String>> ranking = new ArrayList<>();
+      Boolean retry = assignment.getComplete(userId);
+      //TODO: get a sorted list of (student, score), then add it to variables Map
 //      List<String> ans = new ArrayList<>();
 //      ans.add("first");
 //      ans.add("second");
@@ -319,7 +323,8 @@ public class StudentRoutes {
 //      qs.add(question);
 //      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
 //      assignment.setReward(100);
-      Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
+      Map<String, Object> variables = ImmutableMap.of("assignment", assignment, "ranking", ranking,
+              "name", username, "retry", retry);
       return GSON.toJson(variables);
     }
   }

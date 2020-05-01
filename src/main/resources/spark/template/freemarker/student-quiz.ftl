@@ -48,6 +48,7 @@
 	    </div>
 
 	    <div id="results"></div>
+        <div id="scoreboard"></div>
 	    <div id="finishButton"></div>
 	</div>
 </div>
