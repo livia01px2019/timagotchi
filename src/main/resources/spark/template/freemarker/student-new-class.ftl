@@ -8,7 +8,7 @@
 					<label for="name">Class Code: </label><br>
 				</div>
 				<div class="form-inputs">
-			  		<input type="text" id="code" name="code"><br>
+			  		<input type="text" id="code" name="code" style="width:100%"><br>
 				</div>
 			</div>			
 		</form>
