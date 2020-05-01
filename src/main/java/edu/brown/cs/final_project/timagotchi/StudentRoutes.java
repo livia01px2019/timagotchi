@@ -313,7 +313,7 @@ public class StudentRoutes {
       }
       List<List<String>> ranking = new ArrayList<>();
       Boolean retry = assignment.getComplete(userId);
-      //TODO: get a sorted list of (student, score), then add it to variables Map
+      // TODO: get a sorted list of (student, score), then add it to variables Map
 //      List<String> ans = new ArrayList<>();
 //      ans.add("first");
 //      ans.add("second");
@@ -327,7 +327,7 @@ public class StudentRoutes {
 //      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
 //      assignment.setReward(100);
       Map<String, Object> variables = ImmutableMap.of("assignment", assignment, "ranking", ranking,
-              "name", username, "retry", retry);
+          "name", username, "retry", retry);
       return GSON.toJson(variables);
     }
   }

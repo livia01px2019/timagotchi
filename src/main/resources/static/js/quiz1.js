@@ -23,6 +23,7 @@
         const convertedAssignment = JSON.parse(response).assignment;
 		const reward = convertedAssignment.reward;
         const questionSet = convertedAssignment.questions;
+		console.log(convertedAssignment);
         for (let q of questionSet) {
             let a={}
             let correct
