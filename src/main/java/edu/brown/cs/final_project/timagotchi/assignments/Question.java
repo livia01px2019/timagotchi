@@ -40,7 +40,7 @@ public class Question {
 
     @Override
     public int compare(Question q1, Question q2) {
-      return Double.compare(q1.getScore(), q2.getScore());
+      return Double.compare(q2.getScore(), q1.getScore());
     }
   }
 

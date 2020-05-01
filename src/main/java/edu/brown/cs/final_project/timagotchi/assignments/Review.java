@@ -50,6 +50,7 @@ public class Review implements Assignment {
     List<Question> wrongQuestions = new ArrayList<Question>();
     for (String qid : wrongQuestionIds) {
       wrongQuestions.add(Controller.getQuestion(qid));
+      System.out.println(Controller.getQuestion(qid).getPrompt());
     }
 
     // Get all the questions used for this class.
