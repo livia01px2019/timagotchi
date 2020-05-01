@@ -100,7 +100,7 @@
         }
 
         function showResults(){
-            if (retry === false) {
+            if (JSON.parse(response).retry === false) {
                 document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
                     "style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+" + reward + "XP</p></div></img>";
             } else {
