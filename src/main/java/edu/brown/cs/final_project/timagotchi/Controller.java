@@ -278,10 +278,9 @@ public class Controller {
           List<List<String>> questions = DBProxy.executeQueryParameters(
               "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
               new ArrayList<>(Arrays.asList(assignmentID)));
-          for (List<String> q : questions) {
-            DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?);",
-                new ArrayList<>(Arrays.asList(studentID, q.get(0), inputList.get(i), classID)));
-          }
+          DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?);",
+              new ArrayList<>(
+                  Arrays.asList(studentID, questions.get(i).get(0), inputList.get(i), classID)));
         }
         // update student status as complete
         completeAssignment(studentID, assignmentID);

@@ -14,6 +14,8 @@ public interface Assignment {
 
   void setName(String name);
 
+  Boolean isCompetitive();
+
   Boolean getComplete(String userId);
 
   void setComplete(String userId, Boolean c);

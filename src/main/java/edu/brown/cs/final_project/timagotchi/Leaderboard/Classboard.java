@@ -1,11 +1,11 @@
 package edu.brown.cs.final_project.timagotchi.Leaderboard;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
-import edu.brown.cs.final_project.timagotchi.users.Class;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.users.Class;
 
 public class Classboard implements Leaderboard<Class> {
   private List<String> classIds;

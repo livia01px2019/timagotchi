@@ -17,9 +17,6 @@
     };
 
     $.post(address, postParameters, response => {
-        const retry = JSON.parse(response).retry;
-        const ranking = JSON.parse(response).ranking;
-        const studentName = JSON.parse(response).name;
         const convertedAssignment = JSON.parse(response).assignment;
 		const reward = convertedAssignment.reward;
         const questionSet = convertedAssignment.questions;
@@ -173,6 +170,9 @@
             document.getElementById('test').innerHTML = newHTML;
             resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
             if (convertedAssignment.competitive == true) {
+                const retry = JSON.parse(response).retry;
+                const ranking = JSON.parse(response).ranking;
+                const studentName = JSON.parse(response).name;
                 if (retry == false) {
                     let index = 0;
                     for (let entry = 0; entry < ranking.length; entry++) {
