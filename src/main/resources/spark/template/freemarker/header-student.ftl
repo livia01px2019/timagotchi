@@ -1,4 +1,4 @@
-	<div class="header-student" id="header">
+	<div class="header-student" id="header" style="z-index:2">
 		<div class="header-left">
 	  	 	<a href="main"><img class="logo" src="../img/main-skin-right.png" alt="timagotchi logo right">  </a> 
 	  	 	<h1> TIMAGOTCHI </h1> 
