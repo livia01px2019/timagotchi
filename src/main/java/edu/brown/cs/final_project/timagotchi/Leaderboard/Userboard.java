@@ -56,11 +56,15 @@ public class Userboard implements Leaderboard<Student> {
     Collections.sort(students, new Student.CompareByScore(assignmentID).reversed());
     List<List<String>> sortedID = new ArrayList<>();
     for (Student s : students) {
-      List<String> entry = new ArrayList<>();
-      entry.add(s.getName());
-      entry.add("" + a.getScore(s.getId()) / a.getTotalScore());
-      sortedID.add(entry);
+      if (a.getComplete(s.getId())) {
+        List<String> entry = new ArrayList<>();
+        entry.add(s.getName());
+        entry.add("" + a.getScore(s.getId()) / a.getTotalScore());
+        sortedID.add(entry);
+      }
     }
+    System.out.println("Here");
+    System.out.println(sortedID);
     return sortedID;
   }
 }
