@@ -1,15 +1,14 @@
-package edu.brown.cs.final_project.timagotchi.utils;
+package edu.brown.cs.final_project.timagotchi.leaderboard;
 
 import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
 import java.util.List;
 
+import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 
 public class UserboardTest {
 

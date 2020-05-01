@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;

@@ -1,4 +1,4 @@
-package edu.brown.cs.final_project.timagotchi.Leaderboard;
+package edu.brown.cs.final_project.timagotchi.leaderboard;
 
 import java.util.ArrayList;
 import java.util.Collections;

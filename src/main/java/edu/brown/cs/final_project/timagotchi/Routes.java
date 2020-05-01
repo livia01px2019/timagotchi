@@ -10,8 +10,8 @@ import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 import edu.brown.cs.final_project.timagotchi.users.Teacher;
