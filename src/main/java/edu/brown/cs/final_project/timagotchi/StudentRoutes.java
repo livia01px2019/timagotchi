@@ -32,6 +32,9 @@ import spark.TemplateViewRoute;
 public class StudentRoutes {
 
   private static final Gson GSON = new Gson();
+  private static final int[] LEVELS = new int[] {
+      2, 5, 10, 15
+  };
 
   /**
    * Handler for student assignment page where student can view all of their
@@ -136,13 +139,13 @@ public class StudentRoutes {
           + ", " + currPet.getXp() % 100);
       String imageFile = currPet.getImage();
       int level = (int) currPet.getXp() / 100;
-      if (level < 2) {
+      if (level < LEVELS[0]) {
         imageFile = "../img/stage1.png";
-      } else if (level < 5) {
+      } else if (level < LEVELS[1]) {
         imageFile = "../img/stage2.png";
-      } else if (level < 10) {
+      } else if (level < LEVELS[2]) {
         imageFile = "../img/stage3.png";
-      } else if (level < 15) {
+      } else if (level < LEVELS[3]) {
         imageFile = "../img/stage4.png";
       }
 
