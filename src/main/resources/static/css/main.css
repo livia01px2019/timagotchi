@@ -194,19 +194,20 @@ p{
 	justify-content: space-around;
 	margin-right: 10%;
 	margin-bottom: 100px;
+	flex-wrap: wrap;
 }
 .timagotchi {
 	height: 650px;
-	position: relative;
-    top: 0;
-    left: 0;
+	position: absolute;
+    top: 80px;
+    left: 370px;
 	z-index: 0;
 }
 .skin{
 	height:170px;
 	position: absolute;
     top: 350px;
-    left: 510px;
+    left: 520px;
 }
 .profile{
 	display:flex;

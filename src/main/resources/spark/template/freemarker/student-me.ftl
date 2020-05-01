@@ -12,6 +12,7 @@
 		</div>
 		
 	</div>
+	<div style="width:300px; height:650px"></div>
 	<div class="profile-info" style="width:500px">
 		<h1 style="font-family: 'Press Start 2P', cursive; font-size:40px">PROFILE INFO</h1>
 		<h3>NAME: ${fileNameUsername[1]}</h3>
