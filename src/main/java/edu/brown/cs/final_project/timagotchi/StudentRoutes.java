@@ -306,7 +306,10 @@ public class StudentRoutes {
       String assignmentID = req.params(":id");
       Assignment assignment = Controller.getAssignment(assignmentID);
       if (assignment instanceof Review) {
-        ((Review) assignment).generateQuestions(s, classId);
+        System.out.println("Generating!");
+        ((Review) assignment).generateQuestions(userId, classId);
+        System.out.println("Finished!");
+        System.out.println(((Review) assignment).getQuestions());
       }
       List<List<String>> ranking = new ArrayList<>();
       Boolean retry = assignment.getComplete(userId);
@@ -397,8 +400,7 @@ public class StudentRoutes {
         for (String id : allAssignmentIds) {
           Assignment temp = Controller.getAssignment(id);
           if (temp instanceof Review) {
-            Student s = Controller.getStudent(userId);
-            ((Review) temp).generateQuestions(s, classId);
+            ((Review) temp).generateQuestions(userId, classId);
             assignmentIds.add(id);
           }
         }

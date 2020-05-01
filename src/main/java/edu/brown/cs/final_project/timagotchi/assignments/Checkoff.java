@@ -1,6 +1,7 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
