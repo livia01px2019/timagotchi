@@ -305,15 +305,16 @@ public class StudentRoutes {
       String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
       Assignment assignment = Controller.getAssignment(assignmentID);
+      Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
       if (assignment instanceof Review) {
         System.out.println("Generating!");
         ((Review) assignment).generateQuestions(userId, classId);
         System.out.println("Finished!");
         System.out.println(((Review) assignment).getQuestions());
-      }
-      List<List<String>> ranking = new ArrayList<>();
-      Boolean retry = assignment.getComplete(userId);
-      //TODO: get a sorted list of (student, score), then add it to variables Map
+      } else {
+        Userboard userboard = new Userboard(classId);
+        List<List<String>> ranking = userboard.getRankingScore(assignmentID);
+        Boolean retry = assignment.getComplete(userId);
 //      List<String> ans = new ArrayList<>();
 //      ans.add("first");
 //      ans.add("second");
@@ -326,8 +327,10 @@ public class StudentRoutes {
 //      qs.add(question);
 //      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
 //      assignment.setReward(100);
-      Map<String, Object> variables = ImmutableMap.of("assignment", assignment, "ranking", ranking,
-              "name", username, "retry", retry);
+        variables = ImmutableMap.of("assignment", assignment, "ranking", ranking,
+                "name", username, "retry", retry);
+      }
+
       return GSON.toJson(variables);
     }
   }

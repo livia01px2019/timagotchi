@@ -131,16 +131,15 @@ public class Quiz implements Assignment {
     this.reward = reward;
   }
 
+  @Override
+  public Boolean isCompetitive() { return false; }
+
   public List<Question> getQuestions() {
     return questions;
   }
 
   public void setQuestions(List<Question> questions) {
     this.questions = questions;
-  }
-
-  public Boolean getCompetitive() {
-    return competitive;
   }
 
   public void setCompetitive(Boolean competitive) {

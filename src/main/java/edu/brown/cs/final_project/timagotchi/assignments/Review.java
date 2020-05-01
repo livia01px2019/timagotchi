@@ -238,6 +238,9 @@ public class Review implements Assignment {
     this.reward = reward;
   }
 
+  @Override
+  public Boolean isCompetitive() { return false; }
+
   public List<Question> getQuestions() {
     return questions;
   }

@@ -83,6 +83,9 @@ public class Checkoff implements Assignment {
   }
 
   @Override
+  public Boolean isCompetitive() { return false; }
+
+  @Override
   public Integer getScore(String userID) {
     if (complete.get(userID)) {
       return 1;
