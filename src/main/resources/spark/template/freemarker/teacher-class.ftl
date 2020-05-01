@@ -36,8 +36,8 @@
          <div id="Assignments" class="tabcontent">
              <button class="new-assignment" id="create-assignment">+</button>
              <div class="assignment-columns">
-             	<div style="width:50%"> QUIZZES <ul class="quiz-list" id="quiz-list"></ul> </div>
-             	<div style="width:50%"> CHECKOFFS <ul class="checkoff-list" id="checkoff-list"></ul> </div>
+             	<div style="width:50%"> QUIZZES <ul class="assignment-list" id="quiz-list"></ul> </div>
+             	<div style="width:50%"> CHECKOFFS <ul class="assignment-list" id="checkoff-list"></ul> </div>
              </div>
          </div>
          <div id="Students" class="tabcontent">
