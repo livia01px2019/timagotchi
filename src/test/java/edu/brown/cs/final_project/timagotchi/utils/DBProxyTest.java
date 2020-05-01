@@ -55,9 +55,8 @@ public class DBProxyTest {
     // generic query
     List<List<String>> result = DBProxy.executeQuery("SELECT * FROM classes;");
     for (List<String> entry : result) {
-      assertEquals("CS32", entry.get(0));
-      assertEquals("Software Engineering", entry.get(1));
-      assertEquals("tn", entry.get(2));
+      assertEquals("15238a4d-8610-441f-8792-775363e5d39b", entry.get(0));
+      assertEquals("cs32", entry.get(1));
     }
     tearDown();
   }

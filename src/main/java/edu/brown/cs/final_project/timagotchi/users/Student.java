@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
@@ -121,16 +122,17 @@ public class Student implements People {
   }
 
   public static class CompareByScore implements Comparator<Student> {
-    private String classID;
+    private String assignmentID;
 
-    public CompareByScore(String cid) {
-      classID = cid;
+    public CompareByScore(String aid) {
+      assignmentID = aid;
     }
 
     @Override
     public int compare(Student s1, Student s2) {
-      return Double.compare(s1.getWrongQuestionIds(classID).size(),
-          s2.getWrongQuestionIds(classID).size());
+      Quiz a = (Quiz) Controller.getAssignment(assignmentID); // TODO: Fix here
+      return Double.compare(a.getScore(s1.getId()) / a.getTotalScore(),
+          a.getScore(s2.getId()) / a.getTotalScore());
     }
   }
 

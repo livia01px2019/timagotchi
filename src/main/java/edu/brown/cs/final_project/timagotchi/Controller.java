@@ -45,29 +45,6 @@ public class Controller {
     return null;
   }
 
-  /**
-   * Returns all assignment IDs given a student and class.
-   *
-   * @param studentID
-   * @param classID
-   * @return List of String of assignment IDs
-   */
-  public static List<String> getAllAssignmentID(String studentID, String classID) {
-    List<String> allAssignments = new ArrayList<>();
-    try {
-      List<List<String>> assignments = DBProxy.executeQueryParameters(
-          "SELECT DISTINCT p1.assignmentID FROM class_assignment AS p1, student_assignment AS p2 WHERE p1.classID=? AND p2.studentID=?;",
-          new ArrayList<>(Arrays.asList(classID, studentID)));
-      for (List<String> a : assignments) {
-        allAssignments.add(a.get(0));
-      }
-      return allAssignments;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
-
   // TODO: IDs not existing.
 
   /**
@@ -907,6 +884,28 @@ public class Controller {
   public static List<String> getAllClassIds() {
     try {
       List<List<String>> results = DBProxy.executeQuery("SELECT id FROM classes;");
+      List<String> ids = new ArrayList<String>();
+      for (List<String> r : results) {
+        ids.add(r.get(0));
+      }
+      return ids;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * Accessor method for all assignment IDs.
+   *
+   * @param assignmentID The id of the assignment.
+   * @return The list of student ids that have been allocated this assignment.
+   */
+  public static List<String> getStudentsFromAssignment(String assignmentID) {
+    try {
+      List<List<String>> results = DBProxy.executeQueryParameters(
+          "SELECT DISTINCT studentID FROM student_assignment WHERE assignmentID=?;",
+          new ArrayList<>(Arrays.asList(assignmentID)));
       List<String> ids = new ArrayList<String>();
       for (List<String> r : results) {
         ids.add(r.get(0));
