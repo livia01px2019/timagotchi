@@ -8,8 +8,8 @@ import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
-import edu.brown.cs.final_project.timagotchi.leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
@@ -161,7 +161,7 @@ public class StudentRoutes {
   }
 
   /**
-   * Handler for page where student can see leaderboard for all of the classes.
+   * Handler for page where student can see Leaderboard for all of the classes.
    *
    */
   public static class StudentLeaderboardHandler implements TemplateViewRoute {
@@ -181,7 +181,7 @@ public class StudentRoutes {
       Classboard cb = new Classboard(Controller.getAllClassIds());
       String leaderboardHtml = Routes.generateClassboardHtml(cb);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
-          classesHtml, "leaderboard", leaderboardHtml);
+          classesHtml, "Leaderboard", leaderboardHtml);
       return new ModelAndView(variables, "student-all-classes.ftl");
     }
   }
@@ -238,7 +238,7 @@ public class StudentRoutes {
         Userboard userboard = Controller.getLeaderboard(classId);
         String leaderboardHtml = Routes.generateUserboardHtml(userboard);
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
-            "classes", classesHtml, "className", className, "leaderboard", leaderboardHtml);
+            "classes", classesHtml, "className", className, "Leaderboard", leaderboardHtml);
         return new ModelAndView(variables, "student-class.ftl");
       } catch (Exception e) {
         e.printStackTrace();

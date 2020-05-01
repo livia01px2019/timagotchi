@@ -10,8 +10,8 @@ import com.github.jscookie.javacookie.Cookies;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 
-import edu.brown.cs.final_project.timagotchi.leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 import edu.brown.cs.final_project.timagotchi.users.Teacher;
@@ -253,13 +253,13 @@ public class Routes {
     Collections.reverse(studentList);
     int i = 1;
     if (studentList.size() == 0) {
-      sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
+      sb.append("<div class=\"Leaderboard-item\"><div class=\"Leaderboard-row\">");
       sb.append("<p>");
       sb.append("No students yet!");
       sb.append("</p></div>");
     } else {
       for (Student s : studentList) {
-        sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>");
+        sb.append("<div class=\"Leaderboard-item\"><div class=\"Leaderboard-row\"><h2>");
         sb.append(i);
         sb.append("<h2><p>");
         sb.append(s.getName());
@@ -285,13 +285,13 @@ public class Routes {
     Collections.reverse(classList);
     int i = 1;
     if (classList.size() == 0) {
-      sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
+      sb.append("<div class=\"Leaderboard-item\"><div class=\"Leaderboard-row\">");
       sb.append("<p>");
       sb.append("No classes yet!");
       sb.append("</p></div>");
     } else {
       for (Class c : classList) {
-        sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>");
+        sb.append("<div class=\"Leaderboard-item\"><div class=\"Leaderboard-row\"><h2>");
         sb.append(i);
         sb.append("<h2><p>");
         sb.append(c.getName());

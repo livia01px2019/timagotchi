@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import edu.brown.cs.final_project.timagotchi.leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
@@ -82,7 +82,7 @@ public class TeacherRoutes {
       Userboard userboard = Controller.getLeaderboard(classId);
       String leaderBoardHtml = Routes.generateUserboardHtml(userboard);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
-          "classes", classesHtml, "className", className, "classId", classId, "leaderboard",
+          "classes", classesHtml, "className", className, "classId", classId, "Leaderboard",
           leaderBoardHtml);
       return new ModelAndView(variables, "teacher-class.ftl");
     }
@@ -216,7 +216,7 @@ public class TeacherRoutes {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
           classesHtml, "nameUsername", new String[] {
               currTeacher.getName(), currTeacher.getUsername()
-          }, "leaderboard", leaderboardHtml);
+          }, "Leaderboard", leaderboardHtml);
       return new ModelAndView(variables, "teacher-me.ftl");
     }
   }

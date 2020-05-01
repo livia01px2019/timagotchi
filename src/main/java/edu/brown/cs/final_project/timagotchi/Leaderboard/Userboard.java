@@ -1,4 +1,4 @@
-package edu.brown.cs.final_project.timagotchi.leaderboard;
+package edu.brown.cs.final_project.timagotchi.Leaderboard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,14 +10,14 @@ import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 
 /**
- * A leaderboard to rank students, both overall in a class and after a quiz
+ * A Leaderboard to rank students, both overall in a class and after a quiz
  * assignment.
  */
 public class Userboard implements Leaderboard<Student> {
   private String classId;
 
   /**
-   * Initializes the leaderboard.
+   * Initializes the Leaderboard.
    *
    * @param cid The id of the class to be ranked.
    */

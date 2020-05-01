@@ -1,6 +1,5 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
-import edu.brown.cs.final_project.timagotchi.leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import org.junit.After;
 import org.junit.Before;

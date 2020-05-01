@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import edu.brown.cs.final_project.timagotchi.leaderboard.Classboard;
-import edu.brown.cs.final_project.timagotchi.leaderboard.Userboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
+import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
 import edu.brown.cs.final_project.timagotchi.assignments.Question;
