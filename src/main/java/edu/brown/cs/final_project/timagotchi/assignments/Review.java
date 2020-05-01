@@ -13,7 +13,7 @@ import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 
 public class Review implements Assignment {
-  private final int numQuestions = 20;
+  private final int numQuestions = 2;
   private String id;
   private String name;
   private Map<String, Boolean> complete;
@@ -40,12 +40,12 @@ public class Review implements Assignment {
    * Function that uses the "DocDiff" algorithm to generate review questions based
    * on the questions the user with id userId has gotten wrong.
    *
-   * @param s       The student to create the review questions for.
-   * @param classId The id of the class they want to review.
+   * @param studentId The id of the student to generate the review for.
+   * @param classId   The id of the class they want to review.
    */
-  public void generateQuestions(Student s, String classId) {
+  public void generateQuestions(String studentId, String classId) {
     Class c = Controller.getClass(classId);
-    Set<String> wrongQuestionIds = s.getWrongQuestionIds(c.getId());
+    List<String> wrongQuestionIds = Controller.getWrongQuestionIDs(studentId, c.getId());
     // Get all the questions the student got wrong in this class.
     List<Question> wrongQuestions = new ArrayList<Question>();
     for (String qid : wrongQuestionIds) {

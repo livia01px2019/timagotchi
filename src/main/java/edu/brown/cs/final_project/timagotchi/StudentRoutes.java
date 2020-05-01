@@ -300,25 +300,15 @@ public class StudentRoutes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String userId = Controller.getStudentIDFromUsername(cookies.get("username"));
-      Student s = Controller.getStudent(userId);
       String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
       Assignment assignment = Controller.getAssignment(assignmentID);
       if (assignment instanceof Review) {
-        ((Review) assignment).generateQuestions(s, classId);
+        System.out.println("Generating!");
+        ((Review) assignment).generateQuestions(userId, classId);
+        System.out.println("Finished!");
+        System.out.println(((Review) assignment).getQuestions());
       }
-//      List<String> ans = new ArrayList<>();
-//      ans.add("first");
-//      ans.add("second");
-//      ans.add("third");
-//      ans.add("fourth");
-//      List<Integer> correct = new ArrayList<>();
-//      correct.add(1);
-//      Question question = new Question("Q1", "Test", ans, correct);
-//      List<Question> qs = new ArrayList<Question>();
-//      qs.add(question);
-//      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
-//      assignment.setReward(100);
       Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
       return GSON.toJson(variables);
     }
@@ -392,8 +382,7 @@ public class StudentRoutes {
         for (String id : allAssignmentIds) {
           Assignment temp = Controller.getAssignment(id);
           if (temp instanceof Review) {
-            Student s = Controller.getStudent(userId);
-            ((Review) temp).generateQuestions(s, classId);
+            ((Review) temp).generateQuestions(userId, classId);
             assignmentIds.add(id);
           }
         }

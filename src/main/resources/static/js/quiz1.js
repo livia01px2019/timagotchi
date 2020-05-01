@@ -15,8 +15,11 @@
     const postParameters = {
         id: assignmentID
     };
+    console.log("here1");
     $.post(address, postParameters, response => {
+        console.log("here?");
         const convertedAssignment = JSON.parse(response).assignment;
+        console.log("here?");
 		const reward = convertedAssignment.reward;
         const questionSet = convertedAssignment.questions;
         for (let q of questionSet) {
@@ -98,7 +101,7 @@
         }
 
         function showResults(){
-	
+
 			document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
 			"style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+" + reward + "XP</p></div></img>";
 
@@ -159,7 +162,7 @@
                 window.location.ref = "/student/main";
             });
 
-			document.getElementById('finishButton').innerHTML = "<a href=\"/student/main\"><button style=\"width:100%\">FINISH</button></a>";		
+			document.getElementById('finishButton').innerHTML = "<a href=\"/student/main\"><button style=\"width:100%\">FINISH</button></a>";
             // show number of correct answers out of total
             document.getElementById('test').innerHTML = newHTML;
             resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
