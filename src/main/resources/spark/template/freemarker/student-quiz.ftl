@@ -31,7 +31,7 @@
 <div style="padding-left: 20%">
     <div id="grid"></div>
 	<div class="student-quiz-main">
-		<div id="congrats-banner" class="congrats-banner"> </div>
+		<div id="congrats-banner" class="congrats-banner" style="position:relative; z-index:-1"> </div>
 	    <h2>${assignmentName}</h2>
 	    <link href="../../css/student_quiz.css" rel="stylesheet">
 	    <script defer src="../../js/quiz1.js"></script>

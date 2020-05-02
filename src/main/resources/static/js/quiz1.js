@@ -184,14 +184,15 @@
                     ranking.splice(index, 0, [studentName, numCorrect]);
                 }
                 let rank = 1;
-                let leaderboardHTML = "<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>";
+                let leaderboardHTML = "<div class=\"leaderboard\"><div class=\"leaderboard-header\">" +
+                    "<h3>LEADERBOARD</h3></div>";
                 for (let i = 0; i < ranking.length; i++) {
+					leaderboardHTML += "<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>"
                     leaderboardHTML += rank + "<h2><p>" + ranking[i][0] + "<p></div><p>";
                     leaderboardHTML += ranking[i][1] + "</p></div>";
                     rank++;
                 }
-                leaderboardHTML = "<div class=\"leaderboard\"><div class=\"leaderboard-header\">" +
-                    "<h3>LEADERBOARD</h3></div>" + leaderboardHTML + "</div>";
+                leaderboardHTML += "</div>";
                 console.log(leaderboardHTML);
                 let leaderboard = document.getElementById('scoreboard');
                 leaderboard.insertAdjacentHTML('beforeend', leaderboardHTML);

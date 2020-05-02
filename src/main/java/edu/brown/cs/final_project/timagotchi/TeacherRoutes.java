@@ -80,7 +80,7 @@ public class TeacherRoutes {
       String className = Controller.getClass(classId).getName();
       String classesHtml = Routes.generateClassSidebar(cookies);
       Userboard userboard = Controller.getLeaderboard(classId);
-      String leaderBoardHtml = Routes.generateUserboardHtml(userboard);
+      String leaderBoardHtml = Routes.generateClassUserboardHtml(userboard);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
           "classes", classesHtml, "className", className, "classId", classId, "leaderboard",
           leaderBoardHtml);
