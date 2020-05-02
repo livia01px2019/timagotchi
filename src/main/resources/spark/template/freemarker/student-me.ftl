@@ -27,6 +27,5 @@
 </div>
 
 
-
 </#assign>
 <#include "student-main.ftl">
