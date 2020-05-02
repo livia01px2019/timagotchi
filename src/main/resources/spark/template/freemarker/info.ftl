@@ -16,14 +16,14 @@
 			<div class="usage-block">
 				<h2>TEACHERS</h2>
 				<p>
-					<a href=“/register”>Register</a> a teacher account with your information, then <a href=“/login”>log in</a>. Click on the + button in the sidebar to create a new class, then share the code with your students so they can join. In a specific class page, you can create new assignments and view old assignments in the “Assignments” tab and view the student leaderboard for the class in the “Students” tab. When creating a new assignment, you can either create checkoff work for more traditional assignments or quizzes that students can complete directly on the website. You can also view how your different classes compare in your profile. 
+					<a href='/register'>Register</a> a teacher account with your information, then <a href='/login'>log in</a>. Click on the + button in the sidebar to create a new class, then share the code with your students so they can join. In a specific class page, you can create new assignments and view old assignments in the “Assignments” tab and view the student leaderboard for the class in the “Students” tab. When creating a new assignment, you can either create checkoff work for more traditional assignments or quizzes that students can complete directly on the website. You can also view how your different classes compare in your profile. 
 				</p>
 			</div>
 			<div style="width:200px"></div>
 			<div class="usage-block">
 				<h2>STUDENTS</h2>
 				<p>
-					<a href=“/register”>Register</a> a student account with your information, then <a href=“/login”>log in</a>. Once you get a class code from your teacher, click on the + button in the sidebar and enter the code to join the class. You can view all of the assignments for your class and complete any of the quiz assignments directly on the website (you can attempt all quizzes any number of times, but only your first attempt will be recorded!). You can also view how you compare against your classmates and other classes in the Leaderboard pages. Watch your pet grow and change as you finish assignments and gain XP!
+					<a href='/register'>Register</a> a student account with your information, then <a href='/login'>log in</a>. Once you get a class code from your teacher, click on the + button in the sidebar and enter the code to join the class. You can view all of the assignments for your class and complete any of the quiz assignments directly on the website (you can attempt all quizzes any number of times, but only your first attempt will be recorded!). You can also view how you compare against your classmates and other classes in the Leaderboard pages. Watch your pet grow and change as you finish assignments and gain XP!
 				</p>
 			</div>
 		</div>
