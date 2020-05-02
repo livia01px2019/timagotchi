@@ -96,6 +96,7 @@ $(document).ready(function () {
 
 	$("input[name='atype']").change(function(){
 		document.getElementById('repeater').hidden = !document.getElementById('repeater').hidden;
+		document.getElementById('competitive-button').hidden = !document.getElementById('competitive-button').hidden;
 	});
 
     const submit = document.getElementById('submit');

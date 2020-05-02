@@ -8,18 +8,28 @@
     <form novalidate='novalidate' class='questionbox'>
         <div class='head' >
             <div class='header-field'>
-                <label style="height: 40px">Title</label>
+               	<label style="height: 40px">Title</label>
                 <input id="assignmentTitle" style="width: 70%; height: 40px; margin-left: 5px; margin-bottom: 20px; margin-right: 10px"/>
-                <label style="height: 40px">Points</label>
+                <div class="tooltip">
+                	<label style="height: 40px">Points</label>
+                	<span class="tooltiptext">We recommend allocating XP so that students can reach at least 1,500 XP by the end of the year.</span>
+                </div>
                 <input id="points" style="width: 22%; height: 40px; margin-left: 5px; margin-bottom: 20px"/>
             </div>
             <div class = "radio-buttons">
 	            <div class='button'>
-	                <input id='checkoff' required='required' type='radio' value='checkoff' name='atype'>Checkoff</input>
-	                <input id='quiz' required='required' type='radio' value='quiz' name='atype' checked>Quiz</input>
+	            	<div class="tooltip">
+	                	<input id='checkoff' required='required' type='radio' value='checkoff' name='atype'>Checkoff</input>
+		                <span class="tooltiptext">Checkoff assignments are assignments that students finish outside of this website but can be given XP for if you check them off.</span>
+	                </div>
+	                <div class="tooltip">
+	                	<input id='quiz' required='required' type='radio' value='quiz' name='atype' checked>Quiz</input>
+	                	<span class="tooltiptext">Quiz assignments are created and and completed by students directly on this website.</span>
+	                </div>
 	            </div>
-	            <div class='button' style='padding-left: 7%'>
+	            <div id="competitive-button" class='button tooltip' style='padding-left: 7%'>
 	                <input id='competitive' required='required' type='checkbox' value='competitive' style="margin-right: 5px">Competitive</input>
+	                <span class="tooltiptext">Competitive assignments allow students to compare their score against other students in a leaderboard.</span>
 	            </div>
 	        </div>
 

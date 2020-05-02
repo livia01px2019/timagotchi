@@ -321,8 +321,9 @@ h3{
     font-size: 20pt;
     text-align: center;
     vertical-align: middle;
-    width: 60%;
     height: 50px;
+	padding-left: 20px;
+	padding-right: 20px;
     background: #61C9A8;
 }
 
@@ -421,4 +422,25 @@ h3{
 	font-family: 'Roboto', sans-serif;
 	font-size: 20pt;
 	margin-top: 30px;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 15px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

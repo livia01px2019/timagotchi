@@ -21,7 +21,10 @@
      <div style="padding-left: 20%">
          <div class="profile">
              <h3 style="font-size:50px">${className}</h3>
-             <h3 id="class-code">Code: ${classId}</h3>
+             <div class="tooltip">
+             	<h3 id="class-code">Code: ${classId}</h3>
+             	<span class="tooltiptext">Send this code to your students so they can join this class.</span>
+	         </div>
          </div>
 
          <div class="tab">
