@@ -13,7 +13,7 @@ import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 
 public class Review implements Assignment {
-  private final int numQuestions = 2;
+  private int numQuestions;
   private String id;
   private String name;
   private Map<String, Boolean> complete;
@@ -34,6 +34,7 @@ public class Review implements Assignment {
     complete = new HashMap<String, Boolean>();
     reward = r;
     record = new HashMap<String, List<Boolean>>();
+    numQuestions = 10;
   }
 
   /**
@@ -207,6 +208,14 @@ public class Review implements Assignment {
   @Override
   public void setComplete(String userId, Boolean c) {
     complete.put(userId, c);
+  }
+
+  public int getNumQuestions() {
+    return numQuestions;
+  }
+
+  public void setNumQuestions(int n) {
+    this.numQuestions = n;
   }
 
   @Override
