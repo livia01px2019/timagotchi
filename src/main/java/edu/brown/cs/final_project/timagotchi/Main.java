@@ -54,9 +54,9 @@ public final class Main {
       System.err.println("Database not connected");
     }
 
-    if (options.has("gui")) {
-      runSparkServer((int) options.valueOf("port"));
-    }
+//    if (options.has("gui")) {
+    runSparkServer((int) options.valueOf("port"));
+//    }
 
     // REPL Handling.
     REPL repl = new REPL(new InputStreamReader(System.in));
@@ -89,7 +89,7 @@ public final class Main {
    * Runs the Spark Server.
    */
   private void runSparkServer(int port) {
-    Spark.port(port);
+    Spark.port(getHerokuAssignedPort());
     Spark.externalStaticFileLocation("src/main/resources/static");
     Spark.exception(Exception.class, new ExceptionPrinter());
 
@@ -148,6 +148,14 @@ public final class Main {
       }
       res.body(stacktrace.toString());
     }
+  }
+
+  static int getHerokuAssignedPort() {
+    ProcessBuilder processBuilder = new ProcessBuilder();
+    if (processBuilder.environment().get("PORT") != null) {
+      return Integer.parseInt(processBuilder.environment().get("PORT"));
+    }
+    return 4567; // return default port if heroku-port isn't set (i.e. on localhost)
   }
 
 }
