@@ -1,8 +1,13 @@
 <#assign content>
 <div class="profile-main">
 	<img class="timagotchi" src="../img/timagotchi.png">
-	<img class="skin" src=${fileNameUsername[0]}>
-
+	<img id="pet" class="skin" src=${fileNameUsername[0]}>
+    <button class="pet-button" id="lbutton">&nbsp;</button>
+    <button class="pet-button" id="mbutton">&nbsp;</button>
+    <button class="pet-button" id="rbutton">&nbsp;</button>
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/student-me.js"></script>
 	<div class="progress-bar">
 		<div>
 			<p>LVL ${lvlXpProgress[0]}</p>
