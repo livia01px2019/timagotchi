@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../../css/w3.css">
     <link rel="stylesheet" href="../../css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../img/main-skin-left.png" />
 </head>
 <body>
 <div class="sidenav">

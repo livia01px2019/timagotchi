@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/html5bp.css">
     <link rel="stylesheet" href="../css/w3.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="shortcut icon" href="../img/main-skin-left.png" />
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
