@@ -56,6 +56,7 @@ public class ReviewTest {
     assertTrue(qs.get(1).getPrompt().equals("hi mom") || qs.get(1).getPrompt().equals("hi dad"));
     assertFalse(qs.get(0).getPrompt().equals("different words") || qs.get(0).getPrompt().equals("should not appear"));
     assertFalse(qs.get(1).getPrompt().equals("different words") || qs.get(1).getPrompt().equals("should not appear"));
+    tearDown();
   }
 
   /**
@@ -87,5 +88,6 @@ public class ReviewTest {
     assertNotEquals("should not appear", qs.get(0));
     assertNotEquals("should not appear", qs.get(1));
     assertNotEquals("should not appear", qs.get(2));
+    tearDown();
   }
 }
