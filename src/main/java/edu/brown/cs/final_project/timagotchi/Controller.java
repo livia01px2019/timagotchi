@@ -129,6 +129,13 @@ public class Controller {
       } else if (assignments.get(0).get(2).equals("review")) {
         Review r = new Review(assignments.get(0).get(0), assignments.get(0).get(1),
             (int) Double.parseDouble(assignments.get(0).get(3)));
+        // for complete
+        List<List<String>> complete = DBProxy.executeQueryParameters(
+            "SELECT studentID,complete FROM student_assignment WHERE assignmentID=?;",
+            new ArrayList<>(Arrays.asList(assignmentId)));
+        for (List<String> comp : complete) {
+          r.setComplete(comp.get(0), Boolean.parseBoolean(comp.get(1)));
+        }
         return r;
       }
     } catch (Exception e) {

@@ -85,13 +85,21 @@ public class Userboard implements Leaderboard<Student> {
     public int getScore(String classID, String studentID) {
       Class c = Controller.getClass(classID);
       List<String> assignmentIDs = c.getAssignmentIds();
+      System.out.println("ree");
+      System.out.println(assignmentIDs);
+      System.out.println(studentID);
       int s1TotalXP = 0;
       for (String aid : assignmentIDs) {
+        System.out.println(aid);
         Assignment a = Controller.getAssignment(aid);
+        System.out.println(a.getName());
         if (a.getComplete(studentID)) {
           s1TotalXP = s1TotalXP + a.getReward();
         }
+        System.out.println(s1TotalXP);
       }
+      System.out.println("ree");
+      System.out.println(s1TotalXP);
       return s1TotalXP;
     }
 

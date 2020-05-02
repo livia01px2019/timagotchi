@@ -38,8 +38,8 @@ public class Classboard implements Leaderboard<Class> {
   }
 
   public static class CompareByAllXP implements Comparator<Class> {
-    @Override
-    public int compare(Class c1, Class c2) {
+
+    public int getClassXP(Class c1) {
       List<String> c1Assignments = c1.getAssignmentIds();
       int c1TotalXP = 0;
       for (String aid : c1Assignments) {
@@ -51,31 +51,34 @@ public class Classboard implements Leaderboard<Class> {
           }
         }
       }
-      List<String> c2Assignments = c2.getAssignmentIds();
-      int c2TotalXP = 0;
-      for (String aid : c2Assignments) {
-        Assignment a = Controller.getAssignment(aid);
-        List<String> studentIDs = Controller.getStudentsFromAssignment(aid);
-        for (String sid : studentIDs) {
-          if (a.getComplete(sid)) {
-            c2TotalXP = c2TotalXP + a.getReward();
-          }
-        }
-      }
+      return c1TotalXP;
+    }
+
+    @Override
+    public int compare(Class c1, Class c2) {
+      int c1TotalXP = getClassXP(c1);
+      int c2TotalXP = getClassXP(c2);
       return Double.compare(c1TotalXP, c2TotalXP);
     }
   }
 
-  public List<Class> rankClassByTotalXP() {
+  public List<List<String>> rankClassByTotalXP() {
     // Get the list of classes.
     List<Class> classes = new ArrayList<Class>();
     for (String cid : classIds) {
       classes.add(Controller.getClass(cid));
     }
-
+    CompareByAllXP compare = new CompareByAllXP();
     // Sort classes by average xp per student.
-    Collections.sort(classes, new CompareByAllXP().reversed());
-    return classes;
+    Collections.sort(classes, compare.reversed());
+    List<List<String>> sorted = new ArrayList<>();
+    for (Class c : classes) {
+      List<String> entry = new ArrayList<>();
+      entry.add(c.getName());
+      entry.add("" + compare.getClassXP(c));
+      sorted.add(entry);
+    }
+    return sorted;
   }
 
 }
