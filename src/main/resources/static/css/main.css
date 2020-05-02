@@ -45,7 +45,6 @@
 .checkoff td {
     border: 1px solid black;
 }
-
 .header {
 	font-family: 'Press Start 2P', cursive;
 	text-align: left;
@@ -53,11 +52,25 @@
 	font-size: 15pt;
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
+	justify-content: space-between;
 	position: fixed;
     top: 0;
 	width: 100%;
 	height: 80px;
+	align-items: center;
+	padding-left: 20px;
+	padding-right:20px;
+}
+.header p{
+	font-family: 'Roboto', sans-serif;
+}
+.header a{
+	 text-decoration:none;
+}
+.header-logos{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 .header-student{
 	font-family: 'Roboto', sans-serif;
