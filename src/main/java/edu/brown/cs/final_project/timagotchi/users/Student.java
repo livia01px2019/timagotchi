@@ -131,8 +131,16 @@ public class Student implements People {
     @Override
     public int compare(Student s1, Student s2) {
       Quiz a = (Quiz) Controller.getAssignment(assignmentID); // TODO: Fix here
-      return Double.compare(a.getScore(s1.getId()) / a.getTotalScore(),
-          a.getScore(s2.getId()) / a.getTotalScore());
+      if (a.getComplete(s1.getId()) && a.getComplete(s2.getId())) {
+        return Double.compare(a.getScore(s1.getId()) / a.getTotalScore(),
+            a.getScore(s2.getId()) / a.getTotalScore());
+      } else if (a.getComplete(s1.getId())) {
+        return 1;
+      } else if (a.getComplete(s2.getId())) {
+        return -1;
+      } else {
+        return 0;
+      }
     }
   }
 
