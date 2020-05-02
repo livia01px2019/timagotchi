@@ -23,7 +23,7 @@ public class Classboard implements Leaderboard<Class> {
     }
 
     // Sort classes by average xp per student.
-    Collections.sort(classes, new Class.CompareByAverageXp());
+    Collections.sort(classes, new Class.CompareByAverageXp().reversed());
     return classes;
   }
 
