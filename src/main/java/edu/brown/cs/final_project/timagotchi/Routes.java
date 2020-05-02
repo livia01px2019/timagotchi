@@ -31,16 +31,25 @@ public class Routes {
   private static final Gson GSON = new Gson();
 
   /**
+   * Handler for main info page.
+   *
+   */
+  public static class MainHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      // Example usage of cookies to remember username information!
+      Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Info");
+      return new ModelAndView(variables, "info.ftl");
+    }
+  }
+
+  /**
    * Handler for logging in.
    *
    */
   public static class LoginHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      // Example usage of cookies to remember username information!
-      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
-      String userId = cookies.get("userId");
-      cookies.set("userId", "David Lee");
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Login");
       return new ModelAndView(variables, "login.ftl");
     }

@@ -101,6 +101,7 @@ public final class Main {
     Spark.post("/register-submit", new Routes.RegisterSubmitHandler());
     Spark.post("/login-student", new Routes.LoginStudentHandler());
     Spark.post("/login-teacher", new Routes.LoginTeacherHandler());
+    Spark.get("/main", new Routes.MainHandler(), freeMarker);
     Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
 
     Spark.get("/student/assignment", new StudentRoutes.StudentAssignmentHandler(), freeMarker);

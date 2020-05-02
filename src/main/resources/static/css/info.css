@@ -1,0 +1,38 @@
+.info h1 {
+	font-family: 'Press Start 2P', cursive;
+	margin:0px;
+	background-color: white;
+	padding:10px;
+}
+.info {
+	text-align: center;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.info img {
+	width: 100%;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 40px;
+}
+.info-block {
+	padding: 80px;
+	height: 100%;
+}
+.info p{
+	background-color: white;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10%;
+	padding-right:10%;
+}
+.usage-blocks{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.usage-block{
+	background-color: white;
+	padding:20px;
+}
