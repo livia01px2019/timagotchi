@@ -5,7 +5,7 @@
 $(document).ready(() => {
     const quizTab = document.getElementById('quiz');
     const checkoffTab = document.getElementById('checkoff');
-	const leaderboardTab = document.getElementById('Leaderboard');
+	const leaderboardTab = document.getElementById('leaderboard');
     const quizzes = document.getElementById('quizzes');
     const review = document.getElementById('review');
     const checkoffs = document.getElementById('checkoffs');

@@ -10,14 +10,14 @@ import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 
 /**
- * A Leaderboard to rank students, both overall in a class and after a quiz
+ * A leaderboard to rank students, both overall in a class and after a quiz
  * assignment.
  */
 public class Userboard implements Leaderboard<Student> {
   private String classId;
 
   /**
-   * Initializes the Leaderboard.
+   * Initializes the leaderboard.
    *
    * @param cid The id of the class to be ranked.
    */

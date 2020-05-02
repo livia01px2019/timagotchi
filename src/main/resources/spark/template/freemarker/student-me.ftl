@@ -2,6 +2,7 @@
 <div class="profile-main">
 	<img class="timagotchi" src="../img/timagotchi.png">
 	<img class="skin" src=${fileNameUsername[0]}>
+    <button class="pet-button">Click Me!</button>
 	<div class="progress-bar">
 		<div>
 			<p>LVL ${lvlXpProgress[0]}</p>
@@ -10,7 +11,7 @@
 		<div class="w3-white" style="width:50%; margin: 20px; outline: solid;">
 		  <div class="w3-container" style="height:30px; width:${lvlXpProgress[2]}%; background-color: black"></div>
 		</div>
-		
+
 	</div>
 	<div style="width:300px; height:650px"></div>
 	<div class="profile-info" style="width:500px">

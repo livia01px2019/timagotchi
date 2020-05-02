@@ -82,7 +82,7 @@ public class TeacherRoutes {
       Userboard userboard = Controller.getLeaderboard(classId);
       String leaderBoardHtml = Routes.generateUserboardHtml(userboard);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
-          "classes", classesHtml, "className", className, "classId", classId, "Leaderboard",
+          "classes", classesHtml, "className", className, "classId", classId, "leaderboard",
           leaderBoardHtml);
       return new ModelAndView(variables, "teacher-class.ftl");
     }
@@ -216,7 +216,7 @@ public class TeacherRoutes {
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
           classesHtml, "nameUsername", new String[] {
               currTeacher.getName(), currTeacher.getUsername()
-          }, "Leaderboard", leaderboardHtml);
+          }, "leaderboard", leaderboardHtml);
       return new ModelAndView(variables, "teacher-me.ftl");
     }
   }

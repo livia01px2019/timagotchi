@@ -209,6 +209,12 @@ p{
     top: 350px;
     left: 520px;
 }
+.pet-button{
+    height:170px;
+    position: absolute;
+    top: 350px;
+    left: 520px;
+}
 .profile{
 	display:flex;
 	flex-direction:row;
