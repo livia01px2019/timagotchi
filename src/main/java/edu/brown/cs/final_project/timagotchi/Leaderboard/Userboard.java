@@ -49,13 +49,18 @@ public class Userboard implements Leaderboard<Student> {
   public List<List<String>> getRankingScore(String assignmentID) {
     Quiz a = (Quiz) Controller.getAssignment(assignmentID); // TODO: Fix here
     List<String> studentIDs = Controller.getStudentsFromAssignment(assignmentID);
+    System.out.println("bla");
+    System.out.println(studentIDs);
     List<Student> students = new ArrayList<Student>();
     for (String sid : studentIDs) {
       students.add(Controller.getStudent(sid));
     }
+    System.out.println(students);
     Collections.sort(students, new Student.CompareByScore(assignmentID).reversed());
+    System.out.println(students);
     List<List<String>> sortedID = new ArrayList<>();
     for (Student s : students) {
+      System.out.println(s.getId());
       if (a.getComplete(s.getId())) {
         List<String> entry = new ArrayList<>();
         entry.add(s.getName());
@@ -67,4 +72,14 @@ public class Userboard implements Leaderboard<Student> {
     System.out.println(sortedID);
     return sortedID;
   }
+
+  /*
+   * public List<List<String>> allAssignmentsXP(String classID) { Class c =
+   * Controller.getClass(classID); List<String> assignmentIDs =
+   * c.getAssignmentIds(); for (String aid : assignmentIDs) { Assignment a =
+   * Controller.getAssignment(aid); List<String> studentIDs =
+   * Controller.getStudentsFromAssignment(aid); int reward = 0; for (String sid :
+   * studentIDs) { if (a.getComplete(sid)) { reward = reward + a.getReward(); } }
+   * } }
+   */
 }
