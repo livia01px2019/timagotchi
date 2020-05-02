@@ -2,7 +2,7 @@
 <div class="profile-main">
 	<img class="timagotchi" src="../img/timagotchi.png">
 	<img class="skin" src=${fileNameUsername[0]}>
-    <button class="pet-button">Click Me!</button>
+
 	<div class="progress-bar">
 		<div>
 			<p>LVL ${lvlXpProgress[0]}</p>
