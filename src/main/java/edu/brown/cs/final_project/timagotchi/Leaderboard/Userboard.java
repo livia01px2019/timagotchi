@@ -82,26 +82,28 @@ public class Userboard implements Leaderboard<Student> {
       classID = cid;
     }
 
-    @Override
-    public int compare(Student s1, Student s2) {
+    public int getScore(String classID, String studentID) {
       Class c = Controller.getClass(classID);
       List<String> assignmentIDs = c.getAssignmentIds();
       int s1TotalXP = 0;
-      int s2TotalXP = 0;
       for (String aid : assignmentIDs) {
         Assignment a = Controller.getAssignment(aid);
-        if (a.getComplete(s1.getId())) {
+        if (a.getComplete(studentID)) {
           s1TotalXP = s1TotalXP + a.getReward();
         }
-        if (a.getComplete(s2.getId())) {
-          s2TotalXP = s2TotalXP + a.getReward();
-        }
       }
+      return s1TotalXP;
+    }
+
+    @Override
+    public int compare(Student s1, Student s2) {
+      int s1TotalXP = getScore(classID, s1.getId());
+      int s2TotalXP = getScore(classID, s2.getId());
       return Double.compare(s1TotalXP, s2TotalXP);
     }
   }
 
-  public List<Student> allAssignmentsXP(String classID) {
+  public List<List<String>> allAssignmentsXP(String classID) {
     Class c = Controller.getClass(classID);
     List<String> studentIDs = c.getStudentIds();
     List<Student> students = new ArrayList<>();
@@ -109,7 +111,13 @@ public class Userboard implements Leaderboard<Student> {
       students.add(Controller.getStudent(sid));
     }
     Collections.sort(students, new CompareByAllXP(classID).reversed());
-    return students;
+    List<List<String>> sorted = new ArrayList<>();
+    for (Student s : students) {
+      List<String> entry = new ArrayList<>();
+      entry.add(s.getUsername());
+      entry.add("" + getScore(classID, s.getId()));
+      sorted.add(entry);
+    return sorted;
   }
 
 }
