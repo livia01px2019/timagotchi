@@ -2,9 +2,11 @@ package edu.brown.cs.final_project.timagotchi.Leaderboard;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
@@ -73,13 +75,41 @@ public class Userboard implements Leaderboard<Student> {
     return sortedID;
   }
 
-  /*
-   * public List<List<String>> allAssignmentsXP(String classID) { Class c =
-   * Controller.getClass(classID); List<String> assignmentIDs =
-   * c.getAssignmentIds(); for (String aid : assignmentIDs) { Assignment a =
-   * Controller.getAssignment(aid); List<String> studentIDs =
-   * Controller.getStudentsFromAssignment(aid); int reward = 0; for (String sid :
-   * studentIDs) { if (a.getComplete(sid)) { reward = reward + a.getReward(); } }
-   * } }
-   */
+  public static class CompareByAllXP implements Comparator<Student> {
+    private String classID;
+
+    public CompareByAllXP(String cid) {
+      classID = cid;
+    }
+
+    @Override
+    public int compare(Student s1, Student s2) {
+      Class c = Controller.getClass(classID);
+      List<String> assignmentIDs = c.getAssignmentIds();
+      int s1TotalXP = 0;
+      int s2TotalXP = 0;
+      for (String aid : assignmentIDs) {
+        Assignment a = Controller.getAssignment(aid);
+        if (a.getComplete(s1.getId())) {
+          s1TotalXP = s1TotalXP + a.getReward();
+        }
+        if (a.getComplete(s2.getId())) {
+          s2TotalXP = s2TotalXP + a.getReward();
+        }
+      }
+      return Double.compare(s1TotalXP, s2TotalXP);
+    }
+  }
+
+  public List<Student> allAssignmentsXP(String classID) {
+    Class c = Controller.getClass(classID);
+    List<String> studentIDs = c.getStudentIds();
+    List<Student> students = new ArrayList<>();
+    for (String sid : studentIDs) {
+      students.add(Controller.getStudent(sid));
+    }
+    Collections.sort(students, new CompareByAllXP(classID).reversed());
+    return students;
+  }
+
 }
