@@ -213,7 +213,7 @@ p{
 	height: 650px;
 	position: absolute;
     top: 80px;
-    left: 370px;
+    left: 380px;
 	z-index: 0;
 }
 .skin{
@@ -233,16 +233,16 @@ p{
 }
 #lbutton{
     top: 650px;
-    left: 506px;
+    left: 516px;
 }
 #mbutton{
     top: 669px;
-    left: 570px;
+    left: 580px;
     color: transparent;
 }
 #rbutton{
     top: 650px;
-    left: 636px;
+    left: 646px;
 }
 .profile{
 	display:flex;
