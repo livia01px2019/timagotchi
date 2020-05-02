@@ -236,7 +236,7 @@ public class StudentRoutes {
         String className = Controller.getClass(classId).getName();
         String classesHtml = Routes.generateClassSidebar(cookies);
         Userboard userboard = Controller.getLeaderboard(classId);
-        String leaderboardHtml = Routes.generateUserboardHtml(userboard);
+        String leaderboardHtml = Routes.generateClassUserboardHtml(userboard);
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
             "classes", classesHtml, "className", className, "leaderboard", leaderboardHtml);
         return new ModelAndView(variables, "student-class.ftl");

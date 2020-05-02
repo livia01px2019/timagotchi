@@ -282,6 +282,38 @@ public class Routes {
   }
 
   /**
+   * Generates HTML code for a userboard.
+   *
+   * @param ub userboard
+   * @return HTML code for userboard
+   */
+  public static String generateClassUserboardHtml(Userboard ub) {
+    StringBuilder sb = new StringBuilder();
+    List<List<String>> studentList = ub.allAssignmentsXP();
+    System.out.println("generate classuserboarhtml called:" + studentList);
+    int i = 1;
+    if (studentList.size() == 0) {
+      sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
+      sb.append("<p>");
+      sb.append("No students yet!");
+      sb.append("</p></div>");
+    } else {
+      for (List<String> s : studentList) {
+        sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>");
+        sb.append(i);
+        sb.append("<h2><p>");
+        sb.append(s.get(0));
+        sb.append("<p></div><p>");
+        sb.append(s.get(1));
+        sb.append("</p></div>");
+        i++;
+      }
+    }
+    System.out.println(sb.toString());
+    return sb.toString();
+  }
+
+  /**
    * Generates HTML code for classboard.
    *
    * @param cb classboard

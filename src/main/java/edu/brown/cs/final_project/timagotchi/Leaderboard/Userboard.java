@@ -103,20 +103,22 @@ public class Userboard implements Leaderboard<Student> {
     }
   }
 
-  public List<List<String>> allAssignmentsXP(String classID) {
-    Class c = Controller.getClass(classID);
+  public List<List<String>> allAssignmentsXP() {
+    Class c = Controller.getClass(classId);
     List<String> studentIDs = c.getStudentIds();
     List<Student> students = new ArrayList<>();
     for (String sid : studentIDs) {
       students.add(Controller.getStudent(sid));
     }
-    Collections.sort(students, new CompareByAllXP(classID).reversed());
+    CompareByAllXP compare = new CompareByAllXP(classId);
+    Collections.sort(students, compare.reversed());
     List<List<String>> sorted = new ArrayList<>();
     for (Student s : students) {
       List<String> entry = new ArrayList<>();
       entry.add(s.getUsername());
-      entry.add("" + getScore(classID, s.getId()));
+      entry.add("" + compare.getScore(classId, s.getId()));
       sorted.add(entry);
+    }
     return sorted;
   }
 
