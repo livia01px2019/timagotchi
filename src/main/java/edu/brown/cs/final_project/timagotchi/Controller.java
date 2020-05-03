@@ -22,6 +22,35 @@ import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 public class Controller {
 
   /**
+   * Get the option that the student picked for a specific question.
+   *
+   * @param studentID
+   * @param questionID
+   * @return A string showing the option the student picked (as text)
+   */
+  public static String getRecord(String studentID, String questionID) {
+    try {
+      List<List<String>> response = DBProxy.executeQueryParameters(
+          "SELECT optionID from student_record WHERE studentID=? AND questionID=?;",
+          new ArrayList<>(Arrays.asList(studentID, questionID)));
+      if (response.size() != 0) {
+        int optionIndex = response.get(0).get(0).charAt(0) - 65;
+        System.out.println(optionIndex);
+        List<List<String>> options = DBProxy.executeQueryParameters(
+            "SELECT option FROM options WHERE questionID=?;",
+            new ArrayList<>(Arrays.asList(questionID)));
+        if (options.size() != 0) {
+          return options.get(optionIndex).get(0);
+        }
+      }
+      return null;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
    * Returns all the ids of questions a student got wrong given student ID and
    * class ID
    *
@@ -54,10 +83,6 @@ public class Controller {
    * @return Assignment of correct type and info from DB
    */
   public static Assignment getAssignment(String assignmentId) {
-    // TODO: getter for assignment, but I'm not sure if we need one for each
-    // different type? (checkoff, question, etc.)
-    // Actually I think we do because each one has different variables that we need
-    // to query for
     try {
       List<List<String>> assignments = DBProxy.executeQueryParameters(
           "SELECT * FROM assignments WHERE id=?;", new ArrayList<>(Arrays.asList(assignmentId)));
@@ -276,7 +301,7 @@ public class Controller {
    * @return Assignment that student record has been added to
    */
   public static Assignment addStudentRecord(String studentID, String assignmentID, String classID,
-      List<String> inputList) {
+      List<String> answers, List<String> inputList) {
     try {
       Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
       List<List<String>> complete = DBProxy.executeQueryParameters(
@@ -288,9 +313,9 @@ public class Controller {
           List<List<String>> questions = DBProxy.executeQueryParameters(
               "SELECT questionID FROM assignment_question WHERE assignmentID=?;",
               new ArrayList<>(Arrays.asList(assignmentID)));
-          DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?);",
-              new ArrayList<>(
-                  Arrays.asList(studentID, questions.get(i).get(0), inputList.get(i), classID)));
+          DBProxy.updateQueryParameters("INSERT INTO student_record VALUES (?,?,?,?,?);",
+              new ArrayList<>(Arrays.asList(studentID, questions.get(i).get(0), answers.get(i),
+                  inputList.get(i), classID)));
         }
         // update student status as complete
         completeAssignment(studentID, assignmentID);

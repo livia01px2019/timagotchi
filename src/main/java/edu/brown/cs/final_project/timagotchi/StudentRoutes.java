@@ -282,9 +282,10 @@ public class StudentRoutes {
       QueryParamsMap qm = req.queryMap();
       String assignmentID = qm.value("id");
       List<String> record = GSON.fromJson(qm.value("record"), ArrayList.class);
+      List<String> studentRecord = GSON.fromJson(qm.value("studentRecord"), ArrayList.class);
       try {
         Assignment assignment = Controller.addStudentRecord(studentId, assignmentID,
-            cookies.get("classId"), record);
+            cookies.get("classId"), studentRecord, record);
       } catch (NumberFormatException numErr) {
         numErr.printStackTrace();
       }
