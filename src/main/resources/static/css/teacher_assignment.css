@@ -64,14 +64,14 @@
 	margin: 10px;
 	padding: 10px;
 	font-size: 20px;
-	width: 40%;
+	width: 32%;
 }
 .correct{
 	background-color: #61C9A8;
 	margin: 10px;
 	padding: 10px;
 	font-size: 20px;
-	width: 15%;
+	width: 32%;
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -82,7 +82,7 @@
 	margin: 10px;
 	padding: 10px;
 	font-size: 20px;
-	width: 15%;
+	width: 32%;
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -90,11 +90,11 @@
 }
 .questiontitle{
 	font-size: 20px;
-	width: 40%;
+	width: 32%;
 	padding: 5px;
 }
 .correctnesstitle{
 	font-size: 20px;
-	width: 15%;
+	width: 32%;
 	padding: 5px;
 }
