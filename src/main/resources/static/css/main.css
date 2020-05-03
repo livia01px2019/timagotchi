@@ -462,3 +462,6 @@ h3{
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+#demo {
+	font-style: italic;
+}

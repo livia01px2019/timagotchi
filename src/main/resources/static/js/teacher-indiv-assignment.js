@@ -13,16 +13,16 @@
 				output.push(
                     `<div class="recordRow"> 
             <div class="question"> ${row.questionPrompt} </div>
-            <div class="question"> ${row.questionAnswer} </div>
-			<div class="correct">Correct <img src="../../img/correct-icon.png"></div>
+            <div class="question"> ${row.correctAnswer} </div>
+			<div class="correct"> ${row.answer} <img src="../../img/correct-icon.png" alt="correct icon"></div>
           </div>`
                 );
 			} else {
 				output.push(
                     `<div class="recordRow"> 
             <div class="question"> ${row.questionPrompt} </div>
-            <div class="question"> ${row.questionAnswer} </div>
-			<div class="incorrect">Incorrect <img src="../../img/wrong-icon.png"></div>
+            <div class="question"> ${row.correctAnswer} </div>
+			<div class="incorrect"> ${row.answer} <img src="../../img/wrong-icon.png" alt="incorrect icon"></div>
           </div>`
                 );
 			}

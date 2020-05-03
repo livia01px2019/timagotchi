@@ -30,7 +30,7 @@
 	             	<img src="../img/copy.png" alt="copy code" style="width:20px; height:20px">
 	             	<h3>  Code: </h3><h3 id="classid">${classId}</h3>
 	            </div>
-             	<span class="tooltiptext">Send this code to your students so they can join this class.</span>
+             	<span class="tooltiptext">Send this code to your students so they can join this class. Click to copy to clipboard.</span>
 	         </div>
          </div>
 

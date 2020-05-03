@@ -98,7 +98,7 @@ $(document).ready(() => {
     let eggArray = [
     	"Wonder what's inside? It needs more time, though.",
     	"What will hatch from this? It will take some time.",
-    	"What Timagochi will hatch from this Egg?",
+    	"What Timagotchi will hatch from this Egg?",
     	"It moves occasionally. It should hatch soon.",
     	"It appears to move occasionally. It may be close to hatching."
     ];
@@ -111,11 +111,11 @@ $(document).ready(() => {
     ];
     
     let babyArray = [
-    	"\"Good din-din with chicken in it for 'ittle cutey baby!\"",
-    	"\"Hewwo!!!\"",
+    	"\"Waah!\"",
+    	"\"Dadda?\"",
+		"\"Momma?\"",
     	"\"Bwubba!?\"",
-    	"\"Accowding to aww known waws of aviation, thewe is nwo way a bee should be abwe to fwy\"",
-    	"\"Da tin box held priceless stones!\""
+    	"It's hungry! Help it grow!"
     ];
     
     function typeWriter() {
@@ -206,11 +206,11 @@ $(document).ready(() => {
 		        setTimeout(function(){pet.style.transform = "rotate(720deg)";}, 2100);
 		    }
 		    if (pet.src.includes("stage1")) {
-		    	txt = eggArray[Math.floor(Math.random()*babyArray.length)];
+		    	txt = eggArray[Math.floor(Math.random()*eggArray.length)];
 		    	typeWriter();
 		    }
 		    if (pet.src.includes("stage2")) {
-		    	txt = eggCrackingArray[Math.floor(Math.random()*babyArray.length)];
+		    	txt = eggCrackingArray[Math.floor(Math.random()*eggCrackingArray.length)];
 		    	typeWriter();
 		    }
 		    if (pet.src.includes("stage3")) {
