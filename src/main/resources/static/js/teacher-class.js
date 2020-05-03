@@ -5,15 +5,29 @@
 $(document).ready(() => {
     const assignmentsTab = document.getElementById('assignments');
     const studentsTab = document.getElementById('students');
-    const classId = document.getElementById('class-code');
     const quizzes = document.getElementById('quiz-list');
 	const checkoffs = document.getElementById('checkoff-list');
 	const assignments = document.getElementById('assignments-list');
+	const classCode = document.getElementById('class-code');
     let buttons = null;
     const create = document.getElementById('create-assignment');
     let classNames = [];
     let classIds = [];
-
+	
+	classCode.onclick = copyToClipboard;
+	function copyToClipboard() {
+		console.log("copying");
+		const el = document.createElement('textarea');
+		el.value = classId;
+		console.log(el.value);
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand("copy");
+		document.body.removeChild(el);
+		
+		alert("Copied to clipboard! " + classId);
+	}
+	
     assignmentsTab.onclick = openAssignmentsTab;
     function openAssignmentsTab() {
         // Get all elements with class="tabcontent" and hide them

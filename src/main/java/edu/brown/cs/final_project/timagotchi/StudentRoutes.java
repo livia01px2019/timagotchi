@@ -135,8 +135,6 @@ public class StudentRoutes {
       Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
       Pet currPet = Controller.getPet(currStudent.getPetId());
 
-      System.out.println("studentxplvl: " + (int) currPet.getXp() / 100 + ", " + currPet.getXp()
-          + ", " + currPet.getXp() % 100);
       String imageFile = currPet.getImage();
       int level = (int) currPet.getXp() / 100;
       if (level < LEVELS[0]) {
@@ -310,10 +308,7 @@ public class StudentRoutes {
       Assignment assignment = Controller.getAssignment(assignmentID);
       Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
       if (assignment instanceof Review) {
-        System.out.println("Generating!");
         ((Review) assignment).generateQuestions(userId, classId);
-        System.out.println("Finished!");
-        System.out.println(((Review) assignment).getQuestions());
       } else {
         Userboard userboard = new Userboard(classId);
         List<List<String>> ranking = userboard.getRankingScore(assignmentID);
@@ -360,7 +355,6 @@ public class StudentRoutes {
 
       if (qmap.value("type").equals("quiz")) {
         for (String id : allAssignmentIds) {
-          System.out.println("id " + id);
           Assignment temp = Controller.getAssignment(id);
           if (temp instanceof Quiz) {
             assignmentIds.add(id);
@@ -378,8 +372,6 @@ public class StudentRoutes {
             }
           }
         }
-        System.out.println("Assignments");
-        System.out.println(assignmentIds);
         Map<String, Object> responseObject = ImmutableMap.of("ids", assignmentIds, "names",
             assignmentNames, "scores", scores, "totalScores", totalScores, "completed", complete);
         return GSON.toJson(responseObject);

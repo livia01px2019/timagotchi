@@ -328,17 +328,21 @@ h3{
 	font-size: 15pt;
 	padding: 20px;
 	width: 100%;
-	margin: 0;
-	margin-top: 30px;
 }
-#class-code{
-    font-size: 20pt;
+.class-code{
+    font-size: 15pt;
     text-align: center;
     vertical-align: middle;
     height: 50px;
 	padding-left: 20px;
 	padding-right: 20px;
     background: #61C9A8;
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+}
+.class-code img{
+	margin-right: 10px;
 }
 
 /* Style the tab */

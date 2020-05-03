@@ -100,13 +100,10 @@ public class TeacherRoutes {
       QueryParamsMap qmap = req.queryMap();
       if (qmap.value("type").equals("assignments")) {
         List<String> assignmentIds = Controller.getClass(classId).getAssignmentIds();
-        System.out.println("assignments");
-        System.out.println(assignmentIds);
         List<String> assignmentNames = new ArrayList<>();
         for (String id : assignmentIds) {
           assignmentNames.add(Controller.getAssignment(id).getName());
         }
-        System.out.println("in assignments");
 
         JsonArray assignments = new JsonArray();
         for (String id : assignmentIds) {
@@ -122,11 +119,8 @@ public class TeacherRoutes {
           assignments.add(assignment);
         }
 
-        System.out.println(assignments);
-
         Map<String, Object> responseObject = ImmutableMap.of("assignments",
             GSON.toJson(assignments));
-        System.out.println(responseObject);
         return GSON.toJson(responseObject);
       }
       return null;
@@ -153,22 +147,18 @@ public class TeacherRoutes {
       String assignmentId = req.params(":assignmentid");
       cookies.set("assignmentId", assignmentId);
       Class classObject = Controller.getClass(cookies.get("classId"));
-      System.out.println("students from class:" + classObject.getStudentIds());
 
       Assignment assignment = Controller.getAssignment(assignmentId);
-      System.out.println("assignment id" + assignmentId);
 
       JsonArray students = new JsonArray();
       for (String studentId : classObject.getStudentIds()) {
         Student currStudent = Controller.getStudent(studentId);
-        System.out.println("a student added");
         JsonObject student = new JsonObject();
         student.addProperty("id", studentId);
         student.addProperty("name", currStudent.getName());
         student.addProperty("score", assignment.getScore(studentId));
         students.add(student);
       }
-      System.out.println("students: " + students);
       int totalScore = assignment.getTotalScore();
       String className = classObject.getName();
       String classesHtml = Routes.generateClassSidebar(cookies);
@@ -315,7 +305,6 @@ public class TeacherRoutes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classID = cookies.get("classId");
-      System.out.println(classID);
       QueryParamsMap qmap = req.queryMap();
       String title = qmap.value("title");
       String points = qmap.value("points");
@@ -449,7 +438,6 @@ public class TeacherRoutes {
   public static class DeleteAssignmentHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
-      System.out.println("delete assignment called");
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       QueryParamsMap qmap = req.queryMap();
       String assignmentId = cookies.get("assignmentId");
@@ -467,7 +455,6 @@ public class TeacherRoutes {
       }
 
       Map<String, Object> responseObject = ImmutableMap.of("results", valid, "classId", classId);
-      System.out.println("i am here!!");
       return GSON.toJson(responseObject);
     }
   }
@@ -481,7 +468,6 @@ public class TeacherRoutes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String assignmentID = cookies.get("assignmentId");
-      System.out.println(assignmentID);
       QueryParamsMap qmap = req.queryMap();
 
       List<String> completed = GSON.fromJson(qmap.value("complete"), ArrayList.class);

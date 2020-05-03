@@ -131,7 +131,6 @@ public class Routes {
       QueryParamsMap qmap = req.queryMap();
       String student = qmap.value("student");
       String teacher = qmap.value("teacher");
-      System.out.println(student);
       String name = qmap.value("name");
       String username = qmap.value("username");
       String password = qmap.value("password");
@@ -218,9 +217,7 @@ public class Routes {
     List<String> classIds = new ArrayList<String>();
     if (cookies.get("student").equals("true")) {
       String id = Controller.getStudentIDFromUsername(username);
-      System.out.println(id);
       Student currStudent = Controller.getStudent(id);
-      System.out.println(currStudent.getClassIds());
       if (currStudent.getClassIds() != null) {
         classIds = currStudent.getClassIds();
       }
@@ -289,7 +286,6 @@ public class Routes {
   public static String generateClassUserboardHtml(Userboard ub) {
     StringBuilder sb = new StringBuilder();
     List<List<String>> studentList = ub.allAssignmentsXP();
-    System.out.println("generate classuserboarhtml called:" + studentList);
     int i = 1;
     if (studentList.size() == 0) {
       sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
@@ -308,7 +304,6 @@ public class Routes {
         i++;
       }
     }
-    System.out.println(sb.toString());
     return sb.toString();
   }
 
