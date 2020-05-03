@@ -78,7 +78,7 @@ public class Classboard implements Leaderboard<Class> {
     for (Class c : classes) {
       List<String> entry = new ArrayList<>();
       entry.add(c.getName());
-      entry.add("" + compare.getClassXP(c));
+      entry.add("" + ((double) compare.getClassXP(c)) / c.getStudentIds().size());
       sorted.add(entry);
     }
     return sorted;
