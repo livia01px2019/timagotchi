@@ -53,12 +53,11 @@ public class DBProxyTest {
   public void executeQueryTest() throws Exception {
     setUp();
     // generic query
-    List<List<String>> result = DBProxy.executeQuery("SELECT * FROM classes;");
+    List<List<String>> result = DBProxy.executeQuery("SELECT * FROM classes WHERE id=\"15238a4d-8610-441f-8792-775363e5d39b\";");
     for (List<String> entry : result) {
       assertEquals("15238a4d-8610-441f-8792-775363e5d39b", entry.get(0));
       assertEquals("cs32", entry.get(1));
     }
     tearDown();
   }
-
 }
