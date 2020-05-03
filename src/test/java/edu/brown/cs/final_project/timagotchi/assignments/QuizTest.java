@@ -20,6 +20,7 @@ public class QuizTest {
   Question q1;
   Question q2;
   Quiz q;
+
   /**
    * Set up with test.sqlite3
    *
@@ -82,6 +83,7 @@ public class QuizTest {
 
     assertTrue(q.getScore("0") == 1);
     assertTrue(q.getScore("1") == 0);
+    assertTrue(q.getTotalScore() == 2);
     tearDown();
   }
 }
