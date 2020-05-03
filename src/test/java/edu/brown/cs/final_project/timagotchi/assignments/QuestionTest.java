@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class QuestionTest {
@@ -27,9 +26,9 @@ public class QuestionTest {
   @Before
   public void setUp() throws ClassNotFoundException, SQLException {
     DBProxy.connect("data/test.sqlite3");
-    q1 = new Question("0", "question1", new ArrayList<>(Arrays.asList("a", "b", "c", "d")),
+    q1 = new Question("0", "This is Question1", new ArrayList<>(Arrays.asList("a", "b", "c", "d")),
             new ArrayList<>(Arrays.asList(1)));
-    q2 = new Question("1", "question2", new ArrayList<>(Arrays.asList("a", "b", "c", "d")),
+    q2 = new Question("1", "This is Question2", new ArrayList<>(Arrays.asList("a", "b", "c", "d")),
             new ArrayList<>(Arrays.asList(1)));
   }
 
@@ -59,5 +58,19 @@ public class QuestionTest {
     assertTrue(qs.get(0).equals(q2));
     assertTrue(qs.get(1).equals(q1));
     tearDown();
+  }
+
+  /**
+   * Test that makes sure the prompt is being split correctly.
+   *
+   * @throws Exception Exception.
+   */
+  public void promptSplitTest() throws Exception {
+    setUp();
+    String[] p = q1.getPromptSplit();
+    assertTrue(p.length == 3);
+    assertTrue(p[0].equals("this"));
+    assertTrue(p[1].equals("is"));
+    assertTrue(p[2].equals("question1"));
   }
 }
