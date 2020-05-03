@@ -8,6 +8,7 @@ public class Pet {
   private double xp;
   private int level;
   private String pathToSprite;
+  private String[] randomSpeech;
 
   public Pet(String i, String petName) {
     id = i;

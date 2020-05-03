@@ -2,12 +2,10 @@ package edu.brown.cs.final_project.timagotchi;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
-import edu.brown.cs.final_project.timagotchi.utils.REPL;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -59,7 +57,7 @@ public final class Main {
 //    }
 
     // REPL Handling.
-    REPL repl = new REPL(new InputStreamReader(System.in));
+    // REPL repl = new REPL(new InputStreamReader(System.in));
     // repl.addCommand("startup", new Command(controller::startUpCommand));
     // repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
 //    repl.addCommand("addStudentToClass", new Command(controller::addStudentIDToClassCommand));
@@ -67,7 +65,7 @@ public final class Main {
 //    repl.addCommand("addCheckoff", new Command(controller::addCheckoffAssignment));
 //    repl.addCommand("addQuestion", new Command(controller::addQuestion));
 //    repl.addCommand("addQuiz", new Command(controller::addQuizAssignment));
-    repl.begin();
+    // repl.begin();
   }
 
   /**

@@ -197,6 +197,9 @@ public class Controller {
     try {
       UUID petID = UUID.randomUUID();
       Pet p = new Pet(petID.toString(), petName);
+      if (petName.equals("TimNelson")) {
+        p.updateSprite("../img/tim.jpg");
+      }
       DBProxy.updateQueryParameters("INSERT INTO pets VALUES (?,?,?,?,?);",
           new ArrayList<>(Arrays.asList(petID.toString(), petName, "0", "1", p.getImage())));
       DBProxy.updateQueryParameters("INSERT INTO student_pet VALUES (?,?);",
@@ -618,7 +621,12 @@ public class Controller {
         String hashedPassword = PasswordHashing.hashSHA256(password);
         DBProxy.updateQueryParameters("INSERT INTO students VALUES (?,?,?,?);",
             new ArrayList<>(Arrays.asList(studentID.toString(), username, hashedPassword, name)));
-        Pet p = addPet(studentID.toString(), "aaa"); // TODO: Change for pet name
+        Pet p = null;
+        if (name.equals("TimNelson")) {
+          p = addPet(studentID.toString(), "TimNelson");
+        } else {
+          p = addPet(studentID.toString(), "aaa"); // TODO: Change for pet name
+        }
         Student s = new Student(studentID.toString(), username, hashedPassword, name);
         s.setPetId(p.getId());
         return s;

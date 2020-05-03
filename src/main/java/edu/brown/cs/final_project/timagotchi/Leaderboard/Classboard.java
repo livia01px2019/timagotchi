@@ -37,7 +37,7 @@ public class Classboard implements Leaderboard<Class> {
     this.classIds = classIds;
   }
 
-  public static class CompareByAllXP implements Comparator<Class> {
+  public static class CompareByAvgXP implements Comparator<Class> {
 
     public int getClassXP(Class c1) {
       List<String> c1Assignments = c1.getAssignmentIds();
@@ -51,7 +51,10 @@ public class Classboard implements Leaderboard<Class> {
           }
         }
       }
-      return c1TotalXP;
+      if (c1.getStudentIds().size() == 0) {
+        return 0;
+      }
+      return c1TotalXP / c1.getStudentIds().size();
     }
 
     @Override
@@ -68,7 +71,7 @@ public class Classboard implements Leaderboard<Class> {
     for (String cid : classIds) {
       classes.add(Controller.getClass(cid));
     }
-    CompareByAllXP compare = new CompareByAllXP();
+    CompareByAvgXP compare = new CompareByAvgXP();
     // Sort classes by average xp per student.
     Collections.sort(classes, compare.reversed());
     List<List<String>> sorted = new ArrayList<>();
