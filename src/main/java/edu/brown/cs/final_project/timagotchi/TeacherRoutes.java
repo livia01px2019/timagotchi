@@ -189,6 +189,64 @@ public class TeacherRoutes {
   }
 
   /**
+   * Handler to get information on a specific assignment in a class.
+   *
+   */
+  public static class TeacherAssignmentStudentHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
+      if (cookies.get("username") == null) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/login';</script>");
+        return new ModelAndView(variables, "error.ftl");
+      } else if (cookies.get("student").equals("true")) {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/student/main';</script>");
+        return new ModelAndView(variables, "error-student.ftl");
+      }
+      String studentId = req.params(":studentid");
+      String assignmentId = cookies.get("assignmentId");
+
+      Assignment assignment = Controller.getAssignment(assignmentId);
+
+      if (assignment instanceof Quiz) {
+        Quiz quiz = (Quiz) assignment;
+        List<Boolean> studentRecord = quiz.getRecord(studentId);
+        List<Question> questions = quiz.getQuestions();
+        JsonArray record = new JsonArray();
+        for (int i = 0; i < questions.size(); i++) {
+          JsonObject row = new JsonObject();
+          Question currQ = questions.get(i);
+          row.addProperty("questionPrompt", currQ.getPrompt());
+          row.addProperty("questionAnswer", currQ.getChoices().get(currQ.getAnswers().get(0)));
+          row.addProperty("correct", studentRecord.get(i));
+          record.add(row);
+        }
+
+        int score = quiz.getScore(studentId);
+        int totalScore = quiz.getTotalScore();
+        Student student = Controller.getStudent(studentId);
+        String name = student.getName();
+        String classesHtml = Routes.generateClassSidebar(cookies);
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
+            "classes", classesHtml, "record", GSON.toJson(record), "scoreTotalscore", new int[] {
+                score, totalScore
+            }, "assignmentnameStudentname", new String[] {
+                assignment.getName(), name
+            });
+        return new ModelAndView(variables, "teacher-indiv-assignment.ftl");
+      } else {
+        Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Error", "redirect",
+            "<script>window.location.href = '/teacher/viewAssignment/" + assignmentId
+                + "';</script>");
+        return new ModelAndView(variables, "error-teacher.ftl");
+      }
+
+    }
+  }
+
+  /**
    * Handler for teacher's main page.
    *
    */

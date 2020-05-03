@@ -11,13 +11,21 @@
 			let score = currentStudent.score;
 			if(currentStudent.score == null){
 				score = "INCOMPLETE";
-			}
-			output.push(
-                    `<div class="studentBlock"> <a href="/${currentStudent.id}">
+				output.push(
+                    `<div class="studentBlock"> 
+            <div class="name"> ${currentStudent.name} </div>
+            <div class="score"> ${score} / ${totalScore} pts </div>
+          </div>`
+                );
+			} else {
+				output.push(
+                    `<div class="studentBlock"> <a href="/teacher/viewAssignmentStudent/${currentStudent.id}">
             <div class="name"> ${currentStudent.name} </div> </a>
             <div class="score"> ${score} / ${totalScore} pts </div>
           </div>`
                 );
+			}
+			
 			console.log(`${currentStudent.name}`);
 		}
 

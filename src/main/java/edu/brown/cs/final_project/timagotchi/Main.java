@@ -124,6 +124,8 @@ public final class Main {
     Spark.get("/teacher/:id", new TeacherRoutes.TeacherClassHandler(), freeMarker);
     Spark.get("/teacher/viewAssignment/:assignmentid", new TeacherRoutes.TeacherAssignmentHandler(),
         freeMarker);
+    Spark.get("teacher/viewAssignmentStudent/:studentid",
+        new TeacherRoutes.TeacherAssignmentStudentHandler(), freeMarker);
     Spark.get("/teacher", new TeacherRoutes.TeacherMainHandler(), freeMarker);
     Spark.post("/teacher/create-assignment-submit", new TeacherRoutes.CreateNewAssignmentHandler());
     Spark.post("/teacher/submit-new-class", new TeacherRoutes.SubmitTeacherNewClassHandler());
