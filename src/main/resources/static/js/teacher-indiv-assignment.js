@@ -13,8 +13,7 @@
 				output.push(
                     `<div class="recordRow"> 
             <div class="question"> ${row.questionPrompt} </div>
-            <div class="question"> ${row.questionAnswer} </div>
-			<div class="question"> ${row.correctAnswer} </div>
+            <div class="question"> ${row.correctAnswer} </div>
 			<div class="correct"> ${row.answer} <img src="../../img/correct-icon.png" alt="correct icon"></div>
           </div>`
                 );
@@ -22,8 +21,7 @@
 				output.push(
                     `<div class="recordRow"> 
             <div class="question"> ${row.questionPrompt} </div>
-            <div class="question"> ${row.questionAnswer} </div>
-			<div class="question"> ${row.correctAnswer} </div>
+            <div class="question"> ${row.correctAnswer} </div>
 			<div class="incorrect"> ${row.answer} <img src="../../img/wrong-icon.png" alt="incorrect icon"></div>
           </div>`
                 );
