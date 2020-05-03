@@ -8,7 +8,7 @@
 	<div class="recordRow" style="background-color:#61C9A8; margin-top:20px;">
 		<div class="questiontitle">Question</div>
 		<div class="questiontitle">Correct Answer</div>
-		<div class="correctnesstitle">Correctness</div>
+		<div class="correctnesstitle">Student Answer</div>
 	</div>
     <div id="recordBlock" class="assignmentBlock" style="margin-top:0">
     </div>

@@ -209,7 +209,8 @@ public class TeacherRoutes {
           JsonObject row = new JsonObject();
           Question currQ = questions.get(i);
           row.addProperty("questionPrompt", currQ.getPrompt());
-          row.addProperty("questionAnswer", currQ.getChoices().get(currQ.getAnswers().get(0)));
+          row.addProperty("correctAnswer", currQ.getChoices().get(currQ.getAnswers().get(0)));
+          row.addProperty("answer", Controller.getRecord(studentId, currQ.getId()));
           row.addProperty("correct", studentRecord.get(i));
           record.add(row);
         }

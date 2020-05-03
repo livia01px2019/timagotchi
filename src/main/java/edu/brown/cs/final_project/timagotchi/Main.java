@@ -94,6 +94,7 @@ public final class Main {
     FreeMarkerEngine freeMarker = createEngine();
 
     // Setup Spark Routes
+    // main
     Spark.get("/login", new Routes.LoginHandler(), freeMarker);
     Spark.get("/register", new Routes.RegisterHandler(), freeMarker);
     Spark.post("/register-submit", new Routes.RegisterSubmitHandler());
@@ -102,6 +103,7 @@ public final class Main {
     Spark.get("/main", new Routes.MainHandler(), freeMarker);
     Spark.get("/logout", new Routes.LogoutHandler(), freeMarker);
 
+    // students
     Spark.get("/student/assignment", new StudentRoutes.StudentAssignmentHandler(), freeMarker);
     Spark.get("/student/view-quiz/:id", new StudentRoutes.StudentQuizHandler(), freeMarker);
     Spark.get("/student/main", new StudentRoutes.StudentMainHandler(), freeMarker);
@@ -115,6 +117,7 @@ public final class Main {
     Spark.post("/student-class-get", new StudentRoutes.StudentClassGetHandler());
     Spark.post("/student/submit-new-class", new StudentRoutes.SubmitStudentNewClassHandler());
 
+    // teachers
     Spark.get("/teacher/create-assignment", new TeacherRoutes.TeacherNewAssignmentHandler(),
         freeMarker);
     Spark.get("/teacher/main", new TeacherRoutes.TeacherMainHandler(), freeMarker);
