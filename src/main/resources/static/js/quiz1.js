@@ -8,6 +8,7 @@
     const submitButton = document.getElementById('submit');
     let myQuestions = [];
     let record = [];
+    let studentRecord = [];
 
     //new code
     const assignmentID = document.getElementById("hidden").className;
@@ -137,8 +138,8 @@
                         }
                     }
                 }
-
-
+				// keep a record of the student's answer
+				studentRecord.push(userAnswer);
                 // if answer is correct
                 if(userAnswer === currentQuestion.correctAnswer){
                     // add to the number of correct answers
@@ -158,7 +159,8 @@
             const postParams = {
                 record: JSON.stringify(record),
                 id: assignmentID,
-                reward: reward
+                reward: reward,
+                studentRecord: JSON.stringify(studentRecord)
             };
 
             $.post("/student/quiz-finished", postParams, response => {

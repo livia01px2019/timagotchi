@@ -210,7 +210,7 @@ public class TeacherRoutes {
           Question currQ = questions.get(i);
           row.addProperty("questionPrompt", currQ.getPrompt());
           row.addProperty("correctAnswer", currQ.getChoices().get(currQ.getAnswers().get(0)));
-          row.addProperty("answer", "answer");
+          row.addProperty("answer", Controller.getRecord(studentId, currQ.getId()));
           row.addProperty("correct", studentRecord.get(i));
           record.add(row);
         }
