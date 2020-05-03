@@ -23,7 +23,7 @@
 		<h1 style="font-family: 'Press Start 2P', cursive; font-size:40px">PROFILE INFO</h1>
 		<h3>NAME: ${fileNameUsername[1]}</h3>
 		<h3>USERNAME: ${fileNameUsername[2]}</h3>
-		<h3 id="demo"></h3>
+		<p id="demo"></p>
 	</div>
 </div>
 
