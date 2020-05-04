@@ -288,8 +288,8 @@ public final class StudentRoutes {
         Userboard userboard = new Userboard(classId);
         List<List<String>> ranking = userboard.getRankingScore(assignmentID);
         Boolean retry = assignment.getComplete(userId);
-        variables = ImmutableMap.of("assignment", assignment, "ranking", ranking, "name", username,
-            "retry", retry);
+        variables = ImmutableMap.of("assignment", assignment, "ranking", ranking, "name",
+            s.getName(), "retry", retry);
       }
       return GSON.toJson(variables);
     }

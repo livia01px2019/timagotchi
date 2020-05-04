@@ -75,7 +75,8 @@ public class Userboard implements Leaderboard<Student> {
     private String cid;
 
     /**
-     * Constructor for the Comparator to compare by the xp the students earned in a given class.
+     * Constructor for the Comparator to compare by the xp the students earned in a
+     * given class.
      *
      * @param cid The class to compare the students' xp in.
      */
@@ -86,7 +87,7 @@ public class Userboard implements Leaderboard<Student> {
     /**
      * Gets the total xp of a student just for one class.
      *
-     * @param classID The class for the student to be ranked.
+     * @param classID   The class for the student to be ranked.
      * @param studentID The student of interest.
      * @return The total xp of the student in the class.
      */
@@ -114,7 +115,7 @@ public class Userboard implements Leaderboard<Student> {
   /**
    * Sorts students by their total xp for one class.
    *
-   * @return A list of students represented by a list of their username and their xp.
+   * @return A list of students represented by a list of their name and their xp.
    */
   public List<List<String>> allAssignmentsXP() {
     Class c = Controller.getClass(classId);
@@ -128,7 +129,7 @@ public class Userboard implements Leaderboard<Student> {
     List<List<String>> sorted = new ArrayList<>();
     for (Student s : students) {
       List<String> entry = new ArrayList<>();
-      entry.add(s.getUsername());
+      entry.add(s.getName());
       entry.add("" + compare.getScore(classId, s.getId()));
       sorted.add(entry);
     }
