@@ -19,7 +19,8 @@ import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
 /**
- * Class that has all the functions retrieving things from the backend for the frontend.
+ * Class that has all the functions retrieving things from the backend for the
+ * frontend.
  */
 public final class Controller {
   private static final int ASCII_OFFSET = 65;
@@ -30,7 +31,7 @@ public final class Controller {
   /**
    * Get the option that the student picked for a specific question.
    *
-   * @param studentID The id of the student.
+   * @param studentID  The id of the student.
    * @param questionID The id of the question.
    * @return A string showing the option the student picked (as text)
    */
@@ -56,10 +57,11 @@ public final class Controller {
   }
 
   /**
-   * Returns all the ids of questions a student got wrong given student ID and class ID.
+   * Returns all the ids of questions a student got wrong given student ID and
+   * class ID.
    *
    * @param studentID The id of the student.
-   * @param classID The id of the class.
+   * @param classID   The id of the class.
    * @return List of string of question ids
    */
   public static List<String> getWrongQuestionIDs(String studentID, String classID) {
@@ -67,7 +69,7 @@ public final class Controller {
     try {
       List<List<String>> assignments = DBProxy.executeQueryParameters(
           "SELECT questionID from student_record WHERE "
-                  + "studentID=? AND classID=? AND record=\"false\";",
+              + "studentID=? AND classID=? AND record=\"false\";",
           new ArrayList<>(Arrays.asList(studentID, classID)));
       for (List<String> a : assignments) {
         allWrongs.add(a.get(0));
@@ -230,7 +232,7 @@ public final class Controller {
   /**
    * Complete Assignment for Student.
    *
-   * @param studentID The id of the student.
+   * @param studentID    The id of the student.
    * @param assignmentID The id of the assignment.
    * @return Assignment that has been set to complete
    */
@@ -257,7 +259,7 @@ public final class Controller {
   /**
    * Uncomplete Assignment for Student.
    *
-   * @param studentID The id of the student.
+   * @param studentID    The id of the student.
    * @param assignmentID The id of the assignment.
    * @return The Assignment that has been set to complete.
    */
@@ -285,10 +287,10 @@ public final class Controller {
   /**
    * Add Student Record (Quiz) to Student.
    *
-   * @param studentID The id of the student.
+   * @param studentID    The id of the student.
    * @param assignmentID The id of the assignment.
-   * @param classID The id of the class.
-   * @param answers The list of answers the student gave.
+   * @param classID      The id of the class.
+   * @param answers      The list of answers the student gave.
    * @param inputList    List of True/Falses for students' answers where true
    *                     means correct and false means incorrect
    * @return Assignment that student record has been added to
@@ -551,7 +553,7 @@ public final class Controller {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT p1.id,p1.name,p2.teacherID FROM classes "
-                  + "AS p1, teacher_classes AS p2 WHERE id=? AND p1.id = p2.classID;",
+              + "AS p1, teacher_classes AS p2 WHERE id=? AND p1.id = p2.classID;",
           new ArrayList<>(Arrays.asList(classID)));
       List<String> teacherIDs = new ArrayList<>();
       for (List<String> s : results) {
@@ -794,13 +796,12 @@ public final class Controller {
   /**
    * Add Quiz Assignment Command.
    *
-   * @param classID            The class that this assignment belongs to.
-   * @param name               The name of the assignment.
-   * @param reward             The xp reward for completing the assignment.
-   * @param competitiveToggle Whether the assignment is "competitive" or
-   *                           "regular"
-   * @param qids               The list of question IDs that belong to this
-   *                           assignment.
+   * @param classID           The class that this assignment belongs to.
+   * @param name              The name of the assignment.
+   * @param reward            The xp reward for completing the assignment.
+   * @param competitiveToggle Whether the assignment is "competitive" or "regular"
+   * @param qids              The list of question IDs that belong to this
+   *                          assignment.
    * @return The quiz object.
    */
   public static Quiz addQuizAssignment(String classID, String name, String reward,
