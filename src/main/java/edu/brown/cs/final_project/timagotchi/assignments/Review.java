@@ -184,34 +184,30 @@ public class Review implements Assignment {
     record.replace(userId, curRecord);
   }
 
-  /**
-   * Getter for whether this assignment has been completed by the user with id
-   * userId.
-   *
-   * @param userId The User ID for the user.
-   * @return Whether the assignment has been completed or not by the user.
-   */
   @Override
   public Boolean getComplete(String userId) {
     return complete.get(userId);
   }
 
-  /**
-   * Setter for whether this assignment has been completed by the user with id
-   * userId.
-   *
-   * @param userId The User ID for the user.
-   * @param c      Whether this assignment has been completed.
-   */
   @Override
   public void setComplete(String userId, Boolean c) {
     complete.put(userId, c);
   }
 
+  /**
+   * Getter for the number of questions for the Review.
+   *
+   * @return The number of questions for the Review.
+   */
   public int getNumQuestions() {
     return numQuestions;
   }
 
+  /**
+   * Setter for the number of questions for the Review.
+   *
+   * @param n The number of questions for the Review.
+   */
   public void setNumQuestions(int n) {
     this.numQuestions = n;
   }
@@ -251,10 +247,20 @@ public class Review implements Assignment {
     return false;
   }
 
+  /**
+   * Getter for the questions of the Review.
+   *
+   * @return A list of the questions for the Review.
+   */
   public List<Question> getQuestions() {
     return questions;
   }
 
+  /**
+   * Setter for the questions of the Review.
+   *
+   * @param questions A list of questions for the Review.
+   */
   public void setQuestions(List<Question> questions) {
     this.questions = questions;
   }

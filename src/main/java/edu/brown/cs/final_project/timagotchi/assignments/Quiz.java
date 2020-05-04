@@ -76,25 +76,11 @@ public class Quiz implements Assignment {
     record.put(userId, curRecord);
   }
 
-  /**
-   * Getter for whether this assignment has been completed by the user with id
-   * userId.
-   *
-   * @param userId The User ID for the user.
-   * @return Whether the assignment has been completed or not by the user.
-   */
   @Override
   public Boolean getComplete(String userId) {
     return complete.get(userId);
   }
 
-  /**
-   * Setter for whether this assignment has been completed by the user with id
-   * userId.
-   *
-   * @param userId The User ID for the user.
-   * @param c      Whether this assignment has been completed.
-   */
   @Override
   public void setComplete(String userId, Boolean c) {
     complete.put(userId, c);
@@ -135,14 +121,29 @@ public class Quiz implements Assignment {
     return false;
   }
 
+  /**
+   * Setter for whether this quiz is competitive.
+   *
+   * @param competitive Whether this assignment is competitive.
+   */
   public void setCompetitive(Boolean competitive) {
     this.competitive = competitive;
   }
 
+  /**
+   * Getter for the questions of this Quiz.
+   *
+   * @return A list of the quiz questions.
+   */
   public List<Question> getQuestions() {
     return questions;
   }
 
+  /**
+   * Setter for the questions of this Quiz.
+   *
+   * @param questions A list of the questions for this quiz.
+   */
   public void setQuestions(List<Question> questions) {
     this.questions = questions;
   }

@@ -65,21 +65,11 @@ public class Student implements People {
     this.wrongQuestionIds.get(classInd).add(wrongQuestionId);
   }
 
-  /**
-   * Getter for the ids of all the classes the student belongs to.
-   *
-   * @return The list of class ids of the classes the student is in.
-   */
   @Override
   public List<String> getClassIds() {
     return classIds;
   }
 
-  /**
-   * Adds the student to a class by adding the class id to the list of class ids.
-   *
-   * @param classId The id of the class that the student is being added to.
-   */
   @Override
   public void addClassId(String classId) {
     this.classIds.add(classId);
@@ -88,13 +78,22 @@ public class Student implements People {
 
   @Override
   public void updateSQL(List<String> parameters) {
-    // Check if it exists in DB. If so, just update. Otherwise, add to database.
   }
 
+  /**
+   * Getter for the id of the pet that belongs to the student.
+   *
+   * @return The pet id.
+   */
   public String getPetId() {
     return petId;
   }
 
+  /**
+   * Setter for the id of the pet that belongs to the student.
+   *
+   * @param petId The pet id.
+   */
   public void setPetId(String petId) {
     this.petId = petId;
   }
@@ -103,6 +102,9 @@ public class Student implements People {
    * Comparator for comparing students by their xp.
    */
   public static class CompareByXp implements Comparator<Student> {
+    /**
+     * Empty constructor
+     */
     public CompareByXp() {
     }
 
@@ -120,6 +122,11 @@ public class Student implements People {
   public static class CompareByScore implements Comparator<Student> {
     private String assignmentID;
 
+    /**
+     * Initialize the comparator and the assignment being compared.
+     *
+     * @param aid The id of the assignment to be compared.
+     */
     public CompareByScore(String aid) {
       assignmentID = aid;
     }

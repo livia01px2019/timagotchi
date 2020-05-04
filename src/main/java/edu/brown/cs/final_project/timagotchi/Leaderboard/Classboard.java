@@ -15,6 +15,11 @@ import edu.brown.cs.final_project.timagotchi.users.Class;
 public class Classboard implements Leaderboard<Class> {
   private List<String> classIds;
 
+  /**
+   * Initialize the Classboard.
+   *
+   * @param cids The list of class ids to be included in the leaderboard.
+   */
   public Classboard(List<String> cids) {
     classIds = cids;
   }
@@ -32,10 +37,20 @@ public class Classboard implements Leaderboard<Class> {
     return classes;
   }
 
+  /**
+   * Getter for the class ids being used for the Classboard.
+   *
+   * @return The list of class ids.
+   */
   public List<String> getClassIds() {
     return classIds;
   }
 
+  /**
+   * Setter for the class ids being used for the Classboard.
+   *
+   * @param classIds The list of class ids.
+   */
   public void setClassIds(List<String> classIds) {
     this.classIds = classIds;
   }
@@ -44,6 +59,12 @@ public class Classboard implements Leaderboard<Class> {
    * Comparator for comparing classes by the average xp of a student in the class.
    */
   public static class CompareByAvgXP implements Comparator<Class> {
+    /**
+     * Getter the average xp of a student in a class.
+     *
+     * @param c1 The class to find the average xp of.
+     * @return The average xp of a student in the class.
+     */
     public int getClassXP(Class c1) {
       List<String> c1Assignments = c1.getAssignmentIds();
       int c1TotalXP = 0;
@@ -93,5 +114,4 @@ public class Classboard implements Leaderboard<Class> {
     }
     return sorted;
   }
-
 }

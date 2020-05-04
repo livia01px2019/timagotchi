@@ -93,6 +93,9 @@ public class Class {
    * Comparator for comparing classes by the average xp of their students.
    */
   public static class CompareByAverageXp implements Comparator<Class> {
+    /**
+     * Empty constructor.
+     */
     public CompareByAverageXp() {
     }
 
@@ -124,18 +127,38 @@ public class Class {
     return avgXp1;
   }
 
+  /**
+   * Getter for the id of the class.
+   *
+   * @return The class id.
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Setter for the id of the class.
+   *
+   * @param id The class id.
+   */
   public void setId(String id) {
     this.id = id;
   }
 
+  /**
+   * Getter for the name of the class.
+   *
+   * @return The class name.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Setter for the name of the class.
+   *
+   * @param name The class name.
+   */
   public void setName(String name) {
     this.name = name;
   }

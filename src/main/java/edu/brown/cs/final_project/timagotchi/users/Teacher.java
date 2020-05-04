@@ -29,21 +29,11 @@ public class Teacher implements People {
     classIds = new ArrayList<String>();
   }
 
-  /**
-   * Getter for the ids of all the classes the teacher teaches.
-   *
-   * @return The list of class ids of the classes the teacher is in.
-   */
   @Override
   public List<String> getClassIds() {
     return classIds;
   }
 
-  /**
-   * Adds the teacher to a class by adding the class id to the list of class ids.
-   *
-   * @param classId The id of the class that the teacher is creating.
-   */
   @Override
   public void addClassId(String classId) {
     this.classIds.add(classId);

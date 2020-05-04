@@ -74,6 +74,11 @@ public class Userboard implements Leaderboard<Student> {
   public static class CompareByAllXP implements Comparator<Student> {
     private String cid;
 
+    /**
+     * Constructor for the Comparator to compare by the xp the students earned in a given class.
+     *
+     * @param cid The class to compare the students' xp in.
+     */
     public CompareByAllXP(String cid) {
       this.cid = cid;
     }

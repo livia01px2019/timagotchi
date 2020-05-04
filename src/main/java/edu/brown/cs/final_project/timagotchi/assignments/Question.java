@@ -38,6 +38,9 @@ public class Question {
    * Comparator for comparing questions by their similarity score.
    */
   public static class CompareByScore implements Comparator<Question> {
+    /**
+     * Empty constructor.
+     */
     public CompareByScore() {
     }
 
@@ -47,50 +50,101 @@ public class Question {
     }
   }
 
+  /**
+   * Getter for the question prompt.
+   *
+   * @return The question prompt.
+   */
   public String getPrompt() {
     return prompt;
   }
 
+  /**
+   * Setter for the question prompt.
+   *
+   * @param prompt The question prompt.
+   */
   public void setPrompt(String prompt) {
     this.prompt = prompt;
   }
 
+  /**
+   * Getter for the question answer choices.
+   *
+   * @return The question answer choices.
+   */
   public List<String> getChoices() {
     return choices;
   }
 
+  /**
+   * Setter for the question answer choices.
+   *
+   * @param choices A list of question choices.
+   */
   public void setChoices(List<String> choices) {
     this.choices = choices;
   }
 
+  /**
+   * Getter for the correct answers to the question.
+   *
+   * @return A list of the correct answers.
+   */
   public List<Integer> getAnswers() {
     return answers;
   }
 
+  /**
+   * Setter for the correct answers to the question.
+   *
+   * @param answers A list of the correct answers.
+   */
   public void setAnswers(List<Integer> answers) {
     this.answers = answers;
   }
 
+  /**
+   * Getter for the question id.
+   *
+   * @return The question id.
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Setter for the question id.
+   *
+   * @param id The question id.
+   */
   public void setId(String id) {
     this.id = id;
   }
 
+  /**
+   * Getter for the prompt split into undercase words.
+   *
+   * @return An array of each undercase word.
+   */
   public String[] getPromptSplit() {
     return promptSplit;
   }
 
-  public void setPromptSplit(String[] promptSplit) {
-    this.promptSplit = promptSplit;
-  }
-
+  /**
+   * Getter for the similarity score of the question.
+   *
+   * @return The similarity score.
+   */
   public Double getScore() {
     return score;
   }
 
+  /**
+   * Setter for the similarity score of the question.
+   *
+   * @param score The similarity score.
+   */
   public void setScore(Double score) {
     this.score = score;
   }

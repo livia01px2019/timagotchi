@@ -27,25 +27,11 @@ public class Checkoff implements Assignment {
     reward = r;
   }
 
-  /**
-   * Getter for whether this assignment has been completed by the user with id
-   * userId.
-   *
-   * @param userId The User ID for the user.
-   * @return Whether the assignment has been completed or not by the user.
-   */
   @Override
   public Boolean getComplete(String userId) {
     return complete.get(userId);
   }
 
-  /**
-   * Setter for whether this assignment has been completed by the user with id
-   * userId.
-   *
-   * @param userId The User ID for the user.
-   * @param c      Whether this assignment has been completed.
-   */
   @Override
   public void setComplete(String userId, Boolean c) {
     complete.put(userId, c);

@@ -30,18 +30,38 @@ public class Pet {
     pathToSprite = "../img/skin" + randomElement + ".png";
   }
 
+  /**
+   * Getter for the name of the pet.
+   *
+   * @return The name of the pet.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Getter for the xp of the pet.
+   *
+   * @return The xp of the pet.
+   */
   public double getXp() {
     return xp;
   }
 
+  /**
+   * Getter for the level of the pet.
+   *
+   * @return The level of the pet.
+   */
   public int getLevel() {
     return level;
   }
 
+  /**
+   * Getter for the image path of the pet.
+   *
+   * @return The image path.
+   */
   public String getImage() {
     return pathToSprite;
   }
@@ -62,6 +82,11 @@ public class Pet {
     level = level + 1;
   }
 
+  /**
+   * Setter for the level of the pet.
+   *
+   * @param l The level of the pet.
+   */
   public void setLevel(int l) {
     level = l;
   }
@@ -75,10 +100,20 @@ public class Pet {
     pathToSprite = imagePath;
   }
 
+  /**
+   * Getter for the id of the pet.
+   *
+   * @return The pet id.
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Setter for the id of the pet.
+   *
+   * @param id The id of the pet.
+   */
   public void setId(String id) {
     this.id = id;
   }
