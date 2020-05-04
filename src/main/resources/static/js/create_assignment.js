@@ -96,7 +96,12 @@ $(document).ready(function () {
 
 	$("input[name='atype']").change(function(){
 		document.getElementById('repeater').hidden = !document.getElementById('repeater').hidden;
-		document.getElementById('competitive-button').hidden = !document.getElementById('competitive-button').hidden;
+		const competitive = document.getElementById('competitive-button');
+		if (competitive.style.visibility == 'hidden'){
+			competitive.style.visibility = 'visible';
+		} else {
+			competitive.style.visibility = 'hidden';
+		}
 	});
 
     const submit = document.getElementById('submit');
