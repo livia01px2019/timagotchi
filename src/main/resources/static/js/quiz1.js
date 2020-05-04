@@ -103,10 +103,14 @@
         function showResults(){
             if (JSON.parse(response).retry === false) {
                 document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
-                    "style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1><p>+" + reward + "XP</p></div></img>";
+                    "style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1></div></img>";
+				document.getElementById('feed').style.visibility = 'visible';
+				document.getElementById('feed-button').style.visibility = 'visible';
+				
             } else {
                 document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
                     "style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1></div></img>";
+				document.getElementById('feed').style.height = '0px';
             }
 
             let newHTML = "<table style=\"width:100%;margin-left:auto;margin-right:auto\"><tr><th>Question</th>" +
@@ -167,7 +171,7 @@
                 window.location.ref = "/student/main";
             });
 
-			document.getElementById('finishButton').innerHTML = "<a href=\"/student/main\"><button style=\"width:100%\">FINISH</button></a>";
+			document.getElementById('finishButton').innerHTML = "<a href=\"/student/main\"><button style=\"width:100%; margin-top:20px\">FINISH</button></a>";
             // show number of correct answers out of total
             document.getElementById('test').innerHTML = newHTML;
             resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
@@ -236,6 +240,42 @@
             showSlide(currentSlide - 1);
         }
 
+		function feed(){
+			document.getElementById('feed-button').style.visibility = 'hidden';
+			document.getElementById('jar').src='../../img/empty-jar.png';
+			document.getElementById('cookie-container').style.visibility = 'visible';
+			let pos = 0;
+		    let id = setInterval(frame, 10);
+		    function frame() {
+		      if (pos == 130) {
+		        clearInterval(id);
+				document.getElementById('cookie-container').style.visibility = 'hidden';
+				const audio = new Audio("../../audio/eating.m4a");
+                audio.play();
+				setTimeout(function(){
+					const audio2 = new Audio("../../audio/yay.wav");
+                	audio2.play();
+				}, 2000);
+				const pet= document.getElementById('pet');
+				setTimeout(function(){pet.style.marginBottom = "8px";}, 2000);
+		        setTimeout(function(){pet.style.marginBottom = "4px";}, 2020);
+		        setTimeout(function(){pet.style.marginBottom = "8px";}, 2040);
+		        setTimeout(function(){pet.style.marginBottom = "12px";}, 2060);
+		        setTimeout(function(){pet.style.marginBottom = "16px";}, 2080);
+		        setTimeout(function(){pet.style.marginBottom = "20px";}, 2100);
+		        setTimeout(function(){pet.style.marginBottom = "24px";}, 2120);
+		        setTimeout(function(){pet.style.marginBottom = "20px";}, 2140);
+		        setTimeout(function(){pet.style.marginBottom = "12px";}, 2160);
+				setTimeout(function(){document.getElementById('add-xp').innerHTML = "+ " + reward + " XP";}, 2000);
+		      } else {
+		        pos++;
+		        document.getElementById('cookie-container').style.paddingLeft = pos + 'px';
+		        document.getElementById('cookie-container').style.paddingLeft = pos + 'px';
+		      }
+		    }
+			
+		}
+
         // Kick things off
         buildQuiz();
 
@@ -252,6 +292,7 @@
         submitButton.addEventListener('click', showResults);
         previousButton.addEventListener("click", showPreviousSlide);
         nextButton.addEventListener("click", showNextSlide);
+		document.getElementById('feed-button').addEventListener("click", feed);
     })
 
 })();

@@ -100,12 +100,33 @@ public final class StudentRoutes {
             "<script>window.location.href = '/teacher/main';</script>");
         return new ModelAndView(variables, "error-teacher.ftl");
       }
+
+      Student currStudent = Controller
+          .getStudent(Controller.getStudentIDFromUsername(cookies.get("username")));
+      Pet currPet = Controller.getPet(currStudent.getPetId());
+
+      String imageFile = "../" + currPet.getImage();
+      int level = (int) currPet.getXp() / XP_PER_LEVEL;
+      if (level < LEVELS[0]) {
+        imageFile = "../../img/stage1.png";
+      } else if (level < LEVELS[1]) {
+        imageFile = "../../img/stage2.png";
+      } else if (level < LEVELS[2]) {
+        imageFile = "../../img/stage3.png";
+      } else if (level < LEVELS[3]) {
+        imageFile = "../../img/stage4.png";
+      }
+
       String assignmentID = req.params(":id");
       String assignmentName = Controller.getAssignment(assignmentID).getName();
       String classesHtml = Routes.generateClassSidebar(cookies);
       String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentName);
+          "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentName,
+          "lvlXpProgressImage", new String[] {
+              "" + level, "" + ((int) currPet.getXp()), "" + (currPet.getXp() % XP_PER_LEVEL),
+              imageFile
+          });
       return new ModelAndView(variables, "student-quiz.ftl");
     }
   }

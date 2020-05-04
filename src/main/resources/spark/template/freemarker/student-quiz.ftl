@@ -50,6 +50,19 @@
 
 	    <div id="results"></div>
         <div id="scoreboard"></div>
+        <div id="feed" class="feed" style="visibility: hidden">
+        	<div id="add-xp" style="height:20px"> </div>
+        	<div class="animation">
+        		<img class="jar" id="jar" src="../../img/full-jar.png">
+        		<div id="cookie-container" class="cookie-container" style="visibility:hidden">
+        			<img class="cookie" id="cookie" src="../../img/cookie.png">
+        		</div>
+				<img id="pet" class="pet" src=${lvlXpProgressImage[3]}>
+			</div>
+			<div class="feed-button-wrapper" style="visibility: hidden">
+	        	<button id="feed-button" style="margin:0px;">FEED</button>
+	        </div>
+        </div>
 	    <div id="finishButton"></div>
 	</div>
 </div>
