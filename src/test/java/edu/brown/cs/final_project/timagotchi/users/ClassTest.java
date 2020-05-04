@@ -1,8 +1,6 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
 import edu.brown.cs.final_project.timagotchi.Controller;
-import edu.brown.cs.final_project.timagotchi.assignments.Question;
-import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import org.junit.After;
 import org.junit.Before;

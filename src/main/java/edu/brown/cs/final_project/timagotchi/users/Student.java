@@ -63,19 +63,6 @@ public class Student implements People {
   }
 
   /**
-   * Removes the id of a question the student got wrong at first but now got right
-   * for the class with id cid.
-   *
-   * @param cid             The id of the class that is wanted.
-   * @param wrongQuestionId The id of the question the student originally got
-   *                        wrong.
-   */
-  public void removeWrongQuestionId(String wrongQuestionId, String cid) {
-    int classInd = classIds.indexOf(cid);
-    this.wrongQuestionIds.get(classInd).remove(wrongQuestionId);
-  }
-
-  /**
    * Getter for the ids of all the classes the student belongs to.
    *
    * @return The list of class ids of the classes the student is in.
