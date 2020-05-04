@@ -16,7 +16,6 @@ public class Quiz implements Assignment {
   private List<Question> questions;
   private Boolean competitive;
   private Map<String, List<Boolean>> record;
-  // TODO: Override score for a student
 
   /**
    * Initializes the Quiz assignment.
@@ -132,7 +131,13 @@ public class Quiz implements Assignment {
   }
 
   @Override
-  public Boolean isCompetitive() { return false; }
+  public Boolean isCompetitive() {
+    return false;
+  }
+
+  public void setCompetitive(Boolean competitive) {
+    this.competitive = competitive;
+  }
 
   public List<Question> getQuestions() {
     return questions;
@@ -140,10 +145,6 @@ public class Quiz implements Assignment {
 
   public void setQuestions(List<Question> questions) {
     this.questions = questions;
-  }
-
-  public void setCompetitive(Boolean competitive) {
-    this.competitive = competitive;
   }
 
   @Override

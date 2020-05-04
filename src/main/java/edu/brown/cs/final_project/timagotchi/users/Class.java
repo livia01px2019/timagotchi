@@ -7,6 +7,9 @@ import java.util.List;
 import edu.brown.cs.final_project.timagotchi.Controller;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 
+/**
+ * A class that teachers can create for students to join and complete assignments.
+ */
 public class Class {
   private String id;
   private String name;
@@ -86,6 +89,9 @@ public class Class {
     this.assignmentIds.add(assignment);
   }
 
+  /**
+   * Comparator for comparing classes by the average xp of their students.
+   */
   public static class CompareByAverageXp implements Comparator<Class> {
     public CompareByAverageXp() {
     }
@@ -96,6 +102,11 @@ public class Class {
     }
   }
 
+  /**
+   * Gets the average xp of a student in the class.
+   *
+   * @return The average xp of a student.
+   */
   public double getAvgXp() {
     List<String> sIds = getStudentIds();
     double totXp = 0;

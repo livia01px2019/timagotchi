@@ -12,6 +12,9 @@ import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
+/**
+ * Class for a Student user.
+ */
 public class Student implements People {
   private String id;
   private String username;
@@ -96,6 +99,9 @@ public class Student implements People {
     this.petId = petId;
   }
 
+  /**
+   * Comparator for comparing students by their xp.
+   */
   public static class CompareByXp implements Comparator<Student> {
     public CompareByXp() {
     }
@@ -108,6 +114,9 @@ public class Student implements People {
     }
   }
 
+  /**
+   * Comparator for comparing students by their score on a given assignment.
+   */
   public static class CompareByScore implements Comparator<Student> {
     private String assignmentID;
 
@@ -117,7 +126,7 @@ public class Student implements People {
 
     @Override
     public int compare(Student s1, Student s2) {
-      Quiz a = (Quiz) Controller.getAssignment(assignmentID); // TODO: Fix here
+      Quiz a = (Quiz) Controller.getAssignment(assignmentID);
       if (a.getComplete(s1.getId()) && a.getComplete(s2.getId())) {
         return Double.compare(a.getScore(s1.getId()) / a.getTotalScore(),
             a.getScore(s2.getId()) / a.getTotalScore());
@@ -146,6 +155,12 @@ public class Student implements People {
     throw new Exception("Password is write only");
   }
 
+  /**
+   * Verifies the password inputted matches the hashed password in the backend.
+   *
+   * @param pass The password to be checked.
+   * @return Whether the password is correct.
+   */
   public Boolean verifyPassword(String pass) throws NoSuchAlgorithmException {
     return PasswordHashing.hashSHA256(pass).equals(this.passwordHash);
   }

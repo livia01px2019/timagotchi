@@ -162,5 +162,4 @@ public final class DBProxy {
       throw new Exception("ERROR: Database not connected.");
     }
   }
-
 }

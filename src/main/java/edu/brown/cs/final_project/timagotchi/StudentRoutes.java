@@ -29,22 +29,23 @@ import spark.TemplateViewRoute;
  * Student Routes class! Holds and handles all web server routing for student
  * side.
  */
-public class StudentRoutes {
-
+public final class StudentRoutes {
+  private static final int XP_PER_LEVEL = 100;
   private static final Gson GSON = new Gson();
   private static final int[] LEVELS = new int[] {
       2, 5, 10, 15
   };
 
+  private StudentRoutes() {
+  }
+
   /**
    * Handler for student assignment page where student can view all of their
-   * assignments. TODO is this ever used??
-   *
+   * assignments.
    */
   public static class StudentAssignmentHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      // TODO: Call method to get the list of quizzes; get student id from somewhere
       String id = "john";
       List<Quiz> quizList = new ArrayList<>();
       List<Question> qs = new ArrayList<Question>();
@@ -85,7 +86,6 @@ public class StudentRoutes {
 
   /**
    * Handler for when a student attempts a quiz.
-   *
    */
   public static class StudentQuizHandler implements TemplateViewRoute {
     @Override
@@ -112,7 +112,6 @@ public class StudentRoutes {
 
   /**
    * Handler for the main student page where they can see their pet.
-   *
    */
   public static class StudentMainHandler implements TemplateViewRoute {
     @Override
@@ -136,7 +135,7 @@ public class StudentRoutes {
       Pet currPet = Controller.getPet(currStudent.getPetId());
 
       String imageFile = currPet.getImage();
-      int level = (int) currPet.getXp() / 100;
+      int level = (int) currPet.getXp() / XP_PER_LEVEL;
       if (level < LEVELS[0]) {
         imageFile = "../img/stage1.png";
       } else if (level < LEVELS[1]) {
@@ -152,15 +151,14 @@ public class StudentRoutes {
           classesHtml, "fileNameUsername", new String[] {
               imageFile, currStudent.getName(), username
           }, "lvlXpProgress", new double[] {
-              level, currPet.getXp(), currPet.getXp() % 100
+              level, currPet.getXp(), currPet.getXp() % XP_PER_LEVEL
           });
       return new ModelAndView(variables, "student-me.ftl");
     }
   }
 
   /**
-   * Handler for page where student can see leaderboard for all of the classes.
-   *
+   * Handler for page where student can see Leaderboard for all of the classes.
    */
   public static class StudentLeaderboardHandler implements TemplateViewRoute {
     @Override
@@ -186,7 +184,6 @@ public class StudentRoutes {
 
   /**
    * Handler for when student adds themselves to a class.
-   *
    */
   public static class StudentNewClassHandler implements TemplateViewRoute {
     @Override
@@ -213,7 +210,6 @@ public class StudentRoutes {
 
   /**
    * Handler for what a student sees when in a class's page.
-   *
    */
   public static class StudentClassHandler implements TemplateViewRoute {
     @Override
@@ -250,35 +246,14 @@ public class StudentRoutes {
 
   /**
    * Handler for when student finishes a quiz.
-   *
    */
   public static class FinishedQuizHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
-      // TODO: Integration with backend
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String username = cookies.get("username");
       String studentId = Controller.getStudentIDFromUsername(username);
-//      String classesHtml = generateClassSidebar(cookies);
-//      String id = "john";
-//      List<Question> qs = new ArrayList<Question>();
-//      Quiz quiz = new Quiz("john", "Quiz 1", 1, qs, false);
-//      String htmlQuizDone = "";
-//      List<Question> questionList = quiz.getQuestions();
-//      for (int i = 0; i < questionList.size(); i++) {
-//        Question question = questionList.get(i);
-//        htmlQuizDone += "<tr><td>" + "Q: " + question.getPrompt() + "</td>";
-//        if (quiz.getRecord(id).get(i)) {
-//          htmlQuizDone += "<td bgcolor=\"teal\"> A: ";
-//          for (int a : question.getAnswers()) {
-//            htmlQuizDone += question.getChoices().get(a) + "\n";
-//          }
-//          htmlQuizDone += "</td></tr>";
-//        } else {
-//          htmlQuizDone += "<td bgcolor=\"#C31F48\">" + "Student answer" + "</td></tr>";
-//        }
-//      }
-//      int xp = quiz.getReward();
+
       QueryParamsMap qm = req.queryMap();
       String assignmentID = qm.value("id");
       List<String> record = GSON.fromJson(qm.value("record"), ArrayList.class);
@@ -295,7 +270,6 @@ public class StudentRoutes {
 
   /**
    * Post request handler to load a student's quiz.
-   *
    */
   public static class StudentAssignmentLoader implements Route {
     @Override
@@ -314,29 +288,15 @@ public class StudentRoutes {
         Userboard userboard = new Userboard(classId);
         List<List<String>> ranking = userboard.getRankingScore(assignmentID);
         Boolean retry = assignment.getComplete(userId);
-//      List<String> ans = new ArrayList<>();
-//      ans.add("first");
-//      ans.add("second");
-//      ans.add("third");
-//      ans.add("fourth");
-//      List<Integer> correct = new ArrayList<>();
-//      correct.add(1);
-//      Question question = new Question("Q1", "Test", ans, correct);
-//      List<Question> qs = new ArrayList<Question>();
-//      qs.add(question);
-//      Quiz assignment = new Quiz(assignmentID, "Quiz 1", 1, qs, false);
-//      assignment.setReward(100);
         variables = ImmutableMap.of("assignment", assignment, "ranking", ranking, "name", username,
             "retry", retry);
       }
-
       return GSON.toJson(variables);
     }
   }
 
   /**
    * Post request handler to get info in student class page.
-   *
    */
   public static class StudentClassGetHandler implements Route {
     @Override
@@ -412,7 +372,6 @@ public class StudentRoutes {
 
   /**
    * Post request handler when student adds themself to a class.
-   *
    */
   public static class SubmitStudentNewClassHandler implements Route {
     @Override
@@ -438,5 +397,4 @@ public class StudentRoutes {
       return GSON.toJson(responseObject);
     }
   }
-
 }

@@ -9,6 +9,9 @@ import edu.brown.cs.final_project.timagotchi.Controller;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 
+/**
+ * Leaderboard for ranking class based on the average xp of a student in the class.
+ */
 public class Classboard implements Leaderboard<Class> {
   private List<String> classIds;
 
@@ -37,8 +40,10 @@ public class Classboard implements Leaderboard<Class> {
     this.classIds = classIds;
   }
 
+  /**
+   * Comparator for comparing classes by the average xp of a student in the class.
+   */
   public static class CompareByAvgXP implements Comparator<Class> {
-
     public int getClassXP(Class c1) {
       List<String> c1Assignments = c1.getAssignmentIds();
       int c1TotalXP = 0;
@@ -65,6 +70,11 @@ public class Classboard implements Leaderboard<Class> {
     }
   }
 
+  /**
+   * Sorts classes by the average xp of a student in the class to be presented on a Leaderboard.
+   *
+   * @return A list of classes represented as lists of the class name and average xp.
+   */
   public List<List<String>> rankClassByTotalXP() {
     // Get the list of classes.
     List<Class> classes = new ArrayList<Class>();

@@ -30,13 +30,14 @@ import spark.TemplateViewRoute;
  * Teacher Routes class! Holds and handles all web server routing for teacher
  * side.
  */
-public class TeacherRoutes {
-
+public final class TeacherRoutes {
   private static final Gson GSON = new Gson();
+
+  private TeacherRoutes() {
+  }
 
   /**
    * Handler for creating a new assignment.
-   *
    */
   public static class TeacherNewAssignmentHandler implements TemplateViewRoute {
     @Override
@@ -60,7 +61,6 @@ public class TeacherRoutes {
 
   /**
    * Handler to display information for a class.
-   *
    */
   public static class TeacherClassHandler implements TemplateViewRoute {
     @Override
@@ -90,7 +90,6 @@ public class TeacherRoutes {
 
   /**
    * Post request handler to display information for a class.
-   *
    */
   public static class TeacherClassGetHandler implements Route {
     @Override
@@ -129,7 +128,6 @@ public class TeacherRoutes {
 
   /**
    * Handler to get information on a specific assignment in a class.
-   *
    */
   public static class TeacherAssignmentHandler implements TemplateViewRoute {
     @Override
@@ -174,13 +172,11 @@ public class TeacherRoutes {
             "assignmentName", assignment.getName());
         return new ModelAndView(variables, "teacher-assignment.ftl");
       }
-
     }
   }
 
   /**
    * Handler to get information on a specific assignment in a class.
-   *
    */
   public static class TeacherAssignmentStudentHandler implements TemplateViewRoute {
     @Override
@@ -233,13 +229,11 @@ public class TeacherRoutes {
                 + "';</script>");
         return new ModelAndView(variables, "error-teacher.ftl");
       }
-
     }
   }
 
   /**
    * Handler for teacher's main page.
-   *
    */
   public static class TeacherMainHandler implements TemplateViewRoute {
     @Override
@@ -272,7 +266,6 @@ public class TeacherRoutes {
 
   /**
    * Handler for creating a new class.
-   *
    */
   public static class TeacherNewClassHandler implements TemplateViewRoute {
     @Override
@@ -299,7 +292,6 @@ public class TeacherRoutes {
 
   /**
    * Post request handler for creating a new assignment.
-   *
    */
   public static class CreateNewAssignmentHandler implements Route {
     @Override
@@ -345,7 +337,8 @@ public class TeacherRoutes {
 
               if (question.equals("") || correctAnswer.equals("") || firstAnswer.equals("")
                   || secondAnswer.equals("") || thirdAnswer.equals("") || fourthAnswer.equals("")) {
-                valid = "At least one question is missing the prompt, correct answer, or answer choices";
+                valid = "At least one question is missing the prompt, "
+                        + "correct answer, or answer choices";
                 break;
               } else {
                 try {
@@ -402,12 +395,10 @@ public class TeacherRoutes {
           assignmentID);
       return GSON.toJson(responseObject);
     }
-
   }
 
   /**
    * Post request handler for creating a new class.
-   *
    */
   public static class SubmitTeacherNewClassHandler implements Route {
     @Override
@@ -434,7 +425,6 @@ public class TeacherRoutes {
 
   /**
    * Post request handler for deleting an assignment.
-   *
    */
   public static class DeleteAssignmentHandler implements Route {
     @Override
@@ -462,7 +452,6 @@ public class TeacherRoutes {
 
   /**
    * Post request handler for updating checkoff.
-   *
    */
   public static class UpdateCheckoffHandler implements Route {
     @Override
@@ -493,5 +482,4 @@ public class TeacherRoutes {
       return GSON.toJson(responseObject);
     }
   }
-
 }

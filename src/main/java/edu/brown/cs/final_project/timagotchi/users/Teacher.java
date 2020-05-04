@@ -1,10 +1,11 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
-import edu.brown.cs.final_project.timagotchi.pets.Pet;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class representing the Teacher user.
+ */
 public class Teacher implements People {
   private String id;
   private String username;
@@ -49,9 +50,7 @@ public class Teacher implements People {
   }
 
   @Override
-  public void updateSQL(List<String> parameters) {
-    // TODO Auto-generated method stub
-  }
+  public void updateSQL(List<String> parameters) { }
 
   @Override
   public String getId() {

@@ -34,6 +34,9 @@ public class Question {
     promptSplit = promptLower.split("\\s+");
   }
 
+  /**
+   * Comparator for comparing questions by their similarity score.
+   */
   public static class CompareByScore implements Comparator<Question> {
     public CompareByScore() {
     }

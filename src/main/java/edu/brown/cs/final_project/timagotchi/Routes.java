@@ -25,13 +25,14 @@ import spark.TemplateViewRoute;
 /**
  * Routes class! Holds and handles all web server routing for main routes.
  */
-public class Routes {
-
+public final class Routes {
   private static final Gson GSON = new Gson();
+
+  private Routes() {
+  }
 
   /**
    * Handler for main info page.
-   *
    */
   public static class MainHandler implements TemplateViewRoute {
     @Override
@@ -44,7 +45,6 @@ public class Routes {
 
   /**
    * Handler for logging in.
-   *
    */
   public static class LoginHandler implements TemplateViewRoute {
     @Override
@@ -56,7 +56,6 @@ public class Routes {
 
   /**
    * Post request handler for logging in as student.
-   *
    */
   public static class LoginStudentHandler implements Route {
     @Override
@@ -89,7 +88,6 @@ public class Routes {
 
   /**
    * Post request handler for logging in as teacher.
-   *
    */
   public static class LoginTeacherHandler implements Route {
     @Override
@@ -122,7 +120,6 @@ public class Routes {
 
   /**
    * Post request handler for registering.
-   *
    */
   public static class RegisterSubmitHandler implements Route {
     @Override
@@ -247,41 +244,10 @@ public class Routes {
   }
 
   /**
-   * Generates HTML code for a userboard.
+   * Generates HTML code for a Userboard.
    *
-   * @param ub userboard
-   * @return HTML code for userboard
-   */
-  public static String generateUserboardHtml(Userboard ub) {
-    StringBuilder sb = new StringBuilder();
-    List<Student> studentList = ub.getRanking();
-    int i = 1;
-    if (studentList.size() == 0) {
-      sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
-      sb.append("<p>");
-      sb.append("No students yet!");
-      sb.append("</p></div>");
-    } else {
-      for (Student s : studentList) {
-        sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\"><h2>");
-        sb.append(i);
-        sb.append("<h2><p>");
-        sb.append(s.getName());
-        sb.append("<p></div><p>");
-        double petXp = Controller.getPet(s.getPetId()).getXp();
-        sb.append(petXp);
-        sb.append("</p></div>");
-        i++;
-      }
-    }
-    return sb.toString();
-  }
-
-  /**
-   * Generates HTML code for a userboard.
-   *
-   * @param ub userboard
-   * @return HTML code for userboard
+   * @param ub Userboard.
+   * @return HTML code for Userboard.
    */
   public static String generateClassUserboardHtml(Userboard ub) {
     StringBuilder sb = new StringBuilder();

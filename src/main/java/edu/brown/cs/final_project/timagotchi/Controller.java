@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import edu.brown.cs.final_project.timagotchi.Leaderboard.Classboard;
 import edu.brown.cs.final_project.timagotchi.Leaderboard.Userboard;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Checkoff;
@@ -19,13 +18,20 @@ import edu.brown.cs.final_project.timagotchi.users.Teacher;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
 
-public class Controller {
+/**
+ * Class that has all the functions retrieving things from the backend for the frontend.
+ */
+public final class Controller {
+  private static final int ASCII_OFFSET = 65;
+
+  private Controller() {
+  }
 
   /**
    * Get the option that the student picked for a specific question.
    *
-   * @param studentID
-   * @param questionID
+   * @param studentID The id of the student.
+   * @param questionID The id of the question.
    * @return A string showing the option the student picked (as text)
    */
   public static String getRecord(String studentID, String questionID) {
@@ -34,8 +40,7 @@ public class Controller {
           "SELECT optionID from student_record WHERE studentID=? AND questionID=?;",
           new ArrayList<>(Arrays.asList(studentID, questionID)));
       if (response.size() != 0) {
-        int optionIndex = response.get(0).get(0).charAt(0) - 65;
-        System.out.println(optionIndex);
+        int optionIndex = response.get(0).get(0).charAt(0) - ASCII_OFFSET;
         List<List<String>> options = DBProxy.executeQueryParameters(
             "SELECT option FROM options WHERE questionID=?;",
             new ArrayList<>(Arrays.asList(questionID)));
@@ -51,18 +56,18 @@ public class Controller {
   }
 
   /**
-   * Returns all the ids of questions a student got wrong given student ID and
-   * class ID
+   * Returns all the ids of questions a student got wrong given student ID and class ID.
    *
-   * @param studentID
-   * @param classID
+   * @param studentID The id of the student.
+   * @param classID The id of the class.
    * @return List of string of question ids
    */
   public static List<String> getWrongQuestionIDs(String studentID, String classID) {
     List<String> allWrongs = new ArrayList<>();
     try {
       List<List<String>> assignments = DBProxy.executeQueryParameters(
-          "SELECT questionID from student_record WHERE studentID=? AND classID=? AND record=\"false\";",
+          "SELECT questionID from student_record WHERE "
+                  + "studentID=? AND classID=? AND record=\"false\";",
           new ArrayList<>(Arrays.asList(studentID, classID)));
       for (List<String> a : assignments) {
         allWrongs.add(a.get(0));
@@ -74,19 +79,16 @@ public class Controller {
     return null;
   }
 
-  // TODO: IDs not existing.
-
   /**
    * Returns Assignment of correct type given assignmentID.
    *
-   * @param assignmentId
+   * @param assignmentId The id of the assignment.
    * @return Assignment of correct type and info from DB
    */
   public static Assignment getAssignment(String assignmentId) {
     try {
       List<List<String>> assignments = DBProxy.executeQueryParameters(
           "SELECT * FROM assignments WHERE id=?;", new ArrayList<>(Arrays.asList(assignmentId)));
-      // TODO: Investigate if this will be a problem
       if (assignments.get(0).get(2).equals("checkoff")) {
         Assignment a = new Checkoff(assignments.get(0).get(0), assignments.get(0).get(1),
             (int) Double.parseDouble(assignments.get(0).get(3)));
@@ -170,20 +172,10 @@ public class Controller {
   }
 
   /**
-   * Returns Classboard given a list of classIDs.
-   *
-   * @param classIDs
-   * @return Classboard
-   */
-  public static Classboard getLeaderboard(List<String> classIDs) {
-    return new Classboard(classIDs);
-  }
-
-  /**
    * Returns Userboard of every student in a class given a classID.
    *
-   * @param classID
-   * @return Userboard
+   * @param classID The id of the class.
+   * @return The Userboard wanted.
    */
   public static Userboard getLeaderboard(String classID) {
     return new Userboard(classID);
@@ -199,7 +191,6 @@ public class Controller {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters("SELECT * FROM pets WHERE id=?;",
           new ArrayList<>(Arrays.asList(petId)));
-      // TODO: Investigate if this will be a problem
       Pet p = new Pet(results.get(0).get(0), results.get(0).get(1));
       p.updateSprite(results.get(0).get(4));
       p.addXp(Double.parseDouble(results.get(0).get(2)));
@@ -214,9 +205,9 @@ public class Controller {
   /**
    * Adds pet to database.
    *
-   * @param studentID String studentId
-   * @param petName   String pet name
-   * @return Pet object
+   * @param studentID The id of the student.
+   * @param petName   The name of the pet.
+   * @return The Pet that was added.
    */
   public static Pet addPet(String studentID, String petName) {
     try {
@@ -239,8 +230,8 @@ public class Controller {
   /**
    * Complete Assignment for Student.
    *
-   * @param studentID
-   * @param assignmentID
+   * @param studentID The id of the student.
+   * @param assignmentID The id of the assignment.
    * @return Assignment that has been set to complete
    */
   public static Assignment completeAssignment(String studentID, String assignmentID) {
@@ -266,9 +257,9 @@ public class Controller {
   /**
    * Uncomplete Assignment for Student.
    *
-   * @param studentID
-   * @param assignmentID
-   * @return Assignment that has been set to complete
+   * @param studentID The id of the student.
+   * @param assignmentID The id of the assignment.
+   * @return The Assignment that has been set to complete.
    */
   public static Assignment uncompleteAssignment(String studentID, String assignmentID) {
     try {
@@ -294,8 +285,10 @@ public class Controller {
   /**
    * Add Student Record (Quiz) to Student.
    *
-   * @param studentID
-   * @param assignmentID
+   * @param studentID The id of the student.
+   * @param assignmentID The id of the assignment.
+   * @param classID The id of the class.
+   * @param answers The list of answers the student gave.
    * @param inputList    List of True/Falses for students' answers where true
    *                     means correct and false means incorrect
    * @return Assignment that student record has been added to
@@ -303,7 +296,7 @@ public class Controller {
   public static Assignment addStudentRecord(String studentID, String assignmentID, String classID,
       List<String> answers, List<String> inputList) {
     try {
-      Quiz a = (Quiz) getAssignment(assignmentID); // TODO: to be fixed later
+      Quiz a = (Quiz) getAssignment(assignmentID);
       List<List<String>> complete = DBProxy.executeQueryParameters(
           "SELECT complete FROM student_assignment WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList(studentID, assignmentID)));
@@ -330,8 +323,8 @@ public class Controller {
   /**
    * Get Student password from database given a username.
    *
-   * @param username The username of the Student
-   * @return The password corresponding to that Username
+   * @param username The username of the Student.
+   * @return The password corresponding to that Username.
    */
   public static String getStudentPassword(String username) {
     try {
@@ -352,8 +345,8 @@ public class Controller {
   /**
    * Get Teacher password from database given a username.
    *
-   * @param username The username of the Teacher
-   * @return The password corresponding to that Teacher
+   * @param username The username of the Teacher.
+   * @return The password corresponding to that Teacher.
    */
   public static String getTeacherPassword(String username) {
     try {
@@ -381,7 +374,6 @@ public class Controller {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT * FROM students WHERE id=?;", new ArrayList<>(Arrays.asList(id)));
-      // TODO: Investigate if this will be a problem
       Student s = new Student(results.get(0).get(0), results.get(0).get(1), results.get(0).get(2),
           results.get(0).get(3));
       // add class IDs
@@ -419,7 +411,6 @@ public class Controller {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
           "SELECT * FROM teachers WHERE id=?;", new ArrayList<>(Arrays.asList(id)));
-      // TODO: Investigate if this will be a problem
       Teacher t = new Teacher(results.get(0).get(0), results.get(0).get(1), results.get(0).get(2),
           results.get(0).get(3));
       // add class IDs
@@ -466,7 +457,6 @@ public class Controller {
           }
         }
       }
-      // TODO: Investigate if this will be a problem
       return new Question(questions.get(0).get(0), questions.get(0).get(1), choices, answerIndex);
     } catch (Exception e) {
       e.printStackTrace();
@@ -495,7 +485,6 @@ public class Controller {
           allQuestions.add(getQuestion(qid.get(0)));
         }
       }
-      // TODO: Investigate if this will be a problem
       return allQuestions;
     } catch (Exception e) {
       e.printStackTrace();
@@ -504,7 +493,7 @@ public class Controller {
   }
 
   /**
-   * Create Teacher Command
+   * Create Teacher Command.
    *
    * @param username the new account username
    * @param password the new account password, unhashed
@@ -531,7 +520,7 @@ public class Controller {
   }
 
   /**
-   * Create Class Command
+   * Create Class Command.
    *
    * @param name      The name of the new account.
    * @param teacherID The id of the teacher.
@@ -553,7 +542,7 @@ public class Controller {
   }
 
   /**
-   * Get Class from Database given its id
+   * Get Class from Database given its id.
    *
    * @param classID The id of the class to get
    * @return The class that was wanted
@@ -561,14 +550,14 @@ public class Controller {
   public static Class getClass(String classID) {
     try {
       List<List<String>> results = DBProxy.executeQueryParameters(
-          "SELECT p1.id,p1.name,p2.teacherID FROM classes AS p1, teacher_classes AS p2 WHERE id=? AND p1.id = p2.classID;",
+          "SELECT p1.id,p1.name,p2.teacherID FROM classes "
+                  + "AS p1, teacher_classes AS p2 WHERE id=? AND p1.id = p2.classID;",
           new ArrayList<>(Arrays.asList(classID)));
       List<String> teacherIDs = new ArrayList<>();
       for (List<String> s : results) {
         teacherIDs.add(s.get(2));
       }
-      // TODO: Investigate if this will be a problem
-      System.out.println(results);
+
       Class c = new Class(results.get(0).get(0), results.get(0).get(1), teacherIDs);
       List<List<String>> assignments = DBProxy.executeQueryParameters(
           "SELECT assignmentID FROM class_assignment WHERE classID=?;",
@@ -592,8 +581,8 @@ public class Controller {
   /**
    * Check whether a classID is valid.
    *
-   * @param input The classID.
-   * @return Boolean True if classID is valid, False otherwise. changes
+   * @param classID The classID.
+   * @return True if classID is valid, False otherwise.
    */
   public static Boolean checkValidClassID(String classID) {
     try {
@@ -614,7 +603,7 @@ public class Controller {
    *
    * @param classID   The class id to be added to.
    * @param studentID The student id to be added.
-   * @return Class The class with the studentID added.
+   * @return The class with the studentID added.
    */
   public static Class addStudentIDToClassCommand(String classID, String studentID) {
     try {
@@ -650,7 +639,7 @@ public class Controller {
         if (name.equals("TimNelson")) {
           p = addPet(studentID.toString(), "TimNelson");
         } else {
-          p = addPet(studentID.toString(), "aaa"); // TODO: Change for pet name
+          p = addPet(studentID.toString(), "aaa");
         }
         Student s = new Student(studentID.toString(), username, hashedPassword, name);
         s.setPetId(p.getId());
@@ -682,7 +671,7 @@ public class Controller {
   /**
    * Deletes an assignment.
    *
-   * @param assignmentID
+   * @param assignmentID The id of the assignment.
    */
   public static void deleteAssignment(String assignmentID) {
     try {
@@ -701,7 +690,7 @@ public class Controller {
   }
 
   /**
-   * Add Checkoff Assignment Command
+   * Add Checkoff Assignment Command.
    *
    * @param classID The id of the class to add to.
    * @param name    The name of the assignment.
@@ -776,7 +765,7 @@ public class Controller {
    * @param classID The ID of the class that has the new review assignment.
    * @param name    The name of the assignment.
    * @param reward  The xp reward for completing the reward assignment.
-   * @return
+   * @return The Review Assignment added.
    */
   public static Review addReviewAssignment(String classID, String name, String reward) {
     try {
@@ -808,17 +797,17 @@ public class Controller {
    * @param classID            The class that this assignment belongs to.
    * @param name               The name of the assignment.
    * @param reward             The xp reward for completing the assignment.
-   * @param competitive_toggle Whether the assignment is "competitive" or
+   * @param competitiveToggle Whether the assignment is "competitive" or
    *                           "regular"
    * @param qids               The list of question IDs that belong to this
    *                           assignment.
    * @return The quiz object.
    */
   public static Quiz addQuizAssignment(String classID, String name, String reward,
-      String competitive_toggle, List<String> qids) {
+      String competitiveToggle, List<String> qids) {
     try {
       UUID assignmentID = UUID.randomUUID();
-      if (competitive_toggle.equals("competitive")) {
+      if (competitiveToggle.equals("competitive")) {
         DBProxy.updateQueryParameters("INSERT INTO assignments VALUES (?,?,?,?);",
             new ArrayList<>(Arrays.asList(assignmentID.toString(), name, "competitive", reward)));
       } else {
@@ -856,7 +845,7 @@ public class Controller {
       }
       Quiz q = null;
       // create complete assignment object
-      if (competitive_toggle.equals("competitive")) {
+      if (competitiveToggle.equals("competitive")) {
         q = new Quiz(assignmentID.toString(), name, Integer.parseInt(reward), convertedQ, true);
       } else {
         q = new Quiz(assignmentID.toString(), name, Integer.parseInt(reward), convertedQ, false);
@@ -916,7 +905,7 @@ public class Controller {
   }
 
   /**
-   * Accessor method for all class IDs
+   * Accessor method for all class IDs.
    *
    * @return The list of all class IDs.
    */
@@ -955,5 +944,4 @@ public class Controller {
     }
     return null;
   }
-
 }

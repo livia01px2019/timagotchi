@@ -1,7 +1,6 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,7 +82,9 @@ public class Checkoff implements Assignment {
   }
 
   @Override
-  public Boolean isCompetitive() { return false; }
+  public Boolean isCompetitive() {
+    return false;
+  }
 
   @Override
   public Integer getScore(String userID) {

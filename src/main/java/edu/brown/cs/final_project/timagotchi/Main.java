@@ -20,7 +20,6 @@ import spark.template.freemarker.FreeMarkerEngine;
  */
 public final class Main {
   private static final int DEFAULT_PORT = 4567;
-  private static Controller controller = new Controller();
 
   /**
    * The initial method called when execution begins.
@@ -51,21 +50,7 @@ public final class Main {
     } catch (Exception e) {
       System.err.println("Database not connected");
     }
-
-//    if (options.has("gui")) {
     runSparkServer((int) options.valueOf("port"));
-//    }
-
-    // REPL Handling.
-    // REPL repl = new REPL(new InputStreamReader(System.in));
-    // repl.addCommand("startup", new Command(controller::startUpCommand));
-    // repl.addCommand("addTeacher", new Command(controller::createTeacherCommand));
-//    repl.addCommand("addStudentToClass", new Command(controller::addStudentIDToClassCommand));
-    // repl.addCommand("addStudent", new Command(controller::createStudentCommand));
-//    repl.addCommand("addCheckoff", new Command(controller::addCheckoffAssignment));
-//    repl.addCommand("addQuestion", new Command(controller::addQuestion));
-//    repl.addCommand("addQuiz", new Command(controller::addQuizAssignment));
-    // repl.begin();
   }
 
   /**
@@ -158,7 +143,6 @@ public final class Main {
     if (processBuilder.environment().get("PORT") != null) {
       return Integer.parseInt(processBuilder.environment().get("PORT"));
     }
-    return 4567; // return default port if heroku-port isn't set (i.e. on localhost)
+    return DEFAULT_PORT; // return default port if heroku-port isn't set (i.e. on localhost)
   }
-
 }

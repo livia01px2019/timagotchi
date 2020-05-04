@@ -1,7 +1,5 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
-import java.util.List;
-
 /**
  * A generic Assignment interface.
  */

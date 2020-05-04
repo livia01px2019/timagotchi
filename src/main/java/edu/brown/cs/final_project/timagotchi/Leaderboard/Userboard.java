@@ -12,7 +12,7 @@ import edu.brown.cs.final_project.timagotchi.users.Class;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 
 /**
- * A leaderboard to rank students, both overall in a class and after a quiz
+ * A Leaderboard to rank students, both overall in a class and after a quiz
  * assignment.
  */
 public class Userboard implements Leaderboard<Student> {
@@ -49,20 +49,15 @@ public class Userboard implements Leaderboard<Student> {
    *         lowest score.
    */
   public List<List<String>> getRankingScore(String assignmentID) {
-    Quiz a = (Quiz) Controller.getAssignment(assignmentID); // TODO: Fix here
+    Quiz a = (Quiz) Controller.getAssignment(assignmentID);
     List<String> studentIDs = Controller.getStudentsFromAssignment(assignmentID);
-    System.out.println("bla");
-    System.out.println(studentIDs);
     List<Student> students = new ArrayList<Student>();
     for (String sid : studentIDs) {
       students.add(Controller.getStudent(sid));
     }
-    System.out.println(students);
     Collections.sort(students, new Student.CompareByScore(assignmentID).reversed());
-    System.out.println(students);
     List<List<String>> sortedID = new ArrayList<>();
     for (Student s : students) {
-      System.out.println(s.getId());
       if (a.getComplete(s.getId())) {
         List<String> entry = new ArrayList<>();
         entry.add(s.getName());
@@ -70,47 +65,52 @@ public class Userboard implements Leaderboard<Student> {
         sortedID.add(entry);
       }
     }
-    System.out.println("Here");
-    System.out.println(sortedID);
     return sortedID;
   }
 
+  /**
+   * Comparator for comparing students by their xp.
+   */
   public static class CompareByAllXP implements Comparator<Student> {
-    private String classID;
+    private String cid;
 
     public CompareByAllXP(String cid) {
-      classID = cid;
+      this.cid = cid;
     }
 
+    /**
+     * Gets the total xp of a student just for one class.
+     *
+     * @param classID The class for the student to be ranked.
+     * @param studentID The student of interest.
+     * @return The total xp of the student in the class.
+     */
     public int getScore(String classID, String studentID) {
       Class c = Controller.getClass(classID);
       List<String> assignmentIDs = c.getAssignmentIds();
-      System.out.println("ree");
-      System.out.println(assignmentIDs);
-      System.out.println(studentID);
       int s1TotalXP = 0;
       for (String aid : assignmentIDs) {
-        System.out.println(aid);
         Assignment a = Controller.getAssignment(aid);
-        System.out.println(a.getName());
         if (a.getComplete(studentID)) {
           s1TotalXP = s1TotalXP + a.getReward();
         }
-        System.out.println(s1TotalXP);
       }
-      System.out.println("ree");
-      System.out.println(s1TotalXP);
       return s1TotalXP;
     }
 
     @Override
     public int compare(Student s1, Student s2) {
-      int s1TotalXP = getScore(classID, s1.getId());
-      int s2TotalXP = getScore(classID, s2.getId());
+      int s1TotalXP = getScore(cid, s1.getId());
+      int s2TotalXP = getScore(cid, s2.getId());
       return Double.compare(s1TotalXP, s2TotalXP);
     }
   }
 
+  /**
+   * Sorts students by their total xp for one class.
+   *
+   * @return A list of students represented by a list of their username and their xp.
+   */
   public List<List<String>> allAssignmentsXP() {
     Class c = Controller.getClass(classId);
     List<String> studentIDs = c.getStudentIds();
@@ -129,5 +129,4 @@ public class Userboard implements Leaderboard<Student> {
     }
     return sorted;
   }
-
 }

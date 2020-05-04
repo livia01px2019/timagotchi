@@ -10,9 +10,12 @@ import java.util.Set;
 
 import edu.brown.cs.final_project.timagotchi.Controller;
 import edu.brown.cs.final_project.timagotchi.users.Class;
-import edu.brown.cs.final_project.timagotchi.users.Student;
 
+/**
+ * Review Assignment that generates questions based off what the student has gotten wrong.
+ */
 public class Review implements Assignment {
+  private final int initNumQ = 10;
   private int numQuestions;
   private String id;
   private String name;
@@ -34,7 +37,7 @@ public class Review implements Assignment {
     complete = new HashMap<String, Boolean>();
     reward = r;
     record = new HashMap<String, List<Boolean>>();
-    numQuestions = 10;
+    numQuestions = initNumQ;
   }
 
   /**
@@ -45,23 +48,18 @@ public class Review implements Assignment {
    * @param classId   The id of the class they want to review.
    */
   public void generateQuestions(String studentId, String classId) {
+    // DocDiff algorithm that goes through every question in the class and gets a similarity score
+    // with the wrong questions, orders by similarity, and returns the top numQs most similar.
     Class c = Controller.getClass(classId);
     List<String> wrongQuestionIds = Controller.getWrongQuestionIDs(studentId, c.getId());
     // Get all the questions the student got wrong in this class.
     List<Question> wrongQuestions = new ArrayList<Question>();
     for (String qid : wrongQuestionIds) {
       wrongQuestions.add(Controller.getQuestion(qid));
-      System.out.println(Controller.getQuestion(qid).getPrompt());
     }
 
     // Get all the questions used for this class.
     List<Question> allQuestions = Controller.getAllQuestions(classId);
-
-    // DocDiff algorithm that goes through every question in the class and gets a
-    // similarity score
-    // with the wrong questions, orders by similarity, and returns the top 20 most
-    // similar.
-
     // Generate a list of all unique words for all questions.
     Set<String> dictionary = new HashSet<String>();
     for (Question q : allQuestions) {
@@ -249,7 +247,9 @@ public class Review implements Assignment {
   }
 
   @Override
-  public Boolean isCompetitive() { return false; }
+  public Boolean isCompetitive() {
+    return false;
+  }
 
   public List<Question> getQuestions() {
     return questions;
