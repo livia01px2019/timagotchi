@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 
 /**
@@ -50,16 +50,16 @@ public class Review implements Assignment {
   public void generateQuestions(String studentId, String classId) {
     // DocDiff algorithm that goes through every question in the class and gets a similarity score
     // with the wrong questions, orders by similarity, and returns the top numQs most similar.
-    Class c = Controller.getClass(classId);
-    List<String> wrongQuestionIds = Controller.getWrongQuestionIDs(studentId, c.getId());
+    Class c = Accessors.getClass(classId);
+    List<String> wrongQuestionIds = Accessors.getWrongQuestionIDs(studentId, c.getId());
     // Get all the questions the student got wrong in this class.
     List<Question> wrongQuestions = new ArrayList<Question>();
     for (String qid : wrongQuestionIds) {
-      wrongQuestions.add(Controller.getQuestion(qid));
+      wrongQuestions.add(Accessors.getQuestion(qid));
     }
 
     // Get all the questions used for this class.
-    List<Question> allQuestions = Controller.getAllQuestions(classId);
+    List<Question> allQuestions = Accessors.getAllQuestions(classId);
     // Generate a list of all unique words for all questions.
     Set<String> dictionary = new HashSet<String>();
     for (Question q : allQuestions) {

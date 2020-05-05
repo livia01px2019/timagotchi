@@ -101,9 +101,9 @@ public final class StudentRoutes {
         return new ModelAndView(variables, "error-teacher.ftl");
       }
 
-      Student currStudent = Controller
-          .getStudent(Controller.getStudentIDFromUsername(cookies.get("username")));
-      Pet currPet = Controller.getPet(currStudent.getPetId());
+      Student currStudent = Accessors
+          .getStudent(Accessors.getStudentIDFromUsername(cookies.get("username")));
+      Pet currPet = Accessors.getPet(currStudent.getPetId());
 
       String imageFile = "../" + currPet.getImage();
       int level = (int) currPet.getXp() / XP_PER_LEVEL;
@@ -118,7 +118,7 @@ public final class StudentRoutes {
       }
 
       String assignmentID = req.params(":id");
-      String assignmentName = Controller.getAssignment(assignmentID).getName();
+      String assignmentName = Accessors.getAssignment(assignmentID).getName();
       String classesHtml = Routes.generateClassSidebar(cookies);
       String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
@@ -152,8 +152,8 @@ public final class StudentRoutes {
         return new ModelAndView(variables, "error-teacher.ftl");
       }
 
-      Student currStudent = Controller.getStudent(Controller.getStudentIDFromUsername(username));
-      Pet currPet = Controller.getPet(currStudent.getPetId());
+      Student currStudent = Accessors.getStudent(Accessors.getStudentIDFromUsername(username));
+      Pet currPet = Accessors.getPet(currStudent.getPetId());
 
       String imageFile = currPet.getImage();
       int level = (int) currPet.getXp() / XP_PER_LEVEL;
@@ -195,7 +195,7 @@ public final class StudentRoutes {
         return new ModelAndView(variables, "error-teacher.ftl");
       }
       String classesHtml = Routes.generateClassSidebar(cookies);
-      Classboard cb = new Classboard(Controller.getAllClassIds());
+      Classboard cb = new Classboard(Accessors.getAllClassIds());
       String leaderboardHtml = Routes.generateClassboardHtml(cb);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student", "classes",
           classesHtml, "leaderboard", leaderboardHtml);
@@ -248,9 +248,9 @@ public final class StudentRoutes {
       String classId = req.params(":id");
       cookies.set("classId", classId);
       try {
-        String className = Controller.getClass(classId).getName();
+        String className = Accessors.getClass(classId).getName();
         String classesHtml = Routes.generateClassSidebar(cookies);
-        Userboard userboard = Controller.getLeaderboard(classId);
+        Userboard userboard = Accessors.getLeaderboard(classId);
         String leaderboardHtml = Routes.generateClassUserboardHtml(userboard);
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Class",
             "classes", classesHtml, "className", className, "leaderboard", leaderboardHtml);
@@ -273,14 +273,14 @@ public final class StudentRoutes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String username = cookies.get("username");
-      String studentId = Controller.getStudentIDFromUsername(username);
+      String studentId = Accessors.getStudentIDFromUsername(username);
 
       QueryParamsMap qm = req.queryMap();
       String assignmentID = qm.value("id");
       List<String> record = GSON.fromJson(qm.value("record"), ArrayList.class);
       List<String> studentRecord = GSON.fromJson(qm.value("studentRecord"), ArrayList.class);
       try {
-        Assignment assignment = Controller.addStudentRecord(studentId, assignmentID,
+        Assignment assignment = Mutators.addStudentRecord(studentId, assignmentID,
             cookies.get("classId"), studentRecord, record);
       } catch (NumberFormatException numErr) {
         numErr.printStackTrace();
@@ -297,11 +297,11 @@ public final class StudentRoutes {
     public String handle(Request req, Response res) {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String username = cookies.get("username");
-      String userId = Controller.getStudentIDFromUsername(username);
-      Student s = Controller.getStudent(userId);
+      String userId = Accessors.getStudentIDFromUsername(username);
+      Student s = Accessors.getStudent(userId);
       String classId = cookies.get("classId");
       String assignmentID = req.params(":id");
-      Assignment assignment = Controller.getAssignment(assignmentID);
+      Assignment assignment = Accessors.getAssignment(assignmentID);
       Map<String, Object> variables = ImmutableMap.of("assignment", assignment);
       if (assignment instanceof Review) {
         ((Review) assignment).generateQuestions(userId, classId);
@@ -325,10 +325,10 @@ public final class StudentRoutes {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       String classId = cookies.get("classId");
       String username = cookies.get("username");
-      String userId = Controller.getStudentIDFromUsername(username);
+      String userId = Accessors.getStudentIDFromUsername(username);
       QueryParamsMap qmap = req.queryMap();
 
-      List<String> allAssignmentIds = Controller.getClass(classId).getAssignmentIds();
+      List<String> allAssignmentIds = Accessors.getClass(classId).getAssignmentIds();
       List<String> assignmentIds = new ArrayList<>();
       List<String> assignmentNames = new ArrayList<>();
       List<String> scores = new ArrayList<>();
@@ -337,7 +337,7 @@ public final class StudentRoutes {
 
       if (qmap.value("type").equals("quiz")) {
         for (String id : allAssignmentIds) {
-          Assignment temp = Controller.getAssignment(id);
+          Assignment temp = Accessors.getAssignment(id);
           if (temp instanceof Quiz) {
             assignmentIds.add(id);
             assignmentNames.add(temp.getName());
@@ -359,7 +359,7 @@ public final class StudentRoutes {
         return GSON.toJson(responseObject);
       } else if (qmap.value("type").equals("checkoff")) {
         for (String id : allAssignmentIds) {
-          Assignment temp = Controller.getAssignment(id);
+          Assignment temp = Accessors.getAssignment(id);
           if (temp instanceof Checkoff) {
             assignmentIds.add(id);
             assignmentNames.add(temp.getName());
@@ -378,7 +378,7 @@ public final class StudentRoutes {
         return GSON.toJson(responseObject);
       } else if (qmap.value("type").equals("review")) {
         for (String id : allAssignmentIds) {
-          Assignment temp = Controller.getAssignment(id);
+          Assignment temp = Accessors.getAssignment(id);
           if (temp instanceof Review) {
             ((Review) temp).generateQuestions(userId, classId);
             assignmentIds.add(id);
@@ -402,13 +402,13 @@ public final class StudentRoutes {
       String classID = qmap.value("code");
       // Check that name is valid
       String valid = "Name invalid!";
-      if (Controller.checkValidClassID(classID)) {
-        Class c = Controller.addStudentIDToClassCommand(classID,
-            Controller.getStudentIDFromUsername(cookies.get("username")));
+      if (Accessors.checkValidClassID(classID)) {
+        Class c = Mutators.addStudentIDToClassCommand(classID,
+            Accessors.getStudentIDFromUsername(cookies.get("username")));
         List<String> assignments = c.getAssignmentIds();
         for (String a : assignments) {
-          Controller.addAssignmentToStudent(
-              Controller.getStudentIDFromUsername(cookies.get("username")), a);
+          Mutators.addAssignmentToStudent(
+              Accessors.getStudentIDFromUsername(cookies.get("username")), a);
         }
         valid = "Success!";
       } else {

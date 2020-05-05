@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 import edu.brown.cs.final_project.timagotchi.utils.PasswordHashing;
@@ -110,8 +110,8 @@ public class Student implements People {
 
     @Override
     public int compare(Student s1, Student s2) {
-      Pet p1 = Controller.getPet(s1.getPetId());
-      Pet p2 = Controller.getPet(s2.getPetId());
+      Pet p1 = Accessors.getPet(s1.getPetId());
+      Pet p2 = Accessors.getPet(s2.getPetId());
       return Double.compare(p1.getXp(), p2.getXp());
     }
   }
@@ -133,7 +133,7 @@ public class Student implements People {
 
     @Override
     public int compare(Student s1, Student s2) {
-      Quiz a = (Quiz) Controller.getAssignment(assignmentID);
+      Quiz a = (Quiz) Accessors.getAssignment(assignmentID);
       if (a.getComplete(s1.getId()) && a.getComplete(s2.getId())) {
         return Double.compare(a.getScore(s1.getId()) / a.getTotalScore(),
             a.getScore(s2.getId()) / a.getTotalScore());

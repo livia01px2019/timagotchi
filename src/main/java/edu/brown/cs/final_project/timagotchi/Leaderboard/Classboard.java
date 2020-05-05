@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.users.Class;
 
@@ -29,7 +29,7 @@ public class Classboard implements Leaderboard<Class> {
     // Get the list of classes.
     List<Class> classes = new ArrayList<Class>();
     for (String cid : classIds) {
-      classes.add(Controller.getClass(cid));
+      classes.add(Accessors.getClass(cid));
     }
 
     // Sort classes by average xp per student.
@@ -69,8 +69,8 @@ public class Classboard implements Leaderboard<Class> {
       List<String> c1Assignments = c1.getAssignmentIds();
       int c1TotalXP = 0;
       for (String aid : c1Assignments) {
-        Assignment a = Controller.getAssignment(aid);
-        List<String> studentIDs = Controller.getStudentsFromAssignment(aid);
+        Assignment a = Accessors.getAssignment(aid);
+        List<String> studentIDs = Accessors.getStudentsFromAssignment(aid);
         for (String sid : studentIDs) {
           if (a.getComplete(sid)) {
             c1TotalXP = c1TotalXP + a.getReward();
@@ -100,7 +100,7 @@ public class Classboard implements Leaderboard<Class> {
     // Get the list of classes.
     List<Class> classes = new ArrayList<Class>();
     for (String cid : classIds) {
-      classes.add(Controller.getClass(cid));
+      classes.add(Accessors.getClass(cid));
     }
     CompareByAvgXP compare = new CompareByAvgXP();
     // Sort classes by average xp per student.

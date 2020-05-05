@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.assignments.Assignment;
 import edu.brown.cs.final_project.timagotchi.assignments.Quiz;
 import edu.brown.cs.final_project.timagotchi.users.Class;
@@ -29,12 +29,12 @@ public class Userboard implements Leaderboard<Student> {
 
   @Override
   public List<Student> getRanking() {
-    Class c = Controller.getClass(classId);
+    Class c = Accessors.getClass(classId);
     List<String> studentIds = c.getStudentIds();
     // Construct a list of all the students
     List<Student> students = new ArrayList<Student>();
     for (String sid : studentIds) {
-      students.add(Controller.getStudent(sid));
+      students.add(Accessors.getStudent(sid));
     }
     // Return list of students sorted by their pets' xp.
     Collections.sort(students, new Student.CompareByXp().reversed());
@@ -49,11 +49,11 @@ public class Userboard implements Leaderboard<Student> {
    *         lowest score.
    */
   public List<List<String>> getRankingScore(String assignmentID) {
-    Quiz a = (Quiz) Controller.getAssignment(assignmentID);
-    List<String> studentIDs = Controller.getStudentsFromAssignment(assignmentID);
+    Quiz a = (Quiz) Accessors.getAssignment(assignmentID);
+    List<String> studentIDs = Accessors.getStudentsFromAssignment(assignmentID);
     List<Student> students = new ArrayList<Student>();
     for (String sid : studentIDs) {
-      students.add(Controller.getStudent(sid));
+      students.add(Accessors.getStudent(sid));
     }
     Collections.sort(students, new Student.CompareByScore(assignmentID).reversed());
     List<List<String>> sortedID = new ArrayList<>();
@@ -92,11 +92,11 @@ public class Userboard implements Leaderboard<Student> {
      * @return The total xp of the student in the class.
      */
     public int getScore(String classID, String studentID) {
-      Class c = Controller.getClass(classID);
+      Class c = Accessors.getClass(classID);
       List<String> assignmentIDs = c.getAssignmentIds();
       int s1TotalXP = 0;
       for (String aid : assignmentIDs) {
-        Assignment a = Controller.getAssignment(aid);
+        Assignment a = Accessors.getAssignment(aid);
         if (a.getComplete(studentID)) {
           s1TotalXP = s1TotalXP + a.getReward();
         }
@@ -118,11 +118,11 @@ public class Userboard implements Leaderboard<Student> {
    * @return A list of students represented by a list of their name and their xp.
    */
   public List<List<String>> allAssignmentsXP() {
-    Class c = Controller.getClass(classId);
+    Class c = Accessors.getClass(classId);
     List<String> studentIDs = c.getStudentIds();
     List<Student> students = new ArrayList<>();
     for (String sid : studentIDs) {
-      students.add(Controller.getStudent(sid));
+      students.add(Accessors.getStudent(sid));
     }
     CompareByAllXP compare = new CompareByAllXP(classId);
     Collections.sort(students, compare.reversed());

@@ -77,9 +77,9 @@ public final class TeacherRoutes {
       }
       String classId = req.params(":id");
       cookies.set("classId", classId);
-      String className = Controller.getClass(classId).getName();
+      String className = Accessors.getClass(classId).getName();
       String classesHtml = Routes.generateClassSidebar(cookies);
-      Userboard userboard = Controller.getLeaderboard(classId);
+      Userboard userboard = Accessors.getLeaderboard(classId);
       String leaderBoardHtml = Routes.generateClassUserboardHtml(userboard);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
           "classes", classesHtml, "className", className, "classId", classId, "leaderboard",
@@ -98,15 +98,15 @@ public final class TeacherRoutes {
       String classId = cookies.get("classId");
       QueryParamsMap qmap = req.queryMap();
       if (qmap.value("type").equals("assignments")) {
-        List<String> assignmentIds = Controller.getClass(classId).getAssignmentIds();
+        List<String> assignmentIds = Accessors.getClass(classId).getAssignmentIds();
         List<String> assignmentNames = new ArrayList<>();
         for (String id : assignmentIds) {
-          assignmentNames.add(Controller.getAssignment(id).getName());
+          assignmentNames.add(Accessors.getAssignment(id).getName());
         }
 
         JsonArray assignments = new JsonArray();
         for (String id : assignmentIds) {
-          Assignment currAssignment = Controller.getAssignment(id);
+          Assignment currAssignment = Accessors.getAssignment(id);
           JsonObject assignment = new JsonObject();
           assignment.addProperty("id", id);
           assignment.addProperty("name", currAssignment.getName());
@@ -144,13 +144,13 @@ public final class TeacherRoutes {
       }
       String assignmentId = req.params(":assignmentid");
       cookies.set("assignmentId", assignmentId);
-      Class classObject = Controller.getClass(cookies.get("classId"));
+      Class classObject = Accessors.getClass(cookies.get("classId"));
 
-      Assignment assignment = Controller.getAssignment(assignmentId);
+      Assignment assignment = Accessors.getAssignment(assignmentId);
 
       JsonArray students = new JsonArray();
       for (String studentId : classObject.getStudentIds()) {
-        Student currStudent = Controller.getStudent(studentId);
+        Student currStudent = Accessors.getStudent(studentId);
         JsonObject student = new JsonObject();
         student.addProperty("id", studentId);
         student.addProperty("name", currStudent.getName());
@@ -194,7 +194,7 @@ public final class TeacherRoutes {
       String studentId = req.params(":studentid");
       String assignmentId = cookies.get("assignmentId");
 
-      Assignment assignment = Controller.getAssignment(assignmentId);
+      Assignment assignment = Accessors.getAssignment(assignmentId);
 
       if (assignment instanceof Quiz) {
         Quiz quiz = (Quiz) assignment;
@@ -206,14 +206,14 @@ public final class TeacherRoutes {
           Question currQ = questions.get(i);
           row.addProperty("questionPrompt", currQ.getPrompt());
           row.addProperty("correctAnswer", currQ.getChoices().get(currQ.getAnswers().get(0)));
-          row.addProperty("answer", Controller.getRecord(studentId, currQ.getId()));
+          row.addProperty("answer", Accessors.getRecord(studentId, currQ.getId()));
           row.addProperty("correct", studentRecord.get(i));
           record.add(row);
         }
 
         int score = quiz.getScore(studentId);
         int totalScore = quiz.getTotalScore();
-        Student student = Controller.getStudent(studentId);
+        Student student = Accessors.getStudent(studentId);
         String name = student.getName();
         String classesHtml = Routes.generateClassSidebar(cookies);
         Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher Class",
@@ -253,7 +253,7 @@ public final class TeacherRoutes {
       }
       String classesHtml = Routes.generateClassSidebar(cookies);
       String username = cookies.get("username");
-      Teacher currTeacher = Controller.getTeacher(Controller.getTeacherIDFromUsername(username));
+      Teacher currTeacher = Accessors.getTeacher(Accessors.getTeacherIDFromUsername(username));
       Classboard cb = new Classboard(currTeacher.getClassIds());
       String leaderboardHtml = Routes.generateClassboardHtml(cb);
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Teacher", "classes",
@@ -321,7 +321,7 @@ public final class TeacherRoutes {
           double pointNum = Double.parseDouble(points);
           List<String> quizList = new ArrayList<>();
           if (isCheckoff.equals("true")) {
-            Checkoff assignment = Controller.addCheckoffAssignment(classID, title, points);
+            Checkoff assignment = Mutators.addCheckoffAssignment(classID, title, points);
             assignmentID = assignment.getId();
             valid = "Assignment successfully created!";
           } else if (isQuiz.equals("true")) {
@@ -338,7 +338,7 @@ public final class TeacherRoutes {
               if (question.equals("") || correctAnswer.equals("") || firstAnswer.equals("")
                   || secondAnswer.equals("") || thirdAnswer.equals("") || fourthAnswer.equals("")) {
                 valid = "At least one question is missing the prompt, "
-                        + "correct answer, or answer choices";
+                    + "correct answer, or answer choices";
                 break;
               } else {
                 try {
@@ -367,16 +367,16 @@ public final class TeacherRoutes {
             }
             if (valid.equals("ERROR: Unknown")) {
               for (List<String> qList : questionLists) {
-                Question q = Controller.addQuestion(qList.get(0), qList.get(1), qList.get(2),
+                Question q = Mutators.addQuestion(qList.get(0), qList.get(1), qList.get(2),
                     qList.get(3), qList.get(4), qList.get(5));
                 quizList.add(q.getId());
               }
               Quiz assignment = null;
               if (competitive.equals("true")) {
-                assignment = Controller.addQuizAssignment(classID, title, points, "competitive",
+                assignment = Mutators.addQuizAssignment(classID, title, points, "competitive",
                     quizList);
               } else {
-                assignment = Controller.addQuizAssignment(classID, title, points, "regular",
+                assignment = Mutators.addQuizAssignment(classID, title, points, "regular",
                     quizList);
               }
               assignmentID = assignment.getId();
@@ -406,9 +406,9 @@ public final class TeacherRoutes {
       Cookies cookies = Cookies.initFromServlet(req.raw(), res.raw());
       QueryParamsMap qmap = req.queryMap();
       String name = qmap.value("name");
-      Class newClass = Controller.createClassCommand(name,
-          Controller.getTeacherIDFromUsername(cookies.get("username")));
-      Controller.addReviewAssignment(newClass.getId(), "Review", "100");
+      Class newClass = Mutators.createClassCommand(name,
+          Accessors.getTeacherIDFromUsername(cookies.get("username")));
+      Mutators.addReviewAssignment(newClass.getId(), "Review", "100");
 
       // Check that name is valid
       String valid = "Name invalid!";
@@ -438,7 +438,7 @@ public final class TeacherRoutes {
       String valid = "";
 
       try {
-        Controller.deleteAssignment(assignmentId);
+        Mutators.deleteAssignment(assignmentId);
         valid = "Success!";
       } catch (Exception e) {
         e.printStackTrace();
@@ -467,10 +467,10 @@ public final class TeacherRoutes {
 
       try {
         for (String s : completed) {
-          Controller.completeAssignment(s, assignmentID);
+          Mutators.completeAssignment(s, assignmentID);
         }
         for (String s : notCompleted) {
-          Controller.uncompleteAssignment(s, assignmentID);
+          Mutators.uncompleteAssignment(s, assignmentID);
         }
         valid = "Update successful";
       } catch (Exception e) {

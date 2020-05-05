@@ -1,6 +1,6 @@
 package edu.brown.cs.final_project.timagotchi.assignments;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.users.Student;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import org.junit.After;
@@ -43,8 +43,8 @@ public class ReviewTest {
   @Test
   public void generateQuestionsOneWrongTest() throws Exception {
     setUp();
-    String sid = Controller.getStudentIDFromUsername("st1");
-    Student s = Controller.getStudent(sid);
+    String sid = Accessors.getStudentIDFromUsername("st1");
+    Student s = Accessors.getStudent(sid);
     String cid = s.getClassIds().get(0);
     Review r = new Review("0", "test", 100);
     r.setNumQuestions(2);
@@ -67,8 +67,8 @@ public class ReviewTest {
   @Test
   public void generateQuestionsTwoWrongTest() throws Exception {
     setUp();
-    String sid = Controller.getStudentIDFromUsername("st2");
-    Student s = Controller.getStudent(sid);
+    String sid = Accessors.getStudentIDFromUsername("st2");
+    Student s = Accessors.getStudent(sid);
     String cid = s.getClassIds().get(0);
     Review r = new Review("0", "test", 100);
     r.setNumQuestions(3);

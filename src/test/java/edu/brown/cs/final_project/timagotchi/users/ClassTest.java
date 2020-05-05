@@ -1,6 +1,6 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import org.junit.After;
 import org.junit.Before;
@@ -46,8 +46,8 @@ public class ClassTest {
   @Test
   public void compareByXpTest() throws Exception {
     setUp();
-    Class c1 = Controller.getClass("15238a4d-8610-441f-8792-775363e5d39b");
-    Class c2 = Controller.getClass("00cfee5e-c9f0-4420-96ea-b94cd36f289d");
+    Class c1 = Accessors.getClass("15238a4d-8610-441f-8792-775363e5d39b");
+    Class c2 = Accessors.getClass("00cfee5e-c9f0-4420-96ea-b94cd36f289d");
     List<Class> cs = new ArrayList<>(Arrays.asList(c1, c2));
     Collections.sort(cs, new Class.CompareByAverageXp());
 

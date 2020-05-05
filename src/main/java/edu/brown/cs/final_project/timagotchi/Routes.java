@@ -67,7 +67,7 @@ public final class Routes {
 
       // Check that username and password are valid
       String valid = "Invalid username and password!";
-      String correctPass = Controller.getStudentPassword(username);
+      String correctPass = Accessors.getStudentPassword(username);
       if (username.equals("")) {
         valid = "Please enter a username.";
       } else if (password.equals("")) {
@@ -99,7 +99,7 @@ public final class Routes {
 
       // Check that username and password are valid
       String valid = "Invalid username and password!";
-      String correctPass = Controller.getTeacherPassword(username);
+      String correctPass = Accessors.getTeacherPassword(username);
       if (username.equals("")) {
         valid = "Please enter a username.";
       } else if (password.equals("")) {
@@ -144,7 +144,7 @@ public final class Routes {
         try {
           if (student.equals("true")) {
             // Create a student
-            Student s = Controller.createStudentCommand(username, password, name);
+            Student s = Mutators.createStudentCommand(username, password, name);
             if (s == null) {
               valid = "Username is taken. Please pick another one.";
             } else {
@@ -152,7 +152,7 @@ public final class Routes {
             }
           } else if (teacher.equals("true")) {
             // Create a teacher
-            Teacher t = Controller.createTeacherCommand(username, password, name);
+            Teacher t = Mutators.createTeacherCommand(username, password, name);
             if (t == null) {
               valid = "Username is taken. Please pick another one.";
             } else {
@@ -213,21 +213,21 @@ public final class Routes {
     List<Class> classes = new ArrayList<Class>();
     List<String> classIds = new ArrayList<String>();
     if (cookies.get("student").equals("true")) {
-      String id = Controller.getStudentIDFromUsername(username);
-      Student currStudent = Controller.getStudent(id);
+      String id = Accessors.getStudentIDFromUsername(username);
+      Student currStudent = Accessors.getStudent(id);
       if (currStudent.getClassIds() != null) {
         classIds = currStudent.getClassIds();
       }
 
     } else {
-      String id = Controller.getTeacherIDFromUsername(username);
-      Teacher currTeacher = Controller.getTeacher(id);
+      String id = Accessors.getTeacherIDFromUsername(username);
+      Teacher currTeacher = Accessors.getTeacher(id);
       if (currTeacher.getClassIds() != null) {
         classIds = currTeacher.getClassIds();
       }
     }
     for (String id : classIds) {
-      classes.add(Controller.getClass(id));
+      classes.add(Accessors.getClass(id));
     }
     String classesHtml = "";
     for (Class currClass : classes) {

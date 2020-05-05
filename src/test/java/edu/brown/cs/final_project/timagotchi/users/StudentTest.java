@@ -1,6 +1,6 @@
 package edu.brown.cs.final_project.timagotchi.users;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.utils.DBProxy;
 import org.junit.After;
 import org.junit.Before;
@@ -79,8 +79,8 @@ public class StudentTest {
   @Test
   public void compareByXpTest() throws Exception {
     setUp();
-    Student s1 = Controller.getStudent("ae5feeb3-8331-4982-9f90-e4a35198596d");
-    Student s2 = Controller.getStudent("e82d9c61-d2f5-4671-a372-cc29d0f6f8b6");
+    Student s1 = Accessors.getStudent("ae5feeb3-8331-4982-9f90-e4a35198596d");
+    Student s2 = Accessors.getStudent("e82d9c61-d2f5-4671-a372-cc29d0f6f8b6");
     List<Student> sts = new ArrayList<>(Arrays.asList(s1, s2));
     Collections.sort(sts, new Student.CompareByXp());
 
@@ -97,8 +97,8 @@ public class StudentTest {
   @Test
   public void compareByScoreTest() throws Exception {
     setUp();
-    Student s1 = Controller.getStudent("e82d9c61-d2f5-4671-a372-cc29d0f6f8b6");
-    Student s2 = Controller.getStudent("1148bc88-9a4b-40f4-acce-0c86ba1f67d9");
+    Student s1 = Accessors.getStudent("e82d9c61-d2f5-4671-a372-cc29d0f6f8b6");
+    Student s2 = Accessors.getStudent("1148bc88-9a4b-40f4-acce-0c86ba1f67d9");
     List<Student> sts = new ArrayList<>(Arrays.asList(s1, s2));
     Collections.sort(sts, new Student.CompareByScore("864e94ad-08c8-4c96-b78c-0399644d0334"));
 

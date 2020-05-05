@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import edu.brown.cs.final_project.timagotchi.Controller;
+import edu.brown.cs.final_project.timagotchi.Accessors;
 import edu.brown.cs.final_project.timagotchi.pets.Pet;
 
 /**
@@ -117,8 +117,8 @@ public class Class {
     // Get each student in each class, find their pet, and add its xp to the total
     // for that class.
     for (String tempId : sIds) {
-      Student s = Controller.getStudent(tempId);
-      Pet p = Controller.getPet(s.getPetId());
+      Student s = Accessors.getStudent(tempId);
+      Pet p = Accessors.getPet(s.getPetId());
       totXp = totXp + p.getXp();
     }
     // Find average xp for each class.
