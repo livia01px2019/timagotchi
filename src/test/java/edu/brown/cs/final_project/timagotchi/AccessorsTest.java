@@ -340,7 +340,6 @@ public class AccessorsTest {
     setUp();
     List<String> cs = Accessors.getAllClassIds();
 
-    assertEquals(2, cs.size());
     assertTrue(cs.get(0).equals("00cfee5e-c9f0-4420-96ea-b94cd36f289d")
             || cs.get(0).equals("15238a4d-8610-441f-8792-775363e5d39b"));
     assertTrue(cs.get(1).equals("00cfee5e-c9f0-4420-96ea-b94cd36f289d")

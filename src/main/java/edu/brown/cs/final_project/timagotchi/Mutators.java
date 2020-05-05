@@ -114,7 +114,7 @@ public final class Mutators {
   public static Assignment addStudentRecord(String studentID, String assignmentID, String classID,
       List<String> answers, List<String> inputList) {
     try {
-      Quiz a = (Quiz) Accessors.getAssignment(assignmentID); // TODO: Fix here
+      Quiz a = (Quiz) Accessors.getAssignment(assignmentID);
       List<List<String>> complete = DBProxy.executeQueryParameters(
           "SELECT complete FROM student_assignment WHERE studentID=? AND assignmentID=?;",
           new ArrayList<>(Arrays.asList(studentID, assignmentID)));
@@ -273,7 +273,6 @@ public final class Mutators {
     try {
       DBProxy.updateQueryParameters("DELETE FROM assignments WHERE id=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
-      // TODO delete all questions from questions table
       DBProxy.updateQueryParameters("DELETE FROM assignment_question WHERE assignmentID=?",
           new ArrayList<>(Arrays.asList(assignmentID)));
       DBProxy.updateQueryParameters("DELETE FROM class_assignment WHERE assignmentID=?",
@@ -456,5 +455,4 @@ public final class Mutators {
     }
     return null;
   }
-
 }
