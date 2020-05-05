@@ -493,7 +493,7 @@ public final class Accessors {
   }
 
   /**
-   * Accessor method for all assignment IDs.
+   * Accessor method for all students who are assigned to an assignment with id assignmentIDs.
    *
    * @param assignmentID The id of the assignment.
    * @return The list of student ids that have been allocated this assignment.
