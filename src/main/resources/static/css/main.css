@@ -219,9 +219,14 @@ p{
 }
 .skin{
 	height:170px;
+}
+.skin-container{
+	height:170px;
 	position: absolute;
     top: 350px;
     left: 520px;
+	width:170px;
+	text-align:center;
 }
 .pet-button{
     height:36px;

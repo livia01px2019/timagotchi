@@ -168,11 +168,15 @@ table{
 	text-align: center;
 	margin-left:10%;
 	margin-right: 10%;
-	height: 330px;
+	height: 360px;
 }
 .pet{
 	height:170px;
+}
+.petContainer{
+	height:170px;
 	margin-bottom:12px;
+	width:170px;
 }
 .jar{
 	height:100px;

@@ -51,13 +51,15 @@
 	    <div id="results"></div>
         <div id="scoreboard"></div>
         <div id="feed" class="feed" style="visibility: hidden">
-        	<div id="add-xp" style="height:20px"> </div>
+        	<div id="add-xp" style="height:40px"> </div>
         	<div class="animation">
         		<img class="jar" id="jar" src="../../img/full-jar.png">
         		<div id="cookie-container" class="cookie-container" style="visibility:hidden">
         			<img class="cookie" id="cookie" src="../../img/cookie.png">
         		</div>
-				<img id="pet" class="pet" src=${lvlXpProgressImage[3]}>
+        		<div class="petContainer" id="petContainer">
+					<img id="pet" class="pet" src=${images[0]}>
+				</div>
 			</div>
 			<div class="feed-button-wrapper" style="visibility: hidden">
 	        	<button id="feed-button" style="margin:0px;">FEED</button>
@@ -67,6 +69,10 @@
 	</div>
 </div>
 <!-- Again, we're serving up the unminified source for clarity. -->
+<script>
+  const currImage = '${images[0]}';
+  const withRewardImage = '${images[1]}';
+</script>
 <script src="../../js/jquery-2.1.1.js"></script>
 <script src="../../js/page-logic.js"></script>
 </body>

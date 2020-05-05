@@ -111,6 +111,7 @@
                 document.getElementById('congrats-banner').innerHTML = "<img src=\"../../img/congrats-banner.png\""+
                     "style=\"width:100%\"><div class=\"congrats-words\"><h1>CONGRATS!</h1></div></img>";
 				document.getElementById('feed').style.height = '0px';
+
             }
 
             let newHTML = "<table style=\"width:100%;margin-left:auto;margin-right:auto\"><tr><th>Question</th>" +
@@ -257,16 +258,55 @@
                 	audio2.play();
 				}, 2000);
 				const pet= document.getElementById('pet');
-				setTimeout(function(){pet.style.marginBottom = "8px";}, 2000);
-		        setTimeout(function(){pet.style.marginBottom = "4px";}, 2020);
-		        setTimeout(function(){pet.style.marginBottom = "8px";}, 2040);
-		        setTimeout(function(){pet.style.marginBottom = "12px";}, 2060);
-		        setTimeout(function(){pet.style.marginBottom = "16px";}, 2080);
-		        setTimeout(function(){pet.style.marginBottom = "20px";}, 2100);
-		        setTimeout(function(){pet.style.marginBottom = "24px";}, 2120);
-		        setTimeout(function(){pet.style.marginBottom = "20px";}, 2140);
-		        setTimeout(function(){pet.style.marginBottom = "12px";}, 2160);
+				const petContainer= document.getElementById('petContainer');
+				setTimeout(function(){petContainer.style.marginBottom = "8px";}, 2000);
+		        setTimeout(function(){petContainer.style.marginBottom = "4px";}, 2020);
+		        setTimeout(function(){petContainer.style.marginBottom = "8px";}, 2040);
+		        setTimeout(function(){petContainer.style.marginBottom = "12px";}, 2060);
+		        setTimeout(function(){petContainer.style.marginBottom = "16px";}, 2080);
+		        setTimeout(function(){petContainer.style.marginBottom = "20px";}, 2100);
+		        setTimeout(function(){petContainer.style.marginBottom = "24px";}, 2120);
+		        setTimeout(function(){petContainer.style.marginBottom = "20px";}, 2140);
+		        setTimeout(function(){petContainer.style.marginBottom = "12px";}, 2160);
 				setTimeout(function(){document.getElementById('add-xp').innerHTML = "+ " + reward + " XP";}, 2000);
+				
+				if (!(currImage === withRewardImage)) {
+					console.log("here");
+					setTimeout(function(){document.getElementById('add-xp').innerHTML = "Your Timagotchi is evolving!";}, 2300);
+					setTimeout(function(){
+						const audio3 = new Audio("../../audio/evolution.mp3");
+	                	audio3.play();
+					}, 2300);
+					setTimeout(function(){pet.src = withRewardImage;}, 3200);
+					setTimeout(function(){pet.src = currImage;}, 3500);
+					setTimeout(function(){pet.src = withRewardImage;}, 3800);
+					setTimeout(function(){pet.src = currImage;}, 4100);
+					setTimeout(function(){pet.src = withRewardImage;}, 4400);
+					setTimeout(function(){pet.src = currImage;}, 4700);
+					setTimeout(function(){pet.src = withRewardImage;}, 5000);
+					setTimeout(function(){pet.src = currImage;}, 5300);
+					setTimeout(function(){pet.src = withRewardImage;}, 5600);
+					setTimeout(function(){pet.src = currImage;}, 5900);
+					setTimeout(function(){pet.src = withRewardImage;}, 6200);
+					setTimeout(function(){pet.src = currImage;}, 6600);
+					setTimeout(function(){pet.src = withRewardImage;}, 7000);
+					setTimeout(function(){pet.src = currImage;}, 7400);
+					setTimeout(function(){pet.src = withRewardImage;}, 8000);
+					setTimeout(function(){document.getElementById('add-xp').innerHTML = "";}, 7800);
+					setTimeout(function(){
+						const audio4 = new Audio("../../audio/yay2.wav");
+	                	audio4.play();
+					}, 8900);
+					setTimeout(function(){petContainer.style.marginBottom = "8px";}, 8900);
+			        setTimeout(function(){petContainer.style.marginBottom = "4px";}, 8920);
+			        setTimeout(function(){petContainer.style.marginBottom = "8px";}, 8940);
+			        setTimeout(function(){petContainer.style.marginBottom = "12px";}, 8960);
+			        setTimeout(function(){petContainer.style.marginBottom = "16px";}, 8980);
+			        setTimeout(function(){petContainer.style.marginBottom = "20px";}, 9000);
+			        setTimeout(function(){petContainer.style.marginBottom = "24px";}, 9020);
+			        setTimeout(function(){petContainer.style.marginBottom = "20px";}, 9040);
+			        setTimeout(function(){petContainer.style.marginBottom = "12px";}, 9060);
+				}
 		      } else {
 		        pos++;
 		        document.getElementById('cookie-container').style.paddingLeft = pos + 'px';

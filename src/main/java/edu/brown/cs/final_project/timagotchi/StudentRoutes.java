@@ -104,6 +104,8 @@ public final class StudentRoutes {
       Student currStudent = Accessors
           .getStudent(Accessors.getStudentIDFromUsername(cookies.get("username")));
       Pet currPet = Accessors.getPet(currStudent.getPetId());
+      String assignmentID = req.params(":id");
+      Assignment assignment = Accessors.getAssignment(assignmentID);
 
       String imageFile = "../" + currPet.getImage();
       int level = (int) currPet.getXp() / XP_PER_LEVEL;
@@ -117,15 +119,25 @@ public final class StudentRoutes {
         imageFile = "../../img/stage4.png";
       }
 
-      String assignmentID = req.params(":id");
-      String assignmentName = Accessors.getAssignment(assignmentID).getName();
+      int levelWithReward = (int) (currPet.getXp() + assignment.getReward()) / XP_PER_LEVEL;
+      String imageFileWithReward = "../" + currPet.getImage();
+      if (levelWithReward < LEVELS[0]) {
+        imageFileWithReward = "../../img/stage1.png";
+      } else if (levelWithReward < LEVELS[1]) {
+        imageFileWithReward = "../../img/stage2.png";
+      } else if (levelWithReward < LEVELS[2]) {
+        imageFileWithReward = "../../img/stage3.png";
+      } else if (levelWithReward < LEVELS[3]) {
+        imageFileWithReward = "../../img/stage4.png";
+      }
+
+      String assignmentName = assignment.getName();
       String classesHtml = Routes.generateClassSidebar(cookies);
       String hidden = "<p id=\"hidden\" class=\"" + assignmentID + "\" hidden></p>";
       Map<String, Object> variables = ImmutableMap.of("title", "Timagotchi: Student Quiz",
-          "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentName,
-          "lvlXpProgressImage", new String[] {
-              "" + level, "" + ((int) currPet.getXp()), "" + (currPet.getXp() % XP_PER_LEVEL),
-              imageFile
+          "classes", classesHtml, "hidden", hidden, "assignmentName", assignmentName, "images",
+          new String[] {
+              imageFile, imageFileWithReward
           });
       return new ModelAndView(variables, "student-quiz.ftl");
     }

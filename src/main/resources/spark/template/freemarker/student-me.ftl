@@ -1,7 +1,9 @@
 <#assign content>
 <div class="profile-main">
 	<img class="timagotchi" src="../img/timagotchi.png">
-	<img id="pet" class="skin" src=${fileNameUsername[0]}>
+	<div class="skin-container">
+		<img id="pet" class="skin" src=${fileNameUsername[0]}>
+	</div>
     <button class="pet-button" id="lbutton">&nbsp;</button>
     <button class="pet-button" id="mbutton">&nbsp;</button>
     <button class="pet-button" id="rbutton">&nbsp;</button>
