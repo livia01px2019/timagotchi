@@ -12,6 +12,13 @@ public final class PasswordHashing {
   private PasswordHashing() {
   }
 
+  /**
+   * Method to hash a String using the SHA256 algorithm.
+   *
+   * @param pass The string to be hashed.
+   * @return The hashed string.
+   * @throws NoSuchAlgorithmException NoSuchAlgorithmException
+   */
   public static String hashSHA256(String pass) throws NoSuchAlgorithmException {
     MessageDigest md = MessageDigest.getInstance("SHA-256");
     md.update(pass.getBytes(StandardCharsets.UTF_8));

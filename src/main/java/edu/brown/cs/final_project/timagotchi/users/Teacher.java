@@ -16,10 +16,10 @@ public class Teacher implements People {
   /**
    * Initializes a Teacher.
    *
-   * @param i The id of the teacher.
+   * @param i    The id of the teacher.
    * @param user The username of the teacher.
    * @param pass The password of the teacher.
-   * @param n The name of the teacher.
+   * @param n    The name of the teacher.
    */
   public Teacher(String i, String user, String pass, String n) {
     id = i;
@@ -38,9 +38,6 @@ public class Teacher implements People {
   public void addClassId(String classId) {
     this.classIds.add(classId);
   }
-
-  @Override
-  public void updateSQL(List<String> parameters) { }
 
   @Override
   public String getId() {
