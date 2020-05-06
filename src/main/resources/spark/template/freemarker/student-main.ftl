@@ -21,7 +21,6 @@
      <div style="padding-left: 20%">${content}</div>
      <!-- Again, we're serving up the unminified source for clarity. -->
      <script src="../js/jquery-2.1.1.js"></script>
-     <script src="../js/page-logic.js"></script>
      <script src="../js/student-new-class.js"></script>
      <script src="../js/all.js"></script>
   </body>

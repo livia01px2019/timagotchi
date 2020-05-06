@@ -2,6 +2,7 @@ package edu.brown.cs.final_project.timagotchi;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -282,6 +283,7 @@ public final class Routes {
   public static String generateClassboardHtml(Classboard cb) {
     StringBuilder sb = new StringBuilder();
     List<List<String>> classList = cb.rankClassByTotalXP();
+    Collections.reverse(classList);
     int i = 1;
     if (classList.size() == 0) {
       sb.append("<div class=\"leaderboard-item\"><div class=\"leaderboard-row\">");
