@@ -16,7 +16,7 @@
 			<p>${lvlXpProgress[1]} XP</p>
 		</div>
 		<div class="w3-white" style="width:50%; margin: 20px; outline: solid;">
-		  <div class="w3-container" style="height:30px; width:${lvlXpProgress[2]}%; background-color: black"></div>
+		  <div style="height:30px; width:${lvlXpProgress[2]}%; background-color: black"></div>
 		</div>
 
 	</div>
