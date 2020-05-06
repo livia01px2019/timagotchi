@@ -181,4 +181,7 @@ _On your first meeting with your mentor TA, you should plan dates for at least t
 **Adversary Checkpoint:** _(Schedule for on or before April 29 once you are assigned an adversary TA)_
 
 ## How to Build and Run
-_A necessary part of any README!_
+
+The website is hosted at http://cs32-timagotchi.herokuapp.com/main. 
+
+To run locally, clone the repo and navigate into it in Terminal. Enter `mvn package` and then `./run`. You can then access the website in any browswer at http://localhost:4567/main. 
