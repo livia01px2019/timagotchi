@@ -77,10 +77,4 @@ public interface People {
    */
   void addClassId(String classId);
 
-  /**
-   * Function to check if person exists in DB. If so, just update. Otherwise, add to database.
-   *
-   * @param parameters The parameters to be sent to the SQL.
-   */
-  void updateSQL(List<String> parameters);
 }

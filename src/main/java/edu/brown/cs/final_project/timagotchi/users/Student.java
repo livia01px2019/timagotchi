@@ -31,6 +31,7 @@ public class Student implements People {
    * @param user The username of the student.
    * @param pass The password of the student.
    * @param n    The name of the student.
+   * @throws NoSuchAlgorithmException NoSuchAlgorithmException
    */
   public Student(String i, String user, String pass, String n) throws NoSuchAlgorithmException {
     id = i;
@@ -76,10 +77,6 @@ public class Student implements People {
     this.wrongQuestionIds.add(new HashSet<String>());
   }
 
-  @Override
-  public void updateSQL(List<String> parameters) {
-  }
-
   /**
    * Getter for the id of the pet that belongs to the student.
    *
@@ -100,10 +97,12 @@ public class Student implements People {
 
   /**
    * Comparator for comparing students by their xp.
+   *
    */
   public static class CompareByXp implements Comparator<Student> {
     /**
-     * Empty constructor
+     * Empty constructor.
+     *
      */
     public CompareByXp() {
     }
@@ -167,6 +166,7 @@ public class Student implements People {
    *
    * @param pass The password to be checked.
    * @return Whether the password is correct.
+   * @throws NoSuchAlgorithmException NoSuchAlgorithmException
    */
   public Boolean verifyPassword(String pass) throws NoSuchAlgorithmException {
     return PasswordHashing.hashSHA256(pass).equals(this.passwordHash);
