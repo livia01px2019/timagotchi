@@ -8,6 +8,7 @@ $(document).ready(() => {
     document.getElementById("lbutton").onclick = lbutton;
     function lbutton() {
         const pet = document.getElementById("pet");
+		const petContainer = document.getElementById("skin-container");
         if (pet.src.includes("stage1") || pet.src.includes("stage2") || pet.src.includes("stage3")) {
             if (pet.src.includes("stage1")) {
                 const audio = new Audio("../audio/stage1.mp3");
@@ -32,27 +33,28 @@ $(document).ready(() => {
 
             pet.style.top = "345px";
             pet.style.left = "517px";
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "514px";}, 55);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "511px";}, 110);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "508px";}, 165);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "505px";}, 220);
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "502px";}, 275);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "499px";}, 330);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "496px";}, 385);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "499px";}, 450);
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "502px";}, 505);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "505px";}, 560);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "508px";}, 615);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "511px";}, 670);
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "514px";}, 725);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "517px";}, 780);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "520px";}, 835);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "514px";}, 55);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "511px";}, 110);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "508px";}, 165);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "505px";}, 220);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "502px";}, 275);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "499px";}, 330);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "496px";}, 385);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "499px";}, 450);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "502px";}, 505);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "505px";}, 560);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "508px";}, 615);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "511px";}, 670);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "514px";}, 725);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "517px";}, 780);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "520px";}, 835);
         }
     }
 
     document.getElementById("rbutton").onclick = rbutton;
     function rbutton() {
         const pet = document.getElementById("pet");
+		const petContainer = document.getElementById("skin-container");
         if (pet.src.includes("stage1") || pet.src.includes("stage2") || pet.src.includes("stage3")) {
             if (pet.src.includes("stage1")) {
                 const audio = new Audio("../audio/stage1.mp3");
@@ -77,21 +79,21 @@ $(document).ready(() => {
 
             pet.style.top = "345px";
             pet.style.left = "523px";
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "526px";}, 55);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "529px";}, 110);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "532px";}, 165);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "535px";}, 220);
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "538px";}, 275);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "541px";}, 330);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "544px";}, 385);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "541px";}, 450);
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "538px";}, 505);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "535px";}, 560);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "532px";}, 615);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "529px";}, 670);
-            setTimeout(function(){pet.style.top = "340px";pet.style.left = "526px";}, 725);
-            setTimeout(function(){pet.style.top = "345px";pet.style.left = "523px";}, 780);
-            setTimeout(function(){pet.style.top = "350px";pet.style.left = "520px";}, 835);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "526px";}, 55);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "529px";}, 110);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "532px";}, 165);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "535px";}, 220);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "538px";}, 275);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "541px";}, 330);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "544px";}, 385);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "541px";}, 450);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "538px";}, 505);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "535px";}, 560);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "532px";}, 615);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "529px";}, 670);
+            setTimeout(function(){petContainer.style.top = "340px";petContainer.style.left = "526px";}, 725);
+            setTimeout(function(){petContainer.style.top = "345px";petContainer.style.left = "523px";}, 780);
+            setTimeout(function(){petContainer.style.top = "350px";petContainer.style.left = "520px";}, 835);
         }
     }
     
@@ -141,6 +143,7 @@ $(document).ready(() => {
     		document.getElementById("demo").innerHTML = "";
     		i = 0;
 		    const pet = document.getElementById("pet");
+			const petContainer = document.getElementById("skin-container");
 		    if (pet.src.includes("stage1") || pet.src.includes("stage2") || pet.src.includes("stage3")) {
 		        if (pet.src.includes("stage1")) {
 		            const audio = new Audio("../audio/stage1.mp3");
@@ -154,15 +157,15 @@ $(document).ready(() => {
 		        }
 
 		        pet.style.top = "346px";
-		        setTimeout(function(){pet.style.top = "342px";}, 20);
-		        setTimeout(function(){pet.style.top = "338px";}, 40);
-		        setTimeout(function(){pet.style.top = "342px";}, 60);
-		        setTimeout(function(){pet.style.top = "346px";}, 80);
-		        setTimeout(function(){pet.style.top = "350px";}, 100);
-		        setTimeout(function(){pet.style.top = "354px";}, 120);
-		        setTimeout(function(){pet.style.top = "358px";}, 140);
-		        setTimeout(function(){pet.style.top = "354px";}, 160);
-		        setTimeout(function(){pet.style.top = "350px";}, 180);
+		        setTimeout(function(){petContainer.style.top = "342px";}, 20);
+		        setTimeout(function(){petContainer.style.top = "338px";}, 40);
+		        setTimeout(function(){petContainer.style.top = "342px";}, 60);
+		        setTimeout(function(){petContainer.style.top = "346px";}, 80);
+		        setTimeout(function(){petContainer.style.top = "350px";}, 100);
+		        setTimeout(function(){petContainer.style.top = "354px";}, 120);
+		        setTimeout(function(){petContainer.style.top = "358px";}, 140);
+		        setTimeout(function(){petContainer.style.top = "354px";}, 160);
+		        setTimeout(function(){petContainer.style.top = "350px";}, 180);
 		    } else {
 		        const audio = new Audio("../audio/stage5.mp3");
 		        audio.volume = 0.7;
