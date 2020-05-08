@@ -15,7 +15,7 @@ import edu.brown.cs.final_project.timagotchi.users.Class;
  * Review Assignment that generates questions based off what the student has gotten wrong.
  */
 public class Review implements Assignment {
-  private final int initNumQ = 10;
+  private final int initNumQ = 5;
   private int numQuestions;
   private String id;
   private String name;

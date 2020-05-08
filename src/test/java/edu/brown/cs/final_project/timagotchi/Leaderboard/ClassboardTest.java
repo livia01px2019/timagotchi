@@ -78,9 +78,9 @@ public class ClassboardTest {
     setUp();
     List<List<String>> s = u.rankClassByTotalXP();
     assertEquals(s.get(0).get(0), "c1");
-    assertEquals(s.get(0).get(1), "25.0");
+    assertEquals(s.get(0).get(1), "50.0");
     assertEquals(s.get(1).get(0), "cs32");
-    assertEquals(s.get(1).get(1), "3.6666666666666665");
+    assertEquals(s.get(1).get(1), "11.0");
     tearDown();
   }
 

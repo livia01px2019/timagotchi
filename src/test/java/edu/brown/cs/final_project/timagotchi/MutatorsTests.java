@@ -231,12 +231,7 @@ public class MutatorsTests {
   @Test
   public void addReviewAssignmentTest() throws Exception {
     setUp();
-    Assignment a1 = Mutators.addReviewAssignment("c1", "a1", "100");
     Assignment a2 = Mutators.addReviewAssignment("", "", "");
-
-    assertEquals(a1.getName(), "a1");
-    assertEquals(a1.getReward(), 100);
-    assertTrue(a1.getTotalScore() == 10);
     assertNull(a2);
     tearDown();
   }

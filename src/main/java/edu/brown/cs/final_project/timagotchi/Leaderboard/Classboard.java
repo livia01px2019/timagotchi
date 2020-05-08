@@ -108,11 +108,12 @@ public class Classboard implements Leaderboard<Class> {
     CompareByAvgXP compare = new CompareByAvgXP();
     // Sort classes by average xp per student.
     Collections.sort(classes, compare.reversed());
+
     List<List<String>> sorted = new ArrayList<>();
     for (Class c : classes) {
       List<String> entry = new ArrayList<>();
       entry.add(c.getName());
-      entry.add("" + ((double) compare.getClassXP(c)) / c.getStudentIds().size());
+      entry.add("" + ((double) compare.getClassXP(c)));
       sorted.add(entry);
     }
     return sorted;
